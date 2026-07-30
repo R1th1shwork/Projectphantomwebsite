@@ -99,11 +99,6 @@ body {
   border-color:#fff;
 }
 
-/* FIX 1: Critical usability bug — nav vs alert banner.
-   Alert banner is now pinned to the absolute top (top:0) and the nav
-   is pushed down to sit directly beneath it (top: var(--alert-h)).
-   This removes the overlap entirely instead of relying on two
-   independent fixed offsets that drift apart on mobile. */
 .alert-banner {
   position: fixed;
   top: 0;
@@ -151,7 +146,7 @@ body {
 
 nav{
   position:fixed;
-  top: var(--alert-h); /* sits directly under the alert banner */
+  top: var(--alert-h); 
   left:0;
   right:0;
   z-index:100;
@@ -425,8 +420,7 @@ section{
   position:relative;
 }
 
-/* FIX 2 (cont.): scroll-margin-top so anchored sections land below the
-   fixed banner + nav stack instead of being hidden underneath them. */
+
 section[id]{
   scroll-margin-top: calc(var(--alert-h) + var(--nav-h) + 16px);
 }
@@ -939,17 +933,13 @@ section[id]{
     border-bottom:1px solid var(--border);
   }
 
-  /* FIX 1 (cont.): on mobile the banner text wraps to 2 lines, so it
-     grows taller than --alert-h. Let it size naturally and recalc the
-     offset with a CSS var so nav/hero/scroll-margin stay in sync
-     instead of drifting apart like in the original. */
   .alert-banner {
     height: auto;
     padding: 8px 16px;
     flex-direction: column;
     gap: 8px;
     text-align: center;
-    --alert-h: 64px; /* approximate stacked height on small screens */
+    --alert-h: 64px;
   }
 
   .alert-text {
@@ -994,7 +984,7 @@ section[id]{
   <div class="hero-content">
 
     <div class="hero-eyebrow">
-      Adaptive UAV Platform — UAE Origin
+      One of UAE's first youth-led initiatives in autonomous fixed-wing aerospace
     </div>
 
     <h1 class="hero-title">
@@ -1005,7 +995,7 @@ section[id]{
     </h1>
 
     <p class="hero-subtitle">
-      Project Phantom is a single-propeller VTOL platform designed for maximum aerodynamic efficiency and zero-emission flight. By combining low-profile vertical lift pods with an optimized fixed-wing frame, the aircraft achieves complete runway independence while maintaining a low-drag profile during cruise. Powered by a high-efficiency electric propulsion system and supported by surface-embedded solar cells, the platform delivers zero-carbon operational range over vast spatial scales without sacrificing payload capacity or deployment speed.
+      Project Phantom is a single-rotor VTOL aircraft that takes off and lands vertically, then transitions to fixed-wing flight for efficient cruise. No runway is required. Solar cells integrated into the wing extend endurance, and the platform runs entirely on electric propulsion.
     </p>
 
     <div class="hero-actions">
