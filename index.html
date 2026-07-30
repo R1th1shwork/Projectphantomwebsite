@@ -50,10 +50,6 @@ body {
   cursor: none;
 }
 
-/* FIX 4: Mobile/touch cursor ghosting — only hide the native cursor and
-   show the custom dot/ring on devices that actually have a fine pointer
-   (mouse/trackpad). Touch devices keep normal tap behavior, no frozen
-   or erratic custom cursor. */
 @media (hover: none), (pointer: coarse) {
   body{
     cursor: auto;
@@ -221,8 +217,7 @@ nav.scrolled{
   justify-content:center;
   position:relative;
   overflow:hidden;
-  /* FIX 1 (cont.): top padding accounts for banner + nav stacked height
-     so hero content never starts underneath them, on load or on resize. */
+
   padding: calc(var(--alert-h) + var(--nav-h) + 40px) 48px 80px;
 }
 
@@ -999,8 +994,8 @@ section[id]{
     </p>
 
     <div class="hero-actions">
-      <a href="technology.html" class="btn-primary">Explore Platform</a>
-      <a href="mercury.html" class="btn-secondary">Mercury AI</a>
+      <a href="technology.html" class="btn-primary">Inside Phantom</a>
+      <a href="mercury.html" class="btn-secondary">Meet Mercury</a>
     </div>
 
   </div>
@@ -1023,7 +1018,7 @@ section[id]{
   </div>
 
   <div class="hero-scroll-hint">
-    <span>Scroll</span>
+    <span>↓</span>
     <div class="scroll-line"></div>
   </div>
 
@@ -1039,10 +1034,10 @@ section[id]{
 
     <div class="depth-text-wrap">
 
-      <span class="depth-line" id="dl1">MODULAR CORE</span>
-      <span class="depth-line" id="dl2">SOLAR ELECTRIC</span>
-      <span class="depth-line" id="dl3">AI INTELLIGENCE</span>
-      <span class="depth-line" id="dl4">UNLIMITED ENDURANCE</span>
+      <span class="depth-line" id="dl1">EXPERIENCE THE FUTURE OF UAVS</span>
+      <span class="depth-line" id="dl2">SOLAR. ELECTRIC. SILENT.</span>
+      <span class="depth-line" id="dl3">THINKS. ADAPTS. GLIDES.</span>
+      <span class="depth-line" id="dl4">ENDURANCE WITHOUT LIMITS</span>
 
     </div>
 
