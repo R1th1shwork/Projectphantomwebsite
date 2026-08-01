@@ -508,38 +508,16 @@ section[id]{
 }
 
 .depth-section {
-  height: 100vh;
-  position: relative;
-  padding: 0; 
-}
-
-.depth-sticky{
-  position:sticky;
-  top:0;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
-.depth-text-wrap {
-  perspective: 1200px;
-  transform-style: preserve-3d;
+  padding: 160px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  padding: 0 24px;
 }
 
 .depth-line {
-  grid-area: 1 / 1;
-  opacity: 0;
   font-size: clamp(28px, 5vw, 64px);
   letter-spacing: -.03em;
-  transform-origin: center center -200px;
-  backface-visibility: hidden;
   max-width: 900px;
 }
 
@@ -1038,17 +1016,7 @@ section[id]{
 </div>
 
 <section class="depth-section" id="depthSection">
-
-  <div class="depth-sticky">
-
-    <div class="depth-text-wrap">
-
-      <span class="depth-line" id="dl1">THE FUTURE OF UAVS, ENGINEERED TODAY</span>
-
-    </div>
-
-  </div>
-
+  <span class="depth-line reveal" id="dl1">THE FUTURE OF UAVS, ENGINEERED TODAY</span>
 </section>
 
 <section id="overview">
@@ -1407,9 +1375,6 @@ const revealObs = new IntersectionObserver((entries) => {
 
 revealEls.forEach(el => revealObs.observe(el));
 
-const depthSection = document.getElementById('depthSection');
-const depthLine = document.getElementById('dl1');
-
 let scrollPos = 0;
 
 window.addEventListener('scroll', () => {
@@ -1433,34 +1398,6 @@ function animate(){
   if(pt2){
     pt2.style.transform =
       `translate3d(${scrollPos * .06}px,0,0)`;
-  }
-
-  if(depthSection && depthLine){
-
-    const rect = depthSection.getBoundingClientRect();
-
-    const progress =
-      Math.min(
-        Math.max(
-          (-rect.top) / (rect.height - window.innerHeight || 1),
-          0
-        ),
-        1
-      );
-
-    let opacity;
-    if(progress < .3) opacity = progress / .3;
-    else if(progress > .7) opacity = (1 - progress) / .3;
-    else opacity = 1;
-
-    const z = -250 + (progress * 250);
-    const scale = .8 + (progress * .2);
-
-    depthLine.style.opacity = opacity;
-
-    depthLine.style.transform =
-      `translate3d(0,0,${z}px) scale(${scale})`;
-
   }
 
   requestAnimationFrame(animate);
