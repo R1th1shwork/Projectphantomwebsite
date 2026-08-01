@@ -508,7 +508,7 @@ section[id]{
 }
 
 .depth-section {
-  height: 400vh;
+  height: 100vh;
   position: relative;
   padding: 0; 
 }
@@ -530,15 +530,17 @@ section[id]{
   display: grid;
   place-items: center;
   width: 100%;
+  padding: 0 24px;
 }
 
 .depth-line {
   grid-area: 1 / 1;
   opacity: 0;
-  font-size: clamp(32px, 5vw, 72px);
+  font-size: clamp(28px, 5vw, 64px);
   letter-spacing: -.03em;
   transform-origin: center center -200px;
   backface-visibility: hidden;
+  max-width: 900px;
 }
 
 .cards-grid{
@@ -687,10 +689,11 @@ section[id]{
 }
 
 .team-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:48px 32px;
+  display:flex;
+  justify-content:center;
+  gap:64px;
   margin-top:72px;
+  flex-wrap:wrap;
 }
 
 .team-card{
@@ -700,6 +703,7 @@ section[id]{
   text-align:center;
   text-decoration:none;
   color:inherit;
+  width:240px;
 }
 
 .avatar-ring{
@@ -830,17 +834,22 @@ section[id]{
   max-width:220px;
 }
 
-@media(max-width:900px){
-  .team-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:48px 24px;
-  }
+.team-tags{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 
-@media(max-width:560px){
-  .team-grid{
-    grid-template-columns:1fr;
-  }
+.team-tag-chip{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--white-50);
+  border:1px solid var(--white-10);
+  padding:4px 10px;
 }
 
 .strategic-ops-section {
@@ -1035,7 +1044,6 @@ section[id]{
     <div class="depth-text-wrap">
 
       <span class="depth-line" id="dl1">THE FUTURE OF UAVS, ENGINEERED TODAY</span>
-    
 
     </div>
 
@@ -1219,7 +1227,7 @@ section[id]{
       Two teenagers based in UAE, designing and building autonomous aircraft most professionals haven't attempted.
     </p>
 
-    <div class="team-tag reveal reveal-delay-1">UAE &middot; Founded by Students, Built for the Sky</div>
+    <div class="team-tag reveal reveal-delay-1">Youth-Led Aerospace Initiative</div>
   </div>
 
   <div class="team-grid">
@@ -1237,6 +1245,10 @@ section[id]{
       <div class="team-name">Rithish Dharanidharan</div>
       <div class="team-role">Founder</div>
       <div class="team-desc">Leads overall UAV development and platform direction.</div>
+      <div class="team-tags">
+        <span class="team-tag-chip">Flight Systems</span>
+        <span class="team-tag-chip">Aerospace</span>
+      </div>
     </a>
 
     <a href="https://www.linkedin.com/in/meherab-hossain-mokter/" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
@@ -1251,7 +1263,11 @@ section[id]{
       </div>
       <div class="team-name">Meherab Hossain Mokter</div>
       <div class="team-role">Co-Founder</div>
-      <div class="team-desc">Leads communications and supports cross-team development.</div>
+      <div class="team-desc">Leads communications and assits development.</div>
+      <div class="team-tags">
+        <span class="team-tag-chip">Communications</span>
+        <span class="team-tag-chip">Outreach</span>
+      </div>
     </a>
   </div>
 
@@ -1266,7 +1282,8 @@ section[id]{
   Whether it's a technical doubt, a collaboration idea, or you just
   want to say hi, we'd love to hear from you. Shoot us a message,
   we're always happy to help.
-    <div class="strategic-ops-actions" style="display:flex; gap:20px; align-items:center; justify-content:center; flex-wrap:wrap;">
+    </p>
+    <div class="strategic-ops-actions">
 
   <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="btn-secondary" aria-label="LinkedIn" style="display:flex; align-items:center; gap:8px;">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
@@ -1293,6 +1310,7 @@ section[id]{
   </a>
 
 </div>
+</div>
 </section>
 
 <script>
@@ -1301,8 +1319,6 @@ section[id]{
 const curDot = document.getElementById('cur-dot');
 const curRing = document.getElementById('cur-ring');
 
-// Guard against touch devices where these elements are hidden via CSS
-// but the script would otherwise still run pointless RAF/listener work.
 const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 if(hasFinePointer){
@@ -1351,12 +1367,12 @@ if(hasFinePointer){
 }
 
 const items = [
-  'Persistent Core',
-  'QRAM Interface',
+  'Modular Core',
+  'Configurable Wings',
   'Solar Electric',
-  'Mercury AI',
-  'UAE Origin',
-  'Swarm Control'
+  'Single-Engine VTOL',
+  'Youth-Led',
+  'UAE Origin'
 ];
 
 const mi = document.getElementById('marqueeInner');
@@ -1392,13 +1408,7 @@ const revealObs = new IntersectionObserver((entries) => {
 revealEls.forEach(el => revealObs.observe(el));
 
 const depthSection = document.getElementById('depthSection');
-
-const depthLines = [
-  document.getElementById('dl1'),
-  document.getElementById('dl2'),
-  document.getElementById('dl3'),
-  document.getElementById('dl4')
-];
+const depthLine = document.getElementById('dl1');
 
 let scrollPos = 0;
 
@@ -1425,42 +1435,31 @@ function animate(){
       `translate3d(${scrollPos * .06}px,0,0)`;
   }
 
-  if(depthSection){
+  if(depthSection && depthLine){
 
     const rect = depthSection.getBoundingClientRect();
 
     const progress =
       Math.min(
         Math.max(
-          (-rect.top) / (rect.height - window.innerHeight),
+          (-rect.top) / (rect.height - window.innerHeight || 1),
           0
         ),
         1
       );
 
-    depthLines.forEach((line,i) => {
+    let opacity;
+    if(progress < .3) opacity = progress / .3;
+    else if(progress > .7) opacity = (1 - progress) / .3;
+    else opacity = 1;
 
-      const start = i * .22;
-      const end = start + .28;
+    const z = -250 + (progress * 250);
+    const scale = .8 + (progress * .2);
 
-      let p = (progress - start) / (end - start);
+    depthLine.style.opacity = opacity;
 
-      p = Math.max(0,Math.min(1,p));
-
-      const opacity =
-        p < .5
-          ? p * 2
-          : (1 - p) * 2;
-
-      const z = -250 + (p * 250);
-      const scale = .8 + (p * .2);
-
-      line.style.opacity = opacity;
-
-      line.style.transform =
-        `translate3d(0,0,${z}px) scale(${scale})`;
-
-    });
+    depthLine.style.transform =
+      `translate3d(0,0,${z}px) scale(${scale})`;
 
   }
 
@@ -1471,6 +1470,5 @@ animate();
 
 })();
 </script>
-
 </body>
 </html>
