@@ -830,6 +830,60 @@ section[id]{
   padding:4px 10px;
 }
 
+.backing-layout{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+  flex-wrap:wrap;
+}
+
+.backing-content{
+  flex:1 1 480px;
+}
+
+.backing-visual{
+  flex:1 1 300px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  min-height:320px;
+}
+
+.backing-logo-glow{
+  position:absolute;
+  width:340px;
+  height:340px;
+  background:radial-gradient(circle,rgba(244,166,66,.18),transparent 70%);
+  animation:pulseGlow 5s ease-in-out infinite;
+}
+
+.backing-logo{
+  width:200px;
+  position:relative;
+  z-index:2;
+  filter:drop-shadow(0 0 40px rgba(244,166,66,.2));
+  animation:floatLogo 6s ease-in-out infinite;
+}
+
+@keyframes floatLogo{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-14px); }
+}
+
+@keyframes pulseGlow{
+  0%,100%{ opacity:.5; transform:scale(1); }
+  50%{ opacity:.9; transform:scale(1.1); }
+}
+
+@media(max-width:900px){
+  .backing-layout{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+
 .strategic-ops-section {
   background: var(--bg-1);
   border-top: 1px solid var(--border);
@@ -1237,45 +1291,78 @@ section[id]{
         <span class="team-tag-chip">Outreach</span>
       </div>
     </a>
-  </div>
-<section id="backing">
 
-  <div class="section-label reveal">
-    Backed By
-  </div>
-
-  <h2 class="section-title reveal">
-    Funded &amp; Backed by Unipreneur Inc.
-  </h2>
-
-  <p class="section-desc reveal reveal-delay-1">
-    Project Phantom is proud to be funded and backed by Unipreneur Inc.,
-    the UAE's leading youth entrepreneurship and innovation platform,
-    empowering young founders aged 15–30 to turn ambitious ideas into
-    industry-grade ventures.
-  </p>
-
-  <p class="section-desc reveal reveal-delay-2" style="margin-top:20px;">
-    This partnership marks a defining step for Phantom, moving us from
-    prototype to a scalable, deep-tech aerospace platform. We're deeply
-    grateful to Mohammed Mukhtar (CEO, Unipreneur) and Reem AlMusabbah
-    (Co-Founder, Unipreneur) for believing in our vision and giving us
-    the platform to build at the level this project deserves.
-  </p>
-
-  <div class="strategic-ops-actions" style="margin-top:40px; justify-content:flex-start;">
-
-    <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="btn-secondary">
-      Visit Unipreneur Inc.
-    </a>
-
-    <a href="https://www.linkedin.com/posts/mohammedmukhtarj_dubaiit-share-7485697531440435200-HURC/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGBAxMgBcZF9B4uP7fpV_qOoPytKNPcIiYQ" target="_blank" rel="noopener" class="btn-primary">
-      See the Announcement
+    <a href="https://www.linkedin.com/in/mufeed-kakkidi-021368397/" target="_blank" rel="noopener" class="team-card reveal reveal-delay-2">
+      <div class="avatar-ring">
+        <div class="avatar-photo">
+          <img src="PASTE_MUFEED_PHOTO_URL_HERE" alt="Mufeed Kakkidi" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';">
+          <span class="avatar-initials" style="display:none;">MK</span>
+        </div>
+        <div class="avatar-linkedin-badge">
+          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </div>
+      </div>
+      <div class="team-name">Mufeed Kakkidi</div>
+      <div class="team-role">Co-Founder &amp; AI Architect</div>
+      <div class="team-desc">Leads autonomous flight intelligence, deep learning integration, and core software development.</div>
+      <div class="team-tags">
+        <span class="team-tag-chip">AI</span>
+        <span class="team-tag-chip">Software</span>
+      </div>
     </a>
 
   </div>
 
 </section>
+
+<section id="backing">
+
+  <div class="backing-layout">
+
+    <div class="backing-content">
+
+      <div class="section-label reveal">
+        Backed By
+      </div>
+
+      <h2 class="section-title reveal">
+        Funded &amp; Backed by Unipreneur Inc.
+      </h2>
+
+      <p class="section-desc reveal reveal-delay-1">
+        Project Phantom is proud to be funded and backed by Unipreneur Inc.,
+        the UAE's leading youth entrepreneurship and innovation platform,
+        empowering young founders aged 15–30 to turn ambitious ideas into
+        industry-grade ventures.
+      </p>
+
+      <p class="section-desc reveal reveal-delay-2" style="margin-top:20px;">
+        This partnership marks a defining step for Phantom, moving us from
+        prototype to a scalable, deep-tech aerospace platform. We're deeply
+        grateful to Mohammed Mukhtar (CEO, Unipreneur) and Reem AlMusabbah
+        (Co-Founder, Unipreneur) for believing in our vision and giving us
+        the platform to build at the level this project deserves.
+      </p>
+
+      <div class="strategic-ops-actions" style="margin-top:40px; justify-content:flex-start;">
+        <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="btn-secondary">
+          Visit Unipreneur Inc.
+        </a>
+        <a href="https://www.linkedin.com/posts/mohammedmukhtarj_dubaiit-share-7485697531440435200-HURC/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGBAxMgBcZF9B4uP7fpV_qOoPytKNPcIiYQ" target="_blank" rel="noopener" class="btn-primary">
+          See the Announcement
+        </a>
+      </div>
+
+    </div>
+
+    <div class="backing-visual reveal reveal-delay-1">
+      <div class="backing-logo-glow"></div>
+      <img src="https://lh5.googleusercontent.com/proxy/MbvQ1XQZ9D8LrA4bgbmP0CC8N8OzJePIsNt0Jw4zHKX-YHUjO1udVgADbwj36B5F9eVBI4__iPWP9xrCC1yX"
+           alt="Unipreneur Inc. logo"
+           class="backing-logo">
+    </div>
+
+  </div>
 
 </section>
 
