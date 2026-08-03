@@ -848,22 +848,22 @@ section[id]{
   align-items:center;
   justify-content:center;
   position:relative;
-  min-height:320px;
+  min-height:480px;
 }
 
 .backing-logo-glow{
   position:absolute;
-  width:340px;
-  height:340px;
+  width:520px;
+  height:520px;
   background:radial-gradient(circle,rgba(244,166,66,.18),transparent 70%);
   animation:pulseGlow 5s ease-in-out infinite;
 }
 
 .backing-logo{
-  width:200px;
+  width:clamp(280px, 26vw, 420px);
   position:relative;
   z-index:2;
-  filter:drop-shadow(0 0 40px rgba(244,166,66,.2));
+  filter:drop-shadow(0 0 50px rgba(244,166,66,.25));
   animation:floatLogo 6s ease-in-out infinite;
 }
 
