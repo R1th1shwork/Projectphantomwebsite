@@ -2,13 +2,13 @@
   <style>
     /* Default color for Light Mode (Black) */
     path, circle, rect, polygon, line, g {
-      fill: #000000;
+      fill: #000000 !important;
     }
 
     /* Auto-switches to White in Dark Mode */
     @media (prefers-color-scheme: dark) {
       path, circle, rect, polygon, line, g {
-        fill: #ffffff;
+        fill: #ffffff !important;
       }
     }
   </style>
