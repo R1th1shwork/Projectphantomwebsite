@@ -702,13 +702,17 @@ section[id]{
   text-align:center;
   text-decoration:none;
   color:inherit;
-  width:240px;
+  width: clamp(220px, 30vw, 300px);
+}
+
+.backing-actions{
+  justify-content:flex-start;
 }
 
 .avatar-ring{
   position:relative;
-  width:140px;
-  height:140px;
+  width: clamp(180px, 26vw, 240px);
+  height: clamp(180px, 26vw, 240px);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -779,7 +783,7 @@ section[id]{
 
 .avatar-initials{
   font-family:var(--font-mono);
-  font-size:36px;
+  font-size: clamp(32px, 5vw, 44px);
   font-weight:700;
   color:var(--white-30);
   letter-spacing:.05em;
@@ -789,8 +793,8 @@ section[id]{
   position:absolute;
   bottom:2px;
   right:2px;
-  width:30px;
-  height:30px;
+  width:36px;
+  height:36px;
   border-radius:50%;
   background:#fff;
   display:flex;
@@ -806,12 +810,12 @@ section[id]{
 }
 
 .avatar-linkedin-badge svg{
-  width:14px;
-  height:14px;
+  width:16px;
+  height:16px;
 }
 
 .team-name{
-  font-size:16px;
+  font-size: clamp(17px, 2vw, 20px);
   font-weight:600;
   margin-bottom:6px;
   letter-spacing:-.01em;
@@ -819,7 +823,7 @@ section[id]{
 
 .team-role{
   font-family:var(--font-mono);
-  font-size:11px;
+  font-size:12px;
   text-transform:uppercase;
   letter-spacing:.1em;
   color:var(--white-50);
@@ -827,10 +831,10 @@ section[id]{
 }
 
 .team-desc{
-  font-size:13px;
+  font-size:14px;
   line-height:1.6;
   color:var(--white-30);
-  max-width:220px;
+  max-width:260px;
 }
 
 .team-tags{
@@ -898,13 +902,6 @@ section[id]{
   50%{ opacity:.9; transform:scale(1.1); }
 }
 
-@media(max-width:900px){
-  .backing-layout{
-    flex-direction:column;
-    text-align:center;
-  }
-}
-
 .strategic-ops-section {
   background: var(--bg-1);
   border-top: 1px solid var(--border);
@@ -957,9 +954,32 @@ section[id]{
   background: var(--white-10);
 }
 
+/* ===== MOBILE FIXES ===== */
 @media(max-width:900px){
 
+  /* Fix: alert banner + nav are position:fixed, and on mobile the banner
+     text wraps to 2 lines, growing taller than the approximate --alert-h
+     value used elsewhere. That mismatch let the fixed banner/nav overlap
+     page content (like the Overview/Technology section headers) when
+     scrolling or jumping to an anchor. Making both non-fixed on mobile
+     removes the overlap entirely — they just flow normally above the
+     page content instead of floating on top of it. */
+  .alert-banner{
+    position: static;
+    height: auto;
+    padding: 10px 16px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .alert-text {
+    white-space: normal;
+    font-size: 10px;
+  }
+
   nav{
+    position: static;
     padding:16px 24px;
   }
 
@@ -967,12 +987,18 @@ section[id]{
     display:none;
   }
 
+  section[id]{
+    scroll-margin-top: 16px;
+  }
+
   section{
     padding:80px 24px;
   }
 
   .hero{
-    padding: calc(var(--alert-h) + var(--nav-h) + 20px) 24px 60px;
+    /* No longer needs to reserve space for fixed banner/nav above it,
+       since they're normal-flow now on mobile. */
+    padding: 40px 24px 60px;
   }
 
   .cards-grid,
@@ -990,18 +1016,34 @@ section[id]{
     border-bottom:1px solid var(--border);
   }
 
-  .alert-banner {
-    height: auto;
-    padding: 8px 16px;
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-    --alert-h: 64px;
+  /* Backing section: logo/glow were sized for desktop and looked
+     oversized/unbalanced on a phone screen. Scale both down and center
+     everything so it reads as an intentional layout, not a squeezed
+     desktop one. */
+  .backing-layout{
+    flex-direction:column;
+    text-align:center;
   }
 
-  .alert-text {
-    white-space: normal;
-    font-size: 10px;
+  .backing-visual{
+    min-height:260px;
+  }
+
+  .backing-logo-glow{
+    width:260px;
+    height:260px;
+  }
+
+  .backing-logo{
+    width:clamp(160px, 45vw, 220px);
+  }
+
+  .backing-actions{
+    justify-content:center;
+  }
+
+  .team-grid{
+    gap:48px 24px;
   }
 }
 </style>
@@ -1316,6 +1358,7 @@ section[id]{
         <span class="team-tag-chip">Outreach</span>
       </div>
     </a>
+
   </div>
 
 </section>
@@ -1349,7 +1392,7 @@ section[id]{
         the platform to build at the level this project deserves.
       </p>
 
-      <div class="strategic-ops-actions" style="margin-top:40px; justify-content:flex-start;">
+      <div class="strategic-ops-actions backing-actions" style="margin-top:40px;">
         <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="btn-secondary">
           Visit Unipreneur Inc
         </a>
@@ -1364,7 +1407,8 @@ section[id]{
       <div class="backing-logo-glow"></div>
       <img src="assets/uni.png"
            alt="Unipreneur Inc. logo"
-           class="backing-logo">
+           class="backing-logo"
+           onerror="this.closest('.backing-visual').style.display='none';">
     </div>
 
   </div>
@@ -1433,7 +1477,7 @@ if(hasFinePointer){
     mouseY = e.clientY;
 
     curDot.style.transform =
-      `translate3d(${mouseX}px,${mouseY}px,0)`;
+      `translate3d(${mouseX}px,${mouseY}px,0) translate(-50%,-50%)`;
 
   });
 
@@ -1443,7 +1487,7 @@ if(hasFinePointer){
     ringY += (mouseY - ringY) * 0.15;
 
     curRing.style.transform =
-      `translate3d(${ringX}px,${ringY}px,0)`;
+      `translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%)`;
 
     requestAnimationFrame(animateCursor);
   }
