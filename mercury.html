@@ -173,6 +173,7 @@
     section[id]{scroll-margin-top:16px;}
   }
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -575,8 +576,8 @@ els.forEach(el=>obs.observe(el));
   resize();
   window.addEventListener('resize',resize,{passive:true});
 
-  const N = window.innerWidth<700 ? 90 : 190;
-  const R = Math.min(W,H)*0.34;
+  const N = window.innerWidth<700 ? 120 : 320;
+  const R = Math.min(W,H)*0.44;
   const pts=[];
   const golden=Math.PI*(3-Math.sqrt(5));
   for(let i=0;i<N;i++){
@@ -584,16 +585,20 @@ els.forEach(el=>obs.observe(el));
     const bx=Math.cos(th)*r, by=y, bz=Math.sin(th)*r;
     pts.push({bx,by,bz,x:bx,y:by,z:bz,vx:0,vy:0,vz:0});
   }
-  // sparse nearest-neighbour links, computed once
+  // wireframe links, 2 nearest neighbours per point for denser mesh look
   const links=[];
   for(let i=0;i<N;i++){
-    let best=Infinity,bj=-1;
+    const dists=[];
     for(let j=0;j<N;j++){ if(j===i) continue;
       const dx=pts[i].bx-pts[j].bx, dy=pts[i].by-pts[j].by, dz=pts[i].bz-pts[j].bz;
       const d=dx*dx+dy*dy+dz*dz;
-      if(d<best){ best=d; bj=j; }
+      dists.push({j,d});
     }
-    if(bj>i) links.push([i,bj]);
+    dists.sort((a,b)=>a.d-b.d);
+    for(let k=0;k<2;k++){
+      const j=dists[k].j;
+      if(i<j) links.push([i,j]);
+    }
   }
 
   let rotY=0, tiltX=0, targetTiltX=0, targetRotBoost=0;
@@ -624,7 +629,7 @@ els.forEach(el=>obs.observe(el));
     const z2 = y*sinX + z*cosX;
     const persp = 1/(2.6 - z2);
     const cx = W/2 + (mx-0.5)*40;
-    const cy = H*0.30 + (my-0.5)*24 - scrollFrac*60;
+    const cy = H*0.48 + (my-0.5)*20 - scrollFrac*50;
     return { sx: cx + x*R*persp, sy: cy + y2*R*persp, depth: z2, persp };
   }
 
@@ -643,9 +648,9 @@ els.forEach(el=>obs.observe(el));
         const p=pts[i];
         const dx=p.x-attractorLocalX, dy=p.y-attractorLocalY, dz=p.z;
         const d=Math.sqrt(dx*dx+dy*dy+dz*dz)+0.0001;
-        let fx=(p.bx-p.x)*0.02, fy=(p.by-p.y)*0.02, fz=(p.bz-p.z)*0.02;
-        if(d<0.55){ const f=0.010*(1-d/0.55)/d; fx+=dx*f; fy+=dy*f; }
-        p.vx=(p.vx+fx)*0.86; p.vy=(p.vy+fy)*0.86; p.vz=(p.vz+fz)*0.86;
+        let fx=(p.bx-p.x)*0.04, fy=(p.by-p.y)*0.04, fz=(p.bz-p.z)*0.04;
+        if(d<0.75){ const f=0.028*(1-d/0.75)/d; fx+=dx*f; fy+=dy*f; }
+        p.vx=(p.vx+fx)*0.82; p.vy=(p.vy+fy)*0.82; p.vz=(p.vz+fz)*0.82;
         p.x+=p.vx; p.y+=p.vy; p.z+=p.vz;
       }
     }
@@ -655,7 +660,8 @@ els.forEach(el=>obs.observe(el));
     // faint core glow, deliberately small and soft
     const coreProj = project({x:0,y:0,z:0});
     const g = ctx.createRadialGradient(coreProj.sx,coreProj.sy,0,coreProj.sx,coreProj.sy,R*0.9);
-    g.addColorStop(0,'rgba(255,255,255,0.14)');
+    g.addColorStop(0,'rgba(255,255,255,0.20)');
+    g.addColorStop(0.5,'rgba(255,255,255,0.04)');
     g.addColorStop(1,'rgba(255,255,255,0)');
     ctx.fillStyle=g;
     ctx.fillRect(0,0,W,H);
@@ -664,15 +670,15 @@ els.forEach(el=>obs.observe(el));
     ctx.lineWidth=1;
     for(const [a,b] of links){
       const pa=project(pts[a]), pb=project(pts[b]);
-      const op=Math.max(0,(pa.depth+pb.depth)/2)*0.22+0.05;
+      const op=Math.max(0,(pa.depth+pb.depth)/2)*0.28+0.06;
       ctx.strokeStyle=`rgba(255,255,255,${op})`;
       ctx.beginPath(); ctx.moveTo(pa.sx,pa.sy); ctx.lineTo(pb.sx,pb.sy); ctx.stroke();
     }
     // points
     for(let i=0;i<N;i++){
       const pr=project(pts[i]);
-      const op=Math.max(0.14, (pr.depth+1)/2*0.9);
-      const rad=1.5+pr.persp*0.9;
+      const op=Math.max(0.18, (pr.depth+1)/2*0.95);
+      const rad=0.9+pr.persp*0.35;
       ctx.fillStyle=`rgba(255,255,255,${op})`;
       ctx.beginPath(); ctx.arc(pr.sx,pr.sy,rad,0,Math.PI*2); ctx.fill();
     }
