@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHANTOM | How It Flies</title>
+<title>PHANTOM | Technology</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -262,7 +262,7 @@
     <div class="feat-cell reveal">
       <div class="feat-num">STRUCTURE</div>
       <div class="feat-title">The Core Carries Load</div>
-      <div class="feat-text">It isn't a box bolted to the airframe. It's a structural member. Carbon fiber shear webs route wing bending moments straight through it, FEA-validated to 6g ultimate and 3g in normal operation.</div>
+      <div class="feat-text">It isn't a box bolted to the airframe. It's a structural member. Carbon fiber shear webs route wing bending moments straight through it, modeled in FEA to 6g ultimate and 3g in normal operation.</div>
       <div class="feat-metric">
         <div class="metric-box"><span class="metric-val" data-count="6" data-suffix="g">0g</span><span class="metric-label">Ultimate Load</span></div>
         <div class="metric-box"><span class="metric-val" data-count="3" data-suffix="g">0g</span><span class="metric-label">Operational</span></div>
@@ -282,7 +282,7 @@
     <div class="feat-cell reveal reveal-delay-1">
       <div class="feat-num">REPAIR</div>
       <div class="feat-title">Fixable in the Field</div>
-      <div class="feat-text">Rated for 10+ years of service, repairable without sending it back to a depot. One technician, no special tools, full config swap in under three minutes.</div>
+      <div class="feat-text">Designed for 10+ years of service, repairable without sending it back to a depot. One technician, no special tools, full config swap in under three minutes.</div>
       <div class="feat-metric">
         <div class="metric-box"><span class="metric-val" data-count="10" data-suffix="yr">0yr</span><span class="metric-label">Service Life</span></div>
         <div class="metric-box"><span class="metric-val" data-count="1" data-suffix="">0</span><span class="metric-label">Technician</span></div>
@@ -337,7 +337,7 @@
       <div class="swap-row" style="margin-bottom:0;"><div class="swap-label">Pre-Flight</div><div class="swap-track"><div class="swap-fill" data-secs="40"></div></div><div class="swap-time" data-label="0:40">0:40</div></div>
     </div>
     <button class="swap-run-btn" id="runSwap">Run the swap sequence</button>
-    <p class="swap-total">Logged total: <span class="val" id="swapTotal">2:40</span> · single technician · no tools</p>
+    <p class="swap-total">Target total: <span class="val" id="swapTotal">2:40</span> · single technician · no tools</p>
   </div>
 </section>
 
@@ -370,7 +370,7 @@
     <div class="prop-cell reveal">
       <div class="prop-icon">04 / LANDING</div>
       <div class="prop-title">Controlled Descent</div>
-      <div class="prop-detail">Throttle margin is never fully spent on the way down. Hover authority stays in reserve the whole descent. The aircraft can set down on slopes or rough ground within logged wind limits.</div>
+      <div class="prop-detail">Throttle margin is never fully spent on the way down. Hover authority stays in reserve the whole descent. The aircraft can set down on slopes or rough ground within designed wind limits.</div>
     </div>
     <div class="prop-cell reveal reveal-delay-1">
       <div class="prop-icon">05 / HOVER</div>
@@ -482,19 +482,20 @@
   <div class="section-label reveal">Structural Margins</div>
   <h2 class="section-title reveal">The Numbers<br>Behind the Claims</h2>
   <p class="section-desc reveal reveal-delay-1">
-    Every wing-mount assembly is validated to ultimate load with no permanent deformation, and
-    to operational load with no fatigue over 1,000 flight hours. No flutter predicted below 1.5×
-    dive speed.
+    Every wing-mount assembly is designed to reach ultimate load with no permanent deformation, and
+    to hold operational load with no fatigue over 1,000 flight hours, per current structural
+    analysis. These are analysis and simulation targets, not results from physical test campaigns
+    we've run yet. No flutter predicted below 1.5× dive speed.
   </p>
 
   <table class="spec-table reveal">
-    <thead><tr><th>Load Case</th><th>Limit Load</th><th>Ultimate Load (1.5×)</th><th>Status</th></tr></thead>
+    <thead><tr><th>Load Case</th><th>Limit Load</th><th>Ultimate Load (1.5×)</th><th>Analysis Result</th></tr></thead>
     <tbody>
-      <tr><td>2.5g level flight</td><td class="val">Design cruise</td><td class="val">3.75g</td><td class="pass">Pass</td></tr>
-      <tr><td>3.0g pull-up maneuver</td><td class="val">Operational limit</td><td class="val">4.5g</td><td class="pass">Pass</td></tr>
-      <tr><td>Vertical gust (15 m/s)</td><td class="val">Structural limit</td><td class="val">N/A</td><td class="pass">Pass</td></tr>
-      <tr><td>Landing ground loads</td><td class="val">2× landing weight</td><td class="val">3×</td><td class="pass">Pass</td></tr>
-      <tr><td>Ultimate load factor</td><td class="val">4g</td><td class="val">6g</td><td class="pass">Pass (+15% margin)</td></tr>
+      <tr><td>2.5g level flight</td><td class="val">Design cruise</td><td class="val">3.75g</td><td class="pass">Within margin</td></tr>
+      <tr><td>3.0g pull-up maneuver</td><td class="val">Operational limit</td><td class="val">4.5g</td><td class="pass">Within margin</td></tr>
+      <tr><td>Vertical gust (15 m/s)</td><td class="val">Structural limit</td><td class="val">N/A</td><td class="pass">Within margin</td></tr>
+      <tr><td>Landing ground loads</td><td class="val">2× landing weight</td><td class="val">3×</td><td class="pass">Within margin</td></tr>
+      <tr><td>Ultimate load factor</td><td class="val">4g</td><td class="val">6g</td><td class="pass">Within margin (+15%)</td></tr>
     </tbody>
   </table>
 
