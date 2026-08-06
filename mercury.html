@@ -48,8 +48,8 @@
   .nav-cta{background:var(--white);color:var(--bg);padding:10px 24px;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
   .nav-cta:hover{background:var(--white-80);}
 
-  /* AI ORB, fixed background, behind all content, cursor-reactive, very low glow */
-  #aiOrb{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.85;transition:opacity 0.4s ease;}
+  /* AI ORB — smaller, dimmer, behind content */
+  #aiOrb{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.75;transition:opacity 0.4s ease;}
 
   main{position:relative;z-index:2;}
 
@@ -557,10 +557,7 @@ const els=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.08});
 els.forEach(el=>obs.observe(el));
 
-/* AI ORB, lightweight canvas 2D particle sphere. No external libraries.
-   Cursor-reactive (points near the pointer nudge away and spring back),
-   slow autorotate, and a soft parallax drift tied to scroll. Deliberately
-   low-contrast so it sits behind content instead of competing with it. */
+/* AI ORB — 30% smaller, slightly dimmer, touch-reactive, no mobile reduction */
 (function(){
   const canvas=document.getElementById('aiOrb');
   const ctx=canvas.getContext('2d');
@@ -576,8 +573,8 @@ els.forEach(el=>obs.observe(el));
   resize();
   window.addEventListener('resize',resize,{passive:true});
 
-  const N = window.innerWidth<700 ? 120 : 320;
-  const R = Math.min(W,H)*0.44;
+  const N = 320;                 /* no reduction on mobile */
+  const R = Math.min(W,H)*0.308; /* 30% smaller than original 0.44 */
   const pts=[];
   const golden=Math.PI*(3-Math.sqrt(5));
   for(let i=0;i<N;i++){
@@ -585,7 +582,7 @@ els.forEach(el=>obs.observe(el));
     const bx=Math.cos(th)*r, by=y, bz=Math.sin(th)*r;
     pts.push({bx,by,bz,x:bx,y:by,z:bz,vx:0,vy:0,vz:0});
   }
-  // wireframe links, 2 nearest neighbours per point for denser mesh look
+
   const links=[];
   for(let i=0;i<N;i++){
     const dists=[];
@@ -605,25 +602,39 @@ els.forEach(el=>obs.observe(el));
   let mx=0.5, my=0.5, targetMx=0.5, targetMy=0.5;
   let scrollFrac=0;
 
+  /* mouse + touch interaction */
   window.addEventListener('mousemove', e=>{
-    targetMx = e.clientX/window.innerWidth;
-    targetMy = e.clientY/window.innerHeight;
+    targetMx = e.clientX/W;
+    targetMy = e.clientY/H;
   },{passive:true});
+
+  window.addEventListener('touchstart', e=>{
+    if(e.touches.length===1){
+      targetMx = e.touches[0].clientX/W;
+      targetMy = e.touches[0].clientY/H;
+    }
+  },{passive:true});
+
+  window.addEventListener('touchmove', e=>{
+    if(e.touches.length===1){
+      targetMx = e.touches[0].clientX/W;
+      targetMy = e.touches[0].clientY/H;
+    }
+  },{passive:true});
+
   window.addEventListener('scroll', ()=>{
     scrollFrac = Math.min(window.scrollY / (window.innerHeight*1.4), 1);
     const hero=document.querySelector('.page-hero');
     const heroH = hero ? hero.offsetHeight : window.innerHeight;
     const fade = 1 - Math.min(window.scrollY / heroH, 1)*0.85;
-    canvas.style.opacity = (window.innerWidth<700 ? 0.5 : 0.85) * Math.max(fade,0.28);
+    canvas.style.opacity = (window.innerWidth<700 ? 0.50 : 0.75) * Math.max(fade,0.25);
   },{passive:true});
 
   function project(p){
-    // rotate around Y
     const cosY=Math.cos(rotY), sinY=Math.sin(rotY);
     let x = p.x*cosY - p.z*sinY;
     let z = p.x*sinY + p.z*cosY;
     let y = p.y;
-    // slight tilt around X
     const cosX=Math.cos(tiltX), sinX=Math.sin(tiltX);
     const y2 = y*cosX - z*sinX;
     const z2 = y*sinX + z*cosX;
@@ -641,7 +652,6 @@ els.forEach(el=>obs.observe(el));
       mx += (targetMx-mx)*0.04;
       my += (targetMy-my)*0.04;
 
-      // cursor repel/spring in local (pre-rotation) space, approximated via screen-space attractor
       const attractorLocalX = (targetMx-0.5)*2.2;
       const attractorLocalY = (targetMy-0.5)*2.2;
       for(let i=0;i<N;i++){
@@ -657,27 +667,28 @@ els.forEach(el=>obs.observe(el));
 
     ctx.clearRect(0,0,W,H);
 
-    // faint core glow, deliberately small and soft
+    /* core glow — slightly dimmer */
     const coreProj = project({x:0,y:0,z:0});
     const g = ctx.createRadialGradient(coreProj.sx,coreProj.sy,0,coreProj.sx,coreProj.sy,R*0.9);
-    g.addColorStop(0,'rgba(255,255,255,0.20)');
-    g.addColorStop(0.5,'rgba(255,255,255,0.04)');
+    g.addColorStop(0,'rgba(255,255,255,0.16)');
+    g.addColorStop(0.5,'rgba(255,255,255,0.03)');
     g.addColorStop(1,'rgba(255,255,255,0)');
     ctx.fillStyle=g;
     ctx.fillRect(0,0,W,H);
 
-    // links
+    /* links — slightly dimmer */
     ctx.lineWidth=1;
     for(const [a,b] of links){
       const pa=project(pts[a]), pb=project(pts[b]);
-      const op=Math.max(0,(pa.depth+pb.depth)/2)*0.28+0.06;
+      const op=Math.max(0,(pa.depth+pb.depth)/2)*0.22+0.05;
       ctx.strokeStyle=`rgba(255,255,255,${op})`;
       ctx.beginPath(); ctx.moveTo(pa.sx,pa.sy); ctx.lineTo(pb.sx,pb.sy); ctx.stroke();
     }
-    // points
+
+    /* points — slightly dimmer */
     for(let i=0;i<N;i++){
       const pr=project(pts[i]);
-      const op=Math.max(0.18, (pr.depth+1)/2*0.95);
+      const op=Math.max(0.14, (pr.depth+1)/2*0.85);
       const rad=0.9+pr.persp*0.35;
       ctx.fillStyle=`rgba(255,255,255,${op})`;
       ctx.beginPath(); ctx.arc(pr.sx,pr.sy,rad,0,Math.PI*2); ctx.fill();
