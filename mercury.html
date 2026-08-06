@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM | Mercury AI</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">  
+<link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;--bg-1:#0a0a0a;--bg-2:#111111;
+    --border:rgba(255,255,255,0.07);--white:#fff;--white-80:rgba(255,255,255,0.8);
+    --white-50:rgba(255,255,255,0.5);--white-30:rgba(255,255,255,0.3);--white-20:rgba(255,255,255,0.2);
+    --white-10:rgba(255,255,255,0.1);--white-08:rgba(255,255,255,0.08);--white-04:rgba(255,255,255,0.04);
+    --accent:#DA7756;
+    --font-sans:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace;
+    --nav-h:68px;--alert-h:36px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
+  body{background:var(--bg);color:var(--white);font-family:var(--font-sans);overflow-x:hidden;cursor:none;}
+
+  @media (hover: none), (pointer: coarse) {
+    body{ cursor:auto; }
+    #cur-dot, #cur-ring{ display:none; }
+  }
+  #cur-dot { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; mix-blend-mode:difference; width:8px; height:8px; background:#fff; border-radius:50%; transform:translate(-50%,-50%); transition:transform 0.1s; }
+  #cur-ring { position:fixed; top:0; left:0; z-index:9998; pointer-events:none; mix-blend-mode:difference; width:36px; height:36px; border:1px solid rgba(255,255,255,0.6); border-radius:50%; transform:translate(-50%,-50%); transition:width 0.2s, height 0.2s, border-color 0.2s; }
+  body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring { width:56px; height:56px; border-color:#fff; }
+
+  .alert-banner {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--alert-h);
+    background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: center; gap: 16px; z-index: 101; padding: 0 24px;
+  }
+  .alert-text { font-family: var(--font-sans); font-size: 11px; font-weight: 500; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .alert-cta { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 4px 12px; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.2s ease; white-space: nowrap; }
+  .alert-cta:hover { background: #e28e70; }
+
+  nav{position:fixed;top:var(--alert-h);left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(5,5,5,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:0.2em;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .nav-logo-mark{width:28px;height:28px;display:block;object-fit:contain;}
+  .nav-links{display:flex;gap:36px;list-style:none;}
+  .nav-links a{color:var(--white-50);text-decoration:none;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--white);}
+  .nav-cta{background:var(--white);color:var(--bg);padding:10px 24px;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
+  .nav-cta:hover{background:var(--white-80);}
+
+  /* AI ORB, fixed background, behind all content, cursor-reactive, very low glow */
+  #aiOrb{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.85;transition:opacity 0.4s ease;}
+
+  main{position:relative;z-index:2;}
+
+  .page-hero{padding:calc(var(--alert-h) + var(--nav-h) + 60px) 48px 90px;position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;min-height:92vh;justify-content:center;}
+  .page-hero-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--white-30);margin-bottom:24px;display:flex;align-items:center;gap:16px;}
+  .page-hero-label::before,.page-hero-label::after{content:'';width:24px;height:1px;background:var(--white-30);}
+  .page-hero h1{font-size:clamp(48px,10vw,132px);font-weight:700;line-height:0.92;letter-spacing:-0.04em;margin-bottom:28px;}
+  .page-hero-desc{font-size:18px;line-height:1.7;color:var(--white-50);max-width:600px;margin:0 auto;}
+
+  section{padding:100px 48px;position:relative;}
+  section[id]{scroll-margin-top:calc(var(--alert-h) + var(--nav-h) + 16px);}
+  .section-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--white-30);margin-bottom:20px;display:flex;align-items:center;gap:16px;}
+  .section-label::before{content:'';width:24px;height:1px;background:var(--white-30);}
+  .section-title{font-size:clamp(32px,4vw,56px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-bottom:20px;}
+  .section-desc{font-size:16px;line-height:1.7;color:var(--white-50);max-width:600px;}
+  .section-note{font-family:var(--font-mono);font-size:11px;color:var(--white-30);letter-spacing:.08em;margin-top:14px;}
+
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+  .reveal.visible{opacity:1;transform:none;}
+  .reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;transition:none;} }
+
+  /* METRICS STRIP */
+  .metrics-strip{display:flex;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .metric-item{flex:1;background:var(--bg-1);padding:36px 32px;text-align:center;}
+  .metric-big{font-family:var(--font-mono);font-size:34px;font-weight:700;display:block;margin-bottom:8px;}
+  .metric-desc{font-size:11px;color:var(--white-40);letter-spacing:0.1em;text-transform:uppercase;}
+
+  /* COMPARE TABLE */
+  .compare-grid{display:grid;grid-template-columns:180px 1fr 1fr;gap:0;background:var(--border);margin-top:60px;}
+  .compare-header{background:var(--bg-1);padding:18px 22px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white-30);}
+  .compare-header.highlight{background:var(--bg-2);color:var(--white-50);}
+  .compare-cell{background:var(--bg);padding:18px 22px;border-bottom:1px solid var(--border);font-size:13px;}
+  .compare-cell.label{color:var(--white-50);font-size:12px;}
+  .compare-cell.highlight{background:var(--bg-1);}
+  .compare-cell.val{font-family:var(--font-mono);font-weight:700;color:var(--white);font-size:14px;}
+  .compare-cell.val-dim{font-family:var(--font-mono);color:var(--white-40);font-size:14px;}
+
+  /* ARCHITECTURE LAYERS */
+  .arch-layers{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:60px;}
+  .arch-layer{background:var(--bg);padding:32px 40px;display:grid;grid-template-columns:100px 1fr 120px;gap:32px;align-items:center;transition:background 0.3s;}
+  .arch-layer:hover{background:var(--bg-2);}
+  .arch-layer-hz{font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--white-20);}
+  .arch-layer-name{font-size:17px;font-weight:600;margin-bottom:6px;}
+  .arch-layer-desc{font-size:13px;color:var(--white-40);line-height:1.6;}
+  .arch-layer-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--border);color:var(--white-40);text-align:center;}
+
+  /* PIPELINE */
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-top:60px;border:1px solid var(--border);}
+  .pipe-step{background:var(--bg-1);padding:26px 18px;position:relative;text-align:center;transition:background .3s,transform .15s ease-out;transform:perspective(700px) rotateX(0) rotateY(0);}
+  .pipe-step:hover{background:var(--bg-2);}
+  .pipe-step:not(:first-child)::after{content:'';position:absolute;left:-1px;top:50%;transform:translateY(-50%);width:0;height:0;}
+  .pipe-name{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--white-40);margin-bottom:8px;}
+  .pipe-detail{font-size:12px;color:var(--white-40);line-height:1.5;}
+
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
+  .feat-cell{background:var(--bg);padding:40px 34px;transition:background 0.3s;}
+  .feat-cell:hover{background:var(--bg-2);}
+  .feat-num{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--white-30);margin-bottom:16px;}
+  .feat-title{font-size:16px;font-weight:600;margin-bottom:10px;}
+  .feat-text{font-size:13px;line-height:1.65;color:var(--white-50);}
+
+  /* SWARM */
+  .swarm-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;}
+  .swarm-viz{background:var(--bg-1);border:1px solid var(--border);padding:40px;display:flex;align-items:center;justify-content:center;min-height:340px;}
+  .swarm-spec-list{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+  .swarm-spec-item{background:var(--bg-1);padding:18px 22px;display:flex;justify-content:space-between;transition:background 0.2s;}
+  .swarm-spec-item:hover{background:var(--bg-2);}
+  .swarm-spec-label{font-size:13px;color:var(--white-50);}
+  .swarm-spec-val{font-family:var(--font-mono);font-size:14px;font-weight:700;}
+
+  /* TERMINAL / ROADMAP LOG */
+  .terminal{background:var(--bg-1);border:1px solid var(--border);padding:30px 36px;margin-top:60px;font-family:var(--font-mono);font-size:12.5px;line-height:1.85;}
+  .terminal-prompt{color:var(--white-30);}
+  .terminal-cmd{color:var(--white-80);}
+  .terminal-output{color:var(--white-50);margin-left:18px;}
+  .terminal-highlight{color:var(--white);}
+  .terminal-cursor{display:inline-block;width:8px;height:14px;background:var(--white-50);animation:blink 1s step-end infinite;vertical-align:middle;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+  /* ROADMAP PHASES */
+  .roadmap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:60px;}
+  .roadmap-phase{background:var(--bg);padding:36px 28px;transition:background 0.3s;}
+  .roadmap-phase:hover{background:var(--bg-2);}
+  .roadmap-phase-num{font-family:var(--font-mono);font-size:40px;font-weight:700;color:var(--white-08);margin-bottom:14px;line-height:1;}
+  .roadmap-phase-name{font-size:13px;font-weight:700;letter-spacing:0.04em;margin-bottom:8px;text-transform:uppercase;}
+  .roadmap-phase-period{font-family:var(--font-mono);font-size:10px;color:var(--white-30);margin-bottom:14px;letter-spacing:0.1em;}
+  .roadmap-phase-desc{font-size:12.5px;color:var(--white-40);line-height:1.6;}
+  .roadmap-phase-milestone{margin-top:14px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--white-50);padding:6px 10px;border:1px solid var(--border);display:inline-block;}
+
+  .strategic-ops-section { background: var(--bg-1); border-top: 1px solid var(--border); padding: 100px 48px; display: flex; justify-content: center; text-align: center; position: relative; z-index: 10; }
+  .strategic-ops-container { max-width: 800px; width: 100%; }
+  .strategic-ops-actions { display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+  .strategic-ops-actions .btn-primary, .strategic-ops-actions .btn-secondary { text-decoration: none; padding: 16px 40px; text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; font-family: var(--font-mono); display: inline-block; transition: all 0.3s ease; }
+  .strategic-ops-actions .btn-primary { background: #fff; color: #000; border: 1px solid #fff; }
+  .strategic-ops-actions .btn-primary:hover { background: transparent; color: #fff; }
+  .strategic-ops-actions .btn-secondary { border: 1px solid var(--white-20); color: #fff; background: transparent; }
+  .strategic-ops-actions .btn-secondary:hover { border-color: #fff; background: var(--white-10); }
+
+  footer{border-top:1px solid var(--border);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;position:relative;z-index:2;background:var(--bg);}
+  footer p{font-family:var(--font-mono);font-size:11px;color:var(--white-30);letter-spacing:0.1em;}
+  footer a{color:var(--white-50);text-decoration:none;transition:color 0.2s;}
+  footer a:hover{color:var(--white);}
+  .footer-links{display:flex;gap:32px;}
+
+  @media(max-width:1100px) and (min-width:901px){
+    .pipeline{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(max-width:900px){
+    nav{padding:16px 24px;}.nav-links{display:none;}
+    section{padding:60px 24px;}
+    .page-hero{padding:calc(var(--alert-h) + var(--nav-h) + 40px) 24px 60px;min-height:80vh;}
+    .compare-grid{grid-template-columns:90px 1fr 1fr;}
+    .arch-layer,.feat-grid,.swarm-grid,.roadmap-grid,.pipeline{grid-template-columns:1fr;}
+    .metrics-strip{flex-direction:column;}
+    .metric-item{border-bottom:1px solid var(--border);}
+    #aiOrb{opacity:0.5;}
+    .alert-banner { position: static; height: auto; padding: 10px 16px; flex-direction: column; gap: 8px; text-align: center; }
+    .alert-text { white-space: normal; font-size: 10px; }
+    nav{position:static;}
+    section[id]{scroll-margin-top:16px;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="aiOrb"></canvas>
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<div class="alert-banner">
+  <span class="alert-text">PHANTOM IS IN ACTIVE DEVELOPMENT. FOLLOW THE BUILD.</span>
+  <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" class="alert-cta">TRACK DEVELOPMENT</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="assets/nav.png" alt="PHANTOM" class="nav-logo-mark">PHANTOM</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="technology.html">Technology</a></li>
+    <li><a href="mercury.html" class="active">Mercury AI</a></li>
+    <li><a href="deployment.html">Deployment</a></li>
+    <li><a href="index.html#team">Team</a></li>
+  </ul>
+  <a href="deployment.html" class="nav-cta">Deployment</a>
+</nav>
+
+<main>
+
+<div class="page-hero">
+  <div class="page-hero-label">Intelligence Layer</div>
+  <h1>MERCURY AI</h1>
+  <p class="page-hero-desc">
+    The system that turns what Phantom sees into something a person can act on. Right now it runs
+    on recorded footage after a flight. The goal is to get it running live, in the air, on the
+    aircraft itself.
+  </p>
+</div>
+
+<div class="metrics-strip">
+  <div class="metric-item reveal">
+    <span class="metric-big">200+</span>
+    <span class="metric-desc">TOPS, Target Compute</span>
+  </div>
+  <div class="metric-item reveal reveal-delay-1">
+    <span class="metric-big">&lt;1s</span>
+    <span class="metric-desc">Target Decision Loop</span>
+  </div>
+  <div class="metric-item reveal reveal-delay-2">
+    <span class="metric-big">99%</span>
+    <span class="metric-desc">Detection Precision, Benchmark Set</span>
+  </div>
+  <div class="metric-item reveal reveal-delay-3">
+    <span class="metric-big">In Design</span>
+    <span class="metric-desc">Aerospace Compute Module</span>
+  </div>
+</div>
+
+<!-- ONBOARD COMPUTE -->
+<section style="background:var(--bg-1);">
+  <div class="section-label reveal">Onboard Compute</div>
+  <h2 class="section-title reveal">Built for the Sky, Not Borrowed From the Ground</h2>
+  <p class="section-desc reveal reveal-delay-1">
+    Mercury runs today on a ground workstation, processing footage after the aircraft lands. The
+    plan is a custom compute module, designed for the heat, vibration, and power limits of actual
+    flight instead of adapted from a desktop PC.
+  </p>
+
+  <div class="compare-grid reveal">
+    <div class="compare-header">Specification</div>
+    <div class="compare-header">Dev Rig (Today)</div>
+    <div class="compare-header highlight">Flight Module (Target)</div>
+
+    <div class="compare-cell label">Platform</div>
+    <div class="compare-cell val-dim">Ground workstation</div>
+    <div class="compare-cell val highlight">Custom aerospace module</div>
+
+    <div class="compare-cell label">Form Factor</div>
+    <div class="compare-cell val-dim">Standard PC chassis</div>
+    <div class="compare-cell val highlight">Sealed, vibration-isolated</div>
+
+    <div class="compare-cell label">Power Draw</div>
+    <div class="compare-cell val-dim">150W</div>
+    <div class="compare-cell val highlight">Under 20W, target</div>
+
+    <div class="compare-cell label">AI Performance</div>
+    <div class="compare-cell val-dim">About 100 TOPS</div>
+    <div class="compare-cell val highlight">200+ TOPS, target</div>
+
+    <div class="compare-cell label">Deployment</div>
+    <div class="compare-cell val-dim">Post-flight only</div>
+    <div class="compare-cell val highlight">Real-time, airborne, target</div>
+
+    <div class="compare-cell label">Processing Mode</div>
+    <div class="compare-cell val-dim">Batch, video file</div>
+    <div class="compare-cell val highlight">Streaming inference, target</div>
+
+    <div class="compare-cell label">Latency</div>
+    <div class="compare-cell val-dim">20 to 40 minutes</div>
+    <div class="compare-cell val highlight">Under 1 second, target</div>
+  </div>
+
+  <div class="terminal reveal">
+    <div><span class="terminal-prompt">// compute migration plan</span></div>
+    <div style="margin-top:14px;"><span class="terminal-prompt">$</span> <span class="terminal-cmd">plan --target flight_module --build mercury_v2</span></div>
+    <div class="terminal-output">→ model compilation: FP32 to INT8 quantization</div>
+    <div class="terminal-output">→ expected memory reduction: <span class="terminal-highlight">4x</span></div>
+    <div class="terminal-output">→ expected accuracy loss: <span class="terminal-highlight">under 1%</span></div>
+    <div class="terminal-output">→ architecture shift: batch to frame-by-frame inference</div>
+    <div style="margin-top:6px;"><span class="terminal-prompt">$</span> <span class="terminal-cmd">roadmap --phase compute</span></div>
+    <div class="terminal-output">→ months 1 to 2: ground bring-up on the new module</div>
+    <div class="terminal-output">→ months 3 to 4: first airborne integration attempt</div>
+    <div class="terminal-output">→ months 5 to 6: flight testing and latency measurement</div>
+    <div style="margin-top:6px;"><span class="terminal-prompt">_</span><div class="terminal-cursor"></div></div>
+  </div>
+  <p class="section-note">None of the above is flight-tested yet. It's the plan we're building toward.</p>
+</section>
+
+<!-- REAL-TIME 3D -->
+<section>
+  <div class="section-label reveal">Reconstruction</div>
+  <h2 class="section-title reveal">Seeing While Flying, Not After Landing</h2>
+  <p class="section-desc reveal reveal-delay-1">
+    Standard structure-from-motion waits until you're on the ground to build a 3D model. Mercury's
+    design goal is to build it frame by frame, while the aircraft is still in the air.
+  </p>
+
+  <div class="arch-layers reveal">
+    <div class="arch-layer">
+      <div class="arch-layer-hz">100Hz</div>
+      <div>
+        <div class="arch-layer-name">Local Layer, Visual-Inertial Odometry</div>
+        <div class="arch-layer-desc">Gyroscope, accelerometer, and optical flow fused for fast position tracking. No 3D model here, just where the aircraft is, robust to GPS dropout.</div>
+      </div>
+      <div class="arch-layer-badge">High Rate</div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-hz">2Hz</div>
+      <div>
+        <div class="arch-layer-name">Window Layer, Sparse 3D Structure</div>
+        <div class="arch-layer-desc">The last 60 frames are kept in active memory, building a rough 3D structure of whatever's immediately around the aircraft, for obstacle awareness.</div>
+      </div>
+      <div class="arch-layer-badge">Active Window</div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-hz">0.1Hz</div>
+      <div>
+        <div class="arch-layer-name">Global Layer, Persistent Map</div>
+        <div class="arch-layer-desc">A background process folds window results into one persistent map, recognizes places it's already seen, and corrects drift over time.</div>
+      </div>
+      <div class="arch-layer-badge">Background</div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-hz">2Hz</div>
+      <div>
+        <div class="arch-layer-name">Render Layer, Live Operator View</div>
+        <div class="arch-layer-desc">The current 3D view streams down to the ground station, so an operator sees roughly what the aircraft sees, not a video feed running minutes behind.</div>
+      </div>
+      <div class="arch-layer-badge">Streaming</div>
+    </div>
+  </div>
+  <p class="section-note">This architecture runs today in post-flight processing. Live, in-flight streaming is the target for the edge migration phase below.</p>
+</section>
+
+<!-- DETECTION -->
+<section style="background:var(--bg-1);">
+  <div class="section-label reveal">Object Detection</div>
+  <h2 class="section-title reveal">From Pixels to Something Worth Flagging</h2>
+  <p class="section-desc reveal reveal-delay-1">
+    A YOLOv26 backbone, compiled for our target hardware and fine-tuned on environmental targets.
+    On our benchmark set, single-frame detection sits at 91% precision, and combining detections
+    across several frames pushes that to 99%.
+  </p>
+
+  <div class="pipeline reveal">
+    <div class="pipe-step"><div class="pipe-name">Camera Frame</div><div class="pipe-detail">640x640px input, 30 FPS onboard</div></div>
+    <div class="pipe-step"><div class="pipe-name">YOLOv26</div><div class="pipe-detail">Compiled INT8, 91% precision baseline</div></div>
+    <div class="pipe-step"><div class="pipe-name">3D Projection</div><div class="pipe-detail">Camera ray through the 3D mesh to a GPS coordinate</div></div>
+    <div class="pipe-step"><div class="pipe-name">Temporal Fusion</div><div class="pipe-detail">2-second tracking window, 99% precision</div></div>
+    <div class="pipe-step"><div class="pipe-name">Alert & Action</div><div class="pipe-detail">Flags an operator or triggers a response rule</div></div>
+  </div>
+
+  <div class="feat-grid reveal">
+    <div class="feat-cell">
+      <div class="feat-num">TARGETS</div>
+      <div class="feat-title">What It Looks For</div>
+      <div class="feat-text">Waste piles, smoke plumes, unauthorized persons, off-road vehicles, and water discoloration are the current training targets.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">PRECISION</div>
+      <div class="feat-title">Where the Numbers Come From</div>
+      <div class="feat-text">91% single-frame and 99% fused precision are both measured on our own recorded test footage, not flight-validated results yet.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">RESPONSE</div>
+      <div class="feat-title">What Happens After a Detection</div>
+      <div class="feat-text">Planned behavior: a waste pile drops altitude to document it, a person in a restricted zone gets tracked, a smoke plume triggers a vertical profile scan. An operator stays in the loop.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SWARM -->
+<section>
+  <div class="section-label reveal">Swarm Coordination</div>
+  <h2 class="section-title reveal">One Mind, Many Bodies</h2>
+  <p class="section-desc reveal reveal-delay-1">
+    The long-term design: multiple aircraft sharing one world model, splitting up an area between
+    them, and re-organizing automatically if one drops out. This is a modeled projection based on
+    coverage math, not something we've flown yet.
+  </p>
+
+  <div class="swarm-grid">
+    <div class="swarm-viz reveal">
+      <svg viewBox="0 0 300 300" width="100%" style="max-width:260px;">
+        <g id="swarmNodes">
+          <circle cx="150" cy="60" r="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+          <circle cx="240" cy="130" r="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <circle cx="200" cy="220" r="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <circle cx="100" cy="220" r="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <circle cx="60" cy="130" r="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <line x1="150" y1="60" x2="240" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="240" y1="130" x2="200" y2="220" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="200" y1="220" x2="100" y2="220" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="100" y1="220" x2="60" y2="130" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="60" y1="130" x2="150" y2="60" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+          <circle cx="150" cy="150" r="3" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="150" cy="150" r="12" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="150" y="48" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-family="monospace">PHANTOM-01</text>
+          <text x="258" y="130" fill="rgba(255,255,255,0.3)" font-size="8" font-family="monospace">P-02</text>
+          <text x="210" y="238" fill="rgba(255,255,255,0.3)" font-size="8" font-family="monospace">P-03</text>
+          <text x="62" y="238" fill="rgba(255,255,255,0.3)" font-size="8" font-family="monospace">P-04</text>
+          <text x="22" y="130" fill="rgba(255,255,255,0.3)" font-size="8" font-family="monospace">P-05</text>
+        </g>
+      </svg>
+    </div>
+    <div class="swarm-specs reveal reveal-delay-1">
+      <div class="section-label">Communication Architecture, Target</div>
+      <div class="swarm-spec-list">
+        <div class="swarm-spec-item"><span class="swarm-spec-label">Frequency band</span><span class="swarm-spec-val">900MHz / 2.4GHz</span></div>
+        <div class="swarm-spec-item"><span class="swarm-spec-label">Throughput</span><span class="swarm-spec-val">500 kbps</span></div>
+        <div class="swarm-spec-item"><span class="swarm-spec-label">Air-to-air range</span><span class="swarm-spec-val">5 km</span></div>
+        <div class="swarm-spec-item"><span class="swarm-spec-label">Topology</span><span class="swarm-spec-val">Self-healing mesh</span></div>
+        <div class="swarm-spec-item" style="background:var(--bg-2);"><span class="swarm-spec-label" style="color:var(--white);">Modeled 5-unit coverage</span><span class="swarm-spec-val" style="font-size:16px;">12 min / 10km, vs 45 min solo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREDICTIVE -->
+<section style="background:var(--bg-1);">
+  <div class="section-label reveal">Predictive Modeling</div>
+  <h2 class="section-title reveal">From Observation to a Recommendation</h2>
+  <p class="section-desc reveal reveal-delay-1">
+    The goal isn't just a detection, it's a next step. Mercury is designed to model fire spread,
+    pollution transport, and infrastructure wear, and hand an operator a specific, time-stamped
+    suggestion. The operator still decides.
+  </p>
+
+  <div class="feat-grid reveal" style="grid-template-columns:repeat(3,1fr);">
+    <div class="feat-cell">
+      <div class="feat-num">WILDFIRE</div>
+      <div class="feat-title">Spread Modeling</div>
+      <div class="feat-text">Fire perimeter, fuel type, terrain slope, and wind feed a coupled atmosphere-fire model, aiming for a spread probability map and firebreak suggestions.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">EMISSIONS</div>
+      <div class="feat-title">Plume Transport</div>
+      <div class="feat-text">A Gaussian plume model using measured wind profiles, estimating source location and downwind impact to support evacuation planning.</div>
+    </div>
+    <div class="feat-cell">
+      <div class="feat-num">INFRASTRUCTURE</div>
+      <div class="feat-title">Degradation Forecast</div>
+      <div class="feat-text">Repeat surveys feed a trend model tracking erosion or pipeline exposure over time, aiming to flag issues before they become failures.</div>
+    </div>
+  </div>
+
+  <div class="feat-cell reveal" style="margin-top:1px;border:1px solid var(--border);">
+    <div class="feat-num">EXAMPLE OUTPUT, HUMAN AUTHORITY PRESERVED</div>
+    <p style="font-size:15px;color:var(--white-70);line-height:1.6;">"Deploy containment team to coordinates X, Y. Evacuate zone Z within 45 minutes. Inspect pipeline segment P within 72 hours." The operator approves, edits, or overrides every one of these.</p>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section>
+  <div class="section-label reveal">Roadmap</div>
+  <h2 class="section-title reveal">Timeline to Airborne Cognition</h2>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-phase reveal">
+      <div class="roadmap-phase-num">01</div>
+      <div class="roadmap-phase-name">Foundation</div>
+      <div class="roadmap-phase-period">Current</div>
+      <div class="roadmap-phase-desc">Post-flight 3D reconstruction and YOLOv26 detection running on recorded footage on a ground workstation.</div>
+      <div class="roadmap-phase-milestone">In Development</div>
+    </div>
+    <div class="roadmap-phase reveal reveal-delay-1">
+      <div class="roadmap-phase-num">02</div>
+      <div class="roadmap-phase-name">Edge Migration</div>
+      <div class="roadmap-phase-period">Months 1 to 6</div>
+      <div class="roadmap-phase-desc">Move to the custom flight compute module. Optimize the inference pipeline. Ground and airborne integration testing.</div>
+      <div class="roadmap-phase-milestone">Next Up</div>
+    </div>
+    <div class="roadmap-phase reveal reveal-delay-2">
+      <div class="roadmap-phase-num">03</div>
+      <div class="roadmap-phase-name">Real-Time Intel</div>
+      <div class="roadmap-phase-period">Year 1 to 2</div>
+      <div class="roadmap-phase-desc">Streaming 3D reconstruction and live detection in flight, with an operator interface that updates as the aircraft flies.</div>
+      <div class="roadmap-phase-milestone">Planned</div>
+    </div>
+    <div class="roadmap-phase reveal reveal-delay-3">
+      <div class="roadmap-phase-num">04</div>
+      <div class="roadmap-phase-name">Fleet Cognition</div>
+      <div class="roadmap-phase-period">Year 2 to 3</div>
+      <div class="roadmap-phase-desc">Multiple aircraft sharing what they learn. Swarm coordination and predictive modeling running together.</div>
+      <div class="roadmap-phase-milestone">Long-Term</div>
+    </div>
+  </div>
+</section>
+
+<section class="strategic-ops-section" id="contact">
+  <div class="strategic-ops-container">
+    <div class="section-label" style="justify-content:center;">Get in Touch</div>
+    <h2 class="section-title">LET'S CONNECT</h2>
+    <p class="section-desc" style="margin:0 auto;">
+      Have a question, an idea, or just want to know more about Phantom?
+      Whether it's a technical doubt, a collaboration idea, or you just
+      want to say hi, we'd love to hear from you. Shoot us a message,
+      we're always happy to help.
+    </p>
+    <div class="strategic-ops-actions">
+      <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="btn-secondary" aria-label="LinkedIn" style="display:flex; align-items:center; gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://x.com/PhantomUAV" target="_blank" rel="noopener" class="btn-secondary" aria-label="X" style="display:flex; align-items:center; gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.2l-5.6-6.9L4 22H1l8.2-9.3L0.8 2h7.4l5 6.2L18.9 2zm-1.3 18h2L6.5 4h-2l13.1 16z"/></svg>
+        X
+      </a>
+      <a href="https://www.youtube.com/@projectphantomuav" target="_blank" rel="noopener" class="btn-secondary" aria-label="YouTube" style="display:flex; align-items:center; gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z"/></svg>
+        YouTube
+      </a>
+      <a href="https://www.instagram.com/projectphantom.ae/" target="_blank" rel="noopener" class="btn-secondary" aria-label="Instagram" style="display:flex; align-items:center; gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 5 5 .06 1.3.07 1.6.07 4.8s0 3.5-.07 4.8c-.15 3.3-1.7 4.8-5 5-1.3.06-1.6.07-4.9.07s-3.6 0-4.9-.07c-3.3-.15-4.8-1.7-5-5-.06-1.3-.07-1.6-.07-4.8s0-3.5.07-4.8c.15-3.3 1.7-4.8 5-5C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-2.5.11-3.5 1.1-3.6 3.6C3.6 8.7 3.6 9.05 3.6 12s0 3.3.06 4.35c.1 2.5 1.1 3.5 3.6 3.6C8.5 20 8.85 20 12 20s3.5 0 4.75-.06c2.5-.1 3.5-1.1 3.6-3.6.06-1.05.06-1.4.06-4.35s0-3.3-.06-4.35c-.1-2.5-1.1-3.5-3.6-3.6C15.5 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zm5.8-2a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0z"/></svg>
+        Instagram
+      </a>
+      <a href="mailto:rithishwork@gmail.com" class="btn-primary" style="display:flex; align-items:center; gap:8px;">Email Us</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 PHANTOM UAV PLATFORM, MERCURY AI</p>
+  <div class="footer-links">
+    <a href="index.html">Overview</a>
+    <a href="technology.html">Technology</a>
+    <a href="deployment.html">Deployment</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* CURSOR */
+const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if(hasFinePointer){
+  const curDot = document.getElementById('cur-dot');
+  const curRing = document.getElementById('cur-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  (function animCursor(){
+    curDot.style.left=mx+'px'; curDot.style.top=my+'px';
+    rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
+    curRing.style.left=rx+'px'; curRing.style.top=ry+'px';
+    requestAnimationFrame(animCursor);
+  })();
+}
+
+/* REVEAL */
+const els=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.08});
+els.forEach(el=>obs.observe(el));
+
+/* AI ORB, lightweight canvas 2D particle sphere. No external libraries.
+   Cursor-reactive (points near the pointer nudge away and spring back),
+   slow autorotate, and a soft parallax drift tied to scroll. Deliberately
+   low-contrast so it sits behind content instead of competing with it. */
+(function(){
+  const canvas=document.getElementById('aiOrb');
+  const ctx=canvas.getContext('2d');
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W,H,DPR;
+  function resize(){
+    DPR=Math.min(window.devicePixelRatio||1,2);
+    W=window.innerWidth; H=window.innerHeight;
+    canvas.width=W*DPR; canvas.height=H*DPR;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+
+  const N = window.innerWidth<700 ? 90 : 190;
+  const R = Math.min(W,H)*0.34;
+  const pts=[];
+  const golden=Math.PI*(3-Math.sqrt(5));
+  for(let i=0;i<N;i++){
+    const y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), th=golden*i;
+    const bx=Math.cos(th)*r, by=y, bz=Math.sin(th)*r;
+    pts.push({bx,by,bz,x:bx,y:by,z:bz,vx:0,vy:0,vz:0});
+  }
+  // sparse nearest-neighbour links, computed once
+  const links=[];
+  for(let i=0;i<N;i++){
+    let best=Infinity,bj=-1;
+    for(let j=0;j<N;j++){ if(j===i) continue;
+      const dx=pts[i].bx-pts[j].bx, dy=pts[i].by-pts[j].by, dz=pts[i].bz-pts[j].bz;
+      const d=dx*dx+dy*dy+dz*dz;
+      if(d<best){ best=d; bj=j; }
+    }
+    if(bj>i) links.push([i,bj]);
+  }
+
+  let rotY=0, tiltX=0, targetTiltX=0, targetRotBoost=0;
+  let mx=0.5, my=0.5, targetMx=0.5, targetMy=0.5;
+  let scrollFrac=0;
+
+  window.addEventListener('mousemove', e=>{
+    targetMx = e.clientX/window.innerWidth;
+    targetMy = e.clientY/window.innerHeight;
+  },{passive:true});
+  window.addEventListener('scroll', ()=>{
+    scrollFrac = Math.min(window.scrollY / (window.innerHeight*1.4), 1);
+    const hero=document.querySelector('.page-hero');
+    const heroH = hero ? hero.offsetHeight : window.innerHeight;
+    const fade = 1 - Math.min(window.scrollY / heroH, 1)*0.85;
+    canvas.style.opacity = (window.innerWidth<700 ? 0.5 : 0.85) * Math.max(fade,0.28);
+  },{passive:true});
+
+  function project(p){
+    // rotate around Y
+    const cosY=Math.cos(rotY), sinY=Math.sin(rotY);
+    let x = p.x*cosY - p.z*sinY;
+    let z = p.x*sinY + p.z*cosY;
+    let y = p.y;
+    // slight tilt around X
+    const cosX=Math.cos(tiltX), sinX=Math.sin(tiltX);
+    const y2 = y*cosX - z*sinX;
+    const z2 = y*sinX + z*cosX;
+    const persp = 1/(2.6 - z2);
+    const cx = W/2 + (mx-0.5)*40;
+    const cy = H*0.30 + (my-0.5)*24 - scrollFrac*60;
+    return { sx: cx + x*R*persp, sy: cy + y2*R*persp, depth: z2, persp };
+  }
+
+  function tick(){
+    if(!reduced){
+      rotY += 0.0034 + targetRotBoost*0.0006;
+      targetTiltX = (targetMy-0.5)*0.35;
+      tiltX += (targetTiltX-tiltX)*0.04;
+      mx += (targetMx-mx)*0.04;
+      my += (targetMy-my)*0.04;
+
+      // cursor repel/spring in local (pre-rotation) space, approximated via screen-space attractor
+      const attractorLocalX = (targetMx-0.5)*2.2;
+      const attractorLocalY = (targetMy-0.5)*2.2;
+      for(let i=0;i<N;i++){
+        const p=pts[i];
+        const dx=p.x-attractorLocalX, dy=p.y-attractorLocalY, dz=p.z;
+        const d=Math.sqrt(dx*dx+dy*dy+dz*dz)+0.0001;
+        let fx=(p.bx-p.x)*0.02, fy=(p.by-p.y)*0.02, fz=(p.bz-p.z)*0.02;
+        if(d<0.55){ const f=0.010*(1-d/0.55)/d; fx+=dx*f; fy+=dy*f; }
+        p.vx=(p.vx+fx)*0.86; p.vy=(p.vy+fy)*0.86; p.vz=(p.vz+fz)*0.86;
+        p.x+=p.vx; p.y+=p.vy; p.z+=p.vz;
+      }
+    }
+
+    ctx.clearRect(0,0,W,H);
+
+    // faint core glow, deliberately small and soft
+    const coreProj = project({x:0,y:0,z:0});
+    const g = ctx.createRadialGradient(coreProj.sx,coreProj.sy,0,coreProj.sx,coreProj.sy,R*0.9);
+    g.addColorStop(0,'rgba(255,255,255,0.14)');
+    g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=g;
+    ctx.fillRect(0,0,W,H);
+
+    // links
+    ctx.lineWidth=1;
+    for(const [a,b] of links){
+      const pa=project(pts[a]), pb=project(pts[b]);
+      const op=Math.max(0,(pa.depth+pb.depth)/2)*0.22+0.05;
+      ctx.strokeStyle=`rgba(255,255,255,${op})`;
+      ctx.beginPath(); ctx.moveTo(pa.sx,pa.sy); ctx.lineTo(pb.sx,pb.sy); ctx.stroke();
+    }
+    // points
+    for(let i=0;i<N;i++){
+      const pr=project(pts[i]);
+      const op=Math.max(0.14, (pr.depth+1)/2*0.9);
+      const rad=1.5+pr.persp*0.9;
+      ctx.fillStyle=`rgba(255,255,255,${op})`;
+      ctx.beginPath(); ctx.arc(pr.sx,pr.sy,rad,0,Math.PI*2); ctx.fill();
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+})();
+</script>
+</body>
+</html>
