@@ -989,6 +989,94 @@ section[id]{
   background: var(--white-10);
 }
 
+/* JOIN SECTION — new, reactive & glowing */
+.join-section {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 100px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.join-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.join-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.join-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--white-30);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.join-label::before,
+.join-label::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--white-30);
+}
+.join-title {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.join-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--white-50);
+  margin-bottom: 40px;
+}
+.join-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 16px 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  background: #fff;
+  color: #000;
+  border: 1px solid #fff;
+  transition: all 0.3s ease;
+  animation: joinPulse 3s ease-in-out infinite;
+}
+.join-btn:hover {
+  background: transparent;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 0 40px rgba(255,255,255,0.15);
+}
+@keyframes joinPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  50% { box-shadow: 0 0 24px 2px rgba(255,255,255,0.08); }
+}
+
 /* ===== MOBILE FIXES ===== */
 @media(max-width:900px){
 
@@ -1079,6 +1167,10 @@ section[id]{
 
   .team-grid{
     gap:48px 24px;
+  }
+
+  .join-section {
+    padding: 80px 24px;
   }
 }
 </style>
@@ -1395,6 +1487,18 @@ section[id]{
 
   </div>
 
+</section>
+
+<section class="join-section" id="join">
+  <div class="join-content">
+    <div class="join-label">Join Us</div>
+    <h2 class="join-title">Wanna be a part of Phantom?</h2>
+    <p class="join-desc">We're always looking for passionate builders, thinkers, and operators to help push autonomous flight forward.</p>
+    <a href="https://forms.gle/gHDMvFZ5h9i4fhd97" target="_blank" rel="noopener" class="join-btn">
+      <span>Apply Now</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+    </a>
+  </div>
 </section>
 
 <section id="backing">
