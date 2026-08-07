@@ -33,7 +33,6 @@
 
   #scroll-progress{position:fixed;top:0;left:0;height:1px;background:#fff;z-index:102;width:0%;transition:width 0.1s linear;}
 
-
   .alert-banner {
     position: fixed; top: 0; left: 0; right: 0; height: var(--alert-h);
     background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
@@ -186,7 +185,7 @@
   footer a:hover{color:var(--white);}
   .footer-links{display:flex;gap:32px;}
 
-  /* JOIN SECTION — matching deployment.html design */
+  /* JOIN SECTION */
   .join-section {
     background: var(--bg);
     border-top: 1px solid var(--border);
@@ -195,81 +194,34 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    .join-section { padding: 80px 24px; }
   }
   .join-section::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
+    width: 500px; height: 500px;
     background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
-  .join-content {
-    position: relative;
-    z-index: 1;
-    max-width: 640px;
-    margin: 0 auto;
-  }
+  .join-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
   .join-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--white-30);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--white-30); margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
   }
-  .join-label::before,
-  .join-label::after {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--white-30);
-  }
-  .join-title {
-    font-size: clamp(32px, 4vw, 56px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 20px;
-  }
-  .join-desc {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--white-50);
-    margin-bottom: 40px;
-  }
+  .join-label::before, .join-label::after { content: ''; width: 24px; height: 1px; background: var(--white-30); }
+  .join-title { font-size: clamp(32px, 4vw, 56px); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
+  .join-desc { font-size: 16px; line-height: 1.7; color: var(--white-50); margin-bottom: 40px; }
   .join-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    padding: 16px 40px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 12px;
-    font-weight: 700;
-    font-family: var(--font-mono);
-    background: #fff;
-    color: #000;
-    border: 1px solid #fff;
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    padding: 16px 40px; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 12px; font-weight: 700; font-family: var(--font-mono);
+    background: #fff; color: #000; border: 1px solid #fff;
     transition: all 0.3s ease;
     animation: joinPulse 3s ease-in-out infinite;
   }
-  .join-btn:hover {
-    background: transparent;
-    color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 0 40px rgba(255,255,255,0.15);
-  }
+  .join-btn:hover { background: transparent; color: #fff; transform: translateY(-3px); box-shadow: 0 0 40px rgba(255,255,255,0.15); }
   @keyframes joinPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     50% { box-shadow: 0 0 24px 2px rgba(255,255,255,0.08); }
@@ -295,7 +247,8 @@
     nav{position:static;}
     section[id]{scroll-margin-top:16px;}
     .chapter-nav{position:static;}
-  }
+      .join-section { padding: 80px 24px; }
+}
 </style>
 <base target="_blank">
 </head>
