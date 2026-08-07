@@ -31,6 +31,9 @@
   #cur-ring { position:fixed; top:0; left:0; z-index:9998; pointer-events:none; mix-blend-mode:difference; width:36px; height:36px; border:1px solid rgba(255,255,255,0.6); border-radius:50%; transform:translate(-50%,-50%); transition:width 0.2s, height 0.2s, border-color 0.2s; }
   body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring { width:56px; height:56px; border-color:#fff; }
 
+  #scroll-progress{position:fixed;top:0;left:0;height:1px;background:#fff;z-index:102;width:0%;transition:width 0.1s linear;}
+
+
   .alert-banner {
     position: fixed; top: 0; left: 0; right: 0; height: var(--alert-h);
     background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
@@ -183,6 +186,95 @@
   footer a:hover{color:var(--white);}
   .footer-links{display:flex;gap:32px;}
 
+  /* JOIN SECTION — matching deployment.html design */
+  .join-section {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 100px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    .join-section { padding: 80px 24px; }
+  }
+  .join-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .join-content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .join-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--white-30);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .join-label::before,
+  .join-label::after {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--white-30);
+  }
+  .join-title {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .join-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--white-50);
+    margin-bottom: 40px;
+  }
+  .join-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    padding: 16px 40px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    transition: all 0.3s ease;
+    animation: joinPulse 3s ease-in-out infinite;
+  }
+  .join-btn:hover {
+    background: transparent;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 0 40px rgba(255,255,255,0.15);
+  }
+  @keyframes joinPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    50% { box-shadow: 0 0 24px 2px rgba(255,255,255,0.08); }
+  }
+
   @media(max-width:900px){
     nav{padding:16px 24px;}.nav-links{display:none;}
     section{padding:60px 24px;}
@@ -205,9 +297,11 @@
     .chapter-nav{position:static;}
   }
 </style>
+<base target="_blank">
 </head>
 <body>
 
+<div id="scroll-progress"></div>
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
 
@@ -512,28 +606,15 @@
     </div>
   </div>
 </section>
-<section class="join-section" id="join" style="padding: 60px 20px; background: #000000; border-top: 1px solid rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: center; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div class="join-content" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 16px;">
-    
-    <div class="join-label" style="font-family: monospace, monospace; font-size: 11px; tracking: 0.15em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); letter-spacing: 2px;">
-      JOIN US
-    </div>
-    
-    <h2 class="join-title" style="font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; margin: 0; text-transform: uppercase;">
-      Wanna be a part of Phantom?
-    </h2>
-    
-    <p class="join-desc" style="font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.75); margin: 0 0 8px 0; max-width: 480px;">
-      We're always looking for passionate builders, thinkers, and operators to help push autonomous flight forward.
-    </p>
-    
-    <a href="https://forms.gle/gHDMvFZ5h9i4fhd97" target="_blank" rel="noopener" class="join-btn" style="display: inline-flex; align-items: center; gap: 8px; background: #ffffff; color: #000000; font-family: monospace, monospace; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 12px 24px; text-decoration: none; border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease;">
+<section class="join-section" id="join">
+  <div class="join-content">
+    <div class="join-label">Join Us</div>
+    <h2 class="join-title">Wanna be a part of Phantom?</h2>
+    <p class="join-desc">We're always looking for passionate builders, thinkers, and operators to help push autonomous flight forward.</p>
+    <a href="https://forms.gle/gHDMvFZ5h9i4fhd97" target="_blank" rel="noopener" class="join-btn">
       <span>Apply Now</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
-        <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
-      </svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
     </a>
-
   </div>
 </section>
 <section class="strategic-ops-section" id="contact">
@@ -588,6 +669,14 @@
 <script>
 (function(){
 'use strict';
+
+/* SCROLL PROGRESS */
+const progressBar = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+}, {passive:true});
 
 const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 if(hasFinePointer){
