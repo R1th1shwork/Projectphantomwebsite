@@ -129,6 +129,18 @@ body {
   border-color:#fff;
 }
 
+/* Scroll progress bar */
+#scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:1px;
+  background:#fff;
+  z-index:102;
+  width:0%;
+  transition:width 0.1s linear;
+}
+
 .alert-banner {
   position: fixed;
   top: 0;
@@ -989,7 +1001,7 @@ section[id]{
   background: var(--white-10);
 }
 
-/* JOIN SECTION — new, reactive & glowing */
+/* JOIN SECTION */
 .join-section {
   background: var(--bg);
   border-top: 1px solid var(--border);
@@ -1080,13 +1092,6 @@ section[id]{
 /* ===== MOBILE FIXES ===== */
 @media(max-width:900px){
 
-  /* Fix: alert banner + nav are position:fixed, and on mobile the banner
-     text wraps to 2 lines, growing taller than the approximate --alert-h
-     value used elsewhere. That mismatch let the fixed banner/nav overlap
-     page content (like the Overview/Technology section headers) when
-     scrolling or jumping to an anchor. Making both non-fixed on mobile
-     removes the overlap entirely — they just flow normally above the
-     page content instead of floating on top of it. */
   .alert-banner{
     position: static;
     height: auto;
@@ -1119,8 +1124,6 @@ section[id]{
   }
 
   .hero{
-    /* No longer needs to reserve space for fixed banner/nav above it,
-       since they're normal-flow now on mobile. */
     padding: 40px 24px 60px;
   }
 
@@ -1139,10 +1142,6 @@ section[id]{
     border-bottom:1px solid var(--border);
   }
 
-  /* Backing section: logo/glow were sized for desktop and looked
-     oversized/unbalanced on a phone screen. Scale both down and center
-     everything so it reads as an intentional layout, not a squeezed
-     desktop one. */
   .backing-layout{
     flex-direction:column;
     text-align:center;
@@ -1178,6 +1177,7 @@ section[id]{
 
 <body>
 
+<div id="scroll-progress"></div>
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
 
@@ -1644,6 +1644,14 @@ if(hasFinePointer){
   });
 
 }
+
+/* Scroll progress bar */
+const progressBar = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+}, {passive:true});
 
 const items = [
   'Modular Core',
