@@ -1322,7 +1322,130 @@ section[id]{
     padding: 80px 24px;
   }
 }
+
+/* PAST MEMBERS TOGGLE */
+.team-past-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:56px;
+  cursor:pointer;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--white-30);
+  transition:color .3s;
+  user-select:none;
+}
+.team-past-toggle:hover{color:var(--white-70);}
+.team-past-toggle svg{
+  width:14px;
+  height:14px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.team-past-toggle.open svg{transform:rotate(180deg);}
+
+.team-past-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:40px 32px;
+  margin-top:40px;
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .6s cubic-bezier(.16,1,.3,1), opacity .5s ease;
+}
+.team-past-grid.visible{
+  max-height:800px;
+  opacity:1;
+}
+
+.team-card-small{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  text-decoration:none;
+  color:inherit;
+}
+.avatar-ring-small{
+  position:relative;
+  width:100px;
+  height:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:16px;
+}
+.avatar-ring-small::before{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  border:1px solid var(--white-10);
+  transition:border-color .3s;
+}
+.team-card-small:hover .avatar-ring-small::before{
+  border-color:var(--white-30);
+}
+.avatar-photo-small{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  overflow:hidden;
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.avatar-photo-small img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.avatar-initials-small{
+  font-family:var(--font-mono);
+  font-size:24px;
+  font-weight:700;
+  color:var(--white-20);
+  letter-spacing:.05em;
+}
+.team-name-small{
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:4px;
+  letter-spacing:-.01em;
+}
+.team-role-small{
+  font-family:var(--font-mono);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--white-40);
+  margin-bottom:8px;
+}
+.team-desc-small{
+  font-size:12px;
+  line-height:1.5;
+  color:var(--white-30);
+  max-width:200px;
+}
+
+@media(max-width:900px){
+  .team-past-grid{grid-template-columns:repeat(2,1fr);gap:32px 20px;}
+  .avatar-ring-small{width:80px;height:80px;}
+}
 </style>
+<base target="_blank">
 </head>
 
 <body>
@@ -1688,6 +1811,63 @@ section[id]{
 
   </div>
 
+  <div class="team-past-toggle reveal" id="pastToggle">
+    <span>Competition Team</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+
+  <div class="team-past-grid" id="pastGrid">
+
+    <a href="https://www.linkedin.com/in/mufeed-kakkidi-021368397/" target="_blank" rel="noopener" class="team-card-small">
+      <div class="avatar-ring-small">
+        <div class="avatar-photo-small">
+          <img src="assets/muf.jpg" alt="Mufeed Kakkidi" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
+          <span class="avatar-initials-small" style="display:none;">MK</span>
+        </div>
+      </div>
+      <div class="team-name-small">Mufeed Kakkidi</div>
+      <div class="team-role-small">AI Architect</div>
+      <div class="team-desc-small">Built the software stack and helped train Mercury AI.</div>
+    </a>
+
+    <a href="https://www.linkedin.com/in/ashwin-krishnakumar-074a973a7/" target="_blank" rel="noopener" class="team-card-small">
+      <div class="avatar-ring-small">
+        <div class="avatar-photo-small">
+          <img src="assets/ash.jpg" alt="Ashwin Krishnakumar" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
+          <span class="avatar-initials-small" style="display:none;">AK</span>
+        </div>
+      </div>
+      <div class="team-name-small">Ashwin Krishnakumar</div>
+      <div class="team-role-small">Head Speaker</div>
+      <div class="team-desc-small">Led presentations and pitched Phantom to judges and investors.</div>
+    </a>
+
+    <a href="https://www.linkedin.com/in/devaj-shylesh-nair-1bb1493a5/" target="_blank" rel="noopener" class="team-card-small">
+      <div class="avatar-ring-small">
+        <div class="avatar-photo-small">
+          <img src="assets/dev.jpg" alt="Devaj Shylesh Nair" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
+          <span class="avatar-initials-small" style="display:none;">DN</span>
+        </div>
+      </div>
+      <div class="team-name-small">Devaj Shylesh Nair</div>
+      <div class="team-role-small">Speaker & Dev</div>
+      <div class="team-desc-small">Spoke on stage and assisted with platform development.</div>
+    </a>
+
+    <a href="https://www.linkedin.com/in/roopesh-kr-build/" target="_blank" rel="noopener" class="team-card-small">
+      <div class="avatar-ring-small">
+        <div class="avatar-photo-small">
+          <img src="assets/roo.jpg" alt="Roopesh Kr" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
+          <span class="avatar-initials-small" style="display:none;">RK</span>
+        </div>
+      </div>
+      <div class="team-name-small">Roopesh Kr</div>
+      <div class="team-role-small">Outreach & Research</div>
+      <div class="team-desc-small">Connected us with partners and helped draft the thesis.</div>
+    </a>
+
+  </div>
+
 <section id="backing">
 
   <div class="backing-layout">
@@ -2008,6 +2188,16 @@ function animate(){
 }
 
 animate();
+
+/* PAST TEAM TOGGLE */
+const pastToggle = document.getElementById('pastToggle');
+const pastGrid = document.getElementById('pastGrid');
+if(pastToggle && pastGrid){
+  pastToggle.addEventListener('click', () => {
+    pastToggle.classList.toggle('open');
+    pastGrid.classList.toggle('visible');
+  });
+}
 
 })();
 </script>
