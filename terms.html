@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM | Applicant Terms</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;--bg-1:#0a0a0a;--bg-2:#111111;
+    --border:rgba(255,255,255,0.07);--white:#fff;--white-80:rgba(255,255,255,0.8);
+    --white-50:rgba(255,255,255,0.5);--white-30:rgba(255,255,255,0.3);--white-20:rgba(255,255,255,0.2);
+    --white-10:rgba(255,255,255,0.1);--white-08:rgba(255,255,255,0.08);--white-04:rgba(255,255,255,0.04);
+    --accent:#DA7756;
+    --font-sans:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace;
+    --nav-h:68px;--alert-h:36px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--white);font-family:var(--font-sans);line-height:1.7;}
+
+  .alert-banner {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--alert-h);
+    background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: center; gap: 16px; z-index: 101; padding: 0 24px;
+  }
+  .alert-text { font-family: var(--font-sans); font-size: 11px; font-weight: 500; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .alert-cta { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 4px 12px; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+
+  nav{position:fixed;top:var(--alert-h);left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(5,5,5,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:0.2em;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .nav-logo-mark{width:28px;height:28px;object-fit:contain;}
+  .nav-links{display:flex;gap:36px;list-style:none;}
+  .nav-links a{color:var(--white-50);text-decoration:none;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;}
+  .nav-links a:hover{color:#fff;}
+
+  main{max-width:760px;margin:0 auto;padding:calc(var(--alert-h) + var(--nav-h) + 60px) 24px 100px;}
+
+  .doc-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--white-30);margin-bottom:20px;display:flex;align-items:center;gap:16px;}
+  .doc-label::before{content:'';width:24px;height:1px;background:var(--white-30);}
+  h1{font-size:clamp(32px,5vw,48px);font-weight:700;letter-spacing:-0.03em;margin-bottom:16px;line-height:1.1;}
+  .doc-updated{font-family:var(--font-mono);font-size:12px;color:var(--white-30);margin-bottom:48px;}
+
+  .notice{background:var(--bg-1);border:1px solid var(--border);border-left:2px solid var(--accent);padding:20px 24px;margin-bottom:56px;font-size:14px;color:var(--white-70,var(--white-80));}
+  .notice strong{color:#fff;}
+
+  section{margin-bottom:44px;}
+  h2{font-size:19px;font-weight:600;margin-bottom:12px;letter-spacing:-0.01em;display:flex;align-items:baseline;gap:12px;}
+  h2 .num{font-family:var(--font-mono);font-size:13px;color:var(--white-30);}
+  p{color:var(--white-50);font-size:15px;margin-bottom:12px;}
+  ul{color:var(--white-50);font-size:15px;padding-left:20px;margin-bottom:12px;}
+  li{margin-bottom:8px;}
+  strong{color:var(--white-80);font-weight:600;}
+
+  .minor-box{background:var(--bg-1);border:1px solid var(--border);padding:24px;margin-top:16px;}
+  .minor-box .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block;}
+
+  .ack-box{background:var(--bg-1);border:1px solid var(--border);padding:32px;margin-top:60px;}
+  .ack-box h2{margin-bottom:16px;}
+  .ack-box ul{margin-bottom:0;}
+  .ack-box li{color:var(--white-70,var(--white-80));}
+
+  footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
+  footer p{font-family:var(--font-mono);font-size:11px;color:var(--white-30);letter-spacing:0.1em;}
+  footer a{color:var(--white-50);text-decoration:none;}
+  footer a:hover{color:#fff;}
+
+  @media(max-width:700px){
+    nav{padding:16px 20px;}
+    .nav-links{display:none;}
+    main{padding:calc(var(--alert-h) + var(--nav-h) + 40px) 20px 80px;}
+    .alert-banner{position:static;height:auto;padding:10px 16px;flex-direction:column;gap:8px;text-align:center;}
+    .alert-text{white-space:normal;font-size:10px;}
+    nav{position:static;}
+  }
+</style>
+</head>
+<body>
+
+<div class="alert-banner">
+  <span class="alert-text">PHANTOM IS IN ACTIVE DEVELOPMENT. FOLLOW THE BUILD.</span>
+  <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" class="alert-cta">TRACK DEVELOPMENT</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="assets/nav.png" alt="PHANTOM" class="nav-logo-mark">PHANTOM</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="index.html#join">Apply</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="doc-label">Applicant Agreement</div>
+  <h1>Project Phantom Team Terms</h1>
+  <p class="doc-updated">Last updated August 2026. Applies to anyone applying to join or volunteer with Project Phantom.</p>
+
+  <div class="notice">
+    <strong>Before you apply:</strong> this document explains what joining Project Phantom actually means right now, unpaid, informal, and early-stage. Read it fully before you submit the application form. Submitting the form means you've read and agreed to everything below.
+  </div>
+
+  <section>
+    <h2><span class="num">01</span>What Project Phantom Is Today</h2>
+    <p>Project Phantom is a student-led aerospace initiative based in the UAE. It is <strong>not currently registered as a company, startup, or legal entity</strong> of any kind. There is no corporate structure behind it yet. You are joining an early-stage, informal project, not an employer.</p>
+    <p>Certain designs, systems, and concepts developed under Project Phantom are <strong>under review for patent protection and have not yet been granted a patent</strong>. Nothing here should be treated as final, filed, or legally secured intellectual property.</p>
+    <p>Project Phantom intends to become a <strong>formally registered company within the next few years</strong>. When that happens, these terms will very likely be replaced with a proper legal agreement, and anyone still involved at that point will be informed directly.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span>No Pay, No Equity, No Stock</h2>
+    <p>All roles within Project Phantom are <strong>voluntary and unpaid</strong>. There is no salary, wage, stipend, or other compensation for any role, current or future, unless a separate written agreement is signed at a later date.</p>
+    <p>No applicant or team member will be issued <strong>equity, shares, stock options, or any ownership stake</strong> in Project Phantom by virtue of applying, being accepted, or contributing work. If that ever changes for a specific individual, it will be set out in its own signed, separate agreement, not implied by this one.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span>Confidentiality</h2>
+    <p>As part of the project you may see designs, data, source code, or other technical material that hasn't been made public. Please treat that material as confidential and don't share it outside the team without checking with us first, especially anything tied to the patent-pending work mentioned above.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span>Posting About Project Phantom</h2>
+    <p>You're welcome, and encouraged, to post about your involvement with Project Phantom on your own social media or portfolio. We just ask that anything you post is <strong>accurate and represents the project fairly</strong>. Don't post anything false, misleading, or intended to damage the project or the team. If you're not sure whether something's fine to share publicly, ask first.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span>How We Use Your Application Information</h2>
+    <p>Information you submit in the application form (name, contact details, portfolio links, and your answers) will be used to:</p>
+    <ul>
+      <li>Review your application and reach out if shortlisted</li>
+      <li>Internal team records while you're involved with the project</li>
+      <li>Promotional or outreach purposes, for example featuring team members or contributors publicly, only in ways that are reasonable and not misleading</li>
+    </ul>
+    <p>If you'd like your information removed from our records, contact us and we'll take care of it.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span>Participation Is Temporary and At-Will</h2>
+    <p>Being accepted onto the team doesn't guarantee any ongoing role, timeline, or future opportunity. Project Phantom can remove, pause, or end anyone's involvement at any time, for any reason, without notice. The same goes the other way: you're free to step away whenever you want.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span>These Terms Can Change</h2>
+    <p>Project Phantom may update, add to, or replace these terms at any time, at our discretion, as the project grows or its legal status changes. The version live on this page at the time is the one that applies. We'd recommend checking back periodically if you're an active team member.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">08</span>If You're Under 18</h2>
+    <p>A lot of our team is still in high school, and we're glad to have you. Because you're a minor, we need a bit more than just your own agreement.</p>
+    <div class="minor-box">
+      <span class="tag">Required for applicants under 18</span>
+      <p style="margin-bottom:0;">If you are under 18, a parent or legal guardian must also review this page and confirm they understand and agree to it before you take on any role, unpaid, no equity, and all, with Project Phantom. Please have them read this document with you, and be ready to confirm their consent when asked during the application or onboarding process. We may ask for a parent or guardian's contact details as part of that.</p>
+    </div>
+  </section>
+
+  <div class="ack-box">
+    <h2><span class="num">09</span>Summary, in Plain Terms</h2>
+    <ul>
+      <li>Project Phantom isn't a registered company yet, but plans to be within a few years</li>
+      <li>Our technology is patent-pending, not patented</li>
+      <li>No one gets paid right now</li>
+      <li>No one gets equity or shares</li>
+      <li>You can post about being part of the team, positively and accurately</li>
+      <li>We can use your application info for review and reasonable promotion</li>
+      <li>You can leave anytime, and we can end your involvement anytime</li>
+      <li>These terms can change</li>
+      <li>If you're under 18, a parent or guardian needs to agree too</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 PROJECT PHANTOM &middot; <a href="index.html">Back to Overview</a></p>
+</footer>
+
+</body>
+</html>
