@@ -1,2211 +1,2364 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>  <!--hiiii-->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Phantom | Official Site</title>
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Project Phantom",
-  "url": "https://projectphantom.space",
-  "logo": "https://projectphantom.space/assets/glo.png",
-  "description": "The UAE's first youth-led aerospace initiative developing a next-generation UAV platform focused on ultra-efficient single-rotor VTOL fixed-wing drones for high-endurance continuous flight.",
-  "foundingLocation": {
-    "@type": "Place",
-    "name": "United Arab Emirates"
-  },
-  "knowsAbout": [
-    "Youth-Led Aerospace Initiative",
-    "Unmanned Aerial Vehicles",
-    "VTOL Technology",
-    "Single-Rotor Aircraft",
-    "Fixed-Wing Drones",
-    "Solar-Powered UAVs",
-    "Aerospace Engineering"
-  ],
-  "sameAs": [
-    "https://www.linkedin.com/company/projectphantom/",
-    "https://x.com/PhantomUAV",
-    "https://www.youtube.com/@projectphantomuav",
-    "https://www.instagram.com/projectphantom.ae/"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "rithishwork@gmail.com",
-    "contactType": "technical support"
-  }
-}
-</script>
-<style>
-:root{
-  --bg:#050505;
-  --bg-1:#0a0a0a;
-  --bg-2:#111111;
-  --surface:#141414;
-  --border:rgba(255,255,255,.07);
-  --white:#fff;
-  --white-80:rgba(255,255,255,.8);
-  --white-50:rgba(255,255,255,.5);
-  --white-30:rgba(255,255,255,.3);
-  --white-20:rgba(255,255,255,.2);
-  --white-10:rgba(255,255,255,.1);
-  --white-08:rgba(255,255,255,.08);
-  --white-04:rgba(255,255,255,.04);
-  --font-sans:'Space Grotesk',sans-serif;
-  --font-mono:'Space Mono',monospace;
-  --nav-h:68px;
-  --alert-h:36px;
-}
-
-*,
-*::before,
-*::after{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  overflow-x: clip; 
-}
-
-body {
-  background: var(--bg);
-  color: var(--white);
-  font-family: var(--font-sans);
-  overflow-x: clip; 
-  cursor: none;
-}
-
-@media (hover: none), (pointer: coarse) {
-  body{
-    cursor: auto;
-  }
-  #cur-dot,
-  #cur-ring{
-    display:none;
-  }
-}
-
-#cur-dot,
-#cur-ring{
-  position:fixed;
-  top:0;
-  left:0;
-  pointer-events:none;
-  z-index:9999;
-  border-radius:50%;
-  will-change:transform;
-}
-
-#cur-dot{
-  width:8px;
-  height:8px;
-  background:#fff;
-  mix-blend-mode:difference;
-}
-
-#cur-ring{
-  width:36px;
-  height:36px;
-  border:1px solid rgba(255,255,255,.6);
-  mix-blend-mode:difference;
-  transition:
-    width .2s ease,
-    height .2s ease,
-    border-color .2s ease;
-}
-
-#cur-ring.active{
-  width:56px;
-  height:56px;
-  border-color:#fff;
-}
-
-/* Scroll progress bar */
-#scroll-progress{
-  position:fixed;
-  top:0;
-  left:0;
-  height:1px;
-  background:#fff;
-  z-index:102;
-  width:0%;
-  transition:width 0.1s linear;
-}
-
-.alert-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--alert-h);
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  z-index: 101;
-  padding: 0 24px;
-}
-
-.alert-text {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.alert-cta {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  color: #fff;
-  background: #DA7756;
-  padding: 4px 12px;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: background 0.2s ease;
-  white-space: nowrap;
-}
-.alert-cta:hover {
-  background: #e28e70;
-}
-
-nav{
-  position:fixed;
-  top: var(--alert-h); 
-  left:0;
-  right:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:20px 48px;
-  transition:.35s;
-  border-bottom:1px solid transparent;
-}
-
-nav.scrolled{
-  background:rgba(5,5,5,.85);
-  backdrop-filter:blur(20px);
-  border-color:var(--border);
-}
-
-.nav-logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#fff;
-  text-decoration:none;
-  font-family:var(--font-mono);
-  letter-spacing:.2em;
-  font-size:18px;
-  font-weight:700;
-}
-
-.nav-logo-mark{
-  width:28px;
-  height:28px;
-  object-fit:contain;
-}
-
-.nav-links{
-  display:flex;
-  gap:36px;
-  list-style:none;
-}
-
-.nav-links a{
-  text-decoration:none;
-  color:var(--white-50);
-  font-size:13px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  transition:.2s;
-}
-
-.nav-links a:hover{
-  color:#fff;
-}
-
-.nav-cta{
-  background:#fff;
-  color:#000;
-  text-decoration:none;
-  padding:10px 24px;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  font-family:var(--font-mono);
-  font-weight:700;
-}
-
-.hero{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-
-  padding: calc(var(--alert-h) + var(--nav-h) + 40px) 48px 80px;
-}
-
-.hero-grid{
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(var(--border) 1px,transparent 1px),
-    linear-gradient(90deg,var(--border) 1px,transparent 1px);
-  background-size:60px 60px;
-  animation:gridPulse 8s ease-in-out infinite;
-}
-
-@keyframes gridPulse{
-  0%,100%{opacity:.4}
-  50%{opacity:.8}
-}
-
-.hero-glow{
-  position:absolute;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%);
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-  max-width:900px;
-}
-
-.hero-eyebrow{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.35em;
-  color:var(--white-50);
-  margin-bottom:28px;
-  font-family:var(--font-mono);
-}
-
-.hero-title{
-  font-size:clamp(64px,10vw,132px);
-  line-height:.92;
-  letter-spacing:-.04em;
-  margin-bottom:32px;
-}
-
-.hero-title .line{
-  overflow:hidden;
-  display:block;
-}
-
-.hero-title .word{
-  display:inline-block;
-  animation:slideUp .9s cubic-bezier(.16,1,.3,1) both;
-}
-
-@keyframes slideUp{
-  from{
-    transform:translateY(110%);
-    opacity:0;
-  }
-  to{
-    transform:translateY(0);
-    opacity:1;
-  }
-}
-
-.hero-subtitle{
-  font-size:17px;
-  line-height:1.7;
-  color:var(--white-50);
-  max-width:540px;
-  margin:0 auto 48px;
-  animation:fadeIn 1s .4s both;
-}
-
-@keyframes fadeIn{
-  from{
-    opacity:0;
-    transform:translateY(14px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-
-.hero-actions{
-  display:flex;
-  gap:16px;
-  justify-content:center;
-  flex-wrap:wrap;
-  animation:fadeIn 1s .6s both;
-}
-
-.btn-primary,
-.btn-secondary{
-  text-decoration:none;
-  padding:16px 40px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-size:12px;
-  font-weight:700;
-  font-family:var(--font-mono);
-}
-
-.btn-primary{
-  background:#fff;
-  color:#000;
-}
-
-.btn-secondary{
-  border:1px solid var(--white-20);
-  color:#fff;
-}
-
-.hero-stats{
-  margin-top:90px;
-  display:flex;
-  border:1px solid var(--border);
-  position:relative;
-  z-index:2;
-}
-
-.stat-item{
-  padding:24px 48px;
-  text-align:center;
-  border-right:1px solid var(--border);
-}
-
-.stat-item:last-child{
-  border-right:none;
-}
-
-.stat-num{
-  display:block;
-  font-size:32px;
-  font-family:var(--font-mono);
-  margin-bottom:6px;
-}
-
-.stat-label{
-  font-size:11px;
-  color:var(--white-50);
-  text-transform:uppercase;
-  letter-spacing:.15em;
-}
-
-.hero-scroll-hint{
-  position:absolute;
-  bottom:36px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  font-size:10px;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--white-30);
-}
-
-.scroll-line{
-  width:1px;
-  height:40px;
-  background:var(--white-20);
-  overflow:hidden;
-  position:relative;
-}
-
-.scroll-line::after{
-  content:'';
-  position:absolute;
-  top:-100%;
-  left:0;
-  width:100%;
-  height:100%;
-  background:#fff;
-  animation:scrollDrop 2s infinite;
-}
-
-@keyframes scrollDrop{
-  from{top:-100%}
-  to{top:200%}
-}
-
-section{
-  padding:120px 48px;
-  position:relative;
-}
-
-
-section[id]{
-  scroll-margin-top: calc(var(--alert-h) + var(--nav-h) + 16px);
-}
-
-.section-label{
-  font-size:11px;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  color:var(--white-30);
-  margin-bottom:20px;
-  font-family:var(--font-mono);
-}
-
-.section-title{
-  font-size:clamp(36px,5vw,64px);
-  line-height:1.05;
-  letter-spacing:-.03em;
-  margin-bottom:20px;
-}
-
-.section-desc{
-  max-width:560px;
-  color:var(--white-50);
-  line-height:1.7;
-  font-size:17px;
-}
-
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:
-    opacity .8s cubic-bezier(.16,1,.3,1),
-    transform .8s cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.visible{
-  opacity:1;
-  transform:none;
-}
-
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
-
-.parallax-text,
-.depth-line,
-.card,
-.config-card,
-.sdg-card,
-.reveal{
-  will-change:transform,opacity;
-}
-
-.marquee-band{
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  overflow:hidden;
-  padding:18px 0;
-  background:var(--bg-1);
-}
-
-.marquee-inner{
-  display:flex;
-  white-space:nowrap;
-  animation:marquee 30s linear infinite;
-}
-
-@keyframes marquee{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
-
-.marquee-item{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:0 48px;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.2em;
-  color:var(--white-30);
-  font-family:var(--font-mono);
-}
-
-.marquee-dot{
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:var(--white-30);
-}
-
-.depth-section {
-  height: 250vh;
-  position: relative;
-  padding: 0;
-}
-
-.depth-sticky{
-  position:sticky;
-  top:0;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
-.depth-text-wrap {
-  perspective: 1200px;
-  transform-style: preserve-3d;
-  text-align: center;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  padding: 0 24px;
-}
-
-.depth-line {
-  grid-area: 1 / 1;
-  opacity: 0;
-  font-size: clamp(28px, 5vw, 64px);
-  letter-spacing: -.03em;
-  transform-origin: center center -200px;
-  backface-visibility: hidden;
-  max-width: 900px;
-}
-
-.cards-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--border);
-  margin-top:80px;
-}
-
-.card{
-  background:var(--bg);
-  padding:48px 40px;
-}
-
-.card-title{
-  font-size:20px;
-  margin-bottom:12px;
-}
-
-.card-text{
-  color:var(--white-50);
-  line-height:1.7;
-  font-size:14px;
-}
-
-.configs-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--border);
-  margin-top:60px;
-}
-
-.config-card{
-  background:var(--bg);
-  padding:36px 32px;
-  position:relative;
-  overflow:hidden;
-}
-
-.config-card::after{
-  content:'';
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:0;
-  height:2px;
-  background:#fff;
-  transition:.4s cubic-bezier(.16,1,.3,1);
-}
-
-.config-card:hover::after{
-  width:100%;
-}
-
-.config-letter{
-  font-size:48px;
-  color:var(--white-08);
-  margin-bottom:16px;
-  font-family:var(--font-mono);
-}
-
-.config-name{
-  font-size:14px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  margin-bottom:8px;
-}
-
-.config-region{
-  color:var(--white-30);
-  margin-bottom:16px;
-  font-size:12px;
-}
-
-.config-desc{
-  color:var(--white-50);
-  line-height:1.6;
-  font-size:13px;
-}
-
-.sdg-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1px;
-  background:var(--border);
-  margin-top:60px;
-}
-
-.sdg-card{
-  background:var(--bg);
-  padding:32px 28px;
-}
-
-.sdg-num{
-  font-size:36px;
-  margin-bottom:12px;
-  color:var(--white-10);
-  font-family:var(--font-mono);
-}
-
-.sdg-title{
-  margin-bottom:8px;
-}
-
-.sdg-text{
-  color:var(--white-40);
-  line-height:1.6;
-  font-size:12px;
-}
-
-.parallax-text {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  font-size: clamp(60px, 12vw, 150px);
-  font-weight: 800;
-  font-family: var(--font-sans);
-  color: rgba(255, 255, 255, 0.02);
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 1;
-  text-transform: uppercase;
-}
-
-.team-section{
-  position:relative;
-}
-
-.team-intro{
-  max-width:640px;
-}
-
-.team-tag{
-  display:inline-block;
-  border:1px solid var(--white-20);
-  padding:8px 16px;
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--white-80);
-  margin-top:8px;
-  margin-bottom:28px;
-}
-
-.team-grid{
-  display:flex;
-  justify-content:center;
-  gap:64px;
-  margin-top:72px;
-  flex-wrap:wrap;
-}
-
-.team-card{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  text-decoration:none;
-  color:inherit;
-  width: clamp(220px, 30vw, 300px);
-}
-
-.strategic-ops-actions.backing-actions{
-  justify-content:flex-start;
-}
-
-.avatar-ring{
-  position:relative;
-  width: clamp(180px, 26vw, 240px);
-  height: clamp(180px, 26vw, 240px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:24px;
-}
-
-.avatar-ring::before{
-  content:'';
-  position:absolute;
-  inset:-6px;
-  border-radius:50%;
-  border:1px solid var(--white-20);
-  transition: border-color .4s ease, transform .6s cubic-bezier(.16,1,.3,1);
-}
-
-.avatar-ring::after{
-  content:'';
-  position:absolute;
-  inset:-6px;
-  border-radius:50%;
-  border:1px solid transparent;
-  border-top-color:#fff;
-  border-right-color:#fff;
-  animation: spinRing 7s linear infinite;
-  opacity:0;
-  transition: opacity .4s ease;
-}
-
-.team-card:hover .avatar-ring::after{
-  opacity:1;
-}
-
-.team-card:hover .avatar-ring::before{
-  border-color:var(--white-50);
-  transform:scale(1.04);
-}
-
-@keyframes spinRing{
-  from{ transform: rotate(0deg); }
-  to{ transform: rotate(360deg); }
-}
-
-.avatar-photo{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  overflow:hidden;
-  background:var(--bg-2);
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  z-index:1;
-  transition: transform .4s cubic-bezier(.16,1,.3,1);
-}
-
-.team-card:hover .avatar-photo{
-  transform:scale(1.03);
-}
-
-.avatar-photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.avatar-initials{
-  font-family:var(--font-mono);
-  font-size: clamp(32px, 5vw, 44px);
-  font-weight:700;
-  color:var(--white-30);
-  letter-spacing:.05em;
-}
-
-.avatar-linkedin-badge{
-  position:absolute;
-  bottom:2px;
-  right:2px;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:2;
-  border:2px solid var(--bg);
-  transition: transform .3s cubic-bezier(.16,1,.3,1);
-}
-
-.team-card:hover .avatar-linkedin-badge{
-  transform:scale(1.1);
-}
-
-.avatar-linkedin-badge svg{
-  width:16px;
-  height:16px;
-}
-
-.team-name{
-  font-size: clamp(17px, 2vw, 20px);
-  font-weight:600;
-  margin-bottom:6px;
-  letter-spacing:-.01em;
-}
-
-.team-role{
-  font-family:var(--font-mono);
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:var(--white-50);
-  margin-bottom:10px;
-}
-
-.team-desc{
-  font-size:14px;
-  line-height:1.6;
-  color:var(--white-30);
-  max-width:260px;
-}
-
-.team-tags{
-  display:flex;
-  gap:8px;
-  margin-top:14px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.team-tag-chip{
-  font-family:var(--font-mono);
-  font-size:10px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--white-50);
-  border:1px solid var(--white-10);
-  padding:4px 10px;
-}
-
-.backing-layout{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:60px;
-  flex-wrap:wrap;
-}
-
-.backing-content{
-  flex:1 1 480px;
-}
-
-.backing-visual{
-  flex:1 1 300px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  min-height:480px;
-}
-
-.backing-logo-glow{
-  position:absolute;
-  width:520px;
-  height:520px;
-  background:radial-gradient(circle,rgba(244,166,66,.18),transparent 70%);
-  animation:pulseGlow 5s ease-in-out infinite;
-}
-
-.backing-logo{
-  width:clamp(280px, 26vw, 420px);
-  position:relative;
-  z-index:2;
-  filter:drop-shadow(0 0 50px rgba(244,166,66,.25));
-  animation:floatLogo 6s ease-in-out infinite;
-}
-
-@keyframes floatLogo{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-14px); }
-}
-
-@keyframes pulseGlow{
-  0%,100%{ opacity:.5; transform:scale(1); }
-  50%{ opacity:.9; transform:scale(1.1); }
-}
-
-.strategic-ops-section {
-  background: var(--bg-1);
-  border-top: 1px solid var(--border);
-  padding: 100px 48px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-}
-.strategic-ops-container {
-  max-width: 800px;
-  width: 100%;
-}
-.strategic-ops-actions {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 40px;
-  flex-wrap: wrap;
-}
-.strategic-ops-actions .btn-primary,
-.strategic-ops-actions .btn-secondary {
-  text-decoration: none;
-  padding: 16px 40px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  display: inline-block;
-  transition: all 0.3s ease;
-}
-.strategic-ops-actions .btn-primary {
-  background: #fff;
-  color: #000;
-  border: 1px solid #fff;
-}
-.strategic-ops-actions .btn-primary:hover {
-  background: transparent;
-  color: #fff;
-}
-.strategic-ops-actions .btn-secondary {
-  border: 1px solid var(--white-20);
-  color: #fff;
-  background: transparent;
-}
-.strategic-ops-actions .btn-secondary:hover {
-  border-color: #fff;
-  background: var(--white-10);
-}
-
-/* FIRST FLIGHT */
-.flight-section{
-  background: var(--bg-1);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  position:relative;
-  overflow:hidden;
-}
-.flight-layout{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:64px;
-  align-items:center;
-  margin-top:60px;
-}
-.flight-media{
-  position:relative;
-  border:1px solid var(--border);
-  background:var(--bg);
-  aspect-ratio: 504/876;
-  max-width:420px;
-  margin:0 auto;
-  overflow:hidden;
-  transform:perspective(900px) rotateX(0) rotateY(0) scale(1);
-  transition:transform .2s ease-out, border-color .3s;
-  will-change:transform;
-}
-.flight-media:hover{ border-color: var(--white-30); }
-.flight-media::before{
-  content:'';
-  position:absolute;
-  inset:-40%;
-  background:radial-gradient(circle, rgba(255,255,255,.10), transparent 65%);
-  opacity:0;
-  transition:opacity .5s ease;
-  pointer-events:none;
-  z-index:0;
-  animation: flightGlowPulse 4s ease-in-out infinite;
-}
-.flight-media:hover::before{ opacity:1; }
-@keyframes flightGlowPulse{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.12); }
-}
-.flight-glare{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .4s;
-  z-index:2;
-}
-.flight-media:hover .flight-glare{ opacity:1; }
-.flight-media iframe{
-  width:100%;
-  height:100%;
-  display:block;
-  border:0;
-  position:relative;
-  z-index:1;
-}
-.flight-live-tag{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  font-family:var(--font-mono);
-  font-size:10px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--white-50);
-  margin-bottom:14px;
-}
-.flight-live-tag .dot{
-  width:6px;height:6px;border-radius:50%;background:#fff;
-  animation:blinkDot 1.6s ease-in-out infinite;
-  box-shadow:0 0 8px rgba(255,255,255,.6);
-}
-@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:.15}}
-.flight-stats{
-  display:flex;
-  border:1px solid var(--border);
-  margin-top:32px;
-}
-.flight-stat{
-  flex:1;
-  padding:20px 16px;
-  text-align:center;
-  border-right:1px solid var(--border);
-  transition:background .3s;
-  opacity:0;
-  transform:translateY(20px);
-}
-.flight-stats.visible .flight-stat{
-  opacity:1;
-  transform:none;
-  transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1), background .3s;
-}
-.flight-stats.visible .flight-stat:nth-child(1){transition-delay:0s;}
-.flight-stats.visible .flight-stat:nth-child(2){transition-delay:.1s;}
-.flight-stats.visible .flight-stat:nth-child(3){transition-delay:.2s;}
-.flight-stats.visible .flight-stat:nth-child(4){transition-delay:.3s;}
-.flight-stat:hover{ background:var(--bg-2); }
-.flight-stat:last-child{border-right:none;}
-.flight-stat-num{
-  display:block;
-  font-family:var(--font-mono);
-  font-size:26px;
-  font-weight:700;
-  margin-bottom:4px;
-  transition:transform .3s cubic-bezier(.16,1,.3,1);
-}
-.flight-stat:hover .flight-stat-num{ transform:scale(1.12); }
-.flight-stat-label{
-  font-size:10px;
-  color:var(--white-40);
-  text-transform:uppercase;
-  letter-spacing:.1em;
-}
-.flight-more{
-  margin-top:28px;
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--white-30);
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.flight-more::before{
-  content:'';
-  width:24px;
-  height:1px;
-  background:var(--white-30);
-}
-
-/* JOIN SECTION */
-.join-section {
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 100px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.join-section::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-.join-content {
-  position: relative;
-  z-index: 1;
-  max-width: 640px;
-  margin: 0 auto;
-}
-.join-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--white-30);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-.join-label::before,
-.join-label::after {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--white-30);
-}
-.join-title {
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 20px;
-}
-.join-desc {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--white-50);
-  margin-bottom: 40px;
-}
-.join-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  padding: 16px 40px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  background: #fff;
-  color: #000;
-  border: 1px solid #fff;
-  transition: all 0.3s ease;
-  animation: joinPulse 3s ease-in-out infinite;
-}
-.join-btn:hover {
-  background: transparent;
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 0 40px rgba(255,255,255,0.15);
-}
-@keyframes joinPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-  50% { box-shadow: 0 0 24px 2px rgba(255,255,255,0.08); }
-}
-
-/* ===== MOBILE FIXES ===== */
-@media(max-width:900px){
-
-  .alert-banner{
-    position: static;
-    height: auto;
-    padding: 10px 16px;
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-  }
-
-  .alert-text {
-    white-space: normal;
-    font-size: 10px;
-  }
-
-  nav{
-    position: static;
-    padding:16px 24px;
-  }
-
-  .nav-links{
-    display:none;
-  }
-
-  section[id]{
-    scroll-margin-top: 16px;
-  }
-
-  section{
-    padding:80px 24px;
-  }
-
-  .hero{
-    padding: 40px 24px 60px;
-  }
-
-  .cards-grid,
-  .configs-grid,
-  .sdg-grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero-stats{
-    flex-direction:column;
-  }
-
-  .stat-item{
-    border-right:none;
-    border-bottom:1px solid var(--border);
-  }
-
-  .backing-layout{
-    flex-direction:column;
-    text-align:center;
-  }
-
-  .backing-visual{
-    min-height:260px;
-  }
-
-  .backing-logo-glow{
-    width:260px;
-    height:260px;
-  }
-
-  .backing-logo{
-    width:clamp(160px, 45vw, 220px);
-  }
-
-  .strategic-ops-actions.backing-actions{
-    justify-content:center;
-  }
-
-  .team-grid{
-    gap:48px 24px;
-  }
-
-  .flight-layout{
-    grid-template-columns:1fr;
-    gap:32px;
-  }
-
-  .flight-stats{
-    flex-wrap:wrap;
-  }
-
-  .flight-stat{
-    flex:1 1 45%;
-    border-bottom:1px solid var(--border);
-  }
-
-  .join-section {
-    padding: 80px 24px;
-  }
-}
-
-/* PAST MEMBERS TOGGLE */
-.team-past-toggle{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-top:56px;
-  cursor:pointer;
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--white-30);
-  transition:color .3s;
-  user-select:none;
-}
-.team-past-toggle:hover{color:var(--white-70);}
-.team-past-toggle svg{
-  width:14px;
-  height:14px;
-  transition:transform .4s cubic-bezier(.16,1,.3,1);
-  fill:none;
-  stroke:currentColor;
-  stroke-width:2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-.team-past-toggle.open svg{transform:rotate(180deg);}
-
-.team-past-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:40px 32px;
-  margin-top:40px;
-  max-height:0;
-  overflow:hidden;
-  opacity:0;
-  transition:max-height .6s cubic-bezier(.16,1,.3,1), opacity .5s ease;
-}
-.team-past-grid.visible{
-  max-height:800px;
-  opacity:1;
-}
-
-.team-card-small{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  text-decoration:none;
-  color:inherit;
-}
-.avatar-ring-small{
-  position:relative;
-  width:100px;
-  height:100px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:16px;
-}
-.avatar-ring-small::before{
-  content:'';
-  position:absolute;
-  inset:-4px;
-  border-radius:50%;
-  border:1px solid var(--white-10);
-  transition:border-color .3s;
-}
-.team-card-small:hover .avatar-ring-small::before{
-  border-color:var(--white-30);
-}
-.avatar-photo-small{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  overflow:hidden;
-  background:var(--bg-2);
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.avatar-photo-small img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-.avatar-initials-small{
-  font-family:var(--font-mono);
-  font-size:24px;
-  font-weight:700;
-  color:var(--white-20);
-  letter-spacing:.05em;
-}
-.team-name-small{
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:4px;
-  letter-spacing:-.01em;
-}
-.team-role-small{
-  font-family:var(--font-mono);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:var(--white-40);
-  margin-bottom:8px;
-}
-.team-desc-small{
-  font-size:12px;
-  line-height:1.5;
-  color:var(--white-30);
-  max-width:200px;
-}
-
-@media(max-width:900px){
-  .team-past-grid{grid-template-columns:repeat(2,1fr);gap:32px 20px;}
-  .avatar-ring-small{width:80px;height:80px;}
-}
-</style>
-<base target="_blank">
-<base target="_blank">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Phantom | Official Site</title>
+
+  <!-- Meta description (fixes SEO) -->
+  <meta name="description" content="Project Phantom is the UAE's first youth-led aerospace initiative developing a next-generation UAV platform with single-rotor VTOL fixed-wing drones, solar integration, and Mercury AI for high-endurance missions." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Project Phantom",
+      "url": "https://projectphantom.space",
+      "logo": "https://projectphantom.space/assets/glo.png",
+      "description": "The UAE's first youth-led aerospace initiative developing a next-generation UAV platform focused on ultra-efficient single-rotor VTOL fixed-wing drones for high-endurance continuous flight.",
+      "foundingLocation": {
+        "@type": "Place",
+        "name": "United Arab Emirates"
+      },
+      "knowsAbout": [
+        "Youth-Led Aerospace Initiative",
+        "Unmanned Aerial Vehicles",
+        "VTOL Technology",
+        "Single-Rotor Aircraft",
+        "Fixed-Wing Drones",
+        "Solar-Powered UAVs",
+        "Aerospace Engineering"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/projectphantom/",
+        "https://x.com/PhantomUAV",
+        "https://www.youtube.com/@projectphantomuav",
+        "https://www.instagram.com/projectphantom.ae/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "rithishwork@gmail.com",
+        "contactType": "technical support"
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-1: #0a0a0a;
+      --bg-2: #111111;
+      --surface: #141414;
+      --border: rgba(255, 255, 255, .07);
+      --white: #fff;
+      --white-80: rgba(255, 255, 255, .8);
+      --white-50: rgba(255, 255, 255, .5);
+      --white-30: rgba(255, 255, 255, .3);
+      --white-20: rgba(255, 255, 255, .2);
+      --white-10: rgba(255, 255, 255, .1);
+      --white-08: rgba(255, 255, 255, .08);
+      --white-04: rgba(255, 255, 255, .04);
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --nav-h: 68px;
+      --alert-h: 36px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-sans);
+      overflow-x: clip;
+      cursor: none;
+    }
+
+    @media (hover: none),
+    (pointer: coarse) {
+      body {
+        cursor: auto;
+      }
+      #cur-dot,
+      #cur-ring {
+        display: none;
+      }
+    }
+
+    #cur-dot,
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    #cur-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      mix-blend-mode: difference;
+    }
+
+    #cur-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, .6);
+      mix-blend-mode: difference;
+      transition: width .2s ease, height .2s ease, border-color .2s ease;
+    }
+
+    #cur-ring.active {
+      width: 56px;
+      height: 56px;
+      border-color: #fff;
+    }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 1px;
+      background: #fff;
+      z-index: 102;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .alert-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--alert-h);
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 101;
+      padding: 0 24px;
+    }
+
+    .alert-text {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .alert-cta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      background: #c96a4a;
+      padding: 4px 12px;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .alert-cta:hover {
+      background: #da7756;
+    }
+
+    nav {
+      position: fixed;
+      top: var(--alert-h);
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      transition: .35s;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(5, 5, 5, .85);
+      backdrop-filter: blur(20px);
+      border-color: var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      letter-spacing: .2em;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .nav-logo-mark {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--white-50);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      transition: .2s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      padding: 10px 24px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: calc(var(--alert-h) + var(--nav-h) + 40px) 48px 80px;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%,
+      100% {
+        opacity: .4
+      }
+      50% {
+        opacity: .8
+      }
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 255, 255, .05), transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .35em;
+      color: var(--white-50);
+      margin-bottom: 28px;
+      font-family: var(--font-mono);
+    }
+
+    .hero-title {
+      font-size: clamp(64px, 10vw, 132px);
+      line-height: .92;
+      letter-spacing: -.04em;
+      margin-bottom: 32px;
+    }
+
+    .hero-title .line {
+      overflow: hidden;
+      display: block;
+    }
+
+    .hero-title .word {
+      display: inline-block;
+      animation: slideUp .9s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(110%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--white-50);
+      max-width: 540px;
+      margin: 0 auto 48px;
+      animation: fadeIn 1s .4s both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeIn 1s .6s both;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      text-decoration: none;
+      padding: 16px 40px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--white-20);
+      color: #fff;
+    }
+
+    .hero-stats {
+      margin-top: 90px;
+      display: flex;
+      border: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-item {
+      padding: 24px 48px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      display: block;
+      font-size: 32px;
+      font-family: var(--font-mono);
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--white-50);
+      text-transform: uppercase;
+      letter-spacing: .15em;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--white-30);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: var(--white-20);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      animation: scrollDrop 2s infinite;
+    }
+
+    @keyframes scrollDrop {
+      from {
+        top: -100%
+      }
+      to {
+        top: 200%
+      }
+    }
+
+    section {
+      padding: 120px 48px;
+      position: relative;
+    }
+
+    section[id] {
+      scroll-margin-top: calc(var(--alert-h) + var(--nav-h) + 16px);
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+    }
+
+    .section-title {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      margin-bottom: 20px;
+    }
+
+    .section-desc {
+      max-width: 560px;
+      color: var(--white-50);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition:
+        opacity .8s cubic-bezier(.16, 1, .3, 1),
+        transform .8s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-delay-1 {
+      transition-delay: .1s
+    }
+    .reveal-delay-2 {
+      transition-delay: .2s
+    }
+    .reveal-delay-3 {
+      transition-delay: .3s
+    }
+
+    .parallax-text,
+    .depth-line,
+    .card,
+    .config-card,
+    .sdg-card,
+    .reveal {
+      will-change: transform, opacity;
+    }
+
+    .marquee-band {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 18px 0;
+      background: var(--bg-1);
+    }
+
+    .marquee-inner {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0)
+      }
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* FIX: improved contrast for marquee text (was #545454 / rgba(255,255,255,0.3) → now #b0b0b0 / rgba(255,255,255,0.65)) */
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 48px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: var(--font-mono);
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--white-30);
+    }
+
+    .depth-section {
+      height: 250vh;
+      position: relative;
+      padding: 0;
+    }
+
+    .depth-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .depth-text-wrap {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      text-align: center;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      padding: 0 24px;
+    }
+
+    .depth-line {
+      grid-area: 1 / 1;
+      opacity: 0;
+      font-size: clamp(28px, 5vw, 64px);
+      letter-spacing: -.03em;
+      transform-origin: center center -200px;
+      backface-visibility: hidden;
+      max-width: 900px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 80px;
+    }
+
+    .card {
+      background: var(--bg);
+      padding: 48px 40px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .card-text {
+      color: var(--white-50);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .configs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 60px;
+    }
+
+    .config-card {
+      background: var(--bg);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .config-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #fff;
+      transition: .4s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .config-card:hover::after {
+      width: 100%;
+    }
+
+    .config-letter {
+      font-size: 48px;
+      color: var(--white-08);
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+    }
+
+    .config-name {
+      font-size: 14px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .config-region {
+      color: var(--white-30);
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+
+    .config-desc {
+      color: var(--white-50);
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .sdg-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 60px;
+    }
+
+    .sdg-card {
+      background: var(--bg);
+      padding: 32px 28px;
+    }
+
+    .sdg-num {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: var(--white-10);
+      font-family: var(--font-mono);
+    }
+
+    .sdg-title {
+      margin-bottom: 8px;
+    }
+
+    .sdg-text {
+      color: var(--white-40);
+      line-height: 1.6;
+      font-size: 12px;
+    }
+
+    .parallax-text {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      font-size: clamp(60px, 12vw, 150px);
+      font-weight: 800;
+      font-family: var(--font-sans);
+      color: rgba(255, 255, 255, 0.02);
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 1;
+      text-transform: uppercase;
+    }
+
+    .team-section {
+      position: relative;
+    }
+
+    .team-intro {
+      max-width: 640px;
+    }
+
+    .team-tag {
+      display: inline-block;
+      border: 1px solid var(--white-20);
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white-80);
+      margin-top: 8px;
+      margin-bottom: 28px;
+    }
+
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      margin-top: 72px;
+      flex-wrap: wrap;
+    }
+
+    .team-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      width: clamp(220px, 30vw, 300px);
+    }
+
+    .strategic-ops-actions.backing-actions {
+      justify-content: flex-start;
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: clamp(180px, 26vw, 240px);
+      height: clamp(180px, 26vw, 240px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid var(--white-20);
+      transition: border-color .4s ease, transform .6s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      border-top-color: #fff;
+      border-right-color: #fff;
+      animation: spinRing 7s linear infinite;
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+
+    .team-card:hover .avatar-ring::after {
+      opacity: 1;
+    }
+
+    .team-card:hover .avatar-ring::before {
+      border-color: var(--white-50);
+      transform: scale(1.04);
+    }
+
+    @keyframes spinRing {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .avatar-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .team-card:hover .avatar-photo {
+      transform: scale(1.03);
+    }
+
+    .avatar-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-initials {
+      font-family: var(--font-mono);
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 700;
+      color: var(--white-30);
+      letter-spacing: .05em;
+    }
+
+    .avatar-linkedin-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      border: 2px solid var(--bg);
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .team-card:hover .avatar-linkedin-badge {
+      transform: scale(1.1);
+    }
+
+    .avatar-linkedin-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .team-name {
+      font-size: clamp(17px, 2vw, 20px);
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -.01em;
+    }
+
+    .team-role {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--white-50);
+      margin-bottom: 10px;
+    }
+
+    .team-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--white-30);
+      max-width: 260px;
+    }
+
+    .team-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .team-tag-chip {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white-50);
+      border: 1px solid var(--white-10);
+      padding: 4px 10px;
+    }
+
+    .backing-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .backing-content {
+      flex: 1 1 480px;
+    }
+
+    .backing-visual {
+      flex: 1 1 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 480px;
+    }
+
+    .backing-logo-glow {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(244, 166, 66, .18), transparent 70%);
+      animation: pulseGlow 5s ease-in-out infinite;
+    }
+
+    .backing-logo {
+      width: clamp(280px, 26vw, 420px);
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 50px rgba(244, 166, 66, .25));
+      animation: floatLogo 6s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%,
+      100% {
+        opacity: .5;
+        transform: scale(1);
+      }
+      50% {
+        opacity: .9;
+        transform: scale(1.1);
+      }
+    }
+
+    .strategic-ops-section {
+      background: var(--bg-1);
+      border-top: 1px solid var(--border);
+      padding: 100px 48px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .strategic-ops-container {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .strategic-ops-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .strategic-ops-actions .btn-primary,
+    .strategic-ops-actions .btn-secondary {
+      text-decoration: none;
+      padding: 16px 40px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .strategic-ops-actions .btn-primary {
+      background: #fff;
+      color: #000;
+      border: 1px solid #fff;
+    }
+
+    .strategic-ops-actions .btn-primary:hover {
+      background: transparent;
+      color: #fff;
+    }
+
+    .strategic-ops-actions .btn-secondary {
+      border: 1px solid var(--white-20);
+      color: #fff;
+      background: transparent;
+    }
+
+    .strategic-ops-actions .btn-secondary:hover {
+      border-color: #fff;
+      background: var(--white-10);
+    }
+
+    /* FIRST FLIGHT */
+    .flight-section {
+      background: var(--bg-1);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flight-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .flight-media {
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      aspect-ratio: 504/876;
+      max-width: 420px;
+      margin: 0 auto;
+      overflow: hidden;
+      transform: perspective(900px) rotateX(0) rotateY(0) scale(1);
+      transition: transform .2s ease-out, border-color .3s;
+      will-change: transform;
+    }
+
+    .flight-media:hover {
+      border-color: var(--white-30);
+    }
+
+    .flight-media::before {
+      content: '';
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(255, 255, 255, .10), transparent 65%);
+      opacity: 0;
+      transition: opacity .5s ease;
+      pointer-events: none;
+      z-index: 0;
+      animation: flightGlowPulse 4s ease-in-out infinite;
+    }
+
+    .flight-media:hover::before {
+      opacity: 1;
+    }
+
+    @keyframes flightGlowPulse {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.12);
+      }
+    }
+
+    .flight-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .4s;
+      z-index: 2;
+    }
+
+    .flight-media:hover .flight-glare {
+      opacity: 1;
+    }
+
+    .flight-media iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flight-live-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-bottom: 14px;
+    }
+
+    .flight-live-tag .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      animation: blinkDot 1.6s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(255, 255, 255, .6);
+    }
+
+    @keyframes blinkDot {
+      0%,
+      100% {
+        opacity: 1
+      }
+      50% {
+        opacity: .15
+      }
+    }
+
+    .flight-stats {
+      display: flex;
+      border: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .flight-stat {
+      flex: 1;
+      padding: 20px 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      transition: background .3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .flight-stats.visible .flight-stat {
+      opacity: 1;
+      transform: none;
+      transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1), background .3s;
+    }
+
+    .flight-stats.visible .flight-stat:nth-child(1) {
+      transition-delay: 0s;
+    }
+    .flight-stats.visible .flight-stat:nth-child(2) {
+      transition-delay: .1s;
+    }
+    .flight-stats.visible .flight-stat:nth-child(3) {
+      transition-delay: .2s;
+    }
+    .flight-stats.visible .flight-stat:nth-child(4) {
+      transition-delay: .3s;
+    }
+
+    .flight-stat:hover {
+      background: var(--bg-2);
+    }
+
+    .flight-stat:last-child {
+      border-right: none;
+    }
+
+    .flight-stat-num {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .flight-stat:hover .flight-stat-num {
+      transform: scale(1.12);
+    }
+
+    .flight-stat-label {
+      font-size: 10px;
+      color: var(--white-40);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .flight-more {
+      margin-top: 28px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flight-more::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--white-30);
+    }
+
+    /* JOIN SECTION */
+    .join-section {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 100px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.04), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .join-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .join-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .join-label::before,
+    .join-label::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--white-30);
+    }
+
+    .join-title {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .join-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--white-50);
+      margin-bottom: 40px;
+    }
+
+    .join-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 16px 40px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      background: #fff;
+      color: #000;
+      border: 1px solid #fff;
+      transition: all 0.3s ease;
+      animation: joinPulse 3s ease-in-out infinite;
+    }
+
+    .join-btn:hover {
+      background: transparent;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+    }
+
+    @keyframes joinPulse {
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+      }
+      50% {
+        box-shadow: 0 0 24px 2px rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* ===== MOBILE FIXES ===== */
+    @media(max-width:900px) {
+
+      .alert-banner {
+        position: static;
+        height: auto;
+        padding: 10px 16px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .alert-text {
+        white-space: normal;
+        font-size: 10px;
+      }
+
+      nav {
+        position: static;
+        padding: 16px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section[id] {
+        scroll-margin-top: 16px;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      .hero {
+        padding: 40px 24px 60px;
+      }
+
+      .cards-grid,
+      .configs-grid,
+      .sdg-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .backing-layout {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .backing-visual {
+        min-height: 260px;
+      }
+
+      .backing-logo-glow {
+        width: 260px;
+        height: 260px;
+      }
+
+      .backing-logo {
+        width: clamp(160px, 45vw, 220px);
+      }
+
+      .strategic-ops-actions.backing-actions {
+        justify-content: center;
+      }
+
+      .team-grid {
+        gap: 48px 24px;
+      }
+
+      .flight-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .flight-stats {
+        flex-wrap: wrap;
+      }
+
+      .flight-stat {
+        flex: 1 1 45%;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .join-section {
+        padding: 80px 24px;
+      }
+    }
+
+    /* PAST MEMBERS TOGGLE */
+    .team-past-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 56px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      transition: color .3s;
+      user-select: none;
+    }
+
+    .team-past-toggle:hover {
+      color: var(--white-70);
+    }
+
+    .team-past-toggle svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .team-past-toggle.open svg {
+      transform: rotate(180deg);
+    }
+
+    .team-past-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px 32px;
+      margin-top: 40px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height .6s cubic-bezier(.16, 1, .3, 1), opacity .5s ease;
+    }
+
+    .team-past-grid.visible {
+      max-height: 800px;
+      opacity: 1;
+    }
+
+    .team-card-small {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .avatar-ring-small {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .avatar-ring-small::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--white-10);
+      transition: border-color .3s;
+    }
+
+    .team-card-small:hover .avatar-ring-small::before {
+      border-color: var(--white-30);
+    }
+
+    .avatar-photo-small {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-photo-small img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-initials-small {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white-20);
+      letter-spacing: .05em;
+    }
+
+    .team-name-small {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -.01em;
+    }
+
+    .team-role-small {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--white-40);
+      margin-bottom: 8px;
+    }
+
+    .team-desc-small {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--white-30);
+      max-width: 200px;
+    }
+
+    @media(max-width:900px) {
+      .team-past-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px 20px;
+      }
+      .avatar-ring-small {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    /* FIX: section-label contrast (was #545454 → now #b0b0b0) */
+    .section-label {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* FIX: hero-eyebrow contrast (was rgba(255,255,255,0.5) → now rgba(255,255,255,0.7)) */
+    .hero-eyebrow {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* FIX: stat-label contrast (was rgba(255,255,255,0.5) → now rgba(255,255,255,0.7)) */
+    .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* FIX: flight-stat-label contrast (was rgba(255,255,255,0.4) → now rgba(255,255,255,0.6)) */
+    .flight-stat-label {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* FIX: config-region contrast (was rgba(255,255,255,0.3) → now rgba(255,255,255,0.55)) */
+    .config-region {
+      color: rgba(255, 255, 255, 0.55);
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="scroll-progress"></div>
-<div id="cur-dot"></div>
-<div id="cur-ring"></div>
+  <div id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
 
-<div class="alert-banner">
-  <span class="alert-text">PHANTOM IS IN ACTIVE DEVELOPMENT. FOLLOW THE BUILD.</span>
-  <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" class="alert-cta">TRACK DEVELOPMENT</a>
-</div>
-
-<nav id="mainNav">
-  <a href="index.html" class="nav-logo">
-    <img src="assets/nav.png" class="nav-logo-mark">
-    PHANTOM
-  </a>
-
-  <ul class="nav-links">
-  <li><a href="./">Overview</a></li>
-  <li><a href="technology">Technology</a></li>
-  <li><a href="mercury">Mercury AI</a></li>
-  <li><a href="deployment">Deployment</a></li>
-  <li><a href="#team">Team</a></li>
-</ul>
-</nav>
-
-<section class="hero">
-
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-
-  <div class="hero-content">
-
-    <div class="hero-eyebrow">
-      One of UAE's first youth-led initiatives in autonomous fixed-wing aerospace
-    </div>
-
-    <h1 class="hero-title">
-      <span class="line"><span class="word">ONE</span></span>
-      <span class="line"><span class="word">UAV.</span></span>
-      <span class="line"><span class="word">INFINITE</span></span>
-      <span class="line"><span class="word">MISSIONS.</span></span>
-    </h1>
-
-    <p class="hero-subtitle">
-      Project Phantom is a single-rotor VTOL aircraft that takes off and lands vertically, then transitions to fixed-wing flight for efficient cruise. No runway is required. Solar cells integrated into the wing extend endurance, and the platform runs entirely on electric propulsion.
-    </p>
-
-    <div class="hero-actions">
-  <a href="technology" class="btn-primary">Inside Phantom</a>
-  <a href="mercury" class="btn-secondary">Meet Mercury</a>
-</div>
-
+  <div class="alert-banner">
+    <span class="alert-text">PHANTOM IS IN ACTIVE DEVELOPMENT. FOLLOW THE BUILD.</span>
+    <!-- external link: opens in new tab -->
+    <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="alert-cta">TRACK DEVELOPMENT</a>
   </div>
 
-  <div class="hero-stats">
-    <div class="stat-item">
-      <span class="stat-num">12+</span>
-      <span class="stat-label">Hours Endurance</span>
-    </div>
-
-    <div class="stat-item">
-      <span class="stat-num">&lt;3min</span>
-      <span class="stat-label">Config Swap</span>
-    </div>
-
-    <div class="stat-item">
-      <span class="stat-num">6g</span>
-      <span class="stat-label">Load Factor</span>
-    </div>
-  </div>
-
-  <div class="hero-scroll-hint">
-    <span>↓</span>
-    <div class="scroll-line"></div>
-  </div>
-
-</section>
-
-<div class="marquee-band">
-  <div class="marquee-inner" id="marqueeInner"></div>
-</div>
-
-<section class="depth-section" id="depthSection">
-  <div class="depth-sticky">
-    <div class="depth-text-wrap">
-      <span class="depth-line" id="dl1">THE FUTURE OF UAVS, ENGINEERED TODAY</span>
-    </div>
-  </div>
-</section>
-
-<section id="overview">
-
-  <div class="section-label reveal">
-    Overview
-  </div>
-
-  <h2 class="section-title reveal">
-    How Phantom Works
-  </h2>
-
-  <p class="section-desc reveal reveal-delay-1">
-    Most UAVs force a tradeoff between range, payload, and versatility. Phantom's modular architecture removes that tradeoff.
-  </p>
-
-  <div class="cards-grid">
-
-    <div class="card reveal">
-      <div class="card-title">Persistent Core</div>
-      <div class="card-text">
-        One standardized fuselage carries flight control,
-        power management, AI computing, and communications.
-      </div>
-    </div>
-
-    <div class="card reveal reveal-delay-1">
-      <div class="card-title">Single-Engine VTOL</div>
-      <div class="card-text">
-        Vertical takeoff and landing with zero runway required, transitioning to efficient fixed-wing glide for cruise.
-      </div>
-    </div>
-
-    <div class="card reveal reveal-delay-2">
-      <div class="card-title">Solar Integration</div>
-      <div class="card-text">
-        Solar cells integrated into the wing surface reduce battery drain during cruise.
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<section id="technology">
-
-  <div class="parallax-text" id="parallaxText1">
-    CONFIGURATIONS
-  </div>
-
-  <div style="margin-top:80px">
-
-    <div class="section-label reveal">
-      Configurable Wing System
-    </div>
-
-    <h2 class="section-title reveal">
-      One architecture adapted for every environment.
-    </h2>
-
-    <p class="section-desc reveal reveal-delay-1">
-      Interchangeable wing modules let a single fuselage operate across
-  fundamentally different conditions, without redesigning the aircraft.
-    </p>
-
-  </div>
-
-  <div class="configs-grid" id="configurations">
-
-    <div class="config-card reveal">
-      <div class="config-letter">A</div>
-      <div class="config-name">Arid Range</div>
-      <div class="config-region">Arabian Peninsula</div>
-      <div class="config-desc">
-        Reinforced thermal shielding and maximized solar exposure for
-        sustained high-heat, high-sun operation.
-      </div>
-    </div>
-
-    <div class="config-card reveal reveal-delay-1">
-      <div class="config-letter">B</div>
-      <div class="config-name">Coastal Range</div>
-      <div class="config-region">Coastal Operations</div>
-      <div class="config-desc">
-         Salt-resistant composites and extended range for sustained
-         flight over open water.
-      </div>
-    </div>
-
-    <div class="config-card reveal reveal-delay-2">
-      <div class="config-letter">C</div>
-      <div class="config-name">Alpine Range</div>
-      <div class="config-region">High Altitude</div>
-      <div class="config-desc">
-        Extended wingspan and low-density optimization for thin-air,
-        high-altitude flight.
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<section id="impact">
-
-  <div class="parallax-text" id="parallaxText2">
-    IMPACT
-  </div>
-
-  <div style="margin-top:80px">
-
-    <div class="section-label reveal">
-      Sustainable Development
-    </div>
-
-    <h2 class="section-title reveal">
-      Engineered for Impact
-    </h2>
-
-    <p class="section-desc reveal reveal-delay-1">
-      Designed to support global environmental monitoring and climate research.
-    </p>
-
-  </div>
-
-  <div class="sdg-grid">
-
-    <div class="sdg-card reveal">
-      <div class="sdg-num">SDG 13</div>
-      <div class="sdg-title">Climate Action</div>
-      <div class="sdg-text">
-        Wildfire detection and methane monitoring.
-      </div>
-    </div>
-
-    <div class="sdg-card reveal reveal-delay-1">
-      <div class="sdg-num">SDG 14</div>
-      <div class="sdg-title">Life Below Water</div>
-      <div class="sdg-text">
-        Coastal monitoring and spill detection.
-      </div>
-    </div>
-
-    <div class="sdg-card reveal reveal-delay-2">
-      <div class="sdg-num">SDG 15</div>
-      <div class="sdg-title">Life on Land</div>
-      <div class="sdg-text">
-        Reforestation tracking and anti-poaching support.
-      </div>
-    </div>
-
-    <div class="sdg-card reveal reveal-delay-3">
-      <div class="sdg-num">SDG 9</div>
-      <div class="sdg-title">Industry, Innovation and Infrastructure</div>
-      <div class="sdg-text">
-        Enterprise-grade environmental sensing infrastructure.
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="flight-section" id="first-flight">
-
-  <div class="parallax-text" id="parallaxText3">FIRST FLIGHT</div>
-
-  <div class="section-label reveal">Milestone</div>
-
-  <h2 class="section-title reveal">Phantom's First Flight.</h2>
-
-  <p class="section-desc reveal reveal-delay-1">
-    Four test flights on a traditional high-wing test airframe, carrying our sensor payload.
-    About 7 minutes each, up to 150 meters altitude, for 28 minutes of atmospheric data pulled
-    straight from the sky: CO2 levels, air pressure, and airborne dust particle size. And many
-    more.
-  </p>
-
-  <div class="flight-layout">
-
-    <div class="reveal reveal-delay-1">
-      <div class="flight-live-tag"><span class="dot"></span>Flight Log</div>
-      <div class="flight-media" id="flightMedia" data-tilt>
-        <div class="flight-glare" id="flightGlare"></div>
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7454921214394867712?collapsed=1" height="876" width="504" frameborder="0" allowfullscreen="" title="Phantom's first flight, embedded LinkedIn post"></iframe>
-      </div>
-    </div>
-
-    <div class="reveal reveal-delay-2">
-      <div class="flight-stats" id="flightStats">
-        <div class="flight-stat">
-          <span class="flight-stat-num" data-count="4" data-suffix="">0</span>
-          <span class="flight-stat-label">Test Flights</span>
-        </div>
-        <div class="flight-stat">
-          <span class="flight-stat-num" data-count="7" data-suffix="min" data-prefix="~">0min</span>
-          <span class="flight-stat-label">Each Flight</span>
-        </div>
-        <div class="flight-stat">
-          <span class="flight-stat-num" data-count="28" data-suffix="min">0min</span>
-          <span class="flight-stat-label">Data Collected</span>
-        </div>
-        <div class="flight-stat">
-          <span class="flight-stat-num" data-count="150" data-suffix="m">0m</span>
-          <span class="flight-stat-label">Max Altitude</span>
-        </div>
-      </div>
-      <p class="flight-more">And way more to come</p>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="team-section" id="team">
-
-  <div class="team-intro">
-    <div class="section-label reveal">
-      The Team
-    </div>
-
-    <h2 class="section-title reveal">
-      Meet the Team
-    </h2>
-
-    <p class="section-desc reveal reveal-delay-1">
-      Two teenagers based in UAE, designing and building autonomous aircraft most professionals haven't attempted.
-    </p>
-
-    <div class="team-tag reveal reveal-delay-1">Youth-Led Aerospace Initiative</div>
-  </div>
-
-  <div class="team-grid">
-
-    <a href="https://www.linkedin.com/in/rithishdharanidharan" target="_blank" rel="noopener" class="team-card reveal">
-      <div class="avatar-ring">
-        <div class="avatar-photo">
-          <img src="assets/rit.jpg" alt="Rithish Dharanidharan" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';">
-          <span class="avatar-initials" style="display:none;">RD</span>
-        </div>
-        <div class="avatar-linkedin-badge">
-          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-        </div>
-      </div>
-      <div class="team-name">Rithish Dharanidharan</div>
-      <div class="team-role">Founder</div>
-      <div class="team-desc">Leads overall UAV development and platform direction.</div>
-      <div class="team-tags">
-        <span class="team-tag-chip">Flight Systems</span>
-        <span class="team-tag-chip">Aerospace</span>
-      </div>
+  <nav id="mainNav" aria-label="Main navigation">
+    <a href="./" class="nav-logo">
+      <img src="assets/nav.png" alt="Project Phantom logo mark" class="nav-logo-mark" width="500" height="500" loading="eager" />
+      PHANTOM
     </a>
 
-    <a href="https://www.linkedin.com/in/meherab-hossain-mokter/" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
-      <div class="avatar-ring">
-        <div class="avatar-photo">
-          <img src="assets/meh.jpg" alt="Meherab Hossain Mokter" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';">
-          <span class="avatar-initials" style="display:none;">MH</span>
+    <ul class="nav-links">
+      <!-- all nav links open in same tab (no target="_blank") -->
+      <li><a href="./">Overview</a></li>
+      <li><a href="technology">Technology</a></li>
+      <li><a href="mercury">Mercury AI</a></li>
+      <li><a href="deployment">Deployment</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN landmark (fixes accessibility) -->
+  <main>
+
+    <section class="hero" aria-labelledby="hero-title">
+
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+
+      <div class="hero-content">
+
+        <div class="hero-eyebrow">
+          One of UAE's first youth-led initiatives in autonomous fixed-wing aerospace
         </div>
-        <div class="avatar-linkedin-badge">
-          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+
+        <h1 class="hero-title" id="hero-title">
+          <span class="line"><span class="word">ONE</span></span>
+          <span class="line"><span class="word">UAV.</span></span>
+          <span class="line"><span class="word">INFINITE</span></span>
+          <span class="line"><span class="word">MISSIONS.</span></span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Project Phantom is a single-rotor VTOL aircraft that takes off and lands vertically, then transitions to fixed-wing flight for efficient cruise. No runway is required. Solar cells integrated into the wing extend endurance, and the platform runs entirely on electric propulsion.
+        </p>
+
+        <div class="hero-actions">
+          <!-- internal links: same tab -->
+          <a href="technology" class="btn-primary">Inside Phantom</a>
+          <a href="mercury" class="btn-secondary">Meet Mercury</a>
         </div>
+
       </div>
-      <div class="team-name">Meherab Hossain Mokter</div>
-      <div class="team-role">Co-Founder</div>
-      <div class="team-desc">Leads communications and assist development.</div>
-      <div class="team-tags">
-        <span class="team-tag-chip">Communications</span>
-        <span class="team-tag-chip">Outreach</span>
-      </div>
-    </a>
 
-  </div>
-
-  <div class="team-past-toggle reveal" id="pastToggle">
-    <span>Original crew</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-
-  <div class="team-past-grid" id="pastGrid">
-
-    <p class="team-past-intro" style="grid-column: 1 / -1; text-align:center; font-size:14px; color:var(--white-40); line-height:1.6; max-width:480px; margin:0 auto 24px; font-family:var(--font-sans);">
-      The original crew behind Phantom's first build. Not with the project today, but always part of the story.
-    </p>
-
-    <a href="https://www.linkedin.com/in/mufeed-kakkidi-021368397/" target="_blank" rel="noopener" class="team-card-small">
-      <div class="avatar-ring-small">
-        <div class="avatar-photo-small">
-          <img src="assets/muf.jpg" alt="Mufeed Kakkidi" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
-          <span class="avatar-initials-small" style="display:none;">MK</span>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">12+</span>
+          <span class="stat-label">Hours Endurance</span>
         </div>
-      </div>
-      <div class="team-name-small">Mufeed Kakkidi</div>
-      <div class="team-role-small">AI Architect</div>
-      <div class="team-desc-small">Built the software stack and helped train Mercury AI.</div>
-    </a>
-
-    <a href="https://www.linkedin.com/in/ashwin-krishnakumar-074a973a7/" target="_blank" rel="noopener" class="team-card-small">
-      <div class="avatar-ring-small">
-        <div class="avatar-photo-small">
-          <img src="assets/ash.jpg" alt="Ashwin Krishnakumar" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
-          <span class="avatar-initials-small" style="display:none;">AK</span>
+        <div class="stat-item">
+          <span class="stat-num">&lt;3min</span>
+          <span class="stat-label">Config Swap</span>
         </div>
-      </div>
-      <div class="team-name-small">Ashwin Krishnakumar</div>
-      <div class="team-role-small">Head Speaker</div>
-      <div class="team-desc-small">Led presentations and pitched Phantom to judges and investors.</div>
-    </a>
-
-    <a href="https://www.linkedin.com/in/devaj-shylesh-nair-1bb1493a5/" target="_blank" rel="noopener" class="team-card-small">
-      <div class="avatar-ring-small">
-        <div class="avatar-photo-small">
-          <img src="assets/dev.jpg" alt="Devaj Shylesh Nair" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
-          <span class="avatar-initials-small" style="display:none;">DN</span>
+        <div class="stat-item">
+          <span class="stat-num">6g</span>
+          <span class="stat-label">Load Factor</span>
         </div>
       </div>
-      <div class="team-name-small">Devaj Shylesh Nair</div>
-      <div class="team-role-small">Speaker & Dev</div>
-      <div class="team-desc-small">Spoke on stage and assisted with platform development.</div>
-    </a>
 
-    <a href="https://www.linkedin.com/in/roopesh-kr-build/" target="_blank" rel="noopener" class="team-card-small">
-      <div class="avatar-ring-small">
-        <div class="avatar-photo-small">
-          <img src="assets/roo.png" alt="Roopesh Kr" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';">
-          <span class="avatar-initials-small" style="display:none;">RK</span>
+      <div class="hero-scroll-hint">
+        <span>↓</span>
+        <div class="scroll-line"></div>
+      </div>
+
+    </section>
+
+    <div class="marquee-band" aria-hidden="true">
+      <div class="marquee-inner" id="marqueeInner"></div>
+    </div>
+
+    <section class="depth-section" id="depthSection" aria-hidden="true">
+      <div class="depth-sticky">
+        <div class="depth-text-wrap">
+          <span class="depth-line" id="dl1">THE FUTURE OF UAVS, ENGINEERED TODAY</span>
         </div>
       </div>
-      <div class="team-name-small">Roopesh Kr</div>
-      <div class="team-role-small">Outreach & Research</div>
-      <div class="team-desc-small">Connected us with partners and helped draft the thesis.</div>
-    </a>
+    </section>
 
-  </div>
+    <section id="overview" aria-labelledby="overview-title">
 
-<section id="backing">
+      <div class="section-label reveal">Overview</div>
 
-  <div class="backing-layout">
-
-    <div class="backing-content">
-
-      <div class="section-label reveal">
-        Backed By
-      </div>
-
-      <h2 class="section-title reveal">
-        Funded &amp; Backed by Unipreneur Inc.
-      </h2>
+      <h2 class="section-title reveal" id="overview-title">How Phantom Works</h2>
 
       <p class="section-desc reveal reveal-delay-1">
-        Project Phantom is proud to be funded and backed by Unipreneur Inc.,
-        the UAE's leading youth entrepreneurship and innovation platform,
-        empowering young founders aged 15–30 to turn ambitious ideas into
-        industry-grade ventures.
+        Most UAVs force a tradeoff between range, payload, and versatility. Phantom's modular architecture removes that tradeoff.
       </p>
 
-      <p class="section-desc reveal reveal-delay-2" style="margin-top:20px;">
-        This partnership marks a defining step for Phantom, moving us from
-        prototype to a scalable, deep-tech aerospace platform. We're deeply
-        grateful to Mohammed Mukhtar (CEO, Unipreneur) and Reem AlMusabbah
-        (Co-Founder, Unipreneur) for believing in our vision and giving us
-        the platform to build at the level this project deserves.
-      </p>
+      <div class="cards-grid">
 
-      <div class="strategic-ops-actions backing-actions" style="margin-top:40px;">
-        <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="btn-secondary">
-          Visit Unipreneur Inc
-        </a>
-        <a href="https://www.linkedin.com/posts/mohammedmukhtarj_dubaiit-share-7485697531440435200-HURC/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGBAxMgBcZF9B4uP7fpV_qOoPytKNPcIiYQ" target="_blank" rel="noopener" class="btn-primary">
-          See the Announcement
-        </a>
+        <div class="card reveal">
+          <div class="card-title">Persistent Core</div>
+          <div class="card-text">
+            One standardized fuselage carries flight control,
+            power management, AI computing, and communications.
+          </div>
+        </div>
+
+        <div class="card reveal reveal-delay-1">
+          <div class="card-title">Single-Engine VTOL</div>
+          <div class="card-text">
+            Vertical takeoff and landing with zero runway required, transitioning to efficient fixed-wing glide for cruise.
+          </div>
+        </div>
+
+        <div class="card reveal reveal-delay-2">
+          <div class="card-title">Solar Integration</div>
+          <div class="card-text">
+            Solar cells integrated into the wing surface reduce battery drain during cruise.
+          </div>
+        </div>
+
       </div>
 
-    </div>
+    </section>
 
-    <div class="backing-visual reveal reveal-delay-1">
-      <div class="backing-logo-glow"></div>
-      <img src="assets/uni.png"
-           alt="Unipreneur Inc. logo"
-           class="backing-logo"
-           onerror="this.closest('.backing-visual').style.display='none';">
-    </div>
+    <section id="technology" aria-labelledby="tech-title">
 
-  </div>
+      <div class="parallax-text" id="parallaxText1" aria-hidden="true">
+        CONFIGURATIONS
+      </div>
 
-</section>
-</section>
+      <div style="margin-top:80px">
 
-<section class="join-section" id="join">
-  <div class="join-content">
-    <div class="join-label">Join Us</div>
-    <h2 class="join-title">Wanna be a part of Phantom?</h2>
-    <p class="join-desc">We're always looking for passionate builders, thinkers, and operators to help push autonomous flight forward.</p>
-    <a href="https://forms.gle/gHDMvFZ5h9i4fhd97" target="_blank" rel="noopener" class="join-btn">
-      <span>Apply Now</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-    </a>
-  </div>
-</section>
+        <div class="section-label reveal">Configurable Wing System</div>
 
-<section class="strategic-ops-section" id="contact">
-  <div class="strategic-ops-container">
-    <div class="section-label">Get in Touch</div>
-    <h2 class="section-title">LET'S CONNECT</h2>
-    <p class="section-desc" style="margin:0 auto;">
-      Have a question, an idea, or just want to know more about Phantom?
-  Whether it's a technical doubt, a collaboration idea, or you just
-  want to say hi, we'd love to hear from you. Shoot us a message,
-  we're always happy to help.
-    </p>
-    <div class="strategic-ops-actions">
+        <h2 class="section-title reveal" id="tech-title">
+          One architecture adapted for every environment.
+        </h2>
 
-  <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="btn-secondary" aria-label="LinkedIn" style="display:flex; align-items:center; gap:8px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-    LinkedIn
-  </a>
+        <p class="section-desc reveal reveal-delay-1">
+          Interchangeable wing modules let a single fuselage operate across
+          fundamentally different conditions, without redesigning the aircraft.
+        </p>
 
-  <a href="https://x.com/PhantomUAV" target="_blank" rel="noopener" class="btn-secondary" aria-label="X" style="display:flex; align-items:center; gap:8px;">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.2l-5.6-6.9L4 22H1l8.2-9.3L0.8 2h7.4l5 6.2L18.9 2zm-1.3 18h2L6.5 4h-2l13.1 16z"/></svg>
-    X
-  </a>
+      </div>
 
-  <a href="https://www.youtube.com/@projectphantomuav" target="_blank" rel="noopener" class="btn-secondary" aria-label="YouTube" style="display:flex; align-items:center; gap:8px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z"/></svg>
-    YouTube
-  </a>
+      <div class="configs-grid" id="configurations">
 
-  <a href="https://www.instagram.com/projectphantom.ae/" target="_blank" rel="noopener" class="btn-secondary" aria-label="Instagram" style="display:flex; align-items:center; gap:8px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 5 5 .06 1.3.07 1.6.07 4.8s0 3.5-.07 4.8c-.15 3.3-1.7 4.8-5 5-1.3.06-1.6.07-4.9.07s-3.6 0-4.9-.07c-3.3-.15-4.8-1.7-5-5-.06-1.3-.07-1.6-.07-4.8s0-3.5.07-4.8c.15-3.3 1.7-4.8 5-5C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-2.5.11-3.5 1.1-3.6 3.6C3.6 8.7 3.6 9.05 3.6 12s0 3.3.06 4.35c.1 2.5 1.1 3.5 3.6 3.6C8.5 20 8.85 20 12 20s3.5 0 4.75-.06c2.5-.1 3.5-1.1 3.6-3.6.06-1.05.06-1.4.06-4.35s0-3.3-.06-4.35c-.1-2.5-1.1-3.5-3.6-3.6C15.5 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zm5.8-2a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0z"/></svg>
-    Instagram
-  </a>
+        <div class="config-card reveal">
+          <div class="config-letter">A</div>
+          <div class="config-name">Arid Range</div>
+          <div class="config-region">Arabian Peninsula</div>
+          <div class="config-desc">
+            Reinforced thermal shielding and maximized solar exposure for
+            sustained high-heat, high-sun operation.
+          </div>
+        </div>
 
-  <a href="mailto:rithishwork@gmail.com" class="btn-primary" style="display:flex; align-items:center; gap:8px;">
-    Email Us
-  </a>
+        <div class="config-card reveal reveal-delay-1">
+          <div class="config-letter">B</div>
+          <div class="config-name">Coastal Range</div>
+          <div class="config-region">Coastal Operations</div>
+          <div class="config-desc">
+            Salt-resistant composites and extended range for sustained
+            flight over open water.
+          </div>
+        </div>
 
-</div>
-</div>
-</section>
+        <div class="config-card reveal reveal-delay-2">
+          <div class="config-letter">C</div>
+          <div class="config-name">Alpine Range</div>
+          <div class="config-region">High Altitude</div>
+          <div class="config-desc">
+            Extended wingspan and low-density optimization for thin-air,
+            high-altitude flight.
+          </div>
+        </div>
 
-<script>
-(() => {
+      </div>
 
-const curDot = document.getElementById('cur-dot');
-const curRing = document.getElementById('cur-ring');
+    </section>
 
-const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    <section id="impact" aria-labelledby="impact-title">
 
-if(hasFinePointer){
+      <div class="parallax-text" id="parallaxText2" aria-hidden="true">
+        IMPACT
+      </div>
 
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
+      <div style="margin-top:80px">
 
-  let ringX = mouseX;
-  let ringY = mouseY;
+        <div class="section-label reveal">Sustainable Development</div>
 
-  document.addEventListener('mousemove', e => {
+        <h2 class="section-title reveal" id="impact-title">Engineered for Impact</h2>
 
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+        <p class="section-desc reveal reveal-delay-1">
+          Designed to support global environmental monitoring and climate research.
+        </p>
 
-    curDot.style.transform =
-      `translate3d(${mouseX}px,${mouseY}px,0) translate(-50%,-50%)`;
+      </div>
 
-  });
+      <div class="sdg-grid">
 
-  function animateCursor(){
+        <div class="sdg-card reveal">
+          <div class="sdg-num">SDG 13</div>
+          <div class="sdg-title">Climate Action</div>
+          <div class="sdg-text">Wildfire detection and methane monitoring.</div>
+        </div>
 
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
+        <div class="sdg-card reveal reveal-delay-1">
+          <div class="sdg-num">SDG 14</div>
+          <div class="sdg-title">Life Below Water</div>
+          <div class="sdg-text">Coastal monitoring and spill detection.</div>
+        </div>
 
-    curRing.style.transform =
-      `translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%)`;
+        <div class="sdg-card reveal reveal-delay-2">
+          <div class="sdg-num">SDG 15</div>
+          <div class="sdg-title">Life on Land</div>
+          <div class="sdg-text">Reforestation tracking and anti-poaching support.</div>
+        </div>
 
-    requestAnimationFrame(animateCursor);
-  }
+        <div class="sdg-card reveal reveal-delay-3">
+          <div class="sdg-num">SDG 9</div>
+          <div class="sdg-title">Industry, Innovation and Infrastructure</div>
+          <div class="sdg-text">Enterprise-grade environmental sensing infrastructure.</div>
+        </div>
 
-  animateCursor();
+      </div>
 
-  document.querySelectorAll('a,button').forEach(el => {
+    </section>
 
-    el.addEventListener('mouseenter', () => {
-      curRing.classList.add('active');
-    });
+    <section class="flight-section" id="first-flight" aria-labelledby="flight-title">
 
-    el.addEventListener('mouseleave', () => {
-      curRing.classList.remove('active');
-    });
+      <div class="parallax-text" id="parallaxText3" aria-hidden="true">FIRST FLIGHT</div>
 
-  });
+      <div class="section-label reveal">Milestone</div>
 
-}
+      <h2 class="section-title reveal" id="flight-title">Phantom's First Flight.</h2>
 
-/* Scroll progress bar */
-const progressBar = document.getElementById('scroll-progress');
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
-}, {passive:true});
+      <p class="section-desc reveal reveal-delay-1">
+        Four test flights on a traditional high-wing test airframe, carrying our sensor payload.
+        About 7 minutes each, up to 150 meters altitude, for 28 minutes of atmospheric data pulled
+        straight from the sky: CO2 levels, air pressure, and airborne dust particle size. And many
+        more.
+      </p>
 
-const items = [
-  'Modular Core',
-  'Configurable Wings',
-  'Solar Electric',
-  'Single-Engine VTOL',
-  'Youth-Led',
-  'UAE Origin'
-];
+      <div class="flight-layout">
 
-const mi = document.getElementById('marqueeInner');
+        <div class="reveal reveal-delay-1">
+          <div class="flight-live-tag"><span class="dot"></span>Flight Log</div>
+          <div class="flight-media" id="flightMedia" data-tilt>
+            <div class="flight-glare" id="flightGlare"></div>
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7454921214394867712?collapsed=1" height="876" width="504" frameborder="0" allowfullscreen="" title="Phantom's first flight, embedded LinkedIn post"></iframe>
+          </div>
+        </div>
 
-mi.innerHTML =
-  [...items,...items,...items]
-  .map(i =>
-    `<span class="marquee-item">
-      <span class="marquee-dot"></span>${i}
-    </span>`
-  ).join('');
+        <div class="reveal reveal-delay-2">
+          <div class="flight-stats" id="flightStats">
+            <div class="flight-stat">
+              <span class="flight-stat-num" data-count="4" data-suffix="">0</span>
+              <span class="flight-stat-label">Test Flights</span>
+            </div>
+            <div class="flight-stat">
+              <span class="flight-stat-num" data-count="7" data-suffix="min" data-prefix="~">0min</span>
+              <span class="flight-stat-label">Each Flight</span>
+            </div>
+            <div class="flight-stat">
+              <span class="flight-stat-num" data-count="28" data-suffix="min">0min</span>
+              <span class="flight-stat-label">Data Collected</span>
+            </div>
+            <div class="flight-stat">
+              <span class="flight-stat-num" data-count="150" data-suffix="m">0m</span>
+              <span class="flight-stat-label">Max Altitude</span>
+            </div>
+          </div>
+          <p class="flight-more">And way more to come</p>
+        </div>
 
-const revealEls = document.querySelectorAll('.reveal');
+      </div>
 
-const revealObs = new IntersectionObserver((entries) => {
+    </section>
 
-  entries.forEach(entry => {
+    <section class="team-section" id="team" aria-labelledby="team-title">
 
-    if(entry.isIntersecting){
+      <div class="team-intro">
+        <div class="section-label reveal">The Team</div>
 
-      entry.target.classList.add('visible');
-      revealObs.unobserve(entry.target);
+        <h2 class="section-title reveal" id="team-title">Meet the Team</h2>
 
-    }
+        <p class="section-desc reveal reveal-delay-1">
+          Two teenagers based in UAE, designing and building autonomous aircraft most professionals haven't attempted.
+        </p>
 
-  });
+        <div class="team-tag reveal reveal-delay-1">Youth-Led Aerospace Initiative</div>
+      </div>
 
-},{
-  threshold:0.15,
-  rootMargin:'0px 0px -80px 0px'
-});
+      <div class="team-grid">
 
-revealEls.forEach(el => revealObs.observe(el));
+        <!-- external profile links: open in new tab -->
+        <a href="https://www.linkedin.com/in/rithishdharanidharan" target="_blank" rel="noopener" class="team-card reveal">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/rit.jpg" alt="Rithish Dharanidharan, Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">RD</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Rithish Dharanidharan</div>
+          <div class="team-role">Founder</div>
+          <div class="team-desc">Leads overall UAV development and platform direction.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Flight Systems</span>
+            <span class="team-tag-chip">Aerospace</span>
+          </div>
+        </a>
 
-/* FLIGHT MEDIA TILT + GLARE */
-const flightMedia = document.getElementById('flightMedia');
-const flightGlare = document.getElementById('flightGlare');
-if(flightMedia && hasFinePointer){
-  flightMedia.addEventListener('mousemove', e => {
-    const r = flightMedia.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-    const dx = (x - r.width/2) / (r.width/2);
-    const dy = (y - r.height/2) / (r.height/2);
-    flightMedia.style.transform = `perspective(900px) rotateX(${-dy*5}deg) rotateY(${dx*5}deg) scale(1.015)`;
-    if(flightGlare) flightGlare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.12), transparent 60%)`;
-  });
-  flightMedia.addEventListener('mouseleave', () => {
-    flightMedia.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale(1)';
-    if(flightGlare) flightGlare.style.background = 'transparent';
-  });
-}
+        <a href="https://www.linkedin.com/in/meherab-hossain-mokter/" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/meh.jpg" alt="Meherab Hossain Mokter, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">MH</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Meherab Hossain Mokter</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-desc">Leads communications and assist development.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Communications</span>
+            <span class="team-tag-chip">Outreach</span>
+          </div>
+        </a>
 
-/* FLIGHT STATS: stagger-in + count-up */
-const flightStats = document.getElementById('flightStats');
-if(flightStats){
-  const flightObs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        flightStats.classList.add('visible');
-        flightStats.querySelectorAll('.flight-stat-num[data-count]').forEach(el => {
-          const target = parseFloat(el.dataset.count);
-          const suffix = el.dataset.suffix || '';
-          const prefix = el.dataset.prefix || '';
-          const dur = 900, start = performance.now();
-          function step(now){
-            const p = Math.min((now - start) / dur, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            el.textContent = prefix + Math.round(target * eased) + suffix;
-            if(p < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
+      </div>
+
+      <div class="team-past-toggle reveal" id="pastToggle">
+        <span>Original crew</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+
+      <div class="team-past-grid" id="pastGrid">
+
+        <p class="team-past-intro" style="grid-column:1/-1; text-align:center; font-size:14px; color:var(--white-40); line-height:1.6; max-width:480px; margin:0 auto 24px; font-family:var(--font-sans);">
+          The original crew behind Phantom's first build. Not with the project today, but always part of the story.
+        </p>
+
+        <a href="https://www.linkedin.com/in/mufeed-kakkidi-021368397/" target="_blank" rel="noopener" class="team-card-small">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/muf.jpg" alt="Mufeed Kakkidi, former AI Architect" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">MK</span>
+            </div>
+          </div>
+          <div class="team-name-small">Mufeed Kakkidi</div>
+          <div class="team-role-small">AI Architect</div>
+          <div class="team-desc-small">Built the software stack and helped train Mercury AI.</div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/ashwin-krishnakumar-074a973a7/" target="_blank" rel="noopener" class="team-card-small">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/ash.jpg" alt="Ashwin Krishnakumar, former Head Speaker" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">AK</span>
+            </div>
+          </div>
+          <div class="team-name-small">Ashwin Krishnakumar</div>
+          <div class="team-role-small">Head Speaker</div>
+          <div class="team-desc-small">Led presentations and pitched Phantom to judges and investors.</div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/devaj-shylesh-nair-1bb1493a5/" target="_blank" rel="noopener" class="team-card-small">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/dev.jpg" alt="Devaj Shylesh Nair, former Speaker & Dev" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">DN</span>
+            </div>
+          </div>
+          <div class="team-name-small">Devaj Shylesh Nair</div>
+          <div class="team-role-small">Speaker & Dev</div>
+          <div class="team-desc-small">Spoke on stage and assisted with platform development.</div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/roopesh-kr-build/" target="_blank" rel="noopener" class="team-card-small">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/roo.png" alt="Roopesh Kr, former Outreach & Research" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">RK</span>
+            </div>
+          </div>
+          <div class="team-name-small">Roopesh Kr</div>
+          <div class="team-role-small">Outreach & Research</div>
+          <div class="team-desc-small">Connected us with partners and helped draft the thesis.</div>
+        </a>
+
+      </div>
+
+      <section id="backing" aria-labelledby="backing-title">
+
+        <div class="backing-layout">
+
+          <div class="backing-content">
+
+            <div class="section-label reveal">Backed By</div>
+
+            <h2 class="section-title reveal" id="backing-title">Funded &amp; Backed by Unipreneur Inc.</h2>
+
+            <p class="section-desc reveal reveal-delay-1">
+              Project Phantom is proud to be funded and backed by Unipreneur Inc.,
+              the UAE's leading youth entrepreneurship and innovation platform,
+              empowering young founders aged 15–30 to turn ambitious ideas into
+              industry-grade ventures.
+            </p>
+
+            <p class="section-desc reveal reveal-delay-2" style="margin-top:20px;">
+              This partnership marks a defining step for Phantom, moving us from
+              prototype to a scalable, deep-tech aerospace platform. We're deeply
+              grateful to Mohammed Mukhtar (CEO, Unipreneur) and Reem AlMusabbah
+              (Co-Founder, Unipreneur) for believing in our vision and giving us
+              the platform to build at the level this project deserves.
+            </p>
+
+            <div class="strategic-ops-actions backing-actions" style="margin-top:40px;">
+              <!-- external links: open in new tab -->
+              <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="btn-secondary">
+                Visit Unipreneur Inc
+              </a>
+              <a href="https://www.linkedin.com/posts/mohammedmukhtarj_dubaiit-share-7485697531440435200-HURC/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGBAxMgBcZF9B4uP7fpV_qOoPytKNPcIiYQ" target="_blank" rel="noopener" class="btn-primary">
+                See the Announcement
+              </a>
+            </div>
+
+          </div>
+
+          <div class="backing-visual reveal reveal-delay-1">
+            <div class="backing-logo-glow"></div>
+            <img src="assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" width="2000" height="2000" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
+          </div>
+
+        </div>
+
+      </section>
+    </section>
+
+    <section class="join-section" id="join" aria-labelledby="join-title">
+      <div class="join-content">
+        <div class="join-label">Join Us</div>
+        <h2 class="join-title" id="join-title">Wanna be a part of Phantom?</h2>
+        <p class="join-desc">We're always looking for passionate builders, thinkers, and operators to help push autonomous flight forward.</p>
+        <!-- external link: opens in new tab (Google Form) -->
+        <a href="https://forms.gle/gHDMvFZ5h9i4fhd97" target="_blank" rel="noopener" class="join-btn">
+          <span>Apply Now</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="strategic-ops-section" id="contact" aria-labelledby="contact-title">
+      <div class="strategic-ops-container">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title" id="contact-title">LET'S CONNECT</h2>
+        <p class="section-desc" style="margin:0 auto;">
+          Have a question, an idea, or just want to know more about Phantom?
+          Whether it's a technical doubt, a collaboration idea, or you just
+          want to say hi, we'd love to hear from you. Shoot us a message,
+          we're always happy to help.
+        </p>
+        <div class="strategic-ops-actions">
+
+          <!-- external links: open in new tab -->
+          <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="btn-secondary" aria-label="LinkedIn" style="display:flex; align-items:center; gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            LinkedIn
+          </a>
+
+          <a href="https://x.com/PhantomUAV" target="_blank" rel="noopener" class="btn-secondary" aria-label="X" style="display:flex; align-items:center; gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.2l-5.6-6.9L4 22H1l8.2-9.3L0.8 2h7.4l5 6.2L18.9 2zm-1.3 18h2L6.5 4h-2l13.1 16z"/></svg>
+            X
+          </a>
+
+          <a href="https://www.youtube.com/@projectphantomuav" target="_blank" rel="noopener" class="btn-secondary" aria-label="YouTube" style="display:flex; align-items:center; gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z"/></svg>
+            YouTube
+          </a>
+
+          <a href="https://www.instagram.com/projectphantom.ae/" target="_blank" rel="noopener" class="btn-secondary" aria-label="Instagram" style="display:flex; align-items:center; gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 5 5 .06 1.3.07 1.6.07 4.8s0 3.5-.07 4.8c-.15 3.3-1.7 4.8-5 5-1.3.06-1.6.07-4.9.07s-3.6 0-4.9-.07c-3.3-.15-4.8-1.7-5-5-.06-1.3-.07-1.6-.07-4.8s0-3.5.07-4.8c.15-3.3 1.7-4.8 5-5C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-2.5.11-3.5 1.1-3.6 3.6C3.6 8.7 3.6 9.05 3.6 12s0 3.3.06 4.35c.1 2.5 1.1 3.5 3.6 3.6C8.5 20 8.85 20 12 20s3.5 0 4.75-.06c2.5-.1 3.5-1.1 3.6-3.6.06-1.05.06-1.4.06-4.35s0-3.3-.06-4.35c-.1-2.5-1.1-3.5-3.6-3.6C15.5 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zm5.8-2a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0z"/></svg>
+            Instagram
+          </a>
+
+          <!-- email: internal (mailto:) same tab -->
+          <a href="mailto:rithishwork@gmail.com" class="btn-primary" style="display:flex; align-items:center; gap:8px;">
+            Email Us
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (() => {
+
+      const curDot = document.getElementById('cur-dot');
+      const curRing = document.getElementById('cur-ring');
+
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      if (hasFinePointer) {
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        document.addEventListener('mousemove', e => {
+
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          curDot.style.transform =
+            `translate3d(${mouseX}px,${mouseY}px,0) translate(-50%,-50%)`;
+
         });
-        flightObs.disconnect();
+
+        function animateCursor() {
+
+          ringX += (mouseX - ringX) * 0.15;
+          ringY += (mouseY - ringY) * 0.15;
+
+          curRing.style.transform =
+            `translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%)`;
+
+          requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        document.querySelectorAll('a,button').forEach(el => {
+
+          el.addEventListener('mouseenter', () => {
+            curRing.classList.add('active');
+          });
+
+          el.addEventListener('mouseleave', () => {
+            curRing.classList.remove('active');
+          });
+
+        });
+
       }
-    });
-  }, {threshold: 0.4});
-  flightObs.observe(flightStats);
-}
 
-const depthSection = document.getElementById('depthSection');
-const depthLine = document.getElementById('dl1');
+      /* Scroll progress bar */
+      const progressBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight * 100) : 0;
+        progressBar.style.width = pct + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(pct));
+      }, { passive: true });
 
-let scrollPos = 0;
+      const items = [
+        'Modular Core',
+        'Configurable Wings',
+        'Solar Electric',
+        'Single-Engine VTOL',
+        'Youth-Led',
+        'UAE Origin'
+      ];
 
-window.addEventListener('scroll', () => {
-  scrollPos = window.scrollY;
-},{ passive:true });
+      const mi = document.getElementById('marqueeInner');
 
-function animate(){
+      mi.innerHTML =
+        [...items, ...items, ...items]
+        .map(i =>
+          `<span class="marquee-item">
+            <span class="marquee-dot"></span>${i}
+          </span>`
+        ).join('');
 
-  document
-    .getElementById('mainNav')
-    .classList.toggle('scrolled', scrollPos > 60);
+      const revealEls = document.querySelectorAll('.reveal');
 
-  const pt1 = document.getElementById('parallaxText1');
-  const pt2 = document.getElementById('parallaxText2');
-  const pt3 = document.getElementById('parallaxText3');
+      const revealObs = new IntersectionObserver((entries) => {
 
-  if(pt1){
-    pt1.style.transform =
-      `translate3d(${-scrollPos * .08}px,0,0)`;
-  }
+        entries.forEach(entry => {
 
-  if(pt2){
-    pt2.style.transform =
-      `translate3d(${scrollPos * .06}px,0,0)`;
-  }
+          if (entry.isIntersecting) {
 
-  if(pt3){
-    pt3.style.transform =
-      `translate3d(${-scrollPos * .05}px,0,0)`;
-  }
+            entry.target.classList.add('visible');
+            revealObs.unobserve(entry.target);
 
-  if(depthSection && depthLine){
+          }
 
-    const rect = depthSection.getBoundingClientRect();
-    const scrollable = rect.height - window.innerHeight;
+        });
 
-    const progress =
-      Math.min(
-        Math.max(
-          (-rect.top) / (scrollable > 0 ? scrollable : 1),
-          0
-        ),
-        1
-      );
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -80px 0px'
+      });
 
-    let opacity;
-    if(progress < .25) opacity = progress / .25;
-    else if(progress > .75) opacity = (1 - progress) / .25;
-    else opacity = 1;
+      revealEls.forEach(el => revealObs.observe(el));
 
-    const z = -250 + (progress * 250);
-    const scale = .8 + (progress * .2);
+      /* FLIGHT MEDIA TILT + GLARE */
+      const flightMedia = document.getElementById('flightMedia');
+      const flightGlare = document.getElementById('flightGlare');
+      if (flightMedia && hasFinePointer) {
+        flightMedia.addEventListener('mousemove', e => {
+          const r = flightMedia.getBoundingClientRect();
+          const x = e.clientX - r.left;
+          const y = e.clientY - r.top;
+          const dx = (x - r.width / 2) / (r.width / 2);
+          const dy = (y - r.height / 2) / (r.height / 2);
+          flightMedia.style.transform =
+            `perspective(900px) rotateX(${-dy * 5}deg) rotateY(${dx * 5}deg) scale(1.015)`;
+          if (flightGlare) flightGlare.style.background =
+            `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.12), transparent 60%)`;
+        });
+        flightMedia.addEventListener('mouseleave', () => {
+          flightMedia.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale(1)';
+          if (flightGlare) flightGlare.style.background = 'transparent';
+        });
+      }
 
-    depthLine.style.opacity = opacity;
+      /* FLIGHT STATS: stagger-in + count-up */
+      const flightStats = document.getElementById('flightStats');
+      if (flightStats) {
+        const flightObs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              flightStats.classList.add('visible');
+              flightStats.querySelectorAll('.flight-stat-num[data-count]').forEach(el => {
+                const target = parseFloat(el.dataset.count);
+                const suffix = el.dataset.suffix || '';
+                const prefix = el.dataset.prefix || '';
+                const dur = 900,
+                  start = performance.now();
 
-    depthLine.style.transform =
-      `translate3d(0,0,${z}px) scale(${scale})`;
+                function step(now) {
+                  const p = Math.min((now - start) / dur, 1);
+                  const eased = 1 - Math.pow(1 - p, 3);
+                  el.textContent = prefix + Math.round(target * eased) + suffix;
+                  if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+              });
+              flightObs.disconnect();
+            }
+          });
+        }, { threshold: 0.4 });
+        flightObs.observe(flightStats);
+      }
 
-  }
+      const depthSection = document.getElementById('depthSection');
+      const depthLine = document.getElementById('dl1');
 
-  requestAnimationFrame(animate);
-}
+      let scrollPos = 0;
 
-animate();
+      window.addEventListener('scroll', () => {
+        scrollPos = window.scrollY;
+      }, { passive: true });
 
-/* PAST TEAM TOGGLE */
-const pastToggle = document.getElementById('pastToggle');
-const pastGrid = document.getElementById('pastGrid');
-if(pastToggle && pastGrid){
-  pastToggle.addEventListener('click', () => {
-    pastToggle.classList.toggle('open');
-    pastGrid.classList.toggle('visible');
-  });
-}
+      function animate() {
 
-})();
-</script>
+        document
+          .getElementById('mainNav')
+          .classList.toggle('scrolled', scrollPos > 60);
+
+        const pt1 = document.getElementById('parallaxText1');
+        const pt2 = document.getElementById('parallaxText2');
+        const pt3 = document.getElementById('parallaxText3');
+
+        if (pt1) {
+          pt1.style.transform =
+            `translate3d(${-scrollPos * .08}px,0,0)`;
+        }
+
+        if (pt2) {
+          pt2.style.transform =
+            `translate3d(${scrollPos * .06}px,0,0)`;
+        }
+
+        if (pt3) {
+          pt3.style.transform =
+            `translate3d(${-scrollPos * .05}px,0,0)`;
+        }
+
+        if (depthSection && depthLine) {
+
+          const rect = depthSection.getBoundingClientRect();
+          const scrollable = rect.height - window.innerHeight;
+
+          const progress =
+            Math.min(
+              Math.max(
+                (-rect.top) / (scrollable > 0 ? scrollable : 1),
+                0
+              ),
+              1
+            );
+
+          let opacity;
+          if (progress < .25) opacity = progress / .25;
+          else if (progress > .75) opacity = (1 - progress) / .25;
+          else opacity = 1;
+
+          const z = -250 + (progress * 250);
+          const scale = .8 + (progress * .2);
+
+          depthLine.style.opacity = opacity;
+
+          depthLine.style.transform =
+            `translate3d(0,0,${z}px) scale(${scale})`;
+
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      /* PAST TEAM TOGGLE */
+      const pastToggle = document.getElementById('pastToggle');
+      const pastGrid = document.getElementById('pastGrid');
+      if (pastToggle && pastGrid) {
+        pastToggle.addEventListener('click', () => {
+          pastToggle.classList.toggle('open');
+          pastGrid.classList.toggle('visible');
+        });
+      }
+
+    })();
+  </script>
 </body>
 </html>
-  
