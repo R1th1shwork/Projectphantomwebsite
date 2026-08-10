@@ -5,18 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PHANTOM | Mercury AI</title>
 <meta name="description" content="Mercury AI — airborne cognitive system. Real-time 3D reconstruction, edge inference, swarm coordination and predictive environmental modeling, thinking at 30,000 feet.">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">  
-<link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#050505;--bg-1:#0a0a0a;--bg-2:#111111;
-    --border:rgba(255,255,255,0.07);--white:#fff;--white-80:rgba(255,255,255,0.8);
-    --white-50:rgba(255,255,255,0.5);--white-30:rgba(255,255,255,0.3);--white-20:rgba(255,255,255,0.2);
-    --white-10:rgba(255,255,255,0.1);--white-08:rgba(255,255,255,0.08);--white-04:rgba(255,255,255,0.04);
-    --accent:#DA7756;
-    --font-sans:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace;
-    --nav-h:68px;--alert-h:36px;
+  :root {
+    --bg: #050505;
+    --bg-1: #0a0a0a;
+    --bg-2: #111111;
+    --border: rgba(255,255,255,0.07);
+    --white: #fff;
+    --white-80: rgba(255,255,255,0.8);
+    --white-50: rgba(255,255,255,0.5);
+    --white-30: rgba(255,255,255,0.3);
+    --white-20: rgba(255,255,255,0.2);
+    --white-10: rgba(255,255,255,0.1);
+    --white-08: rgba(255,255,255,0.08);
+    --white-04: rgba(255,255,255,0.04);
+    --accent: #DA7756;
+    --font-sans: 'Space Grotesk', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --nav-h: 68px;
+    --alert-h: 36px;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;overflow-x:hidden;}
@@ -24,7 +35,7 @@
 
   @media (hover: none), (pointer: coarse) {
     body{ cursor:auto; }
-    #cur-dot, #cur-ring{ display:none; }
+    #cur-dot, #cur-ring{ display:none !important; }
   }
   #cur-dot { position:fixed; top:0; left:0; z-index:9999; pointer-events:none; mix-blend-mode:difference; width:8px; height:8px; background:#fff; border-radius:50%; transform:translate(-50%,-50%); transition:transform 0.1s; }
   #cur-ring { position:fixed; top:0; left:0; z-index:9998; pointer-events:none; mix-blend-mode:difference; width:36px; height:36px; border:1px solid rgba(255,255,255,0.6); border-radius:50%; transform:translate(-50%,-50%); transition:width 0.2s, height 0.2s, border-color 0.2s; }
@@ -51,9 +62,9 @@
   .nav-cta{background:var(--white);color:var(--bg);padding:10px 24px;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
   .nav-cta:hover{background:var(--white-80);}
 
-  /* Three.js globe behind content */
-  #aiGlobe { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:1; transition:opacity 1.4s ease; }
-  body.ready #aiGlobe { opacity:1; }
+  /* WebGL canvas behind content */
+  #webgl{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:1;transition:opacity 1.4s ease;pointer-events:none;}
+  body.ready #webgl{opacity:1;}
 
   main{position:relative;z-index:2;}
 
@@ -74,7 +85,6 @@
   .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
   .reveal.visible{opacity:1;transform:none;}
   .reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
-  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;transition:none;} }
 
   .metrics-strip{display:flex;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
   .metric-item{flex:1;background:var(--bg-1);padding:36px 32px;text-align:center;}
@@ -99,7 +109,7 @@
   .arch-layer-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--border);color:var(--white-40);text-align:center;}
 
   .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-top:60px;border:1px solid var(--border);}
-  .pipe-step{background:var(--bg-1);padding:26px 18px;position:relative;text-align:center;transition:background .3s,transform .15s ease-out;transform:perspective(700px) rotateX(0) rotateY(0);}
+  .pipe-step{background:var(--bg-1);padding:26px 18px;position:relative;text-align:center;transition:background .3s;}
   .pipe-step:hover{background:var(--bg-2);}
   .pipe-name{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--white-40);margin-bottom:8px;}
   .pipe-detail{font-size:12px;color:var(--white-40);line-height:1.5;}
@@ -157,11 +167,9 @@
   .join-section::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
+    width: 500px; height: 500px;
     background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
     pointer-events: none; z-index: 0;
   }
@@ -201,9 +209,7 @@
   footer a:hover{color:var(--white);}
   .footer-links{display:flex;gap:32px;}
 
-  @media(max-width:1100px) and (min-width:901px){
-    .pipeline{grid-template-columns:repeat(3,1fr);}
-  }
+  @media(max-width:1100px) and (min-width:901px){ .pipeline{grid-template-columns:repeat(3,1fr);} }
   @media(max-width:900px){
     nav{padding:16px 24px;}.nav-links{display:none;}
     section{padding:60px 24px;}
@@ -217,13 +223,14 @@
     nav{position:static;}
     section[id]{scroll-margin-top:16px;}
     .join-section { padding: 80px 24px; }
+    .arch-layer{grid-template-columns:1fr;gap:12px;}
+    .arch-layer-hz{font-size:16px;}
   }
 </style>
 </head>
 <body>
 
 <div id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-<canvas id="aiGlobe"></canvas>
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
 
@@ -244,15 +251,17 @@
   <a href="deployment" class="nav-cta">Deployment</a>
 </nav>
 
+<canvas id="webgl"></canvas>
+
 <main>
 
 <div class="page-hero">
   <div class="page-hero-label">Intelligence Layer</div>
   <h1>MERCURY AI</h1>
   <p class="page-hero-desc">
-    The system that turns what Phantom sees into something a person can act on. Right now it runs
-    on recorded footage after a flight. The goal is to get it running live, in the air, on the
-    aircraft itself.
+    From post-flight analysis engine to airborne cognitive system. Real-time 3D reconstruction,
+    edge inference, swarm coordination and predictive environmental modeling — thinking at
+    thirty thousand feet.
   </p>
 </div>
 
@@ -595,48 +604,62 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script type="importmap">
-{"imports":{"three":"https://unpkg.com/three@0.161.0/build/three.module.js"}}
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
+  }
+}
 </script>
 <script type="module">
 import * as THREE from 'three';
-import { gsap } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
-import { ScrollTrigger } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
-// ---- Cursor & scroll progress (same as before) ----
+// ---- CURSOR ----
 (() => {
   const hasFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if(hasFine){
-    const dot = document.getElementById('cur-dot'), ring = document.getElementById('cur-ring');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-    (function anim(){
-      dot.style.left=mx+'px'; dot.style.top=my+'px';
-      rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
-      ring.style.left=rx+'px'; ring.style.top=ry+'px';
-      requestAnimationFrame(anim);
-    })();
-    document.querySelectorAll('a,button,.metric-item,.feat-cell,.pipe-step,.arch-layer,.roadmap-phase,.swarm-viz').forEach(el => {
-      el.addEventListener('mouseenter', () => ring.classList.add('active'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('active'));
-    });
-  }
+  if (!hasFine) return;
+  const dot = document.getElementById('cur-dot');
+  const ring = document.getElementById('cur-ring');
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let rx = mx, ry = my;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function anim() {
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(anim);
+  })();
+  document.querySelectorAll('a,button,.metric-item,.feat-cell,.pipe-step,.arch-layer,.roadmap-phase,.swarm-viz,.section-label').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('active'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('active'));
+  });
+})();
 
+// ---- SCROLL PROGRESS ----
+(() => {
   const prog = document.getElementById('scroll-progress');
   window.addEventListener('scroll', () => {
     const top = window.scrollY;
     const h = document.documentElement.scrollHeight - window.innerHeight;
-    prog.style.width = (h > 0 ? (top / h * 100) : 0) + '%';
-    prog.setAttribute('aria-valuenow', Math.round(h > 0 ? (top / h * 100) : 0));
-  }, {passive:true});
-
-  // Reveal
-  const rev = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('visible'); }), {threshold:0.08});
-  rev.forEach(el => obs.observe(el));
+    const pct = h > 0 ? (top / h * 100) : 0;
+    prog.style.width = pct + '%';
+    prog.setAttribute('aria-valuenow', Math.round(pct));
+  }, { passive: true });
 })();
 
-// ---- THREE.JS GLOBE ----
-const canvas = document.getElementById('aiGlobe');
+// ---- REVEAL ----
+(() => {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(e => {
+    e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  els.forEach(el => obs.observe(el));
+})();
+
+// ---- THREE.JS SWARM GLOBE ----
+const canvas = document.getElementById('webgl');
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -646,11 +669,15 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 30);
 camera.position.set(0, 0, 7);
 
-const N = window.innerWidth < 700 ? 350 : 1500;
+const isMobile = window.innerWidth < 700;
+const N = isMobile ? 350 : 1500;
 const R = 2.8;
-const points = new Float32Array(N * 3);
-const base = new Float32Array(N * 3);
-const vel = new Float32Array(N * 3);
+
+// Particles
+const positions = new Float32Array(N * 3);
+const basePos = new Float32Array(N * 3);
+const velocities = new Float32Array(N * 3);
+
 const gold = Math.PI * (3 - Math.sqrt(5));
 for (let i = 0; i < N; i++) {
   const y = 1 - (i / (N - 1)) * 2;
@@ -660,33 +687,42 @@ for (let i = 0; i < N; i++) {
   const x = Math.cos(th) * r * R * jit;
   const yy = y * R * jit;
   const z = Math.sin(th) * r * R * jit;
-  base[i*3] = x; base[i*3+1] = yy; base[i*3+2] = z;
-  points[i*3] = x; points[i*3+1] = yy; points[i*3+2] = z;
+  basePos[i*3] = x;
+  basePos[i*3+1] = yy;
+  basePos[i*3+2] = z;
+  positions[i*3] = x;
+  positions[i*3+1] = yy;
+  positions[i*3+2] = z;
 }
+
 const geom = new THREE.BufferGeometry();
-geom.setAttribute('position', new THREE.BufferAttribute(points, 3));
+geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
 const mat = new THREE.PointsMaterial({
   color: 0xffffff,
-  size: window.innerWidth < 700 ? 0.06 : 0.04,
+  size: isMobile ? 0.06 : 0.04,
   sizeAttenuation: true,
   transparent: true,
   opacity: 0.85,
   blending: THREE.AdditiveBlending,
   depthWrite: false,
 });
-const particleSystem = new THREE.Points(geom, mat);
-scene.add(particleSystem);
+
+const particles = new THREE.Points(geom, mat);
+scene.add(particles);
 
 // Links
 let linkPairs = [];
-if (window.innerWidth >= 700) {
+if (!isMobile) {
   for (let i = 0; i < N; i++) {
-    const b1 = Infinity, b2 = Infinity;
+    let b1 = Infinity, b2 = Infinity;
     let j1 = -1, j2 = -1;
-    const ix = base[i*3], iy = base[i*3+1], iz = base[i*3+2];
+    const ix = basePos[i*3], iy = basePos[i*3+1], iz = basePos[i*3+2];
     for (let j = 0; j < N; j++) {
       if (i === j) continue;
-      const dx = ix - base[j*3], dy = iy - base[j*3+1], dz = iz - base[j*3+2];
+      const dx = ix - basePos[j*3];
+      const dy = iy - basePos[j*3+1];
+      const dz = iz - basePos[j*3+2];
       const d = dx*dx + dy*dy + dz*dz;
       if (d < b1) { b2 = b1; j2 = j1; b1 = d; j1 = j; }
       else if (d < b2) { b2 = d; j2 = j; }
@@ -695,14 +731,24 @@ if (window.innerWidth >= 700) {
     if (j2 > i) linkPairs.push([i, j2]);
   }
 }
-let linePos = null, lineGeom = null, lineMat = null, lineSegments = null;
+
+let lineSegments = null;
 if (linkPairs.length) {
-  linePos = new Float32Array(linkPairs.length * 2 * 3);
-  lineGeom = new THREE.BufferGeometry();
+  const linePos = new Float32Array(linkPairs.length * 2 * 3);
+  const lineGeom = new THREE.BufferGeometry();
   lineGeom.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
-  lineMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false });
+  const lineMat = new THREE.LineBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.12,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
   lineSegments = new THREE.LineSegments(lineGeom, lineMat);
   scene.add(lineSegments);
+
+  // Store for update
+  lineSegments.userData.linePos = linePos;
 }
 
 // Core glow
@@ -712,15 +758,20 @@ const core = new THREE.Mesh(
 );
 scene.add(core);
 
-// Interaction (drag + inertia)
-let rotY = 0, rotX = 0, targetRotY = 0, targetRotX = 0;
+// Rotation state
+let rotY = 0, rotX = 0;
+let targetRotY = 0, targetRotX = 0;
 let vx = 0, vy = 0;
-let isDragging = false, prevX = 0, prevY = 0;
+let isDragging = false;
+let prevX = 0, prevY = 0;
 const speed = 0.006;
 const damp = 0.09;
 let autoRotate = 0.003;
 
-const onPointerDown = (e) => {
+// Drag events on canvas only
+canvas.style.pointerEvents = 'auto';
+
+canvas.addEventListener('pointerdown', (e) => {
   if (e.target.closest && e.target.closest('a,button,input,textarea,.swarm-viz,.metric-item,.feat-cell,.pipe-step,.arch-layer,.roadmap-phase')) return;
   isDragging = true;
   prevX = e.clientX;
@@ -728,8 +779,9 @@ const onPointerDown = (e) => {
   document.body.classList.add('grabbing');
   const ring = document.getElementById('cur-ring');
   if (ring) ring.classList.add('grab');
-};
-const onPointerMove = (e) => {
+});
+
+document.addEventListener('pointermove', (e) => {
   if (isDragging) {
     const dx = e.clientX - prevX;
     const dy = e.clientY - prevY;
@@ -741,18 +793,23 @@ const onPointerMove = (e) => {
     prevX = e.clientX;
     prevY = e.clientY;
   }
-};
-const onPointerUp = () => {
+});
+
+document.addEventListener('pointerup', () => {
+  if (isDragging) {
+    isDragging = false;
+    document.body.classList.remove('grabbing');
+    const ring = document.getElementById('cur-ring');
+    if (ring) ring.classList.remove('grab');
+  }
+});
+
+document.addEventListener('pointercancel', () => {
   isDragging = false;
   document.body.classList.remove('grabbing');
   const ring = document.getElementById('cur-ring');
   if (ring) ring.classList.remove('grab');
-};
-
-canvas.addEventListener('pointerdown', onPointerDown);
-document.addEventListener('pointermove', onPointerMove);
-document.addEventListener('pointerup', onPointerUp);
-document.addEventListener('pointercancel', onPointerUp);
+});
 
 // Resize
 window.addEventListener('resize', () => {
@@ -760,7 +817,7 @@ window.addEventListener('resize', () => {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   renderer.setSize(w, h);
-}, {passive:true});
+}, { passive: true });
 
 // Animation loop
 const clock = new THREE.Clock();
@@ -769,6 +826,7 @@ function animate() {
   const dt = Math.min(clock.getDelta(), 0.05);
   const time = clock.getElapsedTime();
 
+  // Rotation with inertia
   if (!isDragging) {
     targetRotY += vx;
     targetRotX += vy;
@@ -777,42 +835,41 @@ function animate() {
     if (Math.abs(vx) < 0.0001) vx = 0;
     if (Math.abs(vy) < 0.0001) vy = 0;
     targetRotX = Math.max(-0.8, Math.min(0.8, targetRotX));
-    // auto-rotate
-    autoRotate = 0.003;
     targetRotY += autoRotate * dt * 60;
   }
 
   rotY += (targetRotY - rotY) * damp;
   rotX += (targetRotX - rotX) * damp;
 
-  // Update particle positions (spring)
-  const K = 0.022, DAMP = 0.86, PUSH = 0.6, R_AT = 1.7;
+  // Physics
+  const K = 0.022, DAMP = 0.86;
   for (let i = 0; i < N; i++) {
     const i3 = i * 3;
-    let fx = (base[i3] - points[i3]) * K;
-    let fy = (base[i3+1] - points[i3+1]) * K;
-    let fz = (base[i3+2] - points[i3+2]) * K;
-    // no mouse attractor in this version (we keep it simple)
-    vel[i3] = (vel[i3] + fx) * DAMP;
-    vel[i3+1] = (vel[i3+1] + fy) * DAMP;
-    vel[i3+2] = (vel[i3+2] + fz) * DAMP;
-    points[i3] += vel[i3];
-    points[i3+1] += vel[i3+1];
-    points[i3+2] += vel[i3+2];
+    const fx = (basePos[i3] - positions[i3]) * K;
+    const fy = (basePos[i3+1] - positions[i3+1]) * K;
+    const fz = (basePos[i3+2] - positions[i3+2]) * K;
+    velocities[i3] = (velocities[i3] + fx) * DAMP;
+    velocities[i3+1] = (velocities[i3+1] + fy) * DAMP;
+    velocities[i3+2] = (velocities[i3+2] + fz) * DAMP;
+    positions[i3] += velocities[i3];
+    positions[i3+1] += velocities[i3+1];
+    positions[i3+2] += velocities[i3+2];
   }
-  particleSystem.geometry.attributes.position.needsUpdate = true;
+  particles.geometry.attributes.position.needsUpdate = true;
 
   // Update links
   if (lineSegments) {
+    const lp = lineSegments.userData.linePos;
     for (let l = 0; l < linkPairs.length; l++) {
-      const a = linkPairs[l][0] * 3, b = linkPairs[l][1] * 3;
+      const a = linkPairs[l][0] * 3;
+      const b = linkPairs[l][1] * 3;
       const o = l * 6;
-      linePos[o] = points[a];
-      linePos[o+1] = points[a+1];
-      linePos[o+2] = points[a+2];
-      linePos[o+3] = points[b];
-      linePos[o+4] = points[b+1];
-      linePos[o+5] = points[b+2];
+      lp[o] = positions[a];
+      lp[o+1] = positions[a+1];
+      lp[o+2] = positions[a+2];
+      lp[o+3] = positions[b];
+      lp[o+4] = positions[b+1];
+      lp[o+5] = positions[b+2];
     }
     lineSegments.geometry.attributes.position.needsUpdate = true;
   }
@@ -821,30 +878,36 @@ function animate() {
   const s = 1 + Math.sin(time * 2.2) * 0.08;
   core.scale.setScalar(s);
 
-  // Apply rotation to the whole group
-  const group = new THREE.Group();
-  group.add(particleSystem);
-  if (lineSegments) group.add(lineSegments);
-  group.add(core);
-  // Actually we need to rotate all objects individually because group is not in scene
-  particleSystem.rotation.y = rotY;
-  particleSystem.rotation.x = rotX;
-  if (lineSegments) { lineSegments.rotation.y = rotY; lineSegments.rotation.x = rotX; }
+  // Apply rotation
+  particles.rotation.y = rotY;
+  particles.rotation.x = rotX;
+  if (lineSegments) {
+    lineSegments.rotation.y = rotY;
+    lineSegments.rotation.x = rotX;
+  }
   core.rotation.y = rotY;
   core.rotation.x = rotX;
 
-  // Camera slightly looks at center
   camera.lookAt(0, 0, 0);
-
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
 
 animate();
 
-// Fade in after a moment
+// Fade in
 document.body.classList.add('ready');
 
+// Scroll-triggered fade for globe (subtle)
+const hero = document.querySelector('.page-hero');
+if (hero) {
+  window.addEventListener('scroll', () => {
+    const heroH = hero.offsetHeight;
+    const scrolled = window.scrollY;
+    const fade = 1 - Math.min(scrolled / heroH, 0.85);
+    canvas.style.opacity = Math.max(fade, 0.15);
+  }, { passive: true });
+}
 </script>
 </body>
 </html>
