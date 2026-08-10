@@ -313,7 +313,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: .35em;
-      color: var(--white-50);
+      color: rgba(255, 255, 255, 0.7);
       margin-bottom: 28px;
       font-family: var(--font-mono);
     }
@@ -422,7 +422,7 @@
 
     .stat-label {
       font-size: 11px;
-      color: var(--white-50);
+      color: rgba(255, 255, 255, 0.7);
       text-transform: uppercase;
       letter-spacing: .15em;
     }
@@ -483,7 +483,7 @@
       font-size: 11px;
       letter-spacing: .3em;
       text-transform: uppercase;
-      color: var(--white-30);
+      color: rgba(255, 255, 255, 0.65);
       margin-bottom: 20px;
       font-family: var(--font-mono);
     }
@@ -557,7 +557,6 @@
       }
     }
 
-    /* FIX: improved contrast for marquee text (was #545454 / rgba(255,255,255,0.3) → now #b0b0b0 / rgba(255,255,255,0.65)) */
     .marquee-item {
       display: flex;
       align-items: center;
@@ -682,7 +681,7 @@
     }
 
     .config-region {
-      color: var(--white-30);
+      color: rgba(255, 255, 255, 0.55);
       margin-bottom: 16px;
       font-size: 12px;
     }
@@ -961,6 +960,7 @@
 
     .backing-logo {
       width: clamp(280px, 26vw, 420px);
+      height: auto; /* ensure aspect ratio preserved */
       position: relative;
       z-index: 2;
       filter: drop-shadow(0 0 50px rgba(244, 166, 66, .25));
@@ -1219,7 +1219,7 @@
 
     .flight-stat-label {
       font-size: 10px;
-      color: var(--white-40);
+      color: rgba(255, 255, 255, 0.6);
       text-transform: uppercase;
       letter-spacing: .1em;
     }
@@ -1588,27 +1588,19 @@
       }
     }
 
-    /* FIX: section-label contrast (was #545454 → now #b0b0b0) */
+    /* Additional contrast fixes */
     .section-label {
       color: rgba(255, 255, 255, 0.65);
     }
-
-    /* FIX: hero-eyebrow contrast (was rgba(255,255,255,0.5) → now rgba(255,255,255,0.7)) */
     .hero-eyebrow {
       color: rgba(255, 255, 255, 0.7);
     }
-
-    /* FIX: stat-label contrast (was rgba(255,255,255,0.5) → now rgba(255,255,255,0.7)) */
     .stat-label {
       color: rgba(255, 255, 255, 0.7);
     }
-
-    /* FIX: flight-stat-label contrast (was rgba(255,255,255,0.4) → now rgba(255,255,255,0.6)) */
     .flight-stat-label {
       color: rgba(255, 255, 255, 0.6);
     }
-
-    /* FIX: config-region contrast (was rgba(255,255,255,0.3) → now rgba(255,255,255,0.55)) */
     .config-region {
       color: rgba(255, 255, 255, 0.55);
     }
@@ -1643,7 +1635,6 @@
     </ul>
   </nav>
 
-  <!-- MAIN landmark (fixes accessibility) -->
   <main>
 
     <section class="hero" aria-labelledby="hero-title">
@@ -2061,7 +2052,8 @@
 
           <div class="backing-visual reveal reveal-delay-1">
             <div class="backing-logo-glow"></div>
-            <img src="assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" width="2000" height="2000" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
+            <!-- FIX: removed width/height attributes to prevent stretching -->
+            <img src="assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
           </div>
 
         </div>
