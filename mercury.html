@@ -62,9 +62,13 @@
   .nav-cta{background:var(--white);color:var(--bg);padding:10px 24px;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
   .nav-cta:hover{background:var(--white-80);}
 
-  /* WebGL canvas behind content */
-  #webgl{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:1;transition:opacity 1.4s ease;pointer-events:none;}
-  body.ready #webgl{opacity:1;}
+  /* WebGL canvas behind content — reduced opacity & blend */
+  #webgl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:auto;opacity:0.6;transition:opacity 1.4s ease;mix-blend-mode:screen;}
+  body.ready #webgl{opacity:0.6;}
+  body.grabbing{cursor:grabbing;}
+
+  /* Dark overlay to reduce globe brightness for readability */
+  #globe-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center, transparent 40%, rgba(5,5,5,0.7) 100%);}
 
   main{position:relative;z-index:2;}
 
@@ -252,6 +256,7 @@
 </nav>
 
 <canvas id="webgl"></canvas>
+<div id="globe-overlay"></div>
 
 <main>
 
@@ -606,14 +611,20 @@
 <script type="importmap">
 {
   "imports": {
-    "three": "https://unpkg.com/three@0.161.0/build/three.module.js"
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
   }
 }
 </script>
 <script type="module">
 import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-// ---- CURSOR ----
+// ---- CURSOR (kept from original) ----
 (() => {
   const hasFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!hasFine) return;
@@ -649,7 +660,7 @@ import * as THREE from 'three';
   }, { passive: true });
 })();
 
-// ---- REVEAL ----
+// ---- REVEAL (IntersectionObserver) ----
 (() => {
   const els = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(e => {
@@ -658,12 +669,14 @@ import * as THREE from 'three';
   els.forEach(el => obs.observe(el));
 })();
 
-// ---- THREE.JS SWARM GLOBE ----
+// ---- THREE.JS SWARM GLOBE with Bloom & Grain ----
 const canvas = document.getElementById('webgl');
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x000000, 0);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 30);
@@ -700,10 +713,10 @@ geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
 const mat = new THREE.PointsMaterial({
   color: 0xffffff,
-  size: isMobile ? 0.06 : 0.04,
+  size: isMobile ? 0.07 : 0.05,
   sizeAttenuation: true,
   transparent: true,
-  opacity: 0.85,
+  opacity: 0.7,
   blending: THREE.AdditiveBlending,
   depthWrite: false,
 });
@@ -740,14 +753,12 @@ if (linkPairs.length) {
   const lineMat = new THREE.LineBasicMaterial({
     color: 0xffffff,
     transparent: true,
-    opacity: 0.12,
+    opacity: 0.15,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
   lineSegments = new THREE.LineSegments(lineGeom, lineMat);
   scene.add(lineSegments);
-
-  // Store for update
   lineSegments.userData.linePos = linePos;
 }
 
@@ -757,31 +768,109 @@ const core = new THREE.Mesh(
   new THREE.MeshBasicMaterial({ color: 0xffffff })
 );
 scene.add(core);
+const halo = new THREE.Mesh(
+  new THREE.IcosahedronGeometry(0.9, 1),
+  new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1, wireframe: true })
+);
+scene.add(halo);
 
-// Rotation state
+// ---- Bloom & Grain ----
+const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
+
+// Bloom pass - strength 0.6, radius 0.4, threshold 0.1
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  0.6,  // strength
+  0.4,  // radius
+  0.1   // threshold
+);
+composer.addPass(bloomPass);
+
+// Grain shader (custom)
+const grainShader = {
+  uniforms: {
+    tDiffuse: { value: null },
+    uTime: { value: 0 },
+    uGrain: { value: 0.03 },
+    uVig: { value: 0.9 }
+  },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D tDiffuse;
+    uniform float uTime;
+    uniform float uGrain;
+    uniform float uVig;
+    varying vec2 vUv;
+
+    float rand(vec2 c) {
+      return fract(sin(dot(c, vec2(12.9898, 78.233))) * 43758.5453);
+    }
+
+    void main() {
+      vec4 col = texture2D(tDiffuse, vUv);
+      // Grain
+      float grain = (rand(vUv * uTime) - 0.5) * uGrain;
+      col.rgb += grain;
+      // Vignette (subtle)
+      vec2 q = vUv - 0.5;
+      float vig = smoothstep(0.95, uVig * 0.35, length(q));
+      col.rgb *= mix(0.65, 1.0, vig);
+      gl_FragColor = col;
+    }
+  `
+};
+const grainPass = new ShaderPass(grainShader);
+composer.addPass(grainPass);
+composer.addPass(new OutputPass());
+
+// ---- Resize ----
+window.addEventListener('resize', () => {
+  const w = window.innerWidth, h = window.innerHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+  composer.setSize(w, h);
+}, { passive: true });
+
+// ---- Drag / Cursor Interaction (highly reactive) ----
+canvas.style.pointerEvents = 'auto';
 let rotY = 0, rotX = 0;
 let targetRotY = 0, targetRotX = 0;
 let vx = 0, vy = 0;
 let isDragging = false;
 let prevX = 0, prevY = 0;
-const speed = 0.006;
+const speed = 0.008;         // faster rotation
 const damp = 0.09;
 let autoRotate = 0.003;
 
-// Drag events on canvas only
-canvas.style.pointerEvents = 'auto';
+// Attractor for particles (cursor push)
+let attractorPos = new THREE.Vector3(0,0,0);
+let attractorActive = false;
 
 canvas.addEventListener('pointerdown', (e) => {
   if (e.target.closest && e.target.closest('a,button,input,textarea,.swarm-viz,.metric-item,.feat-cell,.pipe-step,.arch-layer,.roadmap-phase')) return;
   isDragging = true;
-  prevX = e.clientX;
-  prevY = e.clientY;
+  prevX = e.clientX; prevY = e.clientY;
   document.body.classList.add('grabbing');
   const ring = document.getElementById('cur-ring');
   if (ring) ring.classList.add('grab');
 });
 
 document.addEventListener('pointermove', (e) => {
+  // Update attractor (world space approx)
+  const x = (e.clientX / window.innerWidth) * 2 - 1;
+  const y = -(e.clientY / window.innerHeight) * 2 + 1;
+  attractorPos.set(x * 2.5, y * 1.8, 0);
+  attractorActive = true;
+
   if (isDragging) {
     const dx = e.clientX - prevX;
     const dy = e.clientY - prevY;
@@ -805,28 +894,22 @@ document.addEventListener('pointerup', () => {
 });
 
 document.addEventListener('pointercancel', () => {
-  isDragging = false;
-  document.body.classList.remove('grabbing');
-  const ring = document.getElementById('cur-ring');
-  if (ring) ring.classList.remove('grab');
+  if (isDragging) {
+    isDragging = false;
+    document.body.classList.remove('grabbing');
+    const ring = document.getElementById('cur-ring');
+    if (ring) ring.classList.remove('grab');
+  }
 });
 
-// Resize
-window.addEventListener('resize', () => {
-  const w = window.innerWidth, h = window.innerHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-}, { passive: true });
-
-// Animation loop
+// ---- Animation ----
 const clock = new THREE.Clock();
 
 function animate() {
   const dt = Math.min(clock.getDelta(), 0.05);
   const time = clock.getElapsedTime();
 
-  // Rotation with inertia
+  // Rotation with inertia (faster response)
   if (!isDragging) {
     targetRotY += vx;
     targetRotX += vy;
@@ -837,17 +920,33 @@ function animate() {
     targetRotX = Math.max(-0.8, Math.min(0.8, targetRotX));
     targetRotY += autoRotate * dt * 60;
   }
-
   rotY += (targetRotY - rotY) * damp;
   rotX += (targetRotX - rotX) * damp;
 
-  // Physics
+  // ---- Physics with attractor ----
   const K = 0.022, DAMP = 0.86;
+  const pushStrength = 0.7;  // strong push
+  const pushRadius = 2.5;
   for (let i = 0; i < N; i++) {
     const i3 = i * 3;
-    const fx = (basePos[i3] - positions[i3]) * K;
-    const fy = (basePos[i3+1] - positions[i3+1]) * K;
-    const fz = (basePos[i3+2] - positions[i3+2]) * K;
+    let fx = (basePos[i3] - positions[i3]) * K;
+    let fy = (basePos[i3+1] - positions[i3+1]) * K;
+    let fz = (basePos[i3+2] - positions[i3+2]) * K;
+
+    // Attractor push
+    if (attractorActive) {
+      const dx = positions[i3] - attractorPos.x;
+      const dy = positions[i3+1] - attractorPos.y;
+      const dz = positions[i3+2] - attractorPos.z;
+      const d = Math.sqrt(dx*dx + dy*dy + dz*dz) + 0.001;
+      if (d < pushRadius) {
+        const force = pushStrength * (1 - d / pushRadius) / d;
+        fx += dx * force;
+        fy += dy * force;
+        fz += dz * force;
+      }
+    }
+
     velocities[i3] = (velocities[i3] + fx) * DAMP;
     velocities[i3+1] = (velocities[i3+1] + fy) * DAMP;
     velocities[i3+2] = (velocities[i3+2] + fz) * DAMP;
@@ -877,6 +976,7 @@ function animate() {
   // Core pulse
   const s = 1 + Math.sin(time * 2.2) * 0.08;
   core.scale.setScalar(s);
+  halo.rotation.y += dt * 0.3;
 
   // Apply rotation
   particles.rotation.y = rotY;
@@ -887,27 +987,66 @@ function animate() {
   }
   core.rotation.y = rotY;
   core.rotation.x = rotX;
+  halo.rotation.y += dt * 0.15;
 
   camera.lookAt(0, 0, 0);
-  renderer.render(scene, camera);
+
+  // Update grain time
+  grainPass.uniforms.uTime.value = time;
+
+  composer.render();
   requestAnimationFrame(animate);
 }
 
 animate();
 
-// Fade in
+// ---- Fade in ----
 document.body.classList.add('ready');
 
-// Scroll-triggered fade for globe (subtle)
+// ---- Scroll-triggered fade for globe ----
 const hero = document.querySelector('.page-hero');
 if (hero) {
   window.addEventListener('scroll', () => {
     const heroH = hero.offsetHeight;
     const scrolled = window.scrollY;
     const fade = 1 - Math.min(scrolled / heroH, 0.85);
-    canvas.style.opacity = Math.max(fade, 0.15);
+    canvas.style.opacity = Math.max(fade * 0.6, 0.15);
   }, { passive: true });
 }
+
+// ---- GSAP reveals & watermarks (kept from original) ----
+gsap.set('.hl', { yPercent: 115 });
+gsap.set('[data-rev]', { opacity: 0, y: 30 });
+
+const nav = document.getElementById('nav');
+ScrollTrigger.create({
+  start: 'top -60',
+  onUpdate: s => nav && nav.classList.toggle('scrolled', s.scroll() > 60)
+});
+
+gsap.utils.toArray('[data-rev]').forEach(el => {
+  if (el.closest('#ai-hero')) return;
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 86%', once: true }
+  });
+});
+
+// Hero intro
+const tl = gsap.timeline({ delay: 0.1 });
+tl.to('.hl', { yPercent: 0, duration: 1.1, stagger: .1, ease: 'power4.out' });
+tl.to('#ai-hero [data-rev]', { opacity: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, '-=.6');
+
+// Watermark parallax
+gsap.utils.toArray('[data-wm]').forEach(el => {
+  const sec = el.closest('.section') || el.parentElement;
+  const isRight = el.style.textAlign === 'right' || (getComputedStyle(el).textAlign === 'right');
+  const fromX = isRight ? 2 : -2, toX = isRight ? -2 : 2;
+  gsap.fromTo(el, { xPercent: fromX }, { xPercent: toX, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+});
 </script>
 </body>
 </html>
