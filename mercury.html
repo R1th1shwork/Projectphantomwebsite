@@ -669,7 +669,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
   els.forEach(el => obs.observe(el));
 })();
 
-// ---- THREE.JS SWARM GLOBE with Bloom & Grain ----
+// ---- THREE.JS SWARM GLOBE with Bloom & Grain (reduced reactivity) ----
 const canvas = document.getElementById('webgl');
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -840,18 +840,18 @@ window.addEventListener('resize', () => {
   composer.setSize(w, h);
 }, { passive: true });
 
-// ---- Drag / Cursor Interaction (highly reactive) ----
+// ---- Drag / Cursor Interaction (reduced reactivity) ----
 canvas.style.pointerEvents = 'auto';
 let rotY = 0, rotX = 0;
 let targetRotY = 0, targetRotX = 0;
 let vx = 0, vy = 0;
 let isDragging = false;
 let prevX = 0, prevY = 0;
-const speed = 0.008;         // faster rotation
+const speed = 0.004;          // slower rotation (was 0.008)
 const damp = 0.09;
 let autoRotate = 0.003;
 
-// Attractor for particles (cursor push)
+// Attractor for particles (cursor push) — reduced strength
 let attractorPos = new THREE.Vector3(0,0,0);
 let attractorActive = false;
 
@@ -909,7 +909,7 @@ function animate() {
   const dt = Math.min(clock.getDelta(), 0.05);
   const time = clock.getElapsedTime();
 
-  // Rotation with inertia (faster response)
+  // Rotation with inertia (slower response)
   if (!isDragging) {
     targetRotY += vx;
     targetRotX += vy;
@@ -923,9 +923,9 @@ function animate() {
   rotY += (targetRotY - rotY) * damp;
   rotX += (targetRotX - rotX) * damp;
 
-  // ---- Physics with attractor ----
+  // ---- Physics with reduced attractor strength ----
   const K = 0.022, DAMP = 0.86;
-  const pushStrength = 0.7;  // strong push
+  const pushStrength = 0.3;   // reduced from 0.7
   const pushRadius = 2.5;
   for (let i = 0; i < N; i++) {
     const i3 = i * 3;
