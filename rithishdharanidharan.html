@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rithish Dharanidharan · Project Phantom — Aerospace & AI</title>
+    <meta name="description" content="Rithish Dharanidharan is a UAE-based student innovator building Project Phantom, an autonomous fixed-wing UAV platform for environmental monitoring. Aerospace, AI, and sustainability." />
+    <meta name="keywords" content="Rithish Dharanidharan, Project Phantom, UAV, autonomous flight, aerospace engineering, AI, sustainability, Dubai, student innovator, fixed-wing drone" />
+    <link rel="canonical" href="https://rithish.dev" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Rithish Dharanidharan · Project Phantom" />
+    <meta property="og:description" content="UAE-based student innovator building autonomous UAV systems for environmental monitoring. Aerospace, AI, and sustainability." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rithish.dev" />
+    <meta property="og:image" content="https://projectphantom.space/og-image.jpg" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rithish Dharanidharan · Project Phantom" />
+    <meta name="twitter:description" content="Building autonomous UAV systems for environmental monitoring. Aerospace, AI, and sustainability." />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Rithish Dharanidharan",
+            "jobTitle": "Founder, Project Phantom",
+            "url": "https://rithish.dev",
+            "sameAs": [
+                "https://www.linkedin.com/in/rithishdharanidharan/",
+                "https://projectphantom.space"
+            ],
+            "worksFor": {
+                "@type": "Organization",
+                "name": "Project Phantom",
+                "url": "https://projectphantom.space"
+            },
+            "knowsAbout": ["Aerospace Engineering", "Artificial Intelligence", "UAV Systems", "Sustainability", "Autonomous Systems"]
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+                   RESET & BASE — Black & White with Premium Finish
+                   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #121212;
+            --surface-light: #1a1a1a;
+            --surface-hover: #222;
+            --border: #2a2a2a;
+            --border-light: #3a3a3a;
+            --text: #f5f5f5;
+            --text-dim: #888;
+            --text-muted: #555;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            --shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ----- selection ----- */
+        ::selection {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ----- scrollbar ----- */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-dim);
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        a:hover {
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+                   CUSTOM CURSOR — Premium Interactive Feel
+                   ============================================================ */
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, background 0.25s;
+            mix-blend-mode: difference;
+            will-change: transform;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: width 0.35s, height 0.35s, border-color 0.35s, background 0.35s;
+            will-change: transform;
+        }
+
+        .cursor-ring.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        @media (max-width: 768px) {
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+            a,
+            button,
+            .btn {
+                cursor: pointer;
+            }
+        }
+
+        /* ============================================================
+                   NAVIGATION — Glassmorphism + Sticky
+                   ============================================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.7rem 0;
+            background: rgba(10, 10, 10, 0.65);
+            backdrop-filter: blur(20px) saturate(1.6);
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.92);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+        .nav-logo span {
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.4rem;
+            list-style: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            position: relative;
+            padding: 0.2rem 0;
+            transition: color var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: #fff;
+            transition: width var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #fff;
+            color: #0a0a0a !important;
+            padding: 0.45rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all var(--transition);
+        }
+        .nav-cta::after {
+            display: none !important;
+        }
+        .nav-cta:hover {
+            background: var(--text-dim);
+            color: #fff !important;
+            transform: scale(1.04);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.4rem;
+            color: var(--text);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 1.2rem;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                padding: 2rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+                backdrop-filter: blur(20px);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        /* ============================================================
+                   HERO — The Hook. Bold. Unforgettable.
+                   ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            position: relative;
+            overflow: hidden;
+            perspective: 1200px;
+        }
+
+        /* big abstract shapes behind hero */
+        .hero-shapes {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .hero-shapes .shape:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -100px;
+            animation: floatShape 25s infinite alternate ease-in-out;
+        }
+        .hero-shapes .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
+            animation: floatShape 30s infinite alternate-reverse ease-in-out;
+        }
+        .hero-shapes .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            left: 60%;
+            animation: floatShape 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatShape {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(40px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            100% {
+                transform: translate(20px, -20px) scale(1.05);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            transition: border-color var(--transition);
+        }
+        .hero-badge:hover {
+            border-color: var(--border-light);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 9vw, 5.8rem);
+            font-weight: 900;
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 .line {
+            display: block;
+        }
+
+        .hero h1 .highlight {
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0.05em;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #fff;
+        }
+
+        /* ——— rotating text ——— */
+        .hero .rotating-wrap {
+            display: inline-block;
+            position: relative;
+            min-width: 200px;
+        }
+
+        .hero .rotating-wrap .word-track {
+            display: inline-block;
+            position: relative;
+            height: 1.2em;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+
+        .hero .rotating-wrap .word-track .word {
+            display: block;
+            animation: wordSlide 10s infinite;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+            padding: 0 0.05em;
+        }
+
+        .hero .rotating-wrap .word-track .word:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .hero .rotating-wrap .word-track .word:nth-child(2) {
+            animation-delay: 2.5s;
+        }
+        .hero .rotating-wrap .word-track .word:nth-child(3) {
+            animation-delay: 5s;
+        }
+        .hero .rotating-wrap .word-track .word:nth-child(4) {
+            animation-delay: 7.5s;
+        }
+
+        @keyframes wordSlide {
+            0%,
+            18% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            22%,
+            40% {
+                transform: translateY(-120%);
+                opacity: 0;
+            }
+            44%,
+            62% {
+                transform: translateY(-240%);
+                opacity: 0;
+            }
+            66%,
+            84% {
+                transform: translateY(-360%);
+                opacity: 0;
+            }
+            88%,
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* ----- buttons ----- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 2.2rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font);
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #0a0a0a;
+        }
+        .btn-primary:hover {
+            background: #ddd;
+            transform: scale(1.04);
+            color: #0a0a0a;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            transform: scale(1.04);
+        }
+
+        /* hero stats */
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .hero-stats .stat .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .hero-stats .stat .label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .hero .rotating-wrap {
+                min-width: 120px;
+            }
+        }
+
+        /* ============================================================
+                   SECTION COMMON
+                   ============================================================ */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: var(--surface);
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-dim);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title .highlight {
+            color: #fff;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 0.05em;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+                   WORK — Sticky Stack Cards (Wow Factor)
+                   ============================================================ */
+        .sticky-stack {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .sticky-stack .sticky-card {
+            position: sticky;
+            top: 100px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem 2.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.4s ease;
+            will-change: transform;
+            transform-origin: center top;
+        }
+
+        .sticky-stack .sticky-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .sticky-stack .sticky-card:hover {
+            transform: scale(1.008);
+            border-color: var(--border-light);
+            box-shadow: var(--shadow);
+        }
+
+        .sticky-stack .sticky-card .card-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .sticky-stack .sticky-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .sticky-stack .sticky-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        .sticky-stack .sticky-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1.2rem;
+        }
+
+        .sticky-stack .sticky-card .tags span {
+            font-size: 0.7rem;
+            background: var(--bg);
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            font-weight: 500;
+            transition: all var(--transition);
+        }
+
+        .sticky-stack .sticky-card .tags span:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-stack .sticky-card {
+                top: 80px;
+                padding: 1.5rem 1.2rem;
+            }
+            .sticky-stack .sticky-card h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ============================================================
+                   EXPERIENCE — Timeline
+                   ============================================================ */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: background var(--transition);
+            border-radius: var(--radius-sm);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-item:hover {
+            background: var(--surface-light);
+        }
+
+        .timeline-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: var(--surface-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+
+        .timeline-item:hover .timeline-icon {
+            border-color: #fff;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .timeline-content .meta {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 0.2rem;
+            font-weight: 500;
+        }
+        .timeline-content p {
+            color: var(--text-dim);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+                   SKILLS — Hexagonal Grid with Hover
+                   ============================================================ */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.9rem 0.5rem;
+            text-align: center;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            transition: all var(--transition);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            aspect-ratio: 1 / 0.95;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .skill-item:hover {
+            border-color: #fff;
+            background: var(--surface-light);
+            color: #fff;
+            transform: scale(1.06) translateY(-4px);
+        }
+
+        /* ============================================================
+                   HONORS
+                   ============================================================ */
+        .honor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .honor-item {
+            display: flex;
+            gap: 1.2rem;
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: background var(--transition);
+        }
+
+        .honor-item:last-child {
+            border-bottom: none;
+        }
+
+        .honor-item:hover {
+            background: var(--surface-light);
+        }
+
+        .honor-item .badge-icon {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            background: var(--surface-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            transition: border-color var(--transition);
+        }
+
+        .honor-item:hover .badge-icon {
+            border-color: #fff;
+        }
+
+        .honor-item h4 {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .honor-item .issuer {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* ============================================================
+                   PHANTOM — 3D Tilt Cards
+                   ============================================================ */
+        .phantom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .phantom-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem 1.2rem;
+            text-align: center;
+            transition: all var(--transition);
+            transform-style: preserve-3d;
+            perspective: 800px;
+            will-change: transform;
+        }
+
+        .phantom-card:hover {
+            transform: rotateX(3deg) rotateY(5deg) translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: var(--border-light);
+        }
+
+        .phantom-card i {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .phantom-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .phantom-card p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+                   CTA
+                   ============================================================ */
+        .cta-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+            transition: border-color var(--transition);
+        }
+
+        .cta-box:hover {
+            border-color: var(--border-light);
+        }
+
+        .cta-box h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-box p {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .cta-box .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        footer {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer .socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        footer .socials a {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            transition: all var(--transition);
+        }
+
+        footer .socials a:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+                   REVEAL ANIMATIONS
+                   ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.08s;
+        }
+        .reveal-delay-2 {
+            transition-delay: 0.16s;
+        }
+        .reveal-delay-3 {
+            transition-delay: 0.24s;
+        }
+        .reveal-delay-4 {
+            transition-delay: 0.32s;
+        }
+
+        /* ============================================================
+                   RESPONSIVE TWEAKS
+                   ============================================================ */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            .hero {
+                padding: 100px 0 40px;
+                min-height: 90vh;
+            }
+            .hero-shapes .shape {
+                display: none;
+            }
+            .hero-stats {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+            .cta-box {
+                padding: 2.5rem 1.5rem;
+            }
+            .cta-box h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.85rem;
+            }
+            .sticky-stack .sticky-card {
+                padding: 1.2rem 1rem;
+            }
+            .sticky-stack .sticky-card h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CUSTOM CURSOR ===== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-logo">Rithish <span>·</span> Phantom</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#phantom">Phantom</a></li>
+                <li><a href="#contact" class="nav-cta">Connect</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO — The Hook ===== -->
+    <section class="hero" id="home">
+        <div class="hero-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-rocket" style="font-size:0.7rem;"></i>
+                Founder @ Project Phantom
+            </div>
+
+            <h1>
+                <span class="line">Engineering the</span>
+                <span class="line">
+                    <span class="rotating-wrap">
+                        <span class="word-track">
+                            <span class="word">Future</span>
+                            <span class="word">Sky</span>
+                            <span class="word">Autonomy</span>
+                            <span class="word">Impact</span>
+                        </span>
+                    </span>
+                    <span class="highlight">&nbsp;of Flight</span>
+                </span>
+            </h1>
+
+            <p>
+                UAE-based student innovator building autonomous fixed-wing UAV
+                systems that redefine environmental monitoring. Aerospace, AI, and
+                sustainability — engineered for impact.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#work" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> See my work
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-paper-plane"></i> Get in touch
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="number">12+</div>
+                    <div class="label">Hours endurance</div>
+                </div>
+                <div class="stat">
+                    <div class="number">6</div>
+                    <div class="label">G load factor</div>
+                </div>
+                <div class="stat">
+                    <div class="number">&lt;3</div>
+                    <div class="label">Min config swap</div>
+                </div>
+                <div class="stat">
+                    <div class="number">222</div>
+                    <div class="label">Pages of tech thesis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WORK — Sticky Stack ===== -->
+    <section id="work">
+        <div class="container">
+            <div class="section-label">Projects</div>
+            <h2 class="section-title">What I'm <span class="highlight">building</span></h2>
+            <p class="section-desc">
+                From autonomous aircraft to AI-driven healthcare — every project is
+                engineered for real-world impact.
+            </p>
+
+            <div class="sticky-stack">
+                <div class="sticky-card reveal" style="z-index:4;">
+                    <div class="card-number">01</div>
+                    <h3>Project Phantom</h3>
+                    <p>
+                        Solar-integrated VTOL UAV with 12+ hour endurance, modular
+                        wings, and AI-driven flight control. Built for environmental
+                        monitoring and sustainable aerial data collection.
+                    </p>
+                    <div class="tags">
+                        <span>UAV</span>
+                        <span>VTOL</span>
+                        <span>Solar</span>
+                        <span>AI</span>
+                        <span>Autonomous</span>
+                    </div>
+                </div>
+
+                <div class="sticky-card reveal reveal-delay-1" style="z-index:3;">
+                    <div class="card-number">02</div>
+                    <h3>AEGIS — AI Endoscopic System</h3>
+                    <p>
+                        Deep learning and computer vision for early detection of
+                        gastrointestinal diseases. Built to assist clinicians with
+                        faster, more accurate diagnoses.
+                    </p>
+                    <div class="tags">
+                        <span>Healthcare</span>
+                        <span>AI</span>
+                        <span>Computer Vision</span>
+                        <span>Deep Learning</span>
+                    </div>
+                </div>
+
+                <div class="sticky-card reveal reveal-delay-2" style="z-index:2;">
+                    <div class="card-number">03</div>
+                    <h3>LiCycle — Intelligent Battery</h3>
+                    <p>
+                        Self-healing battery with AI-driven monitoring, predictive
+                        maintenance, and energy optimization. 1st place at WFES
+                        AI Energy Hackathon 2026.
+                    </p>
+                    <div class="tags">
+                        <span>Energy</span>
+                        <span>AI</span>
+                        <span>Sustainability</span>
+                        <span>IoT</span>
+                    </div>
+                </div>
+
+                <div class="sticky-card reveal reveal-delay-3" style="z-index:1;">
+                    <div class="card-number">04</div>
+                    <h3>One Force — Disaster Response</h3>
+                    <p>
+                        AI-powered emergency response system integrating autonomous
+                        drones for fire detection, medical support, and communication
+                        relay in crisis zones.
+                    </p>
+                    <div class="tags">
+                        <span>Disaster Management</span>
+                        <span>Drones</span>
+                        <span>AI</span>
+                        <span>Emergency</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" style="background:var(--surface);">
+        <div class="container">
+            <div class="section-label">Experience</div>
+            <h2 class="section-title">Where I've <span class="highlight">worked</span></h2>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="timeline-content">
+                        <h4>Founder — Project Phantom</h4>
+                        <div class="meta">Apr 2025 – Present · Dubai, UAE</div>
+                        <p>
+                            Leading design, development, and testing of an autonomous
+                            fixed-wing UAV platform with solar integration, VTOL
+                            capability, and modular architecture.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal reveal-delay-1">
+                    <div class="timeline-icon"><i class="fas fa-handshake"></i></div>
+                    <div class="timeline-content">
+                        <h4>Ambassador — Unipreneur Inc.</h4>
+                        <div class="meta">Jan 2026 – Present · Dubai, UAE</div>
+                        <p>
+                            Empowering youth founders across the UAE, supporting
+                            ventures from ideation to industry-grade execution.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal reveal-delay-2">
+                    <div class="timeline-icon"><i class="fas fa-brain"></i></div>
+                    <div class="timeline-content">
+                        <h4>AI Ambassador — Gulf Asian English School</h4>
+                        <div class="meta">Jun 2026 – Present · Sharjah, UAE</div>
+                        <p>
+                            Driving tech literacy, launching student AI initiatives,
+                            and bridging academic theory with emerging technologies.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal reveal-delay-3">
+                    <div class="timeline-icon"><i class="fas fa-microphone"></i></div>
+                    <div class="timeline-content">
+                        <h4>Volunteer — MAAD Model Aircraft Airshow</h4>
+                        <div class="meta">Jan 2026 – Feb 2026 · Dubai, UAE</div>
+                        <p>
+                            Media &amp; audio management for a two-day model aviation
+                            event, supporting live demonstrations and technical
+                            coordination.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-label">Skills</div>
+            <h2 class="section-title">Tech <span class="highlight">stack</span></h2>
+            <div class="skill-grid">
+                <div class="skill-item">Rapid Prototyping</div>
+                <div class="skill-item">Systems Engineering</div>
+                <div class="skill-item">Flight Control</div>
+                <div class="skill-item">Autonomous Systems</div>
+                <div class="skill-item">UAV Design</div>
+                <div class="skill-item">Python</div>
+                <div class="skill-item">Computer Vision</div>
+                <div class="skill-item">Embedded Systems</div>
+                <div class="skill-item">AI / ML</div>
+                <div class="skill-item">Data Analysis</div>
+                <div class="skill-item">IoT</div>
+                <div class="skill-item">Game Development</div>
+                <div class="skill-item">3D Modeling</div>
+                <div class="skill-item">Simulation</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HONORS ===== -->
+    <section id="honors" style="background:var(--surface);">
+        <div class="container">
+            <div class="section-label">Honors</div>
+            <h2 class="section-title">Recognitions <span class="highlight">that matter</span></h2>
+
+            <div class="honor-list">
+                <div class="honor-item reveal">
+                    <div class="badge-icon"><i class="fas fa-trophy"></i></div>
+                    <div>
+                        <h4>SSA Sharjah Sustainability Awards — Finalist</h4>
+                        <div class="issuer">Environment and Protected Areas Authority · Jul 2026</div>
+                    </div>
+                </div>
+
+                <div class="honor-item reveal reveal-delay-1">
+                    <div class="badge-icon"><i class="fas fa-award"></i></div>
+                    <div>
+                        <h4>Earth Day Competition — Finalist &amp; Scholarship</h4>
+                        <div class="issuer">University of Birmingham Dubai · May 2026</div>
+                    </div>
+                </div>
+
+                <div class="honor-item reveal reveal-delay-2">
+                    <div class="badge-icon"><i class="fas fa-medal"></i></div>
+                    <div>
+                        <h4>WFES AI Energy Hackathon — 1st Place</h4>
+                        <div class="issuer">World Future Energy Summit · Jan 2026</div>
+                    </div>
+                </div>
+
+                <div class="honor-item reveal reveal-delay-3">
+                    <div class="badge-icon"><i class="fas fa-star"></i></div>
+                    <div>
+                        <h4>AppSmart 2025 — Overall Champion &amp; Best Social Impact</h4>
+                        <div class="issuer">JSS Private School Dubai · Sep 2025</div>
+                    </div>
+                </div>
+
+                <div class="honor-item reveal reveal-delay-4">
+                    <div class="badge-icon"><i class="fas fa-gamepad"></i></div>
+                    <div>
+                        <h4>Frijna Competition — 1st Place (Game Development)</h4>
+                        <div class="issuer">Emirates American School · May 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PHANTOM — 3D Cards ===== -->
+    <section id="phantom">
+        <div class="container">
+            <div class="section-label">Featured</div>
+            <h2 class="section-title">Project Phantom · <span class="highlight">One UAV, Infinite Missions</span></h2>
+            <p class="section-desc">
+                Youth-led, UAE-built. Solar-integrated, VTOL-capable, and engineered
+                for environmental monitoring across arid, coastal, and high-altitude
+                environments.
+            </p>
+
+            <div class="phantom-grid">
+                <div class="phantom-card reveal">
+                    <i class="fas fa-sun"></i>
+                    <h3>Solar Integration</h3>
+                    <p>Wing-embedded cells extend endurance beyond 12 hours.</p>
+                </div>
+
+                <div class="phantom-card reveal reveal-delay-1">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Modular Architecture</h3>
+                    <p>Interchangeable wing modules for diverse mission profiles.</p>
+                </div>
+
+                <div class="phantom-card reveal reveal-delay-2">
+                    <i class="fas fa-globe-asia"></i>
+                    <h3>SDG-Aligned</h3>
+                    <p>Designed for climate action, life on land &amp; below water.</p>
+                </div>
+
+                <div class="phantom-card reveal reveal-delay-3">
+                    <i class="fas fa-users"></i>
+                    <h3>Youth-Led</h3>
+                    <p>Two teenagers building what most professionals haven't attempted.</p>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:2.5rem;">
+                <a href="https://projectphantom.space" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Visit Phantom
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" style="background:var(--surface);">
+        <div class="container">
+            <div class="cta-box reveal">
+                <h2>Let's build something <span class="highlight">real</span></h2>
+                <p>
+                    Collaboration, technical questions, or just a hello —
+                    I'd love to hear from you.
+                </p>
+                <div class="actions">
+                    <a href="https://www.linkedin.com/in/rithishdharanidharan/" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                    <a href="mailto:rithish@projectphantom.space" class="btn btn-outline">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="https://projectphantom.space" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-globe"></i> projectphantom.space
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/rithishdharanidharan/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/rithishd" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://projectphantom.space" target="_blank" aria-label="Project Phantom">
+                    <i class="fas fa-rocket"></i>
+                </a>
+                <a href="mailto:rithish@projectphantom.space" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p>&copy; 2026 Rithish Dharanidharan · Built with <i class="fas fa-heart" style="color:#fff;"></i></p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script>
+        // ---- Custom Cursor ----
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let mx = 0,
+            my = 0;
+        let rx = 0,
+            ry = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mx = e.clientX;
+            my = e.clientY;
+            dot.style.left = mx + 'px';
+            dot.style.top = my + 'px';
+        });
+
+        function ringAnim() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            ring.style.left = rx + 'px';
+            ring.style.top = ry + 'px';
+            requestAnimationFrame(ringAnim);
+        }
+        ringAnim();
+
+        // hover effects on interactive elements
+        const interactives = document.querySelectorAll('a, button, .btn, .sticky-card, .phantom-card, .skill-item, .timeline-item, .honor-item');
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                ring.classList.add('hover');
+                dot.style.width = '10px';
+                dot.style.height = '10px';
+                dot.style.background = '#fff';
+            });
+            el.addEventListener('mouseleave', () => {
+                ring.classList.remove('hover');
+                dot.style.width = '6px';
+                dot.style.height = '6px';
+                dot.style.background = '#fff';
+            });
+        });
+
+        // hide custom cursor on touch
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.cursor-dot, .cursor-ring').forEach(el => el.style.display = 'none');
+        }
+
+        // ---- Mobile Nav ----
+        const toggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // ---- Nav scroll background ----
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ---- Scroll Reveal ----
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // ---- Sticky Stack: dynamic scale on scroll ----
+        const cards = document.querySelectorAll('.sticky-card');
+        window.addEventListener('scroll', () => {
+            cards.forEach((card, i) => {
+                const rect = card.getBoundingClientRect();
+                const vh = window.innerHeight;
+                const progress = 1 - (rect.top / vh);
+                const scale = 1 - (i * 0.015) + (progress * 0.01);
+                card.style.transform = `scale(${Math.min(scale, 1.01)})`;
+            });
+        });
+
+        // ---- Hero 3D Tilt ----
+        const hero = document.querySelector('.hero');
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            hero.style.transform = `perspective(1200px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg)`;
+        });
+        hero.addEventListener('mouseleave', () => {
+            hero.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg)';
+        });
+    </script>
+
+</body>
+</html>
