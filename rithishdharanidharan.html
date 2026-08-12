@@ -1,1538 +1,828 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rithish Dharanidharan · Project Phantom — Aerospace & AI</title>
-    <meta name="description" content="Rithish Dharanidharan is a UAE-based student innovator building Project Phantom, an autonomous fixed-wing UAV platform for environmental monitoring. Aerospace, AI, and sustainability." />
-    <meta name="keywords" content="Rithish Dharanidharan, Project Phantom, UAV, autonomous flight, aerospace engineering, AI, sustainability, Dubai, student innovator, fixed-wing drone" />
-    <link rel="canonical" href="https://rithish.dev" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Rithish Dharanidharan · Project Phantom" />
-    <meta property="og:description" content="UAE-based student innovator building autonomous UAV systems for environmental monitoring. Aerospace, AI, and sustainability." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rithish.dev" />
-    <meta property="og:image" content="https://projectphantom.space/og-image.jpg" />
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Rithish Dharanidharan · Project Phantom" />
-    <meta name="twitter:description" content="Building autonomous UAV systems for environmental monitoring. Aerospace, AI, and sustainability." />
-
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Rithish Dharanidharan",
-            "jobTitle": "Founder, Project Phantom",
-            "url": "https://rithish.dev",
-            "sameAs": [
-                "https://www.linkedin.com/in/rithishdharanidharan/",
-                "https://projectphantom.space"
-            ],
-            "worksFor": {
-                "@type": "Organization",
-                "name": "Project Phantom",
-                "url": "https://projectphantom.space"
-            },
-            "knowsAbout": ["Aerospace Engineering", "Artificial Intelligence", "UAV Systems", "Sustainability", "Autonomous Systems"]
-        }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <style>
-        /* ============================================================
-                   RESET & BASE — Black & White with Premium Finish
-                   ============================================================ */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #0a0a0a;
-            --surface: #121212;
-            --surface-light: #1a1a1a;
-            --surface-hover: #222;
-            --border: #2a2a2a;
-            --border-light: #3a3a3a;
-            --text: #f5f5f5;
-            --text-dim: #888;
-            --text-muted: #555;
-            --radius: 20px;
-            --radius-sm: 12px;
-            --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            --shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: var(--font);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            cursor: default;
-        }
-
-        /* ----- selection ----- */
-        ::selection {
-            background: #fff;
-            color: #000;
-        }
-
-        /* ----- scrollbar ----- */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-dim);
-        }
-
-        a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color var(--transition);
-        }
-        a:hover {
-            color: #fff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ============================================================
-                   CUSTOM CURSOR — Premium Interactive Feel
-                   ============================================================ */
-        .cursor-dot {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99999;
-            transform: translate(-50%, -50%);
-            transition: width 0.25s, height 0.25s, background 0.25s;
-            mix-blend-mode: difference;
-            will-change: transform;
-        }
-
-        .cursor-ring {
-            position: fixed;
-            width: 36px;
-            height: 36px;
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99998;
-            transform: translate(-50%, -50%);
-            transition: width 0.35s, height 0.35s, border-color 0.35s, background 0.35s;
-            will-change: transform;
-        }
-
-        .cursor-ring.hover {
-            width: 60px;
-            height: 60px;
-            border-color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        @media (max-width: 768px) {
-            .cursor-dot,
-            .cursor-ring {
-                display: none;
-            }
-            body {
-                cursor: auto;
-            }
-            a,
-            button,
-            .btn {
-                cursor: pointer;
-            }
-        }
-
-        /* ============================================================
-                   NAVIGATION — Glassmorphism + Sticky
-                   ============================================================ */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 0.7rem 0;
-            background: rgba(10, 10, 10, 0.65);
-            backdrop-filter: blur(20px) saturate(1.6);
-            -webkit-backdrop-filter: blur(20px) saturate(1.6);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            transition: background var(--transition), box-shadow var(--transition);
-        }
-
-        nav.scrolled {
-            background: rgba(10, 10, 10, 0.92);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.02em;
-            color: #fff;
-        }
-        .nav-logo span {
-            color: var(--text-dim);
-            font-weight: 300;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2.4rem;
-            list-style: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .nav-links a {
-            color: var(--text-dim);
-            position: relative;
-            padding: 0.2rem 0;
-            transition: color var(--transition);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1.5px;
-            background: #fff;
-            transition: width var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            background: #fff;
-            color: #0a0a0a !important;
-            padding: 0.45rem 1.5rem;
-            border-radius: 40px;
-            font-weight: 600;
-            transition: all var(--transition);
-        }
-        .nav-cta::after {
-            display: none !important;
-        }
-        .nav-cta:hover {
-            background: var(--text-dim);
-            color: #fff !important;
-            transform: scale(1.04);
-        }
-
-        .mobile-toggle {
-            display: none;
-            font-size: 1.4rem;
-            color: var(--text);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.2rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                gap: 1.2rem;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--surface);
-                padding: 2rem 1.5rem;
-                border-bottom: 1px solid var(--border);
-                backdrop-filter: blur(20px);
-            }
-            .nav-links.open {
-                display: flex;
-            }
-            .mobile-toggle {
-                display: block;
-            }
-        }
-
-        /* ============================================================
-                   HERO — The Hook. Bold. Unforgettable.
-                   ============================================================ */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 0 60px;
-            position: relative;
-            overflow: hidden;
-            perspective: 1200px;
-        }
-
-        /* big abstract shapes behind hero */
-        .hero-shapes {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .hero-shapes .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .hero-shapes .shape:nth-child(1) {
-            width: 600px;
-            height: 600px;
-            top: -200px;
-            right: -100px;
-            animation: floatShape 25s infinite alternate ease-in-out;
-        }
-        .hero-shapes .shape:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            bottom: -100px;
-            left: -100px;
-            animation: floatShape 30s infinite alternate-reverse ease-in-out;
-        }
-        .hero-shapes .shape:nth-child(3) {
-            width: 200px;
-            height: 200px;
-            top: 40%;
-            left: 60%;
-            animation: floatShape 20s infinite alternate ease-in-out;
-        }
-
-        @keyframes floatShape {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(40px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-30px, 30px) scale(0.9);
-            }
-            100% {
-                transform: translate(20px, -20px) scale(1.05);
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border);
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            margin-bottom: 1.5rem;
-            transition: border-color var(--transition);
-        }
-        .hero-badge:hover {
-            border-color: var(--border-light);
-        }
-
-        .hero h1 {
-            font-size: clamp(2.8rem, 9vw, 5.8rem);
-            font-weight: 900;
-            line-height: 1.02;
-            letter-spacing: -0.035em;
-            margin-bottom: 1.2rem;
-        }
-
-        .hero h1 .line {
-            display: block;
-        }
-
-        .hero h1 .highlight {
-            color: #fff;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero h1 .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 0.05em;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: #fff;
-        }
-
-        /* ——— rotating text ——— */
-        .hero .rotating-wrap {
-            display: inline-block;
-            position: relative;
-            min-width: 200px;
-        }
-
-        .hero .rotating-wrap .word-track {
-            display: inline-block;
-            position: relative;
-            height: 1.2em;
-            overflow: hidden;
-            vertical-align: bottom;
-        }
-
-        .hero .rotating-wrap .word-track .word {
-            display: block;
-            animation: wordSlide 10s infinite;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.2;
-            padding: 0 0.05em;
-        }
-
-        .hero .rotating-wrap .word-track .word:nth-child(1) {
-            animation-delay: 0s;
-        }
-        .hero .rotating-wrap .word-track .word:nth-child(2) {
-            animation-delay: 2.5s;
-        }
-        .hero .rotating-wrap .word-track .word:nth-child(3) {
-            animation-delay: 5s;
-        }
-        .hero .rotating-wrap .word-track .word:nth-child(4) {
-            animation-delay: 7.5s;
-        }
-
-        @keyframes wordSlide {
-            0%,
-            18% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            22%,
-            40% {
-                transform: translateY(-120%);
-                opacity: 0;
-            }
-            44%,
-            62% {
-                transform: translateY(-240%);
-                opacity: 0;
-            }
-            66%,
-            84% {
-                transform: translateY(-360%);
-                opacity: 0;
-            }
-            88%,
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-dim);
-            max-width: 520px;
-            margin-bottom: 2.5rem;
-            font-weight: 400;
-            line-height: 1.7;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        /* ----- buttons ----- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.85rem 2.2rem;
-            border-radius: 60px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all var(--transition);
-            font-family: var(--font);
-        }
-
-        .btn-primary {
-            background: #fff;
-            color: #0a0a0a;
-        }
-        .btn-primary:hover {
-            background: #ddd;
-            transform: scale(1.04);
-            color: #0a0a0a;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-        .btn-outline:hover {
-            border-color: #fff;
-            background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            transform: scale(1.04);
-        }
-
-        /* hero stats */
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 3.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .hero-stats .stat .number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: -0.02em;
-        }
-        .hero-stats .stat .label {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-weight: 500;
-        }
-
-        @media (max-width: 480px) {
-            .hero-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .hero h1 {
-                font-size: 2.4rem;
-            }
-            .hero .rotating-wrap {
-                min-width: 120px;
-            }
-        }
-
-        /* ============================================================
-                   SECTION COMMON
-                   ============================================================ */
-        section {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        section:nth-child(even) {
-            background: var(--surface);
-        }
-
-        .section-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-dim);
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4.5vw, 3.2rem);
-            font-weight: 800;
-            line-height: 1.12;
-            letter-spacing: -0.025em;
-            margin-bottom: 1rem;
-        }
-
-        .section-title .highlight {
-            color: #fff;
-            border-bottom: 2px solid #fff;
-            padding-bottom: 0.05em;
-        }
-
-        .section-desc {
-            font-size: 1.05rem;
-            color: var(--text-dim);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        /* ============================================================
-                   WORK — Sticky Stack Cards (Wow Factor)
-                   ============================================================ */
-        .sticky-stack {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .sticky-stack .sticky-card {
-            position: sticky;
-            top: 100px;
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2.5rem 2.5rem;
-            margin-bottom: 2rem;
-            transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.4s ease;
-            will-change: transform;
-            transform-origin: center top;
-        }
-
-        .sticky-stack .sticky-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .sticky-stack .sticky-card:hover {
-            transform: scale(1.008);
-            border-color: var(--border-light);
-            box-shadow: var(--shadow);
-        }
-
-        .sticky-stack .sticky-card .card-number {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-dim);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.4rem;
-        }
-
-        .sticky-stack .sticky-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .sticky-stack .sticky-card p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            max-width: 520px;
-            line-height: 1.7;
-        }
-
-        .sticky-stack .sticky-card .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-top: 1.2rem;
-        }
-
-        .sticky-stack .sticky-card .tags span {
-            font-size: 0.7rem;
-            background: var(--bg);
-            padding: 0.2rem 0.9rem;
-            border-radius: 40px;
-            color: var(--text-dim);
-            border: 1px solid var(--border);
-            font-weight: 500;
-            transition: all var(--transition);
-        }
-
-        .sticky-stack .sticky-card .tags span:hover {
-            border-color: #fff;
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .sticky-stack .sticky-card {
-                top: 80px;
-                padding: 1.5rem 1.2rem;
-            }
-            .sticky-stack .sticky-card h3 {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* ============================================================
-                   EXPERIENCE — Timeline
-                   ============================================================ */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 1.5rem;
-            padding: 1.8rem 0;
-            border-bottom: 1px solid var(--border);
-            transition: background var(--transition);
-            border-radius: var(--radius-sm);
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-
-        .timeline-item:hover {
-            background: var(--surface-light);
-        }
-
-        .timeline-icon {
-            flex-shrink: 0;
-            width: 44px;
-            height: 44px;
-            background: var(--surface-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.1rem;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-        }
-
-        .timeline-item:hover .timeline-icon {
-            border-color: #fff;
-        }
-
-        .timeline-content h4 {
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-        .timeline-content .meta {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 0.2rem;
-            font-weight: 500;
-        }
-        .timeline-content p {
-            color: var(--text-dim);
-            font-size: 0.92rem;
-            line-height: 1.7;
-        }
-
-        /* ============================================================
-                   SKILLS — Hexagonal Grid with Hover
-                   ============================================================ */
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 0.8rem;
-            margin-top: 2rem;
-        }
-
-        .skill-item {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 0.9rem 0.5rem;
-            text-align: center;
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--text-dim);
-            transition: all var(--transition);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            aspect-ratio: 1 / 0.95;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .skill-item:hover {
-            border-color: #fff;
-            background: var(--surface-light);
-            color: #fff;
-            transform: scale(1.06) translateY(-4px);
-        }
-
-        /* ============================================================
-                   HONORS
-                   ============================================================ */
-        .honor-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .honor-item {
-            display: flex;
-            gap: 1.2rem;
-            padding: 1rem 0.5rem;
-            border-bottom: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            transition: background var(--transition);
-        }
-
-        .honor-item:last-child {
-            border-bottom: none;
-        }
-
-        .honor-item:hover {
-            background: var(--surface-light);
-        }
-
-        .honor-item .badge-icon {
-            flex-shrink: 0;
-            width: 38px;
-            height: 38px;
-            background: var(--surface-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 0.85rem;
-            border: 1px solid var(--border);
-            transition: border-color var(--transition);
-        }
-
-        .honor-item:hover .badge-icon {
-            border-color: #fff;
-        }
-
-        .honor-item h4 {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .honor-item .issuer {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-        }
-
-        /* ============================================================
-                   PHANTOM — 3D Tilt Cards
-                   ============================================================ */
-        .phantom-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .phantom-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2rem 1.2rem;
-            text-align: center;
-            transition: all var(--transition);
-            transform-style: preserve-3d;
-            perspective: 800px;
-            will-change: transform;
-        }
-
-        .phantom-card:hover {
-            transform: rotateX(3deg) rotateY(5deg) translateY(-8px);
-            box-shadow: var(--shadow);
-            border-color: var(--border-light);
-        }
-
-        .phantom-card i {
-            font-size: 2.2rem;
-            color: #fff;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .phantom-card h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .phantom-card p {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        /* ============================================================
-                   CTA
-                   ============================================================ */
-        .cta-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 3.5rem 2.5rem;
-            text-align: center;
-            max-width: 720px;
-            margin: 0 auto;
-            transition: border-color var(--transition);
-        }
-
-        .cta-box:hover {
-            border-color: var(--border-light);
-        }
-
-        .cta-box h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.6rem;
-            letter-spacing: -0.02em;
-        }
-
-        .cta-box p {
-            color: var(--text-dim);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .cta-box .actions {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        /* ============================================================
-                   FOOTER
-                   ============================================================ */
-        footer {
-            padding: 2.5rem 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-
-        footer .socials {
-            display: flex;
-            justify-content: center;
-            gap: 1.4rem;
-            margin-bottom: 1rem;
-        }
-
-        footer .socials a {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            transition: all var(--transition);
-        }
-
-        footer .socials a:hover {
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        /* ============================================================
-                   REVEAL ANIMATIONS
-                   ============================================================ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-delay-1 {
-            transition-delay: 0.08s;
-        }
-        .reveal-delay-2 {
-            transition-delay: 0.16s;
-        }
-        .reveal-delay-3 {
-            transition-delay: 0.24s;
-        }
-        .reveal-delay-4 {
-            transition-delay: 0.32s;
-        }
-
-        /* ============================================================
-                   RESPONSIVE TWEAKS
-                   ============================================================ */
-        @media (max-width: 768px) {
-            section {
-                padding: 60px 0;
-            }
-            .hero {
-                padding: 100px 0 40px;
-                min-height: 90vh;
-            }
-            .hero-shapes .shape {
-                display: none;
-            }
-            .hero-stats {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 1.5rem;
-            }
-            .cta-box {
-                padding: 2.5rem 1.5rem;
-            }
-            .cta-box h2 {
-                font-size: 1.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .btn {
-                padding: 0.7rem 1.5rem;
-                font-size: 0.85rem;
-            }
-            .sticky-stack .sticky-card {
-                padding: 1.2rem 1rem;
-            }
-            .sticky-stack .sticky-card h3 {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rithish Dharanidharan — UAV Systems &amp; Autonomous Flight Engineer</title>
+<meta name="description" content="Rithish Dharanidharan is a UAE-based student engineer building autonomous UAV systems. Founder of Project Phantom — fixed-wing aircraft, flight control, and environmental monitoring platforms.">
+<meta name="keywords" content="Rithish Dharanidharan, Project Phantom, UAV Systems, Autonomous Flight, Aerospace Engineering, Dubai, Sharjah, Student Engineer, Drone Systems">
+<meta name="author" content="Rithish Dharanidharan">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://rithishdharanidharan.com/">
+<meta name="theme-color" content="#050505">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rithish Dharanidharan — UAV Systems &amp; Autonomous Flight Engineer">
+<meta property="og:description" content="Founder of Project Phantom. Building autonomous fixed-wing UAV systems for environmental monitoring, out of the UAE.">
+<meta property="og:url" content="https://rithishdharanidharan.com/">
+<meta property="og:site_name" content="Rithish Dharanidharan">
+<meta property="og:image" content="https://rithishdharanidharan.com/og-cover.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rithish Dharanidharan — UAV Systems &amp; Autonomous Flight Engineer">
+<meta name="twitter:description" content="Founder of Project Phantom. Building autonomous fixed-wing UAV systems for environmental monitoring, out of the UAE.">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rithish Dharanidharan",
+  "url": "https://rithishdharanidharan.com/",
+  "jobTitle": "Founder, Project Phantom",
+  "affiliation": [{"@type":"Organization","name":"Project Phantom"}, {"@type":"Organization","name":"Unipreneur Inc."}],
+  "address": {"@type":"PostalAddress","addressRegion":"Sharjah","addressCountry":"AE"},
+  "knowsAbout": ["UAV Systems", "Autonomous Flight", "Aerospace Engineering", "Artificial Intelligence", "Embedded Systems"]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --black:#050505;
+    --panel:#0b0b0b;
+    --white:#f5f5f2;
+    --gray-1:#8c8c86;
+    --gray-2:#1c1c1c;
+    --gray-3:#2c2c2c;
+    --line: rgba(245,245,242,0.12);
+    --line-strong: rgba(245,245,242,0.28);
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  ::selection{background:var(--white);color:var(--black);}
+
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    cursor:default;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gray-1);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:6px;height:6px;
+    border:1px solid var(--gray-1);
+    border-radius:50%;
+    flex-shrink:0;
+  }
+
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+
+  .wrap{
+    max-width:1240px;
+    margin:0 auto;
+    padding-left:clamp(20px,5vw,64px);
+    padding-right:clamp(20px,5vw,64px);
+  }
+
+  /* ---------- background grid ---------- */
+  .bg-grid{
+    position:fixed; inset:0;
+    z-index:0;
+    background-image:
+      linear-gradient(var(--gray-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gray-2) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity:.5;
+    pointer-events:none;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+  .bg-vignette{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(245,245,242,.06), transparent 60%);
+  }
+
+  /* ---------- portal loader ---------- */
+  #portal{
+    position:fixed; inset:0; z-index:100;
+    background:var(--black);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    gap:28px;
+  }
+  #portal.open{
+    animation: portalOpen 1.15s var(--ease) forwards;
+  }
+  @keyframes portalOpen{
+    0%{ clip-path: circle(0% at 50% 50%); }
+    100%{ clip-path: circle(150% at 50% 50%); }
+  }
+  #portal .ring{
+    position:relative;
+    width:140px;height:140px;
+    border-radius:50%;
+    border:1px solid var(--gray-3);
+    display:flex;align-items:center;justify-content:center;
+  }
+  #portal .ring::before{
+    content:"";
+    position:absolute; inset:-1px;
+    border-radius:50%;
+    border:1px solid transparent;
+    border-top-color:var(--white);
+    border-right-color:var(--white);
+    animation:spin 1.4s linear infinite;
+  }
+  #portal .ring::after{
+    content:"";
+    position:absolute; inset:18px;
+    border-radius:50%;
+    border:1px solid var(--gray-3);
+  }
+  #portal .core{
+    width:6px;height:6px;background:var(--white);border-radius:50%;
+    box-shadow:0 0 18px 4px rgba(245,245,242,.5);
+    animation:pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes pulse{0%,100%{opacity:.35;transform:scale(1);}50%{opacity:1;transform:scale(1.6);}}
+
+  #portal .status{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--gray-1);
+    text-align:center;
+    min-height:16px;
+  }
+  #portal .pct{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--white);
+    letter-spacing:.1em;
+  }
+  #portal .bar{
+    width:220px;height:1px;background:var(--gray-3);position:relative;
+  }
+  #portal .bar span{
+    position:absolute;left:0;top:0;height:100%;background:var(--white);width:0%;
+    transition:width .1s linear;
+  }
+
+  body.locked{overflow:hidden;height:100vh;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:22px clamp(20px,5vw,64px);
+    display:flex; align-items:center; justify-content:space-between;
+    background:linear-gradient(to bottom, rgba(5,5,5,.85), transparent);
+    backdrop-filter:blur(4px);
+    opacity:0;
+    transform:translateY(-16px);
+  }
+  header.show{ animation: fadeDown .8s var(--ease) forwards; }
+  @keyframes fadeDown{to{opacity:1;transform:translateY(0);}}
+
+  .logo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; letter-spacing:.05em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--white);box-shadow:0 0 10px 2px rgba(245,245,242,.6);}
+
+  nav ul{display:flex; gap:34px;}
+  nav a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gray-1);
+    position:relative;
+    padding-bottom:3px;
+  }
+  nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--white);
+    transition:width .35s var(--ease);
+  }
+  nav a:hover{color:var(--white);}
+  nav a:hover::after{width:100%;}
+  nav a:focus-visible, a:focus-visible, button:focus-visible{outline:1px solid var(--white); outline-offset:3px;}
+
+  .nav-toggle{display:none;background:none;border:1px solid var(--gray-3);color:var(--white);width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:10px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top:120px; padding-bottom:60px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:36px;
+    align-items:end;
+  }
+  .hero-coords{
+    display:flex; gap:28px; flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray-1); letter-spacing:.08em;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(48px, 10vw, 132px);
+    line-height:.92;
+    text-transform:uppercase;
+    letter-spacing:-0.02em;
+  }
+  .hero h1 em{
+    font-style:normal; color:transparent;
+    -webkit-text-stroke:1px var(--white);
+  }
+  .hero .role{
+    margin-top:26px;
+    max-width:560px;
+    font-size:clamp(15px,2vw,18px);
+    color:var(--gray-1);
+    font-weight:300;
+    line-height:1.6;
+  }
+  .hero .role strong{color:var(--white); font-weight:500;}
+
+  .hero-foot{
+    margin-top:56px;
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+  .scroll-cue{
+    display:flex; align-items:center; gap:12px;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray-1);
+  }
+  .scroll-cue .line{width:1px;height:34px;background:var(--gray-3);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{
+    content:"";position:absolute;top:-40%;left:0;width:100%;height:40%;background:var(--white);
+    animation:scrollDrop 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollDrop{0%{top:-40%;}100%{top:100%;}}
+
+  .hero-tags{display:flex;gap:10px;flex-wrap:wrap;}
+  .hero-tags span{
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+    border:1px solid var(--gray-3); padding:6px 12px; border-radius:999px; color:var(--gray-1);
+  }
+
+  /* wireframe uav */
+  .uav-wire{
+    position:absolute;
+    top:14%; right:clamp(0px, 4vw, 6vw);
+    width:min(46vw, 560px);
+    opacity:.9;
+    pointer-events:none;
+    z-index:0;
+  }
+  .uav-wire svg{width:100%;height:auto; overflow:visible;}
+  .uav-wire path, .uav-wire line, .uav-wire circle{
+    stroke:var(--gray-1); stroke-width:1; fill:none;
+    vector-effect:non-scaling-stroke;
+  }
+  .uav-wire .accent{stroke:var(--white);}
+  .uav-wire .dash{stroke-dasharray:4 5;}
+
+  @media (max-width:860px){
+    .uav-wire{display:none;}
+  }
+
+  /* ---------- section shell ---------- */
+  section{position:relative;z-index:1;}
+  .section{
+    padding:120px 0;
+    border-top:1px solid var(--line);
+  }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;
+    margin-bottom:64px;
+  }
+  .section-head h2{
+    font-size:clamp(30px,4.4vw,52px);
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+  .section-num{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--gray-1); letter-spacing:.1em;
+  }
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-d1{transition-delay:.08s;}
+  .reveal-d2{transition-delay:.16s;}
+  .reveal-d3{transition-delay:.24s;}
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:80px;
+  }
+  .about-lead{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(21px,2.6vw,30px);
+    font-weight:400;
+    line-height:1.45;
+    color:var(--white);
+  }
+  .about-body{
+    margin-top:28px;
+    color:var(--gray-1);
+    font-weight:300;
+    line-height:1.85;
+    max-width:60ch;
+  }
+  .focus-list{
+    border-top:1px solid var(--line);
+  }
+  .focus-list li{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.06em;
+    color:var(--gray-1);
+  }
+  .focus-list li span:first-child{color:var(--white); font-family:'Space Grotesk', sans-serif; font-size:16px; letter-spacing:0; text-transform:none;}
+  .focus-list li span:last-child{opacity:.6;}
+
+  @media (max-width:900px){
+    .about-grid{grid-template-columns:1fr; gap:44px;}
+  }
+
+  /* ---------- projects ---------- */
+  .proj-list{border-top:1px solid var(--line);}
+  .proj{
+    display:grid;
+    grid-template-columns: 90px 1.1fr 1.4fr 140px;
+    gap:28px;
+    align-items:center;
+    padding:34px 0;
+    border-bottom:1px solid var(--line);
+    transition:background .35s var(--ease);
+    position:relative;
+  }
+  .proj:hover{background:rgba(245,245,242,.02);}
+  .proj-code{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--gray-1);}
+  .proj-name{font-family:'Space Grotesk', sans-serif; font-size:clamp(20px,2.4vw,28px); text-transform:uppercase; letter-spacing:-.01em;}
+  .proj-desc{color:var(--gray-1); font-weight:300; font-size:14px; line-height:1.7; max-width:52ch;}
+  .proj-tags{display:flex; flex-direction:column; gap:6px; align-items:flex-end;}
+  .proj-tags span{font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.08em; color:var(--gray-1); text-transform:uppercase; white-space:nowrap;}
+  .proj-status{width:7px;height:7px;border-radius:50%; background:var(--white); box-shadow:0 0 8px 1px rgba(245,245,242,.5); justify-self:end;}
+
+  @media (max-width:760px){
+    .proj{grid-template-columns:1fr; gap:10px; padding:26px 0;}
+    .proj-tags{align-items:flex-start;}
+  }
+
+  /* ---------- experience ---------- */
+  .exp-list{border-top:1px solid var(--line);}
+  .exp{
+    display:grid; grid-template-columns: 200px 1fr; gap:28px;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .exp-time{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray-1); letter-spacing:.06em; padding-top:4px;}
+  .exp-role{font-family:'Space Grotesk', sans-serif; font-size:19px;}
+  .exp-org{color:var(--gray-1); font-size:13px; margin-top:4px; font-weight:300;}
+  @media (max-width:700px){ .exp{grid-template-columns:1fr; gap:8px;} }
+
+  /* ---------- awards marquee ---------- */
+  .marquee{
+    border-top:1px solid var(--line);
+    padding:26px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-flex;
+    animation:scroll 38s linear infinite;
+  }
+  .marquee-track span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-1);
+    padding:0 28px; display:inline-flex; align-items:center; gap:28px;
+  }
+  .marquee-track span::after{content:"—"; color:var(--gray-3);}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- contact / footer ---------- */
+  .contact{
+    text-align:left;
+  }
+  .contact h2{
+    font-size:clamp(38px,7vw,96px);
+    text-transform:uppercase;
+    line-height:.98;
+    max-width:900px;
+  }
+  .contact-link{
+    display:inline-flex; align-items:center; gap:16px;
+    margin-top:44px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px; letter-spacing:.06em;
+    border:1px solid var(--gray-3);
+    padding:16px 26px; border-radius:999px;
+    transition:border-color .3s var(--ease), color .3s var(--ease);
+  }
+  .contact-link:hover{border-color:var(--white);}
+  .contact-link .arrow{transition:transform .3s var(--ease);}
+  .contact-link:hover .arrow{transform:translate(4px,-4px);}
+
+  .contact-meta{
+    margin-top:70px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    border-top:1px solid var(--line); padding-top:28px;
+  }
+  .contact-meta div{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray-1); letter-spacing:.06em;}
+  .contact-meta div b{display:block; color:var(--white); font-weight:400; margin-bottom:8px; letter-spacing:.16em; font-size:10px;}
+  .contact-meta a{border-bottom:1px solid var(--gray-3);}
+  .contact-meta a:hover{border-color:var(--white); color:var(--white);}
+  @media (max-width:700px){.contact-meta{grid-template-columns:1fr;}}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px clamp(20px,5vw,64px);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--gray-1); letter-spacing:.1em; text-transform:uppercase;
+  }
+
+  /* ---------- mobile nav ---------- */
+  .mobile-panel{
+    position:fixed; inset:0; z-index:60; background:var(--black);
+    display:flex; flex-direction:column; justify-content:center; padding:0 32px;
+    transform:translateY(-100%); transition:transform .5s var(--ease);
+  }
+  .mobile-panel.open{transform:translateY(0);}
+  .mobile-panel ul{display:flex; flex-direction:column; gap:20px;}
+  .mobile-panel a{font-family:'Space Grotesk'; font-size:32px; text-transform:uppercase;}
+  .mobile-close{position:absolute; top:22px; right:24px; background:none;border:1px solid var(--gray-3);color:var(--white);width:38px;height:38px;border-radius:50%;font-family:'JetBrains Mono';}
+
+  @media (max-width:760px){
+    nav{display:none;}
+    .nav-toggle{display:flex;}
+  }
+</style>
 </head>
-<body>
+<body class="locked">
 
-    <!-- ===== CUSTOM CURSOR ===== -->
-    <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
+<!-- PORTAL LOADER -->
+<div id="portal" role="status" aria-live="polite">
+  <div class="ring"><div class="core"></div></div>
+  <div class="pct mono" id="portalPct">00%</div>
+  <div class="bar"><span id="portalBar"></span></div>
+  <div class="status" id="portalStatus">CALIBRATING FLIGHT SYSTEMS</div>
+</div>
 
-    <!-- ===== NAVIGATION ===== -->
-    <nav id="navbar">
-        <div class="container">
-            <div class="nav-logo">Rithish <span>·</span> Phantom</div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#work">Work</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#phantom">Phantom</a></li>
-                <li><a href="#contact" class="nav-cta">Connect</a></li>
-            </ul>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
-            </button>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-vignette" aria-hidden="true"></div>
+
+<header id="siteHeader">
+  <a href="#top" class="logo"><span class="dot"></span>R. DHARANIDHARAN</a>
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">MENU</button>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">X</button>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<main id="top">
+  <section class="hero wrap">
+    <div class="uav-wire" aria-hidden="true">
+      <svg viewBox="0 0 400 300" fill="none">
+        <line x1="20" y1="150" x2="380" y2="150" class="dash"/>
+        <path d="M60 150 L150 130 L250 130 L340 150 L250 170 L150 170 Z" class="accent"/>
+        <path d="M170 130 L170 60 L230 60 L230 130" />
+        <path d="M170 170 L170 240 L230 240 L230 170" />
+        <circle cx="200" cy="150" r="6" class="accent"/>
+        <circle cx="200" cy="150" r="60" class="dash"/>
+        <circle cx="200" cy="150" r="110" class="dash"/>
+        <line x1="200" y1="20" x2="200" y2="60"/>
+        <line x1="200" y1="240" x2="200" y2="280"/>
+      </svg>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <div class="hero-coords mono">
+          <span>25.3463° N / 55.4209° E</span>
+          <span>SHARJAH — UAE</span>
+          <span id="clock">SYS TIME —</span>
         </div>
-    </nav>
+        <h1>Rithish<br>Dharanid<em>haran</em></h1>
+        <p class="role">Founder of <strong>Project Phantom</strong> — designing autonomous fixed-wing UAV systems for environmental monitoring. Student engineer working across flight control, embedded AI, and sustainable aerospace hardware in the UAE.</p>
+      </div>
+    </div>
 
-    <!-- ===== HERO — The Hook ===== -->
-    <section class="hero" id="home">
-        <div class="hero-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
+    <div class="hero-foot">
+      <div class="hero-tags">
+        <span>Autonomous Systems</span>
+        <span>Flight Control</span>
+        <span>Applied AI</span>
+        <span>Rapid Prototyping</span>
+      </div>
+      <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>About</h2>
+        <span class="section-num mono">INDEX / 01</span>
+      </div>
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="about-lead">I build things that have to survive the air — airframes, flight logic, and the systems underneath them.</p>
+          <p class="about-body">Based in the UAE, I've spent the past couple of years turning a school project into Project Phantom: an autonomous UAV platform built for environmental monitoring, from aerodynamic design and rapid prototyping through to simulation and real-world flight testing. Outside of aircraft, I work across applied AI, embedded systems, and healthcare and energy technology — including AEGIS, a diagnostic support system, and LiCycle, a self-healing battery concept that placed first at the WFES AI Energy Hackathon.</p>
+          <p class="about-body">I'm currently the Artificial Intelligence Ambassador at Gulf Asian English School and part of the Tech &amp; AI Committee at Unipreneur Inc., alongside continuing to fly, break, and rebuild Phantom.</p>
         </div>
-        <div class="container hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-rocket" style="font-size:0.7rem;"></i>
-                Founder @ Project Phantom
-            </div>
+        <ul class="focus-list reveal reveal-d1">
+          <li><span>Autonomous Systems</span><span>FLT / NAV</span></li>
+          <li><span>UAV Technologies</span><span>AIRFRAME</span></li>
+          <li><span>AI &amp; Embedded Systems</span><span>ONBOARD</span></li>
+          <li><span>Sustainability Engineering</span><span>ENV</span></li>
+          <li><span>Real-World Prototyping</span><span>TEST</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-            <h1>
-                <span class="line">Engineering the</span>
-                <span class="line">
-                    <span class="rotating-wrap">
-                        <span class="word-track">
-                            <span class="word">Future</span>
-                            <span class="word">Sky</span>
-                            <span class="word">Autonomy</span>
-                            <span class="word">Impact</span>
-                        </span>
-                    </span>
-                    <span class="highlight">&nbsp;of Flight</span>
-                </span>
-            </h1>
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Projects</h2>
+        <span class="section-num mono">INDEX / 02</span>
+      </div>
+      <div class="proj-list">
 
-            <p>
-                UAE-based student innovator building autonomous fixed-wing UAV
-                systems that redefine environmental monitoring. Aerospace, AI, and
-                sustainability — engineered for impact.
-            </p>
-
-            <div class="hero-actions">
-                <a href="#work" class="btn btn-primary">
-                    <i class="fas fa-arrow-right"></i> See my work
-                </a>
-                <a href="#contact" class="btn btn-outline">
-                    <i class="fas fa-paper-plane"></i> Get in touch
-                </a>
-            </div>
-
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="number">12+</div>
-                    <div class="label">Hours endurance</div>
-                </div>
-                <div class="stat">
-                    <div class="number">6</div>
-                    <div class="label">G load factor</div>
-                </div>
-                <div class="stat">
-                    <div class="number">&lt;3</div>
-                    <div class="label">Min config swap</div>
-                </div>
-                <div class="stat">
-                    <div class="number">222</div>
-                    <div class="label">Pages of tech thesis</div>
-                </div>
-            </div>
+        <div class="proj reveal">
+          <span class="proj-code mono">PH-01</span>
+          <span class="proj-name">Project Phantom</span>
+          <span class="proj-desc">Autonomous fixed-wing UAV platform for environmental monitoring — aerodynamic design, flight control, and modular airframe architecture built and flight-tested from scratch.</span>
+          <span class="proj-tags"><span>UAV</span><span>Flight Control</span></span>
         </div>
-    </section>
 
-    <!-- ===== WORK — Sticky Stack ===== -->
-    <section id="work">
-        <div class="container">
-            <div class="section-label">Projects</div>
-            <h2 class="section-title">What I'm <span class="highlight">building</span></h2>
-            <p class="section-desc">
-                From autonomous aircraft to AI-driven healthcare — every project is
-                engineered for real-world impact.
-            </p>
-
-            <div class="sticky-stack">
-                <div class="sticky-card reveal" style="z-index:4;">
-                    <div class="card-number">01</div>
-                    <h3>Project Phantom</h3>
-                    <p>
-                        Solar-integrated VTOL UAV with 12+ hour endurance, modular
-                        wings, and AI-driven flight control. Built for environmental
-                        monitoring and sustainable aerial data collection.
-                    </p>
-                    <div class="tags">
-                        <span>UAV</span>
-                        <span>VTOL</span>
-                        <span>Solar</span>
-                        <span>AI</span>
-                        <span>Autonomous</span>
-                    </div>
-                </div>
-
-                <div class="sticky-card reveal reveal-delay-1" style="z-index:3;">
-                    <div class="card-number">02</div>
-                    <h3>AEGIS — AI Endoscopic System</h3>
-                    <p>
-                        Deep learning and computer vision for early detection of
-                        gastrointestinal diseases. Built to assist clinicians with
-                        faster, more accurate diagnoses.
-                    </p>
-                    <div class="tags">
-                        <span>Healthcare</span>
-                        <span>AI</span>
-                        <span>Computer Vision</span>
-                        <span>Deep Learning</span>
-                    </div>
-                </div>
-
-                <div class="sticky-card reveal reveal-delay-2" style="z-index:2;">
-                    <div class="card-number">03</div>
-                    <h3>LiCycle — Intelligent Battery</h3>
-                    <p>
-                        Self-healing battery with AI-driven monitoring, predictive
-                        maintenance, and energy optimization. 1st place at WFES
-                        AI Energy Hackathon 2026.
-                    </p>
-                    <div class="tags">
-                        <span>Energy</span>
-                        <span>AI</span>
-                        <span>Sustainability</span>
-                        <span>IoT</span>
-                    </div>
-                </div>
-
-                <div class="sticky-card reveal reveal-delay-3" style="z-index:1;">
-                    <div class="card-number">04</div>
-                    <h3>One Force — Disaster Response</h3>
-                    <p>
-                        AI-powered emergency response system integrating autonomous
-                        drones for fire detection, medical support, and communication
-                        relay in crisis zones.
-                    </p>
-                    <div class="tags">
-                        <span>Disaster Management</span>
-                        <span>Drones</span>
-                        <span>AI</span>
-                        <span>Emergency</span>
-                    </div>
-                </div>
-            </div>
+        <div class="proj reveal">
+          <span class="proj-code mono">LC-02</span>
+          <span class="proj-name">LiCycle</span>
+          <span class="proj-desc">Self-healing intelligent battery system using real-time sensor data and AI analytics to predict failure and extend battery life. 1st place, WFES AI Energy Hackathon.</span>
+          <span class="proj-tags"><span>AI</span><span>Energy Systems</span></span>
         </div>
-    </section>
 
-    <!-- ===== EXPERIENCE ===== -->
-    <section id="experience" style="background:var(--surface);">
-        <div class="container">
-            <div class="section-label">Experience</div>
-            <h2 class="section-title">Where I've <span class="highlight">worked</span></h2>
-
-            <div class="timeline">
-                <div class="timeline-item reveal">
-                    <div class="timeline-icon"><i class="fas fa-rocket"></i></div>
-                    <div class="timeline-content">
-                        <h4>Founder — Project Phantom</h4>
-                        <div class="meta">Apr 2025 – Present · Dubai, UAE</div>
-                        <p>
-                            Leading design, development, and testing of an autonomous
-                            fixed-wing UAV platform with solar integration, VTOL
-                            capability, and modular architecture.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item reveal reveal-delay-1">
-                    <div class="timeline-icon"><i class="fas fa-handshake"></i></div>
-                    <div class="timeline-content">
-                        <h4>Ambassador — Unipreneur Inc.</h4>
-                        <div class="meta">Jan 2026 – Present · Dubai, UAE</div>
-                        <p>
-                            Empowering youth founders across the UAE, supporting
-                            ventures from ideation to industry-grade execution.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item reveal reveal-delay-2">
-                    <div class="timeline-icon"><i class="fas fa-brain"></i></div>
-                    <div class="timeline-content">
-                        <h4>AI Ambassador — Gulf Asian English School</h4>
-                        <div class="meta">Jun 2026 – Present · Sharjah, UAE</div>
-                        <p>
-                            Driving tech literacy, launching student AI initiatives,
-                            and bridging academic theory with emerging technologies.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item reveal reveal-delay-3">
-                    <div class="timeline-icon"><i class="fas fa-microphone"></i></div>
-                    <div class="timeline-content">
-                        <h4>Volunteer — MAAD Model Aircraft Airshow</h4>
-                        <div class="meta">Jan 2026 – Feb 2026 · Dubai, UAE</div>
-                        <p>
-                            Media &amp; audio management for a two-day model aviation
-                            event, supporting live demonstrations and technical
-                            coordination.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="proj reveal">
+          <span class="proj-code mono">AG-03</span>
+          <span class="proj-name">AEGIS</span>
+          <span class="proj-desc">AI-assisted system for early detection of gastrointestinal disease from endoscopic imaging, using deep learning and computer vision on medical datasets.</span>
+          <span class="proj-tags"><span>Computer Vision</span><span>Healthcare</span></span>
         </div>
-    </section>
 
-    <!-- ===== SKILLS ===== -->
-    <section id="skills">
-        <div class="container">
-            <div class="section-label">Skills</div>
-            <h2 class="section-title">Tech <span class="highlight">stack</span></h2>
-            <div class="skill-grid">
-                <div class="skill-item">Rapid Prototyping</div>
-                <div class="skill-item">Systems Engineering</div>
-                <div class="skill-item">Flight Control</div>
-                <div class="skill-item">Autonomous Systems</div>
-                <div class="skill-item">UAV Design</div>
-                <div class="skill-item">Python</div>
-                <div class="skill-item">Computer Vision</div>
-                <div class="skill-item">Embedded Systems</div>
-                <div class="skill-item">AI / ML</div>
-                <div class="skill-item">Data Analysis</div>
-                <div class="skill-item">IoT</div>
-                <div class="skill-item">Game Development</div>
-                <div class="skill-item">3D Modeling</div>
-                <div class="skill-item">Simulation</div>
-            </div>
+        <div class="proj reveal">
+          <span class="proj-code mono">OF-04</span>
+          <span class="proj-name">One Force</span>
+          <span class="proj-desc">AI-driven disaster response system coordinating autonomous drones for fire detection, medical support, and communication relay in low-connectivity conditions.</span>
+          <span class="proj-tags"><span>AI</span><span>Robotics</span></span>
         </div>
-    </section>
 
-    <!-- ===== HONORS ===== -->
-    <section id="honors" style="background:var(--surface);">
-        <div class="container">
-            <div class="section-label">Honors</div>
-            <h2 class="section-title">Recognitions <span class="highlight">that matter</span></h2>
-
-            <div class="honor-list">
-                <div class="honor-item reveal">
-                    <div class="badge-icon"><i class="fas fa-trophy"></i></div>
-                    <div>
-                        <h4>SSA Sharjah Sustainability Awards — Finalist</h4>
-                        <div class="issuer">Environment and Protected Areas Authority · Jul 2026</div>
-                    </div>
-                </div>
-
-                <div class="honor-item reveal reveal-delay-1">
-                    <div class="badge-icon"><i class="fas fa-award"></i></div>
-                    <div>
-                        <h4>Earth Day Competition — Finalist &amp; Scholarship</h4>
-                        <div class="issuer">University of Birmingham Dubai · May 2026</div>
-                    </div>
-                </div>
-
-                <div class="honor-item reveal reveal-delay-2">
-                    <div class="badge-icon"><i class="fas fa-medal"></i></div>
-                    <div>
-                        <h4>WFES AI Energy Hackathon — 1st Place</h4>
-                        <div class="issuer">World Future Energy Summit · Jan 2026</div>
-                    </div>
-                </div>
-
-                <div class="honor-item reveal reveal-delay-3">
-                    <div class="badge-icon"><i class="fas fa-star"></i></div>
-                    <div>
-                        <h4>AppSmart 2025 — Overall Champion &amp; Best Social Impact</h4>
-                        <div class="issuer">JSS Private School Dubai · Sep 2025</div>
-                    </div>
-                </div>
-
-                <div class="honor-item reveal reveal-delay-4">
-                    <div class="badge-icon"><i class="fas fa-gamepad"></i></div>
-                    <div>
-                        <h4>Frijna Competition — 1st Place (Game Development)</h4>
-                        <div class="issuer">Emirates American School · May 2025</div>
-                    </div>
-                </div>
-            </div>
+        <div class="proj reveal">
+          <span class="proj-code mono">VP-05</span>
+          <span class="proj-name">VIPER</span>
+          <span class="proj-desc">Vision-based industrial inspection system that detects defective pipe fittings on a live conveyor line using computer vision and Arduino-controlled automation.</span>
+          <span class="proj-tags"><span>Computer Vision</span><span>IoT</span></span>
         </div>
-    </section>
 
-    <!-- ===== PHANTOM — 3D Cards ===== -->
-    <section id="phantom">
-        <div class="container">
-            <div class="section-label">Featured</div>
-            <h2 class="section-title">Project Phantom · <span class="highlight">One UAV, Infinite Missions</span></h2>
-            <p class="section-desc">
-                Youth-led, UAE-built. Solar-integrated, VTOL-capable, and engineered
-                for environmental monitoring across arid, coastal, and high-altitude
-                environments.
-            </p>
-
-            <div class="phantom-grid">
-                <div class="phantom-card reveal">
-                    <i class="fas fa-sun"></i>
-                    <h3>Solar Integration</h3>
-                    <p>Wing-embedded cells extend endurance beyond 12 hours.</p>
-                </div>
-
-                <div class="phantom-card reveal reveal-delay-1">
-                    <i class="fas fa-exchange-alt"></i>
-                    <h3>Modular Architecture</h3>
-                    <p>Interchangeable wing modules for diverse mission profiles.</p>
-                </div>
-
-                <div class="phantom-card reveal reveal-delay-2">
-                    <i class="fas fa-globe-asia"></i>
-                    <h3>SDG-Aligned</h3>
-                    <p>Designed for climate action, life on land &amp; below water.</p>
-                </div>
-
-                <div class="phantom-card reveal reveal-delay-3">
-                    <i class="fas fa-users"></i>
-                    <h3>Youth-Led</h3>
-                    <p>Two teenagers building what most professionals haven't attempted.</p>
-                </div>
-            </div>
-
-            <div style="text-align:center; margin-top:2.5rem;">
-                <a href="https://projectphantom.space" target="_blank" class="btn btn-primary">
-                    <i class="fas fa-external-link-alt"></i> Visit Phantom
-                </a>
-            </div>
+        <div class="proj reveal">
+          <span class="proj-code mono">SD-06</span>
+          <span class="proj-name">Seed of the Last Dawn</span>
+          <span class="proj-desc">A 2D RPG platformer built solo over three weeks — full gameplay systems, level design, and a complete narrative arc. 1st place, EAS Frijna Competition.</span>
+          <span class="proj-tags"><span>Game Dev</span><span>Solo Build</span></span>
         </div>
-    </section>
 
-    <!-- ===== CONTACT ===== -->
-    <section id="contact" style="background:var(--surface);">
-        <div class="container">
-            <div class="cta-box reveal">
-                <h2>Let's build something <span class="highlight">real</span></h2>
-                <p>
-                    Collaboration, technical questions, or just a hello —
-                    I'd love to hear from you.
-                </p>
-                <div class="actions">
-                    <a href="https://www.linkedin.com/in/rithishdharanidharan/" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-linkedin-in"></i> LinkedIn
-                    </a>
-                    <a href="mailto:rithish@projectphantom.space" class="btn btn-outline">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
-                    <a href="https://projectphantom.space" target="_blank" class="btn btn-outline">
-                        <i class="fas fa-globe"></i> projectphantom.space
-                    </a>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Experience</h2>
+        <span class="section-num mono">INDEX / 03</span>
+      </div>
+      <div class="exp-list">
+        <div class="exp reveal">
+          <div class="exp-time mono">APR 2025 — PRESENT</div>
+          <div><div class="exp-role">Founder</div><div class="exp-org">Project Phantom, Dubai</div></div>
         </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <div class="container">
-            <div class="socials">
-                <a href="https://www.linkedin.com/in/rithishdharanidharan/" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/rithishd" target="_blank" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://projectphantom.space" target="_blank" aria-label="Project Phantom">
-                    <i class="fas fa-rocket"></i>
-                </a>
-                <a href="mailto:rithish@projectphantom.space" aria-label="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-            <p>&copy; 2026 Rithish Dharanidharan · Built with <i class="fas fa-heart" style="color:#fff;"></i></p>
+        <div class="exp reveal">
+          <div class="exp-time mono">JAN 2026 — PRESENT</div>
+          <div><div class="exp-role">Ambassador, Tech &amp; AI Committee</div><div class="exp-org">Unipreneur Inc., Dubai</div></div>
         </div>
-    </footer>
+        <div class="exp reveal">
+          <div class="exp-time mono">JUN 2026 — PRESENT</div>
+          <div><div class="exp-role">Artificial Intelligence Ambassador</div><div class="exp-org">Gulf Asian English School, Sharjah</div></div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-time mono">MAY 2025 — JUN 2026</div>
+          <div><div class="exp-role">Community Ambassador</div><div class="exp-org">Gulf Asian English School, Sharjah</div></div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-time mono">JAN — FEB 2026</div>
+          <div><div class="exp-role">Event Volunteer, Media &amp; Audio</div><div class="exp-org">M.A.A.D. Model Aircraft Airshow, Dubai</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ============================================================
-    SCRIPTS
-    ============================================================ -->
-    <script>
-        // ---- Custom Cursor ----
-        const dot = document.getElementById('cursorDot');
-        const ring = document.getElementById('cursorRing');
-        let mx = 0,
-            my = 0;
-        let rx = 0,
-            ry = 0;
+  <section class="section" id="awards" style="padding-bottom:60px;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Recognition</h2>
+        <span class="section-num mono">INDEX / 04</span>
+      </div>
+    </div>
+    <div class="marquee reveal">
+      <div class="marquee-track mono">
+        <span>SSA Sharjah Sustainability Awards — Finalist</span>
+        <span>Earth Day Sustainability Competition — Finalist &amp; Scholarship</span>
+        <span>WFES AI Energy Hackathon — 1st Place</span>
+        <span>AppSmart 2025 — Overall Champion</span>
+        <span>CBSE Skill Expo 2025–26 — Selected Representative</span>
+        <span>PACEGEN 2025 — 3rd Place</span>
+        <span>Frijna Competition — 1st Place, Game Development</span>
+        <span>HOPE 24 — 2nd Place</span>
+        <!-- duplicate for seamless loop -->
+        <span>SSA Sharjah Sustainability Awards — Finalist</span>
+        <span>Earth Day Sustainability Competition — Finalist &amp; Scholarship</span>
+        <span>WFES AI Energy Hackathon — 1st Place</span>
+        <span>AppSmart 2025 — Overall Champion</span>
+        <span>CBSE Skill Expo 2025–26 — Selected Representative</span>
+        <span>PACEGEN 2025 — 3rd Place</span>
+        <span>Frijna Competition — 1st Place, Game Development</span>
+        <span>HOPE 24 — 2nd Place</span>
+      </div>
+    </div>
+  </section>
 
-        document.addEventListener('mousemove', (e) => {
-            mx = e.clientX;
-            my = e.clientY;
-            dot.style.left = mx + 'px';
-            dot.style.top = my + 'px';
-        });
+  <section class="section contact" id="contact">
+    <div class="wrap">
+      <div class="eyebrow reveal">INDEX / 05 — GET IN TOUCH</div>
+      <h2 class="reveal reveal-d1" style="margin-top:18px;">Building something<br>in autonomous flight?</h2>
+      <a href="mailto:hello@rithishdharanidharan.com" class="contact-link reveal reveal-d2">
+        hello@rithishdharanidharan.com <span class="arrow">↗</span>
+      </a>
 
-        function ringAnim() {
-            rx += (mx - rx) * 0.12;
-            ry += (my - ry) * 0.12;
-            ring.style.left = rx + 'px';
-            ring.style.top = ry + 'px';
-            requestAnimationFrame(ringAnim);
-        }
-        ringAnim();
+      <div class="contact-meta reveal reveal-d3">
+        <div>
+          <b>Based In</b>
+          Sharjah / Dubai, UAE
+        </div>
+        <div>
+          <b>Currently</b>
+          Founder, Project Phantom
+        </div>
+        <div>
+          <b>Elsewhere</b>
+          <a href="https://www.linkedin.com/in/rithish-dharanidharan" target="_blank" rel="noopener">LinkedIn</a> — <a href="https://projectphantom.space" target="_blank" rel="noopener">Project Phantom</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
-        // hover effects on interactive elements
-        const interactives = document.querySelectorAll('a, button, .btn, .sticky-card, .phantom-card, .skill-item, .timeline-item, .honor-item');
-        interactives.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                ring.classList.add('hover');
-                dot.style.width = '10px';
-                dot.style.height = '10px';
-                dot.style.background = '#fff';
-            });
-            el.addEventListener('mouseleave', () => {
-                ring.classList.remove('hover');
-                dot.style.width = '6px';
-                dot.style.height = '6px';
-                dot.style.background = '#fff';
-            });
-        });
+<footer>
+  <span>© 2026 Rithish Dharanidharan</span>
+  <span id="footClock" class="mono">SYS —</span>
+  <span>Designed for autonomous flight</span>
+</footer>
 
-        // hide custom cursor on touch
-        if ('ontouchstart' in window) {
-            document.querySelectorAll('.cursor-dot, .cursor-ring').forEach(el => el.style.display = 'none');
-        }
+<script>
+(function(){
+  // ---------- portal intro ----------
+  var pct = document.getElementById('portalPct');
+  var bar = document.getElementById('portalBar');
+  var status = document.getElementById('portalStatus');
+  var portal = document.getElementById('portal');
+  var header = document.getElementById('siteHeader');
+  var messages = ['CALIBRATING FLIGHT SYSTEMS','LINKING TELEMETRY','MAPPING AIRSPACE','SYSTEMS NOMINAL'];
+  var msgIndex = 0;
+  var val = 0;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // ---- Mobile Nav ----
-        const toggle = document.getElementById('mobileToggle');
-        const navLinks = document.getElementById('navLinks');
-        toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('open'));
-        });
+  function finishPortal(){
+    portal.classList.add('open');
+    document.body.classList.remove('locked');
+    header.classList.add('show');
+    setTimeout(function(){ portal.style.display = 'none'; }, 1300);
+  }
 
-        // ---- Nav scroll background ----
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+  if(reduced){
+    finishPortal();
+  } else {
+    var interval = setInterval(function(){
+      val += Math.random()*14 + 6;
+      if(val >= 100){
+        val = 100;
+        clearInterval(interval);
+        pct.textContent = '100%';
+        bar.style.width = '100%';
+        status.textContent = 'SYSTEMS NOMINAL';
+        setTimeout(finishPortal, 350);
+        return;
+      }
+      pct.textContent = Math.floor(val) + '%';
+      bar.style.width = val + '%';
+      var newIndex = Math.min(messages.length - 1, Math.floor(val / 26));
+      if(newIndex !== msgIndex){ msgIndex = newIndex; status.textContent = messages[msgIndex]; }
+    }, 140);
 
-        // ---- Scroll Reveal ----
-        const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-        reveals.forEach(el => observer.observe(el));
+    // safety fallback so nobody ever gets stuck
+    setTimeout(function(){
+      if(document.body.classList.contains('locked')) finishPortal();
+    }, 4500);
+  }
 
-        // ---- Sticky Stack: dynamic scale on scroll ----
-        const cards = document.querySelectorAll('.sticky-card');
-        window.addEventListener('scroll', () => {
-            cards.forEach((card, i) => {
-                const rect = card.getBoundingClientRect();
-                const vh = window.innerHeight;
-                const progress = 1 - (rect.top / vh);
-                const scale = 1 - (i * 0.015) + (progress * 0.01);
-                card.style.transform = `scale(${Math.min(scale, 1.01)})`;
-            });
-        });
+  // ---------- scroll reveal ----------
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  revealEls.forEach(function(el){ io.observe(el); });
 
-        // ---- Hero 3D Tilt ----
-        const hero = document.querySelector('.hero');
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            hero.style.transform = `perspective(1200px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg)`;
-        });
-        hero.addEventListener('mouseleave', () => {
-            hero.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg)';
-        });
-    </script>
+  // ---------- mobile nav ----------
+  var toggle = document.getElementById('navToggle');
+  var close = document.getElementById('mobileClose');
+  var panel = document.getElementById('mobilePanel');
+  toggle.addEventListener('click', function(){ panel.classList.add('open'); });
+  close.addEventListener('click', function(){ panel.classList.remove('open'); });
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ panel.classList.remove('open'); });
+  });
+
+  // ---------- header show on scroll (in case portal skipped) ----------
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 10){ header.classList.add('show'); }
+  });
+
+  // ---------- sys clock ----------
+  var clockEl = document.getElementById('clock');
+  var footClockEl = document.getElementById('footClock');
+  function tick(){
+    var d = new Date();
+    var t = d.toUTCString().split(' ')[4] + ' UTC';
+    if(clockEl) clockEl.textContent = 'SYS TIME — ' + t;
+    if(footClockEl) footClockEl.textContent = 'SYS — ' + t;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- subtle parallax on hero wireframe ----------
+  var wire = document.querySelector('.uav-wire');
+  if(wire && !reduced){
+    window.addEventListener('mousemove', function(e){
+      var x = (e.clientX / window.innerWidth - .5) * 14;
+      var y = (e.clientY / window.innerHeight - .5) * 14;
+      wire.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
