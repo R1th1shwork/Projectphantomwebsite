@@ -134,15 +134,45 @@
     img { max-width:100%; }
     @media (max-width:700px) { .loader-title { font-size:clamp(2rem,9.4vw,3.1rem); line-height:.95; max-width:12.5ch; }.loader-copy { font-size:12px; max-width:270px; }.quote-section { min-height:620px; padding:76px 24px; }.quote-section:before { height:125vw; width:125vw; }.quote-topline { font-size:8px; }.quote-topline span:last-child { display:none; }.quote-stage { margin-top:70px; min-height:370px; }.quote-mark { font-size:5rem; left:0; top:15px; }.quote-line { font-size:clamp(2.35rem,11.7vw,3.45rem); max-width:9.3ch; }.quote-focus { font-size:13px; margin-top:30px; max-width:265px; }.quote-credit { font-size:8px; max-width:250px; }.quote-hint { font-size:7px; }.stamp { height:128px; right:5px; width:128px; }.stamp b { font-size:14px; }.stamp small { font-size:7px; }.hero-art { pointer-events:none; } }
   </style>
+  <style>
+    /* Stable loader: reserve every visual slot before it becomes visible so refreshes cannot rearrange the composition. */
+    .site-loader { contain:layout paint style; display:grid; isolation:isolate; place-items:center; transition:opacity .16s var(--ease),visibility 0s linear .16s; }
+    .loader-shell { align-items:center; display:flex; flex-direction:column; min-height:490px; justify-content:center; opacity:0; transform:translateY(5px); transition:opacity .1s var(--ease),transform .1s var(--ease); width:min(88vw,620px); }
+    .site-loader.ready .loader-shell { opacity:1; transform:translateY(0); }
+    .loader-logo { flex:0 0 auto; height:112px; width:112px; }
+    .loader-title { font-size:clamp(2.25rem,4.5vw,5.35rem); line-height:.9; margin:22px 0 0; max-width:640px; min-height:2.7em; width:100%; }
+    .loader-title span { display:block; white-space:nowrap; }
+    .loader-copy { margin:18px auto 20px; min-height:2.9em; }
+    .loader-progress i { animation-duration:.52s; animation-play-state:paused; }
+    .site-loader.ready .loader-progress i { animation-play-state:running; }
+    .site-loader.is-leaving { animation:none; opacity:0; visibility:hidden; }
+    @media (max-width:700px) { .loader-shell { min-height:470px; width:min(90vw,390px); }.loader-logo { height:94px; width:94px; }.loader-title { font-size:clamp(2rem,9.1vw,3rem); line-height:.96; max-width:310px; min-height:2.88em; }.loader-title span { white-space:normal; }.loader-copy { min-height:3.15em; } }
+  </style>
 </head>
+<style>
+  /* Premium loader pass: one controlled entrance, then a single cross-fade into the page. */
+  .site-loader { opacity:1; transition:opacity .82s cubic-bezier(.23,1,.32,1),visibility 0s linear .82s; }
+  .loader-shell { min-height:450px; transition:opacity .42s cubic-bezier(.23,1,.32,1),transform .42s cubic-bezier(.23,1,.32,1); }
+  .loader-logo { height:96px; width:96px; }
+  .loader-title { font-size:clamp(2.2rem,4.05vw,4.8rem); font-weight:700; letter-spacing:-.09em; line-height:.9; max-width:650px; min-height:2.7em; }
+  .loader-copy { font-size:13px; margin-top:16px; }
+  .loader-progress i { animation-duration:1.28s; }
+  .site-loader.is-leaving { opacity:0; visibility:hidden; }
+  .site-loader.is-leaving .loader-shell { opacity:0; transform:translateY(-7px); }
+  body > :not(.site-loader) { opacity:0; transition:opacity .82s cubic-bezier(.23,1,.32,1); }
+  body.page-ready > :not(.site-loader) { opacity:1; }
+  @media (max-width:700px) { .loader-shell { min-height:430px; }.loader-logo { height:82px; width:82px; }.loader-title { font-size:clamp(2rem,8.6vw,2.85rem); line-height:.94; max-width:310px; }.loader-copy { font-size:11px; } }
+</style>
 <body class="is-loading">
-  <section class="site-loader" id="site-loader" aria-label="Youth Forward introduction">
-    <img class="loader-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum">
-    <p class="loader-kicker">A youth initiative inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</p>
-    <h1 class="loader-title">Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</h1>
-    <p class="loader-copy">Loading a youth initiative built for ideas, ambition, and what comes next.</p>
-    <div class="loader-progress" aria-label="Loading"><i></i></div>
-    <span class="loader-credit">Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</span>
+  <section class="site-loader" id="site-loader" aria-label="Loading the initiative">
+    <div class="loader-shell">
+      <img class="loader-logo" id="loader-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum" width="112" height="112">
+      <p class="loader-kicker">A youth initiative inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</p>
+      <h1 class="loader-title"><span>Inspired by H.H.</span><span>Sheikh Mohammed</span><span>bin Rashid Al Maktoum</span></h1>
+      <p class="loader-copy">Loading a youth initiative built for ideas, ambition, and what comes next.</p>
+      <div class="loader-progress" aria-label="Loading"><i></i></div>
+      <span class="loader-credit">Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</span>
+    </div>
   </section>
   <div class="progress" id="progress"></div>
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
@@ -157,7 +187,7 @@
   <main id="top">
     <section class="hero">
       <div class="hero-grid"></div><div class="hero-marker one"></div><div class="hero-marker two"></div>
-      <div class="hero-copy reveal"><p class="eyebrow"><i></i> A youth initiative / Dubai</p><h1>Young minds<br>make <i>tomorrow</i><br>real.</h1><div class="hero-bottom"><p>Imagine it. Design it. Execute it.<br>A platform for youth with a long view.</p><button class="circle-btn" type="button" data-scroll="initiatives" aria-label="Explore initiatives">↓</button></div></div>
+      <div class="hero-copy reveal"><p class="eyebrow"><i></i> A youth initiative / Dubai</p><h1>Where youth<br>imagine, design,<br>and create a<br><i>greater</i> future.</h1><div class="hero-bottom"><p>A place for young people ready to turn vision into action and make what comes next.</p><button class="circle-btn" type="button" data-scroll="initiatives" aria-label="Explore initiatives">↓</button></div></div>
       <div class="hero-art"><div class="hero-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/YWFPWVUjckYNlVAF.jpg" alt="Abstract future-facing city and innovation studio collage"></div><div class="logo-orbit"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt=""></div><p>Inspired / Field Note 01<br>The Future is a Practice</p></div>
       <button class="scroll-read" type="button" data-scroll="about">Scroll to read <span>↘</span></button>
     </section>
@@ -216,10 +246,13 @@
       function animateCursor(){ringX+=(cursorX-ringX)*.22;ringY+=(cursorY-ringY)*.22;ring.style.transform=`translate3d(${ringX-15}px,${ringY-15}px,0)`;dot.style.transform=`translate3d(${cursorX-4}px,${cursorY-4}px,0)`;requestAnimationFrame(animateCursor);}
       animateCursor();
     }
-    const siteLoader=document.getElementById('site-loader');
+    const siteLoader=document.getElementById('site-loader'),loaderLogo=document.getElementById('loader-logo');
     let loaderDismissed=false;
-    function dismissLoader(){ if(loaderDismissed)return; loaderDismissed=true; siteLoader.classList.add('is-leaving'); document.body.classList.remove('is-loading'); window.setTimeout(()=>siteLoader.remove(),850); }
-    window.setTimeout(dismissLoader,3100);
+    function dismissLoader(){ if(loaderDismissed)return; loaderDismissed=true; document.body.classList.add('page-ready'); siteLoader.classList.add('is-leaving'); window.setTimeout(()=>{siteLoader.remove();document.body.classList.remove('is-loading');},860); }
+    function waitFor(promise,ms){return Promise.race([promise,new Promise(resolve=>window.setTimeout(resolve,ms))]);}
+    const fontReady=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
+    const imageReady=loaderLogo.complete?Promise.resolve():new Promise(resolve=>{loaderLogo.addEventListener('load',resolve,{once:true});loaderLogo.addEventListener('error',resolve,{once:true});});
+    Promise.all([waitFor(fontReady,420),waitFor(imageReady,420)]).then(()=>{requestAnimationFrame(()=>{siteLoader.classList.add('ready');window.setTimeout(dismissLoader,1850);});});
   </script>
 </body>
 </html>
