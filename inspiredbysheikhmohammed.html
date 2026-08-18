@@ -91,13 +91,39 @@
       .footer-official-logo { margin-top:20px; max-width:175px; }
     }
   </style>
+  <style>
+    /* Youth Forward identity and entry sequence. */
+    body.is-loading { overflow:hidden; }
+    .site-loader { align-items:center; background:#0d0d0d; color:#fff; display:flex; flex-direction:column; inset:0; justify-content:center; overflow:hidden; padding:32px; position:fixed; text-align:center; z-index:1000; }
+    .site-loader:before { border:1px solid rgba(255,255,255,.12); border-radius:50%; content:""; height:min(62vw,720px); position:absolute; width:min(62vw,720px); }
+    .loader-logo { background:#fff; border-radius:50%; height:140px; margin-bottom:28px; object-fit:contain; padding:10px; position:relative; width:140px; }
+    .loader-kicker { color:var(--lime); font:10px/1 "DM Mono",monospace; letter-spacing:.1em; margin:0 0 18px; position:relative; text-transform:uppercase; }
+    .loader-title { font-size:clamp(2.45rem,5.4vw,6.3rem); letter-spacing:-.085em; line-height:.87; margin:0; max-width:11ch; position:relative; }
+    .loader-copy { color:#d0d0c9; font-size:14px; line-height:1.45; margin:22px auto 25px; max-width:350px; position:relative; }
+    .loader-progress { background:rgba(255,255,255,.2); height:1px; overflow:hidden; position:relative; width:min(290px,68vw); }.loader-progress i { animation:loaderFill 2.6s cubic-bezier(.23,1,.32,1) forwards; background:var(--lime); display:block; height:100%; width:0; }
+    .loader-credit { bottom:27px; color:#8f8f88; font:9px/1 "DM Mono",monospace; left:50%; letter-spacing:.06em; position:absolute; transform:translateX(-50%); text-transform:uppercase; white-space:nowrap; }
+    .site-loader.is-leaving { animation:loaderOut .8s var(--ease) forwards; pointer-events:none; }
+    .logo-orbit { background:transparent; border:0; border-radius:0; box-shadow:none; height:132px; right:12%; width:132px; }
+    .logo-orbit img { background:#fff; border-radius:50%; height:116px; padding:8px; width:116px; }
+    .brand > img { background:#fff; border-radius:50%; padding:3px; }
+    @keyframes loaderOut { to { clip-path:inset(0 0 100% 0); opacity:0; } } @keyframes loaderFill { to { width:100%; } }
+    @media (max-width:700px) { .loader-logo { height:106px; width:106px; }.loader-copy { font-size:13px; max-width:290px; }.loader-credit { font-size:7px; }.logo-orbit { height:98px; width:98px; }.logo-orbit img { height:88px; width:88px; } }
+  </style>
 </head>
-<body>
+<body class="is-loading">
+  <section class="site-loader" id="site-loader" aria-label="Youth Forward introduction">
+    <img class="loader-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum">
+    <p class="loader-kicker">A youth initiative by Unipreneur</p>
+    <h1 class="loader-title">Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</h1>
+    <p class="loader-copy">Loading ideas, ambition, and a generation ready to make tomorrow real.</p>
+    <div class="loader-progress" aria-label="Loading"><i></i></div>
+    <span class="loader-credit">Dubai / Youth, Vision, Action</span>
+  </section>
   <div class="progress" id="progress"></div>
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
   <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
   <header class="header" id="header">
-    <a class="brand" href="#top" aria-label="Return to top"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/adZyTrrpHtIvGxTq.png" alt="Unipreneur hand mark"><span class="brand-copy"><b>Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</b><em>An Initiative by Unipreneur</em></span></a>
+    <a class="brand" href="#top" aria-label="Return to top"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum"><span class="brand-copy"><b>Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</b><em>A youth initiative by Unipreneur</em></span></a>
     <nav class="nav" aria-label="Primary navigation"><a href="#about">About</a><div class="project-menu-wrap"><button class="project-toggle" type="button">Projects <span>⌄</span></button><div class="mega-menu"><small>The active ledger</small><div id="mega-items"></div></div></div><a href="#contact">Contact</a><button class="nav-cta" type="button" data-scroll="initiatives">Explore <span>→</span></button></nav>
     <button class="mobile-toggle" id="mobile-toggle" type="button" aria-label="Open menu">☰</button>
   </header>
@@ -106,8 +132,8 @@
   <main id="top">
     <section class="hero">
       <div class="hero-grid"></div><div class="hero-marker one"></div><div class="hero-marker two"></div>
-      <div class="hero-copy reveal"><p class="eyebrow"><i></i> Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</p><h1>The future<br>belongs to those<br>who <i>make</i> it.</h1><div class="hero-bottom"><p>Imagine it. Design it. Execute it.<br>A platform for youth with a long view.</p><button class="circle-btn" type="button" data-scroll="initiatives" aria-label="Explore initiatives">↓</button></div></div>
-      <div class="hero-art"><div class="hero-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/YWFPWVUjckYNlVAF.jpg" alt="Abstract future-facing city and innovation studio collage"></div><div class="logo-orbit"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/adZyTrrpHtIvGxTq.png" alt=""></div><p>Unipreneur / Field Note 01<br>The Future is a Practice</p></div>
+      <div class="hero-copy reveal"><p class="eyebrow"><i></i> A youth initiative / Dubai</p><h1>The future<br>belongs to those<br>who <i>make</i> it.</h1><div class="hero-bottom"><p>Imagine it. Design it. Execute it.<br>A platform for youth with a long view.</p><button class="circle-btn" type="button" data-scroll="initiatives" aria-label="Explore initiatives">↓</button></div></div>
+      <div class="hero-art"><div class="hero-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/YWFPWVUjckYNlVAF.jpg" alt="Abstract future-facing city and innovation studio collage"></div><div class="logo-orbit"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt=""></div><p>Inspired / Field Note 01<br>The Future is a Practice</p></div>
       <button class="scroll-read" type="button" data-scroll="about">Scroll to read <span>↘</span></button>
     </section>
 
@@ -124,7 +150,7 @@
     <section class="vision"><div class="vision-inner"><div class="vision-copy reveal"><p class="kicker">GITEX YouthX Unipreneur</p><h2>Where young ideas meet a bigger ecosystem.</h2><p>GITEX YouthX Unipreneur brings students, young founders, educators, government and industry together at GITEX Global and Expand North Star in Dubai. It is a place to explore entrepreneurship, intrapreneurship, innovation and impact.</p><a class="text-link" href="https://www.expandnorthstar.com/gitex-youthx" target="_blank" rel="noreferrer">Explore YouthX at GITEX <span>↗</span></a></div><div class="vision-image reveal"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/JZBfEIyPnJfCxwKG.jpg" alt="Architectural portal framing an optimistic city horizon"><span class="caption">YouthX / GITEX Global + Expand North Star</span></div></div></section>
   </main>
 
-  <footer class="footer" id="contact"><div class="footer-line"></div><div class="footer-grid"><div class="footer-intro"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/adZyTrrpHtIvGxTq.png" alt="Unipreneur hand mark"><p>Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum.</p><span>An Initiative by Unipreneur</span></div><div class="footer-center"><div class="footer-cta"><p class="kicker">A question worth opening</p><h2>What will you make possible?</h2><button class="button" id="conversation-btn" type="button">Start a conversation <span>↗</span></button></div><img class="footer-official-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/cgcAnTyOYBVFUVRl.png" alt="Unipreneur, igniting sparks and creating leaders"></div><div class="footer-meta"><p>Powered by Unipreneur</p><small>Dubai, UAE / © 2026</small></div></div></footer>
+  <footer class="footer" id="contact"><div class="footer-line"></div><div class="footer-grid"><div class="footer-intro"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum"><p>Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum.</p><span>A youth initiative by Unipreneur</span></div><div class="footer-center"><div class="footer-cta"><p class="kicker">A question worth opening</p><h2>What will the next generation make possible?</h2><button class="button" id="conversation-btn" type="button">Start a conversation <span>↗</span></button></div><img class="footer-official-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/cgcAnTyOYBVFUVRl.png" alt="Unipreneur, igniting sparks and creating leaders"></div><div class="footer-meta"><p>Powered by Unipreneur</p><small>Dubai, UAE / © 2026</small></div></div></footer>
 
   <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title"><section class="modal"><div class="modal-top"><span id="modal-meta">01 / Venture Competition</span><button class="modal-close" type="button" aria-label="Close">×</button></div><div class="modal-content"><div><p class="kicker">Programme focus</p><h2 id="modal-title"></h2><p class="modal-quote" id="modal-quote"></p></div><div class="modal-desc-wrap"><p class="modal-desc" id="modal-desc"></p><div class="criteria"><small>What to bring</small><div id="modal-criteria"></div></div><button class="modal-action" type="button" id="register-btn">Register interest <span>↗</span></button></div></div></section></div>
   <div class="toast" id="toast" role="status">Registration details will be announced with each programme.</div>
@@ -159,6 +185,10 @@
       function animateCursor(){ringX+=(cursorX-ringX)*.22;ringY+=(cursorY-ringY)*.22;ring.style.transform=`translate3d(${ringX-15}px,${ringY-15}px,0)`;dot.style.transform=`translate3d(${cursorX-4}px,${cursorY-4}px,0)`;requestAnimationFrame(animateCursor);}
       animateCursor();
     }
+    const siteLoader=document.getElementById('site-loader');
+    let loaderDismissed=false;
+    function dismissLoader(){ if(loaderDismissed)return; loaderDismissed=true; siteLoader.classList.add('is-leaving'); document.body.classList.remove('is-loading'); window.setTimeout(()=>siteLoader.remove(),850); }
+    window.setTimeout(dismissLoader,2700);
   </script>
 </body>
 </html>
