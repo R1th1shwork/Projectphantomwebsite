@@ -163,6 +163,15 @@
   body.page-ready > :not(.site-loader) { opacity:1; }
   @media (max-width:700px) { .loader-shell { min-height:430px; }.loader-logo { height:82px; width:82px; }.loader-title { font-size:clamp(2rem,8.6vw,2.85rem); line-height:.94; max-width:310px; }.loader-copy { font-size:11px; } }
 </style>
+<style>
+  /* Hidden play layer: quiet by default, delightful when discovered. */
+  .hero-marker.two,.signal-seed { display:none!important; }
+  .egg-note { background:#101010; bottom:22px; color:#fff; font:10px/1.4 "DM Mono",monospace; left:50%; opacity:0; padding:11px 14px; pointer-events:none; position:fixed; transform:translate(-50%,18px); transition:opacity .28s var(--ease),transform .28s var(--ease); z-index:999; }.egg-note.show { opacity:1; transform:translate(-50%,0); }
+  .click-spark { background:var(--lime); border-radius:50%; height:7px; left:0; pointer-events:none; position:fixed; top:0; width:7px; z-index:998; animation:sparkBurst .64s cubic-bezier(.23,1,.32,1) forwards; }.click-spark:nth-child(2n) { background:#d9788e; }.click-spark:nth-child(3n) { background:#cbb684; }
+  body.youth-discovered .hero-marker.one { border-color:var(--lime); }.hero-art .hero-image { transition:filter .42s var(--ease); } body.youth-discovered .hero-art .hero-image { filter:hue-rotate(12deg) saturate(1.15); }
+  @keyframes sparkBurst { to { opacity:0; transform:translate(var(--spark-x),var(--spark-y)) scale(.2) rotate(180deg); } }
+  @media (max-width:700px) { .signal-seed { bottom:84px; right:22px; } }
+</style>
 <body class="is-loading">
   <section class="site-loader" id="site-loader" aria-label="Loading the initiative">
     <div class="loader-shell">
@@ -210,7 +219,7 @@
   <footer class="footer" id="contact"><div class="footer-line"></div><div class="footer-grid"><div class="footer-intro"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum"><p>Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum.</p><span>A youth initiative by Unipreneur</span></div><div class="footer-center"><div class="footer-cta"><p class="kicker">A question worth opening</p><h2>What will the next generation make possible?</h2><button class="button" id="conversation-btn" type="button">Start a conversation <span>↗</span></button></div><img class="footer-official-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/cgcAnTyOYBVFUVRl.png" alt="Unipreneur, igniting sparks and creating leaders"></div><div class="footer-meta"><p>Powered by Unipreneur</p><small>Dubai, UAE / © 2026</small></div></div></footer>
 
   <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title"><section class="modal"><div class="modal-top"><span id="modal-meta">01 / Venture Competition</span><button class="modal-close" type="button" aria-label="Close">×</button></div><div class="modal-content"><div><p class="kicker">Programme focus</p><h2 id="modal-title"></h2><p class="modal-quote" id="modal-quote"></p></div><div class="modal-desc-wrap"><p class="modal-desc" id="modal-desc"></p><div class="criteria"><small>What to bring</small><div id="modal-criteria"></div></div><button class="modal-action" type="button" id="register-btn">Register interest <span>↗</span></button></div></div></section></div>
-  <div class="toast" id="toast" role="status">Registration details will be announced with each programme.</div>
+  <div class="egg-note" id="egg-note" aria-live="polite"></div>
 
   <script>
     const projects = [
@@ -226,7 +235,11 @@
     function closeProject(){ modal.classList.remove('open'); document.body.style.overflow=''; }
     document.addEventListener('click',e=>{ const target=e.target.closest('[data-project]'); if(target) openProject(target.dataset.project); const scroll=e.target.closest('[data-scroll]'); if(scroll){document.getElementById(scroll.dataset.scroll).scrollIntoView({behavior:'smooth'});document.getElementById('mobile-nav').classList.remove('open');} });
     document.querySelector('.modal-close').addEventListener('click',closeProject); modal.addEventListener('click',e=>{ if(e.target===modal) closeProject(); }); document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProject();});
-    const toast=document.getElementById('toast'); function showToast(){toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3000);} document.getElementById('conversation-btn').addEventListener('click',showToast); document.getElementById('register-btn').addEventListener('click',showToast);
+    const eggNote=document.getElementById('egg-note'); let eggTimer;
+    function announceEgg(message){eggNote.textContent=message;eggNote.classList.add('show');clearTimeout(eggTimer);eggTimer=setTimeout(()=>eggNote.classList.remove('show'),2600);}
+    function burstAt(x,y,count=8){for(let i=0;i<count;i++){const spark=document.createElement('span');const angle=(Math.PI*2*i)/count;const distance=22+Math.random()*38;spark.className='click-spark';spark.style.left=`${x}px`;spark.style.top=`${y}px`;spark.style.setProperty('--spark-x',`${Math.cos(angle)*distance}px`);spark.style.setProperty('--spark-y',`${Math.sin(angle)*distance}px`);document.body.appendChild(spark);setTimeout(()=>spark.remove(),680);}}
+    function showToast(event){const x=event?.clientX||innerWidth/2,y=event?.clientY||innerHeight/2;burstAt(x,y,10);announceEgg('Keep building. The next move is yours.');}
+    document.getElementById('conversation-btn').addEventListener('click',showToast); document.getElementById('register-btn').addEventListener('click',showToast);
     const mobileToggle=document.getElementById('mobile-toggle'), mobileNav=document.getElementById('mobile-nav'); mobileToggle.addEventListener('click',()=>{mobileNav.classList.toggle('open');mobileToggle.textContent=mobileNav.classList.contains('open')?'×':'☰';});
     const header=document.getElementById('header'),progress=document.getElementById('progress'); function updateScroll(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.transform=`scaleX(${max?scrollY/max:0})`;header.classList.toggle('scrolled',scrollY>24);} addEventListener('scroll',updateScroll,{passive:true});updateScroll();
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')}),{threshold:.12}); document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
@@ -234,6 +247,10 @@
     const quoteTokens=document.querySelectorAll('.quote-token'),quoteFocus=document.getElementById('quote-focus');
     function activateQuote(token){quoteTokens.forEach(item=>item.classList.toggle('is-active',item===token));quoteFocus.textContent=token.dataset.quote;}
     quoteTokens.forEach(token=>{token.addEventListener('mouseenter',()=>activateQuote(token));token.addEventListener('focus',()=>activateQuote(token));token.addEventListener('click',()=>activateQuote(token));});
+
+    const imagineCode=['i','m','a','g','i','n','e'];let codeProgress=0;
+    document.addEventListener('keydown',event=>{const key=event.key.toLowerCase();codeProgress=key===imagineCode[codeProgress]?codeProgress+1:(key==='i'?1:0);if(codeProgress===imagineCode.length){document.body.classList.add('youth-discovered');burstAt(innerWidth*.5,innerHeight*.5,18);announceEgg('Imagine unlocked. Design the next step.');codeProgress=0;}});
+    document.addEventListener('click',event=>{if(event.target.closest('button,a,input,textarea,select'))return;burstAt(event.clientX,event.clientY,5);});
 
     const finePointer=window.matchMedia('(pointer:fine)').matches;
     if(finePointer){
