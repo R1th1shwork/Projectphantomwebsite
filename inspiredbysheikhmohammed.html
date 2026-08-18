@@ -109,15 +109,40 @@
     @keyframes loaderOut { to { clip-path:inset(0 0 100% 0); opacity:0; } } @keyframes loaderFill { to { width:100%; } }
     @media (max-width:700px) { .loader-logo { height:106px; width:106px; }.loader-copy { font-size:13px; max-width:290px; }.loader-credit { font-size:7px; }.logo-orbit { height:98px; width:98px; }.logo-orbit img { height:88px; width:88px; } }
   </style>
+  <style>
+    /* Final youth-first refinement: bright opening, deliberate fade, and distinct leadership programme colour. */
+    .site-loader { background:#f9f8f4; color:#101010; }
+    .site-loader:before { border-color:rgba(16,16,16,.13); }
+    .loader-logo { border:1px solid #101010; box-shadow:0 12px 28px rgba(16,16,16,.12); }
+    .loader-kicker { color:#7d6841; }
+    .loader-title { font-size:clamp(3.65rem,9vw,9.6rem); letter-spacing:-.11em; line-height:.78; max-width:9ch; }
+    .loader-title i { font:italic .5em/1 "DM Mono",monospace; letter-spacing:-.09em; }
+    .loader-copy { color:#30302d; font-size:15px; max-width:390px; }
+    .loader-progress { background:rgba(16,16,16,.18); }
+    .loader-credit { color:#77766e; }
+    .site-loader.is-leaving { animation:loaderFade 1.55s var(--ease) forwards; }
+    .project-card.ink { background:#161616; }.project-card.ink:hover { background:#f28d68; color:#101010; }
+    @keyframes loaderFade { to { opacity:0; } }
+    @media (max-width:700px) { .loader-title { font-size:clamp(3.35rem,15vw,5.45rem); max-width:8.8ch; }.loader-copy { font-size:13px; }.loader-logo { height:98px; width:98px; } }
+  </style>
+  <style>
+    /* Quote interaction, GITEX YouthX scene marker, and final responsive safeguards. */
+    .loader-title { font-size:clamp(2.25rem,4.5vw,5.35rem); line-height:.9; max-width:11.5ch; overflow-wrap:anywhere; text-align:center; text-wrap:balance; }
+    .loader-copy { max-width:330px; }
+    .quote-section { background:#0f0f0f; color:#fff; min-height:680px; overflow:hidden; padding:108px 8vw; position:relative; }.quote-section:before { border:1px solid rgba(255,255,255,.17); border-radius:50%; content:""; height:min(58vw,760px); left:50%; position:absolute; top:50%; transform:translate(-50%,-50%); width:min(58vw,760px); }.quote-topline { align-items:center; color:#cbb684; display:flex; font:10px/1 "DM Mono",monospace; justify-content:space-between; letter-spacing:.08em; margin:0 auto; max-width:1200px; position:relative; text-transform:uppercase; }.quote-stage { align-items:center; display:flex; flex-direction:column; justify-content:center; margin:94px auto 0; max-width:1100px; min-height:370px; position:relative; text-align:center; }.quote-mark { color:var(--lime); font:700 clamp(4.5rem,10vw,10rem)/.55 Georgia,serif; left:5%; position:absolute; top:0; }.quote-line { font-size:clamp(2.55rem,5vw,6.1rem); letter-spacing:-.09em; line-height:.91; margin:0; max-width:13.5ch; position:relative; }.quote-line em { font-style:normal; }.quote-token { background:transparent; color:#fff; display:inline; font:inherit; letter-spacing:inherit; line-height:inherit; padding:0; position:relative; transition:color .2s var(--ease),text-shadow .2s var(--ease); }.quote-token:after { background:var(--lime); bottom:.04em; content:""; height:.08em; left:0; position:absolute; transform:scaleX(0); transform-origin:left; transition:transform .22s var(--ease); width:100%; z-index:-1; }.quote-token:hover,.quote-token.is-active { color:var(--lime); text-shadow:0 0 24px rgba(142,235,0,.22); }.quote-token:hover:after,.quote-token.is-active:after { transform:scaleX(1); }.quote-focus { color:#d7d6ce; font:italic 17px/1.5 "DM Mono",monospace; margin:36px auto 0; max-width:610px; min-height:3.2em; position:relative; }.quote-credit { color:#cbb684; font:10px/1.3 "DM Mono",monospace; letter-spacing:.05em; margin:31px 0 0; position:relative; text-transform:uppercase; }.quote-hint { bottom:19px; color:#86867e; font:9px/1 "DM Mono",monospace; left:50%; letter-spacing:.08em; position:absolute; transform:translateX(-50%); text-transform:uppercase; white-space:nowrap; }
+    .stamp { box-shadow:none; }.stamp small { color:#7d6841; }.stamp b { font-size:20px; }
+    img { max-width:100%; }
+    @media (max-width:700px) { .loader-title { font-size:clamp(2rem,9.4vw,3.1rem); line-height:.95; max-width:12.5ch; }.loader-copy { font-size:12px; max-width:270px; }.quote-section { min-height:620px; padding:76px 24px; }.quote-section:before { height:125vw; width:125vw; }.quote-topline { font-size:8px; }.quote-topline span:last-child { display:none; }.quote-stage { margin-top:70px; min-height:370px; }.quote-mark { font-size:5rem; left:0; top:15px; }.quote-line { font-size:clamp(2.35rem,11.7vw,3.45rem); max-width:9.3ch; }.quote-focus { font-size:13px; margin-top:30px; max-width:265px; }.quote-credit { font-size:8px; max-width:250px; }.quote-hint { font-size:7px; }.stamp { height:128px; right:5px; width:128px; }.stamp b { font-size:14px; }.stamp small { font-size:7px; }.hero-art { pointer-events:none; } }
+  </style>
 </head>
 <body class="is-loading">
   <section class="site-loader" id="site-loader" aria-label="Youth Forward introduction">
     <img class="loader-logo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt="Portrait mark inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum">
-    <p class="loader-kicker">A youth initiative by Unipreneur</p>
+    <p class="loader-kicker">A youth initiative inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</p>
     <h1 class="loader-title">Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</h1>
-    <p class="loader-copy">Loading ideas, ambition, and a generation ready to make tomorrow real.</p>
+    <p class="loader-copy">Loading a youth initiative built for ideas, ambition, and what comes next.</p>
     <div class="loader-progress" aria-label="Loading"><i></i></div>
-    <span class="loader-credit">Dubai / Youth, Vision, Action</span>
+    <span class="loader-credit">Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum</span>
   </section>
   <div class="progress" id="progress"></div>
   <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
@@ -132,18 +157,20 @@
   <main id="top">
     <section class="hero">
       <div class="hero-grid"></div><div class="hero-marker one"></div><div class="hero-marker two"></div>
-      <div class="hero-copy reveal"><p class="eyebrow"><i></i> A youth initiative / Dubai</p><h1>The future<br>belongs to those<br>who <i>make</i> it.</h1><div class="hero-bottom"><p>Imagine it. Design it. Execute it.<br>A platform for youth with a long view.</p><button class="circle-btn" type="button" data-scroll="initiatives" aria-label="Explore initiatives">↓</button></div></div>
+      <div class="hero-copy reveal"><p class="eyebrow"><i></i> A youth initiative / Dubai</p><h1>Young minds<br>make <i>tomorrow</i><br>real.</h1><div class="hero-bottom"><p>Imagine it. Design it. Execute it.<br>A platform for youth with a long view.</p><button class="circle-btn" type="button" data-scroll="initiatives" aria-label="Explore initiatives">↓</button></div></div>
       <div class="hero-art"><div class="hero-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/YWFPWVUjckYNlVAF.jpg" alt="Abstract future-facing city and innovation studio collage"></div><div class="logo-orbit"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/LkCJnklnbGbLBmSv.png" alt=""></div><p>Inspired / Field Note 01<br>The Future is a Practice</p></div>
       <button class="scroll-read" type="button" data-scroll="about">Scroll to read <span>↘</span></button>
     </section>
 
     <section class="manifesto" id="about"><div class="manifesto-body reveal"><p class="kicker">Unipreneur / built in Dubai</p><h2>A platform for young people ready to build what is next.</h2><div class="manifesto-summary"><p>Unipreneur is a Dubai-based youth entrepreneurship, intrapreneurship and innovation development platform. It brings young people closer to the skills, industry experience and opportunities that help future leaders move from idea to action.</p><button class="text-link" type="button" data-scroll="initiatives">Explore the programmes <span>↗</span></button></div></div><div class="orbit"><svg viewBox="0 0 220 220" fill="none"><circle cx="110" cy="110" r="92"/><path d="M19 119C68 64 140 43 202 79"/><path d="M50 190C78 139 151 97 207 114"/></svg><span>BUILD / LEAD / IMAGINE</span></div></section>
 
+    <section class="quote-section" aria-labelledby="quote-title"><div class="quote-topline"><span>01 / A vision in motion</span><span>Hover or tap a word to explore</span></div><div class="quote-stage"><span class="quote-mark" aria-hidden="true">“</span><h2 class="quote-line" id="quote-title">The future belongs to those who can <button class="quote-token is-active" type="button" data-quote="Imagination is the first move. Young people who can see a possibility before it exists are already beginning to create it.">imagine</button> it, <button class="quote-token" type="button" data-quote="Design gives a bold idea its structure, usefulness, and a route from intention to impact.">design</button> it, and <button class="quote-token" type="button" data-quote="Execution is where youth ambition becomes a real contribution, one clear next step at a time.">execute</button> it. It isn't something you await, but rather <button class="quote-token" type="button" data-quote="The future is not a destination. It is the work young people choose to create together.">create</button>.</h2><p class="quote-focus" id="quote-focus">Imagination is the first move. Young people who can see a possibility before it exists are already beginning to create it.</p><p class="quote-credit">H.H. Sheikh Mohammed bin Rashid Al Maktoum</p></div><span class="quote-hint">Hover or tap to activate the words</span></section>
+
     <section class="principles"><div class="reveal"><p class="kicker">The way forward</p></div><div class="principles-grid"><div class="reveal"><h2>A clean line<br>from <i>thought</i><br>to movement.</h2></div><div class="principles-list reveal"><article class="principle"><span class="number">01</span><h3>Imagine</h3><p>Name the possibility other people have not noticed yet.</p></article><article class="principle"><span class="number">02</span><h3>Design</h3><p>Give the possibility a structure, a context, and a use.</p></article><article class="principle"><span class="number">03</span><h3>Execute</h3><p>Take the next real step and learn from what happens.</p></article></div></div></section>
 
     <section class="initiatives" id="initiatives"><div class="initiatives-head"><div class="head-kicker reveal"><p class="kicker light">The active ledger</p></div><div class="reveal"><h2>Four ways<br>to begin.</h2></div><div class="head-summary reveal"><p>Each project is a different entry point into a more deliberate future. Open one to see what it asks of you.</p></div></div><div class="project-grid" id="project-grid"></div></section>
 
-    <section class="focus"><div class="focus-visual reveal"><div class="focus-frame"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/gCNqkYhtRPOnJUtt.jpg" alt="Abstract future learning artefacts in lime and rose"><span class="caption">Field object / learning in motion</span></div><div class="stamp"><small>UNIPRENEUR</small><b>YOUTH<br>FORWARD</b><small>UNIPRENEUR</small></div></div><div class="focus-copy reveal"><p class="kicker">Opportunity meets readiness</p><h2>Ideas deserve the right room to grow.</h2><p>Unipreneur connects students and young innovators with a broader ecosystem of academia, industry and government. The focus is practical: grow useful skills, exchange ideas, and find a clearer route into leadership and innovation.</p><button class="button" type="button" data-scroll="contact">Connect with Unipreneur <span>→</span></button></div></section>
+    <section class="focus"><div class="focus-visual reveal"><div class="focus-frame"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663862002633/gCNqkYhtRPOnJUtt.jpg" alt="Abstract future learning artefacts in lime and rose"><span class="caption">Field object / learning in motion</span></div><div class="stamp"><small>UNIPRENEUR</small><b>GITEX<br>YOUTHX</b><small>DUBAI / YOUTH IN ACTION</small></div></div><div class="focus-copy reveal"><p class="kicker">Opportunity meets readiness</p><h2>Ideas deserve the right room to grow.</h2><p>Unipreneur connects students and young innovators with a broader ecosystem of academia, industry and government. The focus is practical: grow useful skills, exchange ideas, and find a clearer route into leadership and innovation.</p><button class="button" type="button" data-scroll="contact">Connect with Unipreneur <span>→</span></button></div></section>
 
     <div class="ribbon" aria-label="Future is a verb"><div class="ribbon-track"><span>FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;</span><span>FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;</span><span>FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;</span><span>FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;FUTURE IS A VERB&nbsp;&nbsp;•&nbsp;&nbsp;</span></div></div>
 
@@ -174,6 +201,10 @@
     const header=document.getElementById('header'),progress=document.getElementById('progress'); function updateScroll(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.transform=`scaleX(${max?scrollY/max:0})`;header.classList.toggle('scrolled',scrollY>24);} addEventListener('scroll',updateScroll,{passive:true});updateScroll();
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')}),{threshold:.12}); document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
+    const quoteTokens=document.querySelectorAll('.quote-token'),quoteFocus=document.getElementById('quote-focus');
+    function activateQuote(token){quoteTokens.forEach(item=>item.classList.toggle('is-active',item===token));quoteFocus.textContent=token.dataset.quote;}
+    quoteTokens.forEach(token=>{token.addEventListener('mouseenter',()=>activateQuote(token));token.addEventListener('focus',()=>activateQuote(token));token.addEventListener('click',()=>activateQuote(token));});
+
     const finePointer=window.matchMedia('(pointer:fine)').matches;
     if(finePointer){
       const ring=document.getElementById('cursor-ring'),dot=document.getElementById('cursor-dot');
@@ -188,7 +219,7 @@
     const siteLoader=document.getElementById('site-loader');
     let loaderDismissed=false;
     function dismissLoader(){ if(loaderDismissed)return; loaderDismissed=true; siteLoader.classList.add('is-leaving'); document.body.classList.remove('is-loading'); window.setTimeout(()=>siteLoader.remove(),850); }
-    window.setTimeout(dismissLoader,2700);
+    window.setTimeout(dismissLoader,3100);
   </script>
 </body>
 </html>
