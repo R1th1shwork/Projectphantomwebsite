@@ -1,1 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Jana Swilam is a UAE student innovator, visual artist, writer, entrepreneur, aspiring surgeon, and Media Intern at Project Phantom." />
+    <meta property="og:title" content="Jana Swilam | Student Innovator, Artist & Storyteller" />
+    <meta property="og:description" content="A personal collection of Jana Swilam’s work across visual art, AI, sustainability, writing, entrepreneurship, and community impact." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <title>Jana Swilam | Student Innovator, Artist & Storyteller</title>
+    <style>
+      /* Glasshouse Notebook: warm editorial scrapbook, paper tabs, collage shapes, and literary typography, deliberately distinct from Rithish's technical portfolio. */
+      :root {
+        --paper: #f7f0e5;
+        --ink: #1e3140;
+        --ink-soft: #4d5b64;
+        --sage: #92a487;
+        --sage-pale: #dbe4d3;
+        --persimmon: #d95d39;
+        --rose: #efb8ab;
+        --butter: #f2c96d;
+        --line: rgba(30, 49, 64, 0.18);
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --sans: "DM Sans", Arial, sans-serif;
+        --mono: "Space Mono", monospace;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; background: var(--paper); }
+      body { margin: 0; overflow-x: hidden; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; cursor: pointer; }
+      ::selection { background: var(--persimmon); color: white; }
+      :focus-visible { outline: 2px solid var(--persimmon); outline-offset: 4px; }
+
+      .paper-grain { position: fixed; z-index: 20; inset: 0; pointer-events: none; opacity: 0.19; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E"); mix-blend-mode: multiply; }
+      .thread { position: fixed; z-index: 15; top: 0; left: 0; width: 3px; height: 100%; transform: scaleY(0); transform-origin: top; background: var(--persimmon); }
+      .top-note { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 12px clamp(20px, 4vw, 56px); border-bottom: 1px solid var(--line); color: var(--ink-soft); font: 10px var(--mono); letter-spacing: 0.05em; }
+      .top-note span:last-child { color: var(--persimmon); }
+
+      .site-header { position: sticky; z-index: 10; top: 0; display: flex; min-height: 88px; align-items: center; justify-content: space-between; padding: 0 clamp(20px, 4vw, 56px); border-bottom: 1px solid var(--line); background: rgba(247, 240, 229, 0.88); backdrop-filter: blur(15px); }
+      .logo { display: flex; align-items: center; gap: 10px; }
+      .logo-mark { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--ink); border-radius: 50% 50% 45% 50%; color: var(--persimmon); font: 700 17px var(--serif); transform: rotate(-8deg); }
+      .logo-copy { font: 700 19px/.85 var(--serif); letter-spacing: 0.01em; }
+      .logo-copy small { display: block; margin-top: 5px; color: var(--ink-soft); font: 8px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+      .desktop-nav { display: flex; gap: clamp(16px, 2vw, 30px); }
+      .desktop-nav a { position: relative; padding: 8px 0; color: var(--ink-soft); font: 10px var(--mono); letter-spacing: 0.04em; text-transform: uppercase; }
+      .desktop-nav a::after { position: absolute; right: 0; bottom: 2px; left: 0; height: 1px; content: ""; transform: scaleX(0); transform-origin: left; background: var(--persimmon); transition: transform 220ms var(--ease); }
+      .desktop-nav a:hover::after { transform: scaleX(1); }
+      .header-collage { width: 42px; height: 26px; background: linear-gradient(130deg, var(--persimmon) 0 36%, var(--butter) 36% 63%, var(--sage) 63%); clip-path: polygon(0 23%, 76% 0, 100% 78%, 25% 100%); }
+      .menu-button { display: none; border: 0; background: transparent; color: var(--ink); font: 10px var(--mono); text-transform: uppercase; }
+
+      .mobile-menu { position: fixed; z-index: 30; inset: 0; display: flex; flex-direction: column; padding: 25px; clip-path: inset(0 0 100% 0); pointer-events: none; background: var(--ink); color: var(--paper); transition: clip-path 450ms var(--ease); }
+      .mobile-menu.open { clip-path: inset(0); pointer-events: auto; }
+      .mobile-menu header { display: flex; align-items: center; justify-content: space-between; color: var(--butter); font: 10px var(--mono); }
+      .mobile-menu button { padding: 8px; border: 1px solid rgba(247, 240, 229, 0.35); background: transparent; color: var(--paper); }
+      .mobile-menu nav { margin-top: 13vh; border-top: 1px solid rgba(247, 240, 229, 0.25); }
+      .mobile-menu a { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(247, 240, 229, 0.25); font: 600 clamp(46px, 15vw, 75px)/.82 var(--serif); }
+      .mobile-menu a span { color: var(--rose); font: 10px var(--mono); }
+
+      .page-shell { position: relative; overflow: hidden; }
+      .hero { position: relative; min-height: 790px; padding: clamp(80px, 12vw, 145px) clamp(20px, 8vw, 110px) 80px; background: var(--paper); }
+      .hero::before { position: absolute; top: -12%; right: -10%; width: min(55vw, 730px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 40% 60% 50% 50% / 55% 42% 58% 45%; content: ""; transform: rotate(25deg); }
+      .hero::after { position: absolute; top: 14%; right: 8%; width: min(31vw, 410px); aspect-ratio: 1; border: 1px dashed rgba(30, 49, 64, 0.34); border-radius: 58% 42% 63% 37% / 48% 56% 44% 52%; content: ""; transform: rotate(-18deg); }
+      .hero-inner { position: relative; z-index: 1; max-width: 1260px; margin: auto; }
+      .eyebrow { display: flex; gap: 10px; align-items: center; margin: 0; color: var(--persimmon); font: 10px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+      .eyebrow::before { width: 25px; height: 1px; content: ""; background: currentColor; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { max-width: 1030px; margin: clamp(20px, 3vw, 38px) 0 28px; font: 600 clamp(70px, 10.5vw, 166px)/.76 var(--serif); letter-spacing: -0.055em; }
+      h1 em { color: var(--persimmon); font-weight: 600; }
+      .hero-deck { display: grid; grid-template-columns: minmax(240px, 420px) minmax(260px, 350px); gap: clamp(30px, 6vw, 100px); align-items: end; margin-left: clamp(0px, 12vw, 160px); }
+      .hero-deck p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.8; }
+      .signature { padding: 17px 20px; border-left: 2px solid var(--persimmon); background: rgba(239, 184, 171, .28); font: 600 24px/1 var(--serif); }
+      .signature small { display: block; margin-top: 8px; color: var(--ink-soft); font: 9px var(--mono); letter-spacing: .04em; }
+      .hero-tabs { position: absolute; right: clamp(20px, 6vw, 80px); bottom: 65px; display: flex; gap: 8px; flex-direction: column; }
+      .hero-tabs span { width: 95px; padding: 7px 9px; color: var(--paper); background: var(--ink); font: 8px var(--mono); letter-spacing: .06em; transform: rotate(2deg); }
+      .hero-tabs span:nth-child(2) { align-self: flex-end; background: var(--persimmon); transform: rotate(-3deg); }
+      .hero-tabs span:nth-child(3) { width: 126px; background: var(--sage); transform: rotate(1deg); }
+
+      .section { position: relative; padding: 125px clamp(20px, 8vw, 110px); }
+      .section-inner { max-width: 1260px; margin: auto; }
+      .section-note { display: flex; justify-content: space-between; gap: 20px; color: var(--ink-soft); font: 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+      .section-note b { color: var(--persimmon); font-weight: 400; }
+      .intro { background: var(--sage-pale); }
+      .intro-layout { display: grid; grid-template-columns: minmax(300px, 1.3fr) minmax(240px, .7fr); gap: clamp(45px, 10vw, 155px); align-items: center; margin-top: 75px; }
+      h2 { font: 600 clamp(55px, 7.6vw, 108px)/.82 var(--serif); letter-spacing: -.045em; }
+      h2 em { color: var(--persimmon); font-style: italic; }
+      .intro-layout p { max-width: 420px; color: var(--ink-soft); font-size: 14px; line-height: 1.85; }
+      .pencil-note { position: relative; padding: 25px; border: 1px solid rgba(30,49,64,.28); background: var(--paper); box-shadow: 10px 12px 0 rgba(30,49,64,.12); transform: rotate(3deg); }
+      .pencil-note::before { position: absolute; top: -18px; left: 28px; width: 76px; height: 28px; content: ""; background: rgba(217,93,57,.52); transform: rotate(-6deg); }
+      .pencil-note span { display: block; margin-bottom: 14px; color: var(--persimmon); font: 9px var(--mono); letter-spacing: .06em; }
+      .pencil-note strong { display: block; font: 600 38px/.95 var(--serif); }
+      .pencil-note p { margin: 13px 0 0; font-size: 12px; }
+
+      .constellation { background: var(--paper); }
+      .constellation-heading { max-width: 740px; margin: 74px 0 66px 12%; }
+      .interest-map { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
+      .interest { min-height: 270px; padding: 27px; background: var(--paper); transition: transform 260ms var(--ease), background 260ms var(--ease); }
+      .interest:hover { z-index: 1; background: var(--butter); transform: rotate(-2deg) translateY(-6px); }
+      .interest:nth-child(2):hover { background: var(--rose); transform: rotate(2deg) translateY(-6px); }
+      .interest:nth-child(3):hover { background: var(--sage-pale); transform: rotate(-1deg) translateY(-6px); }
+      .interest-number { display: block; color: var(--persimmon); font: 9px var(--mono); }
+      .interest h3 { margin: 48px 0 12px; font: 600 clamp(36px, 4vw, 58px)/.83 var(--serif); letter-spacing: -.035em; }
+      .interest p { max-width: 240px; margin: 0; color: var(--ink-soft); font-size: 12px; line-height: 1.7; }
+
+      .phantom { overflow: hidden; background: var(--ink); color: var(--paper); }
+      .phantom::before { position: absolute; top: 50%; left: -10%; width: 120%; height: 1px; content: ""; background: rgba(247,240,229,.22); transform: rotate(-8deg); }
+      .phantom-layout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(280px, .8fr) minmax(300px, 1.2fr); gap: clamp(40px, 10vw, 130px); align-items: center; margin-top: 70px; }
+      .phantom-mark { position: relative; width: min(260px, 100%); aspect-ratio: 1; margin: auto; border: 1px solid rgba(247,240,229,.4); border-radius: 48% 52% 39% 61% / 44% 44% 56% 56%; }
+      .phantom-mark::before { position: absolute; inset: 14%; border: 1px dashed rgba(247,240,229,.5); border-radius: inherit; content: ""; transform: rotate(30deg); }
+      .phantom-mark span { position: absolute; top: 50%; left: 50%; display: grid; width: 88px; height: 88px; place-items: center; border-radius: 50%; background: var(--persimmon); color: white; font: 700 25px var(--serif); transform: translate(-50%, -50%) rotate(-8deg); }
+      .phantom-mark img { position: absolute; z-index: 1; top: 50%; left: 50%; width: 112px; height: 112px; border: 1px solid rgba(247,240,229,.8); border-radius: 50%; background: var(--ink); object-fit: cover; filter: grayscale(1) contrast(1.08); transform: translate(-50%, -50%) rotate(-8deg); }
+      .phantom h2 { margin-bottom: 25px; color: var(--paper); }
+      .phantom h2 em { color: var(--butter); }
+      .phantom-copy p { max-width: 530px; color: rgba(247,240,229,.75); font-size: 14px; line-height: 1.85; }
+      .phantom-copy a { display: inline-flex; gap: 14px; align-items: center; margin-top: 25px; padding: 12px 0; border-bottom: 1px solid var(--butter); color: var(--butter); font: 10px var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+      .phantom-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 21px; }
+      .phantom-copy .phantom-links a { margin-top: 0; padding: 0 0 5px; border-bottom: 1px solid rgba(242,201,109,.55); color: rgba(247,240,229,.82); font-size: 8px; }
+
+      .achievements { background: var(--rose); }
+      .achievements .section-note b { color: var(--ink); }
+      .achievements-heading { max-width: 800px; margin: 74px 0 55px 12%; }
+      .award-list { border-top: 1px solid rgba(30,49,64,.28); }
+      .award { display: grid; grid-template-columns: 85px minmax(220px, .8fr) minmax(220px, 1.1fr) minmax(140px, .5fr); gap: 22px; padding: 25px 0; border-bottom: 1px solid rgba(30,49,64,.28); transition: padding 220ms var(--ease), background 220ms var(--ease); }
+      .award:hover { padding-left: 13px; background: rgba(247,240,229,.22); }
+      .award-index, .award-date { font: 9px/1.5 var(--mono); letter-spacing: .05em; }
+      .award-index { color: var(--persimmon); }
+      .award h3 { margin: 0; font: 600 clamp(25px, 2.8vw, 39px)/.9 var(--serif); letter-spacing: -.025em; }
+      .award p { margin: 7px 0 0; color: var(--ink-soft); font-size: 11px; line-height: 1.62; }
+      .award-source { color: var(--ink-soft); font: 9px/1.55 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+      .award-source::before { display: block; width: 19px; height: 1px; margin-bottom: 10px; content: ""; background: var(--ink); }
+
+      .closing { background: var(--butter); }
+      .closing-layout { display: grid; grid-template-columns: 1fr minmax(250px, .62fr); gap: clamp(35px, 10vw, 140px); align-items: end; margin-top: 77px; }
+      .closing h2 { max-width: 850px; }
+      .closing-letter { padding: 24px; border: 1px solid rgba(30,49,64,.3); background: var(--paper); box-shadow: 12px 12px 0 var(--ink); transform: rotate(-2deg); }
+      .closing-letter p { color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+      .closing-letter a { display: inline-flex; gap: 10px; align-items: center; margin-top: 15px; color: var(--persimmon); font: 10px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+      .footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 25px clamp(20px, 4vw, 56px); background: var(--ink); color: rgba(247,240,229,.7); font: 9px var(--mono); letter-spacing: .05em; }
+      .footer b { color: var(--butter); font-weight: 400; }
+
+      [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 650ms var(--ease), transform 650ms var(--ease); }
+      [data-reveal].visible { opacity: 1; transform: translateY(0); }
+      @media (max-width: 850px) { .desktop-nav { display: none; } .menu-button { display: block; } .header-collage { display: none; } .hero-deck, .intro-layout, .phantom-layout, .closing-layout { grid-template-columns: 1fr; margin-left: 0; } .hero-tabs { display: none; } .interest-map { grid-template-columns: 1fr; } .award { grid-template-columns: 48px 1fr; } .award-date { grid-column: 2; } .award-main { grid-column: 2; } .award-source { grid-column: 2; } .award-source::before { display: none; } .section-note span { display: none; } }
+      @media (max-width: 560px) { .top-note span:first-child { display: none; } .site-header { min-height: 73px; } .hero { min-height: 720px; padding-top: 100px; } h1 { font-size: clamp(65px, 20vw, 100px); } .hero-deck { gap: 30px; } .signature { font-size: 21px; } .section { padding: 88px 20px; } .constellation-heading, .achievements-heading { margin-left: 0; } h2 { font-size: clamp(51px, 16vw, 75px); } .interest { min-height: 208px; } .interest h3 { margin-top: 31px; } .award { padding: 20px 0; } .award h3 { font-size: 27px; } .footer { display: block; line-height: 1.8; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 1ms !important; animation-duration: 1ms !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="thread" aria-hidden="true"></div>
+    <div class="top-note"><span>JANA SWILAM / PERSONAL COLLECTION</span><span>ABU DHABI, UAE</span><span>NOTES IN PROGRESS, 2026</span></div>
+    <header class="site-header">
+      <a class="logo" href="#top" aria-label="Jana Swilam home"><span class="logo-mark">JS</span><span class="logo-copy">Jana Swilam<small>Artist · Innovator · Storyteller</small></span></a>
+      <nav class="desktop-nav" aria-label="Main navigation"><a href="#about">About</a><a href="#work">Notebook</a><a href="#phantom">Phantom</a><a href="#awards">Awards</a></nav>
+      <span class="header-collage" aria-hidden="true"></span>
+      <button class="menu-button" type="button" aria-expanded="false">Menu</button>
+    </header>
+    <aside class="mobile-menu" aria-hidden="true"><header><span>JANA SWILAM / INDEX</span><button type="button">CLOSE</button></header><nav><a href="#about"><span>01</span>About</a><a href="#work"><span>02</span>Notebook</a><a href="#phantom"><span>03</span>Phantom</a><a href="#awards"><span>04</span>Awards</a></nav></aside>
+
+    <main class="page-shell" id="top">
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="eyebrow">A personal collection of art, ideas, and impact</p>
+          <h1>Curiosity is<br />where my <em>work</em><br />begins.</h1>
+          <div class="hero-deck"><p>I&apos;m <strong>Jana Swilam</strong>, a student innovator, visual artist, writer, entrepreneur, and aspiring surgeon exploring the space where creativity, science, and meaningful change meet.</p><div class="signature">Jana Swilam<small>AI · SUSTAINABILITY · VISUAL ARTS · WRITING</small></div></div>
+        </div>
+        <div class="hero-tabs" aria-hidden="true"><span>VISUAL ARTIST</span><span>STUDENT INNOVATOR</span><span>ASPIRING SURGEON</span></div>
+      </section>
+
+      <section class="section intro" id="about">
+        <div class="section-inner"><div class="section-note" data-reveal><b>01 / A SMALL INTRODUCTION</b><span>THE PERSON BEHIND THE PAGES</span></div><div class="intro-layout"><div data-reveal><h2>Learning to make <em>ideas</em> useful, expressive, and kind.</h2></div><div data-reveal><p>I&apos;m currently studying at Aisha bint Abi Bakr School in Abu Dhabi, growing through national and international work in AI, entrepreneurship, sustainability, literature, and the visual arts. I care about the questions that connect people to better futures, and I am still collecting them.</p><div class="pencil-note"><span>MY THROUGHLINE</span><strong>Imagine it.<br />Research it.<br />Make it real.</strong><p>From an AI smart-agriculture project to children&apos;s stories and art exhibitions, every project starts with curiosity.</p></div></div></div></div>
+      </section>
+
+      <section class="section constellation" id="work">
+        <div class="section-inner"><div class="section-note" data-reveal><b>02 / MY NOTEBOOK</b><span>THE THINGS I KEEP RETURNING TO</span></div><div class="constellation-heading" data-reveal><h2>A few worlds I&apos;m <em>building</em> inside.</h2></div><div class="interest-map"><article class="interest" data-reveal><span class="interest-number">01 / MAKE</span><h3>Visual art</h3><p>International exhibition work, graphic storytelling, and art that lets an idea become something people can feel.</p></article><article class="interest" data-reveal><span class="interest-number">02 / INVESTIGATE</span><h3>AI &amp; sustainability</h3><p>Using research, design thinking, and technology to turn real environmental and community challenges into useful projects.</p></article><article class="interest" data-reveal><span class="interest-number">03 / TELL</span><h3>Writing &amp; medicine</h3><p>Stories, reading, and a future in surgery, all rooted in careful observation, empathy, and lifelong learning.</p></article></div></div>
+      </section>
+
+      <section class="section phantom" id="phantom">
+        <div class="section-inner"><div class="section-note" data-reveal><b style="color: var(--butter)">03 / CURRENT CHAPTER</b><span style="color: rgba(247,240,229,.65)">AEROSPACE · AI · INNOVATION</span></div><div class="phantom-layout"><div class="phantom-mark"><img src="assets/nav.png" alt="Project Phantom logo" /></div><div class="phantom-copy" data-reveal><h2>Media Intern at<br /><em>Project Phantom.</em></h2><p>In August 2026, I joined Project Phantom, a youth-led project bringing aerospace, AI, and innovation together. I&apos;m excited to contribute creatively, learn from the team, and help communicate a journey built around bold ideas and shared growth.</p><div class="phantom-links"><a href="https://projectphantom.space" target="_blank" rel="noreferrer">Visit Project Phantom ↗</a><a href="https://www.linkedin.com/in/jana-swilam-97052b421/" target="_blank" rel="noreferrer">Jana on LinkedIn ↗</a><a href="https://www.linkedin.com/company/projectphantom" target="_blank" rel="noreferrer">Project Phantom on LinkedIn ↗</a></div></div></div></div>
+      </section>
+
+      <section class="section achievements" id="awards">
+        <div class="section-inner"><div class="section-note" data-reveal><b>04 / COLLECTED MILESTONES</b><span>ART · INNOVATION · ACADEMICS · LITERATURE</span></div><div class="achievements-heading" data-reveal><h2>Things I&apos;m proud<br />to <em>keep growing.</em></h2></div><div class="award-list">
+          <article class="award" data-reveal><span class="award-index">01</span><span class="award-date">2026</span><div class="award-main"><h3>Visionary Award</h3><p>Recognised alongside an innovation team at IIT Delhi, Abu Dhabi for work addressing an energy-sector challenge.</p></div><span class="award-source">IIT Delhi, Abu Dhabi</span></article>
+          <article class="award" data-reveal><span class="award-index">02</span><span class="award-date">2025</span><div class="award-main"><h3>Mawhibaty Art Exhibition</h3><p>Recognised as one of the students with the highest number of exhibited artworks, sharing a wider collection of original visual-art work.</p></div><span class="award-source">Mawhibaty Program</span></article>
+          <article class="award" data-reveal><span class="award-index">03</span><span class="award-date">2025</span><div class="award-main"><h3>1st Place, Grade 9 Advanced</h3><p>Achieved first place in the academic year through dedication, perseverance, and a sustained love of learning.</p></div><span class="award-source">Aisha bint Abi Bakr School</span></article>
+          <article class="award" data-reveal><span class="award-index">04</span><span class="award-date">2023</span><div class="award-main"><h3>UAE Codes Hackathon, 2nd Place</h3><p>Co-developed an AI-powered smart-agriculture application, earning UAE-level second place and recognition from H.E. Omar Sultan Al Olama.</p></div><span class="award-source">National Program for Coders</span></article>
+          <article class="award" data-reveal><span class="award-index">05</span><span class="award-date">2023 to 2025</span><div class="award-main"><h3>Mawhibaty Art Showcases</h3><p>Exhibited original visual artwork through the Mawhibaty Program, including international exhibition work in Prague, Czech Republic.</p></div><span class="award-source">Mawhibaty Program</span></article>
+          <article class="award" data-reveal><span class="award-index">06</span><span class="award-date">UAE LEVEL</span><div class="award-main"><h3>Together We Read, 3rd Place</h3><p>Earned third place in the UAE-level reading competition, celebrating a lasting passion for literature, learning, and storytelling.</p></div><span class="award-source">Together We Read Competition</span></article>
+          <article class="award" data-reveal><span class="award-index">07</span><span class="award-date">TOP 100</span><div class="award-main"><h3>Young Entrepreneur Project</h3><p>Developed an entrepreneurial innovation selected among the Top 100 Young Entrepreneur Projects.</p></div><span class="award-source">UAE Ministry of Education</span></article>
+          <article class="award" data-reveal><span class="award-index">08</span><span class="award-date">AWARD</span><div class="award-main"><h3>Best English Graphic Story</h3><p>Won recognition for visual narrative work at the Sharjah Sustainability Award.</p></div><span class="award-source">Sharjah Sustainability Award</span></article>
+          <article class="award" data-reveal><span class="award-index">09</span><span class="award-date">THREE TIMES</span><div class="award-main"><h3>Young Writer in the Big Book, 1st Place</h3><p>Achieved three consecutive first-place awards for children&apos;s short-story writing.</p></div><span class="award-source">Young Writer in the Big Book</span></article>
+          <article class="award" data-reveal><span class="award-index">10</span><span class="award-date">PUBLISHED</span><div class="award-main"><h3>Arabic Children&apos;s Stories</h3><p>Published original Arabic children&apos;s stories through initiatives of the UAE Ministry of Education.</p></div><span class="award-source">UAE Ministry of Education</span></article>
+        </div></div>
+      </section>
+
+      <section class="section closing"><div class="section-inner"><div class="section-note" data-reveal><b>05 / WHAT&apos;S NEXT</b><span>A NOTE TO FUTURE ME</span></div><div class="closing-layout"><div data-reveal><h2>I&apos;m still learning.<br />That&apos;s my <em>favourite</em> part.</h2></div><aside class="closing-letter" data-reveal><p>I believe that creativity and science make each other stronger. I&apos;m excited to keep creating, researching, writing, and moving toward a future in medicine, one thoughtful project at a time.</p><a href="https://www.linkedin.com/in/jana-swilam-97052b421/" target="_blank" rel="noreferrer">Connect with Jana on LinkedIn ↗</a></aside></div></div></section>
+    </main>
+    <footer class="footer"><span>© 2026 JANA SWILAM</span><span>MADE WITH <b>CURIOSITY</b> IN ABU DHABI</span></footer>
+    <script>
+      const thread = document.querySelector('.thread');
+      const updateThread = () => { const total = document.documentElement.scrollHeight - window.innerHeight; thread.style.transform = `scaleY(${total ? window.scrollY / total : 0})`; };
+      window.addEventListener('scroll', updateThread, { passive: true }); updateThread();
+      const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('visible')), { threshold: .12 });
+      document.querySelectorAll('[data-reveal]').forEach((item) => observer.observe(item));
+      const menu = document.querySelector('.mobile-menu'); const openButton = document.querySelector('.menu-button'); const closeButton = document.querySelector('.mobile-menu button');
+      const setMenu = (isOpen) => { menu.classList.toggle('open', isOpen); menu.setAttribute('aria-hidden', String(!isOpen)); openButton.setAttribute('aria-expanded', String(isOpen)); };
+      openButton.addEventListener('click', () => setMenu(true)); closeButton.addEventListener('click', () => setMenu(false)); menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    </script>
+  </body>
+</html>
 
