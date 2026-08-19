@@ -1,917 +1,1028 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rithish Dharanidharan | UAV Systems & Autonomous Flight Engineer | Project Phantom</title>
-<meta name="description" content="Rithish Dharanidharan is a UAE-based student aerospace engineer and founder of Project Phantom, a youth-led VTOL fixed-wing UAV platform with solar integration and onboard Mercury AI for environmental monitoring. Based in Sharjah and Dubai, UAE.">
-<meta name="keywords" content="Rithish Dharanidharan, Rithish Dharani Dharan, Project Phantom, Project Phantom UAV, Mercury AI, VTOL drone, UAV Systems, Autonomous Flight, Aerospace Engineering, Dubai, Sharjah, UAE, Student Engineer, Unipreneur, Drone Systems, Youth Aerospace, Fixed Wing UAV">
-<meta name="author" content="Rithish Dharanidharan">
-<meta name="robots" content="index, follow">
-<meta name="googlebot" content="index, follow">
-<link rel="canonical" href="https://rithishdharanidharan.com/">
-<meta name="theme-color" content="#050505">
-
-<!-- Open Graph -->
-<meta property="og:type" content="profile">
-<meta property="og:title" content="Rithish Dharanidharan | UAV Systems & Autonomous Flight Engineer">
-<meta property="og:description" content="Founder of Project Phantom. Building an autonomous VTOL fixed-wing UAV with solar integration and Mercury AI, out of the UAE.">
-<meta property="og:url" content="https://rithishdharanidharan.com/">
-<meta property="og:site_name" content="Rithish Dharanidharan">
-<meta property="og:image" content="https://rithishdharanidharan.com/og-cover.png">
-<meta property="og:locale" content="en_US">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rithish Dharanidharan | UAV Systems & Autonomous Flight Engineer">
-<meta name="twitter:description" content="Founder of Project Phantom. Building an autonomous VTOL fixed-wing UAV with solar integration and Mercury AI, out of the UAE.">
-<meta name="twitter:image" content="https://rithishdharanidharan.com/og-cover.png">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-
-<!-- Structured data: Person -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Rithish Dharanidharan",
-  "alternateName": "Rithish Dharani Dharan",
-  "url": "https://rithishdharanidharan.com/",
-  "email": "mailto:rithishwork@gmail.com",
-  "jobTitle": "Founder, Project Phantom",
-  "description": "UAE-based student aerospace engineer building autonomous VTOL fixed-wing UAV systems for environmental monitoring.",
-  "affiliation": [
-    {"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space"},
-    {"@type":"Organization","name":"Unipreneur Inc."},
-    {"@type":"Organization","name":"Gulf Asian English School"}
-  ],
-  "address": {"@type":"PostalAddress","addressRegion":"Sharjah","addressCountry":"AE"},
-  "knowsAbout": ["UAV Systems", "VTOL Aircraft", "Autonomous Flight", "Aerospace Engineering", "Artificial Intelligence", "Embedded Systems"],
-  "sameAs": [
-    "https://www.linkedin.com/in/rithishdharanidharan",
-    "https://projectphantom.space"
-  ]
-}
-</script>
-
-<!-- Structured data: Project Phantom -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Project Phantom",
-  "url": "https://projectphantom.space",
-  "description": "UAE youth-led aerospace initiative developing a single-rotor VTOL fixed-wing UAV platform with solar integration and Mercury AI for high-endurance environmental monitoring missions.",
-  "founder": {"@type":"Person","name":"Rithish Dharanidharan"},
-  "sameAs": [
-    "https://www.linkedin.com/company/projectphantom/",
-    "https://x.com/PhantomUAV",
-    "https://www.youtube.com/@projectphantomuav",
-    "https://www.instagram.com/projectphantom.ae/"
-  ]
-}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --black:#050505;
-    --panel:#0b0b0b;
-    --white:#f5f5f2;
-    --gray-1:#8c8c86;
-    --gray-2:#1c1c1c;
-    --gray-3:#2c2c2c;
-    --line: rgba(245,245,242,0.12);
-    --line-strong: rgba(245,245,242,0.28);
-    --ease: cubic-bezier(.16,.84,.44,1);
-    --wrap-pad: clamp(20px,5vw,64px);
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  ::selection{background:var(--white);color:var(--black);}
-
-  body{
-    background:var(--black);
-    color:var(--white);
-    font-family:'Inter', sans-serif;
-    overflow-x:hidden;
-    cursor:default;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
-  }
-
-  a{color:inherit;text-decoration:none;}
-  ul{list-style:none;}
-  img{max-width:100%;display:block;}
-
-  .mono{font-family:'JetBrains Mono', monospace;}
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    color:var(--gray-1);
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:6px;height:6px;
-    border:1px solid var(--gray-1);
-    border-radius:50%;
-    flex-shrink:0;
-  }
-
-  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
-
-  .wrap{
-    max-width:1240px;
-    margin:0 auto;
-    padding-left:var(--wrap-pad);
-    padding-right:var(--wrap-pad);
-  }
-
-  /* ---------- background grid ---------- */
-  .bg-grid{
-    position:fixed; inset:0;
-    z-index:0;
-    background-image:
-      linear-gradient(var(--gray-2) 1px, transparent 1px),
-      linear-gradient(90deg, var(--gray-2) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity:.5;
-    pointer-events:none;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
-  }
-  .bg-vignette{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(245,245,242,.06), transparent 60%);
-  }
-
-  /* ---------- portal loader ---------- */
-  #portal{
-    position:fixed; inset:0; z-index:100;
-    background:var(--black);
-    display:flex; align-items:center; justify-content:center;
-    flex-direction:column;
-    gap:28px;
-  }
-  #portal.open{
-    animation: portalOpen 1.15s var(--ease) forwards;
-  }
-  @keyframes portalOpen{
-    0%{ clip-path: circle(0% at 50% 50%); }
-    100%{ clip-path: circle(150% at 50% 50%); }
-  }
-  #portal .ring{
-    position:relative;
-    width:140px;height:140px;
-    border-radius:50%;
-    border:1px solid var(--gray-3);
-    display:flex;align-items:center;justify-content:center;
-  }
-  #portal .ring::before{
-    content:"";
-    position:absolute; inset:-1px;
-    border-radius:50%;
-    border:1px solid transparent;
-    border-top-color:var(--white);
-    border-right-color:var(--white);
-    animation:spin 1.4s linear infinite;
-  }
-  #portal .ring::after{
-    content:"";
-    position:absolute; inset:18px;
-    border-radius:50%;
-    border:1px solid var(--gray-3);
-  }
-  #portal .core{
-    width:6px;height:6px;background:var(--white);border-radius:50%;
-    box-shadow:0 0 18px 4px rgba(245,245,242,.5);
-    animation:pulse 1.2s ease-in-out infinite;
-  }
-  @keyframes spin{to{transform:rotate(360deg);}}
-  @keyframes pulse{0%,100%{opacity:.35;transform:scale(1);}50%{opacity:1;transform:scale(1.6);}}
-
-  #portal .status{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:.24em;
-    text-transform:uppercase;
-    color:var(--gray-1);
-    text-align:center;
-    min-height:16px;
-  }
-  #portal .pct{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--white);
-    letter-spacing:.1em;
-  }
-  #portal .bar{
-    width:220px;height:1px;background:var(--gray-3);position:relative;
-  }
-  #portal .bar span{
-    position:absolute;left:0;top:0;height:100%;background:var(--white);width:0%;
-    transition:width .1s linear;
-  }
-
-  body.locked{overflow:hidden;height:100vh;}
-
-  /* ---------- nav ---------- */
-  header{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    padding:22px var(--wrap-pad);
-    display:flex; align-items:center; justify-content:space-between;
-    background:linear-gradient(to bottom, rgba(5,5,5,.85), transparent);
-    backdrop-filter:blur(4px);
-    opacity:0;
-    transform:translateY(-16px);
-  }
-  header.show{ animation: fadeDown .8s var(--ease) forwards; }
-  @keyframes fadeDown{to{opacity:1;transform:translateY(0);}}
-
-  .logo{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px; letter-spacing:.05em;
-    display:flex; align-items:center; gap:10px;
-  }
-  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--white);box-shadow:0 0 10px 2px rgba(245,245,242,.6);}
-
-  nav ul{display:flex; gap:34px;}
-  nav a{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--gray-1);
-    position:relative;
-    padding-bottom:3px;
-  }
-  nav a::after{
-    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--white);
-    transition:width .35s var(--ease);
-  }
-  nav a:hover{color:var(--white);}
-  nav a:hover::after{width:100%;}
-  nav a:focus-visible, a:focus-visible, button:focus-visible{outline:1px solid var(--white); outline-offset:3px;}
-
-  .nav-toggle{display:none;background:none;border:1px solid var(--gray-3);color:var(--white);width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:10px;}
-
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative; z-index:1;
-    min-height:100svh;
-    display:flex; flex-direction:column; justify-content:center;
-    padding-top:120px; padding-bottom:60px;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:36px;
-    align-items:end;
-  }
-  .hero-coords{
-    display:flex; gap:28px; flex-wrap:wrap;
-    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray-1); letter-spacing:.08em;
-    margin-bottom:22px;
-  }
-  .hero-name-row{
-    display:flex;
-    align-items:flex-end;
-    gap:clamp(16px,3vw,28px);
-    flex-wrap:wrap;
-  }
-  .hero-logo-slot{
-    width:clamp(48px,7vw,84px);
-    height:clamp(48px,7vw,84px);
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:clamp(6px,1.4vw,16px);
-  }
-  .hero-logo-slot img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-  }
-  .hero h1{
-    font-size:clamp(48px, 10vw, 132px);
-    line-height:.92;
-    text-transform:uppercase;
-    letter-spacing:-0.02em;
-  }
-  .hero h1 em{
-    font-style:normal; color:transparent;
-    -webkit-text-stroke:1px var(--white);
-  }
-  .hero .role{
-    margin-top:26px;
-    max-width:560px;
-    font-size:clamp(15px,2vw,18px);
-    color:var(--gray-1);
-    font-weight:300;
-    line-height:1.6;
-  }
-  .hero .role strong{color:var(--white); font-weight:500;}
-
-  .hero-foot{
-    margin-top:56px;
-    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;
-    border-top:1px solid var(--line);
-    padding-top:20px;
-  }
-  .scroll-cue{
-    display:flex; align-items:center; gap:12px;
-    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray-1);
-  }
-  .scroll-cue .line{width:1px;height:34px;background:var(--gray-3);position:relative;overflow:hidden;}
-  .scroll-cue .line::after{
-    content:"";position:absolute;top:-40%;left:0;width:100%;height:40%;background:var(--white);
-    animation:scrollDrop 1.8s ease-in-out infinite;
-  }
-  @keyframes scrollDrop{0%{top:-40%;}100%{top:100%;}}
-
-  .hero-tags{display:flex;gap:10px;flex-wrap:wrap;}
-  .hero-tags span{
-    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
-    border:1px solid var(--gray-3); padding:6px 12px; border-radius:999px; color:var(--gray-1);
-  }
-
-  /* wireframe uav */
-  .uav-wire{
-    position:absolute;
-    top:14%; right:clamp(0px, 4vw, 6vw);
-    width:min(46vw, 560px);
-    opacity:.9;
-    pointer-events:none;
-    z-index:0;
-  }
-  .uav-wire svg{width:100%;height:auto; overflow:visible;}
-  .uav-wire path, .uav-wire line, .uav-wire circle{
-    stroke:var(--gray-1); stroke-width:1; fill:none;
-    vector-effect:non-scaling-stroke;
-  }
-  .uav-wire .accent{stroke:var(--white);}
-  .uav-wire .dash{stroke-dasharray:4 5;}
-
-  @media (max-width:860px){
-    .uav-wire{display:none;}
-  }
-
-  /* ---------- section shell ---------- */
-  section{position:relative;z-index:1;}
-  .section{
-    padding:120px 0;
-    border-top:1px solid var(--line);
-  }
-  .section-head{
-    display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;
-    margin-bottom:64px;
-  }
-  .section-head h2{
-    font-size:clamp(30px,4.4vw,52px);
-    text-transform:uppercase;
-    letter-spacing:-0.01em;
-  }
-  .section-num{
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--gray-1); letter-spacing:.1em;
-  }
-
-  .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease);}
-  .reveal.in{opacity:1; transform:translateY(0);}
-  .reveal-d1{transition-delay:.08s;}
-  .reveal-d2{transition-delay:.16s;}
-  .reveal-d3{transition-delay:.24s;}
-
-  /* ---------- about ---------- */
-  .about-grid{
-    display:grid; grid-template-columns: 1.1fr .9fr; gap:80px;
-  }
-  .about-lead{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:clamp(21px,2.6vw,30px);
-    font-weight:400;
-    line-height:1.45;
-    color:var(--white);
-  }
-  .about-body{
-    margin-top:28px;
-    color:var(--gray-1);
-    font-weight:300;
-    line-height:1.85;
-    max-width:60ch;
-  }
-  .about-body a{border-bottom:1px solid var(--gray-3); color:var(--white);}
-  .about-body a:hover{border-color:var(--white);}
-  .focus-list{
-    border-top:1px solid var(--line);
-  }
-  .focus-list li{
-    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
-    padding:16px 0;
-    border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.06em;
-    color:var(--gray-1);
-  }
-  .focus-list li span:first-child{color:var(--white); font-family:'Space Grotesk', sans-serif; font-size:16px; letter-spacing:0; text-transform:none;}
-  .focus-list li span:last-child{opacity:.6;}
-
-  @media (max-width:900px){
-    .about-grid{grid-template-columns:1fr; gap:44px;}
-  }
-
-  /* ---------- projects ---------- */
-  .proj-list{border-top:1px solid var(--line);}
-  .proj{
-    display:grid;
-    grid-template-columns: 90px 1.1fr 1.4fr 140px;
-    gap:28px;
-    align-items:center;
-    padding:34px 0;
-    border-bottom:1px solid var(--line);
-    transition:background .35s var(--ease);
-    position:relative;
-  }
-  .proj:hover{background:rgba(245,245,242,.02);}
-  .proj-code{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--gray-1);}
-  .proj-name{font-family:'Space Grotesk', sans-serif; font-size:clamp(20px,2.4vw,28px); text-transform:uppercase; letter-spacing:-.01em;}
-  .proj-name a{border-bottom:1px solid transparent;}
-  .proj-name a:hover{border-color:var(--white);}
-  .proj-desc{color:var(--gray-1); font-weight:300; font-size:14px; line-height:1.7; max-width:52ch;}
-  .proj-tags{display:flex; flex-direction:column; gap:6px; align-items:flex-end;}
-  .proj-tags span{font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.08em; color:var(--gray-1); text-transform:uppercase; white-space:nowrap;}
-  .proj-status{width:7px;height:7px;border-radius:50%; background:var(--white); box-shadow:0 0 8px 1px rgba(245,245,242,.5); justify-self:end;}
-
-  @media (max-width:760px){
-    .proj{grid-template-columns:1fr; gap:10px; padding:26px 0;}
-    .proj-tags{align-items:flex-start; flex-direction:row; flex-wrap:wrap;}
-  }
-
-  /* ---------- experience ---------- */
-  .exp-list{border-top:1px solid var(--line);}
-  .exp{
-    display:grid; grid-template-columns: 200px 1fr; gap:28px;
-    padding:26px 0; border-bottom:1px solid var(--line);
-  }
-  .exp-time{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray-1); letter-spacing:.06em; padding-top:4px;}
-  .exp-role{font-family:'Space Grotesk', sans-serif; font-size:19px;}
-  .exp-org{color:var(--gray-1); font-size:13px; margin-top:4px; font-weight:300;}
-  @media (max-width:700px){ .exp{grid-template-columns:1fr; gap:8px;} }
-
-  /* ---------- awards marquee ---------- */
-  .marquee{
-    border-top:1px solid var(--line);
-    padding:26px 0;
-    padding-left:var(--wrap-pad);
-    overflow:hidden;
-    white-space:nowrap;
-  }
-  .marquee-track{
-    display:inline-flex;
-    animation:scroll 38s linear infinite;
-  }
-  .marquee-track span{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-1);
-    padding:0 28px; display:inline-flex; align-items:center; gap:28px;
-  }
-  .marquee-track span::after{content:"\2022"; color:var(--gray-3);}
-  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-  /* ---------- contact / footer ---------- */
-  .contact{
-    text-align:left;
-  }
-  .contact h2{
-    font-size:clamp(38px,7vw,96px);
-    text-transform:uppercase;
-    line-height:.98;
-    max-width:900px;
-  }
-  .contact-link{
-    display:inline-flex; align-items:center; gap:16px;
-    margin-top:44px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:14px; letter-spacing:.06em;
-    border:1px solid var(--gray-3);
-    padding:16px 26px; border-radius:999px;
-    transition:border-color .3s var(--ease), color .3s var(--ease);
-  }
-  .contact-link:hover{border-color:var(--white);}
-  .contact-link .arrow{transition:transform .3s var(--ease);}
-  .contact-link:hover .arrow{transform:translate(4px,-4px);}
-
-  .contact-meta{
-    margin-top:70px;
-    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
-    border-top:1px solid var(--line); padding-top:28px;
-  }
-  .contact-meta div{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray-1); letter-spacing:.06em;}
-  .contact-meta div b{display:block; color:var(--white); font-weight:400; margin-bottom:8px; letter-spacing:.16em; font-size:10px;}
-  .contact-meta a{border-bottom:1px solid var(--gray-3);}
-  .contact-meta a:hover{border-color:var(--white); color:var(--white);}
-  @media (max-width:700px){.contact-meta{grid-template-columns:1fr;}}
-
-  footer{
-    border-top:1px solid var(--line);
-    padding:26px var(--wrap-pad);
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
-    font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--gray-1); letter-spacing:.1em; text-transform:uppercase;
-  }
-
-  /* ---------- mobile nav ---------- */
-  .mobile-panel{
-    position:fixed; inset:0; z-index:60; background:var(--black);
-    display:flex; flex-direction:column; justify-content:center; padding:0 32px;
-    transform:translateY(-100%); transition:transform .5s var(--ease);
-  }
-  .mobile-panel.open{transform:translateY(0);}
-  .mobile-panel ul{display:flex; flex-direction:column; gap:20px;}
-  .mobile-panel a{font-family:'Space Grotesk'; font-size:32px; text-transform:uppercase;}
-  .mobile-close{position:absolute; top:22px; right:24px; background:none;border:1px solid var(--gray-3);color:var(--white);width:38px;height:38px;border-radius:50%;font-family:'JetBrains Mono';}
-
-  @media (max-width:760px){
-    nav{display:none;}
-    .nav-toggle{display:flex;}
-  }
-
-  /* ---------- mobile refinements ---------- */
-  @media (max-width:760px){
-    .hero{padding-top:100px; padding-bottom:40px;}
-    .section{padding:80px 0;}
-    .hero-foot{margin-top:40px;}
-    .contact-meta{margin-top:48px;}
-  }
-
-  @media (max-width:480px){
-    header{padding:16px var(--wrap-pad);}
-    .logo{font-size:11px;}
-    .hero-coords{gap:14px; font-size:10px;}
-    .hero-logo-slot{width:44px;height:44px;margin-bottom:4px;}
-    .hero .role{font-size:14px;}
-    .section{padding:64px 0;}
-    .section-head{margin-bottom:40px;}
-    .about-lead{font-size:20px;}
-    .proj{padding:22px 0;}
-    .proj-desc{font-size:13px;}
-    .marquee-track span{font-size:11px; padding:0 18px; gap:18px;}
-    .contact h2{font-size:clamp(30px,9vw,60px);}
-    .contact-link{padding:13px 20px; font-size:12px;}
-    footer{padding:20px var(--wrap-pad); font-size:9px;}
-  }
-</style>
-</head>
-<body class="locked">
-
-<!-- PORTAL LOADER -->
-<div id="portal" role="status" aria-live="polite">
-  <div class="ring"><div class="core"></div></div>
-  <div class="pct mono" id="portalPct">00%</div>
-  <div class="bar"><span id="portalBar"></span></div>
-  <div class="status" id="portalStatus">CALIBRATING FLIGHT SYSTEMS</div>
-</div>
-
-<div class="bg-grid" aria-hidden="true"></div>
-<div class="bg-vignette" aria-hidden="true"></div>
-
-<header id="siteHeader">
-  <a href="#top" class="logo"><span class="dot"></span>R. DHARANIDHARAN</a>
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  <button class="nav-toggle" id="navToggle" aria-label="Open menu">MENU</button>
-</header>
-
-<div class="mobile-panel" id="mobilePanel">
-  <button class="mobile-close" id="mobileClose" aria-label="Close menu">X</button>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#awards">Awards</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</div>
-
-<main id="top">
-  <section class="hero wrap">
-    <div class="uav-wire" aria-hidden="true">
-      <svg viewBox="0 0 400 300" fill="none">
-        <line x1="20" y1="150" x2="380" y2="150" class="dash"/>
-        <path d="M60 150 L150 130 L250 130 L340 150 L250 170 L150 170 Z" class="accent"/>
-        <path d="M170 130 L170 60 L230 60 L230 130" />
-        <path d="M170 170 L170 240 L230 240 L230 170" />
-        <circle cx="200" cy="150" r="6" class="accent"/>
-        <circle cx="200" cy="150" r="60" class="dash"/>
-        <circle cx="200" cy="150" r="110" class="dash"/>
-        <line x1="200" y1="20" x2="200" y2="60"/>
-        <line x1="200" y1="240" x2="200" y2="280"/>
-      </svg>
-    </div>
-
-    <div class="hero-grid">
-      <div>
-        <div class="hero-coords mono">
-          <span>25.3463° N / 55.4209° E</span>
-          <span>SHARJAH, UAE</span>
-          <span id="clock">SYS TIME</span>
-        </div>
-        <div class="hero-name-row">
-          <!-- Drop the full white Project Phantom logo PNG in assets/phantom-logo-white.png -->
-          <span class="hero-logo-slot"><img src="assets/nav.png" alt="Project Phantom logo, white mark" loading="eager"></span>
-          <h1>Rithish<br>Dharanid<em>haran</em></h1>
-        </div>
-        <p class="role">Founder of <strong>Project Phantom</strong>, a UAE youth-led initiative designing an autonomous VTOL fixed-wing UAV for environmental monitoring. Student engineer working across flight control, embedded AI, and sustainable aerospace hardware.</p>
-      </div>
-    </div>
-
-    <div class="hero-foot">
-      <div class="hero-tags">
-        <span>Autonomous Systems</span>
-        <span>Flight Control</span>
-        <span>Applied AI</span>
-        <span>Rapid Prototyping</span>
-      </div>
-      <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
-    </div>
-  </section>
-
-  <section class="section" id="about">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>About</h2>
-        <span class="section-num mono">INDEX / 01</span>
-      </div>
-      <div class="about-grid">
-        <div class="reveal">
-          <p class="about-lead">I build things that have to survive the air. Airframes, flight logic, and the systems underneath them.</p>
-          <p class="about-body">Based in Sharjah and Dubai, UAE, I'm the founder of <a href="https://projectphantom.space" target="_blank" rel="noopener">Project Phantom</a>, one of the UAE's first youth-led initiatives in autonomous fixed-wing aerospace. Phantom is a single-rotor VTOL aircraft that takes off and lands vertically, then transitions into efficient fixed-wing cruise, with no runway required. Solar cells integrated into the wing extend endurance past 12 hours, and the whole platform is flown and coordinated by our onboard Mercury AI stack. Across four early test flights we pulled 28 minutes of atmospheric data straight from the sky, including CO2 levels, air pressure, and airborne dust particle size, up to 150 meters altitude.</p>
-          <p class="about-body">Project Phantom is funded and backed by Unipreneur Inc., the UAE's leading youth entrepreneurship and innovation platform. Outside of aircraft, I work across applied AI, embedded systems, and healthcare and energy technology, including AEGIS, a diagnostic support system, and LiCycle, a self-healing battery concept that placed first at the WFES AI Energy Hackathon.</p>
-          <p class="about-body">I'm currently the Artificial Intelligence Ambassador at Gulf Asian English School and part of the Tech and AI Committee at Unipreneur Inc., alongside continuing to fly, break, and rebuild Phantom.</p>
-        </div>
-        <ul class="focus-list reveal reveal-d1">
-          <li><span>Autonomous Systems</span><span>FLT / NAV</span></li>
-          <li><span>VTOL & UAV Technologies</span><span>AIRFRAME</span></li>
-          <li><span>Mercury AI & Embedded Systems</span><span>ONBOARD</span></li>
-          <li><span>Sustainability Engineering</span><span>ENV</span></li>
-          <li><span>Real World Prototyping</span><span>TEST</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="projects">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>Projects</h2>
-        <span class="section-num mono">INDEX / 02</span>
-      </div>
-      <div class="proj-list">
-
-        <div class="proj reveal">
-          <span class="proj-code mono">PH-01</span>
-          <span class="proj-name"><a href="https://projectphantom.space" target="_blank" rel="noopener">Project Phantom ↗</a></span>
-          <span class="proj-desc">Single-rotor VTOL fixed-wing UAV for environmental monitoring, with solar-integrated wings, 12+ hours of endurance, and onboard Mercury AI. Funded and backed by Unipreneur Inc. Flight-tested for atmospheric sensing across CO2, air pressure, and dust particle data.</span>
-          <span class="proj-tags"><span>VTOL UAV</span><span>Mercury AI</span></span>
-        </div>
-
-        <div class="proj reveal">
-          <span class="proj-code mono">LC-02</span>
-          <span class="proj-name">LiCycle</span>
-          <span class="proj-desc">Self-healing intelligent battery system using real-time sensor data and AI analytics to predict failure and extend battery life. 1st place, WFES AI Energy Hackathon.</span>
-          <span class="proj-tags"><span>AI</span><span>Energy Systems</span></span>
-        </div>
-
-        <div class="proj reveal">
-          <span class="proj-code mono">AG-03</span>
-          <span class="proj-name">AEGIS</span>
-          <span class="proj-desc">AI-assisted system for early detection of gastrointestinal disease from endoscopic imaging, using deep learning and computer vision on medical datasets.</span>
-          <span class="proj-tags"><span>Computer Vision</span><span>Healthcare</span></span>
-        </div>
-
-        <div class="proj reveal">
-          <span class="proj-code mono">OF-04</span>
-          <span class="proj-name">One Force</span>
-          <span class="proj-desc">AI-driven disaster response system coordinating autonomous drones for fire detection, medical support, and communication relay in low-connectivity conditions.</span>
-          <span class="proj-tags"><span>AI</span><span>Robotics</span></span>
-        </div>
-
-        <div class="proj reveal">
-          <span class="proj-code mono">VP-05</span>
-          <span class="proj-name">VIPER</span>
-          <span class="proj-desc">Vision-based industrial inspection system that detects defective pipe fittings on a live conveyor line using computer vision and Arduino-controlled automation.</span>
-          <span class="proj-tags"><span>Computer Vision</span><span>IoT</span></span>
-        </div>
-
-        <div class="proj reveal">
-          <span class="proj-code mono">SD-06</span>
-          <span class="proj-name">Seed of the Last Dawn</span>
-          <span class="proj-desc">A 2D RPG platformer built solo over three weeks, with full gameplay systems, level design, and a complete narrative arc. 1st place, EAS Frijna Competition.</span>
-          <span class="proj-tags"><span>Game Dev</span><span>Solo Build</span></span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="experience">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>Experience</h2>
-        <span class="section-num mono">INDEX / 03</span>
-      </div>
-      <div class="exp-list">
-        <div class="exp reveal">
-          <div class="exp-time mono">APR 2025 - PRESENT</div>
-          <div><div class="exp-role">Founder</div><div class="exp-org">Project Phantom, Dubai</div></div>
-        </div>
-        <div class="exp reveal">
-          <div class="exp-time mono">JAN 2026 - PRESENT</div>
-          <div><div class="exp-role">Ambassador, Tech & AI Committee</div><div class="exp-org">Unipreneur Inc., Dubai</div></div>
-        </div>
-        <div class="exp reveal">
-          <div class="exp-time mono">JUN 2026 - PRESENT</div>
-          <div><div class="exp-role">Artificial Intelligence Ambassador</div><div class="exp-org">Gulf Asian English School, Sharjah</div></div>
-        </div>
-        <div class="exp reveal">
-          <div class="exp-time mono">MAY 2025 - JUN 2026</div>
-          <div><div class="exp-role">Community Ambassador</div><div class="exp-org">Gulf Asian English School, Sharjah</div></div>
-        </div>
-        <div class="exp reveal">
-          <div class="exp-time mono">JAN - FEB 2026</div>
-          <div><div class="exp-role">Event Volunteer, Media & Audio</div><div class="exp-org">M.A.A.D. Model Aircraft Airshow, Dubai</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="awards" style="padding-bottom:60px;">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>Recognition</h2>
-        <span class="section-num mono">INDEX / 04</span>
-      </div>
-    </div>
-    <div class="marquee reveal">
-      <div class="marquee-track mono">
-        <span>SSA Sharjah Sustainability Awards: Finalist</span>
-        <span>Earth Day Sustainability Competition: Finalist & Scholarship</span>
-        <span>WFES AI Energy Hackathon: 1st Place</span>
-        <span>AppSmart 2025: Overall Champion</span>
-        <span>CBSE Skill Expo 2025/26: Selected Representative</span>
-        <span>PACEGEN 2025: 3rd Place</span>
-        <span>Frijna Competition: 1st Place, Game Development</span>
-        <span>HOPE 24: 2nd Place</span>
-        <!-- duplicate for seamless loop -->
-        <span>SSA Sharjah Sustainability Awards: Finalist</span>
-        <span>Earth Day Sustainability Competition: Finalist & Scholarship</span>
-        <span>WFES AI Energy Hackathon: 1st Place</span>
-        <span>AppSmart 2025: Overall Champion</span>
-        <span>CBSE Skill Expo 2025/26: Selected Representative</span>
-        <span>PACEGEN 2025: 3rd Place</span>
-        <span>Frijna Competition: 1st Place, Game Development</span>
-        <span>HOPE 24: 2nd Place</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="section contact" id="contact">
-    <div class="wrap">
-      <div class="eyebrow reveal">INDEX / 05, GET IN TOUCH</div>
-      <h2 class="reveal reveal-d1" style="margin-top:18px;">Building something<br>in autonomous flight?</h2>
-      <a href="mailto:rithishwork@gmail.com" class="contact-link reveal reveal-d2">
-        rithishwork@gmail.com <span class="arrow">↗</span>
-      </a>
-
-      <div class="contact-meta reveal reveal-d3">
-        <div>
-          <b>Based In</b>
-          Sharjah / Dubai, UAE
-        </div>
-        <div>
-          <b>Currently</b>
-          Founder, Project Phantom
-        </div>
-        <div>
-          <b>Elsewhere</b>
-          <a href="https://www.linkedin.com/in/rithishdharanidharan" target="_blank" rel="noopener">LinkedIn</a> / <a href="https://projectphantom.space" target="_blank" rel="noopener">Project Phantom</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <span>© 2026 Rithish Dharanidharan</span>
-  <span id="footClock" class="mono">SYS</span>
-  <span>Designed for autonomous flight</span>
-</footer>
-
-<script>
-(function(){
-  // ---------- portal intro ----------
-  var pct = document.getElementById('portalPct');
-  var bar = document.getElementById('portalBar');
-  var status = document.getElementById('portalStatus');
-  var portal = document.getElementById('portal');
-  var header = document.getElementById('siteHeader');
-  var messages = ['CALIBRATING FLIGHT SYSTEMS','LINKING TELEMETRY','MAPPING AIRSPACE','SYSTEMS NOMINAL'];
-  var msgIndex = 0;
-  var val = 0;
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function finishPortal(){
-    portal.classList.add('open');
-    document.body.classList.remove('locked');
-    header.classList.add('show');
-    setTimeout(function(){ portal.style.display = 'none'; }, 1300);
-  }
-
-  if(reduced){
-    finishPortal();
-  } else {
-    var interval = setInterval(function(){
-      val += Math.random()*14 + 6;
-      if(val >= 100){
-        val = 100;
-        clearInterval(interval);
-        pct.textContent = '100%';
-        bar.style.width = '100%';
-        status.textContent = 'SYSTEMS NOMINAL';
-        setTimeout(finishPortal, 350);
-        return;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The personal website of Rithish Dharanidharan, founder of Project Phantom and a UAE-based student engineer working across autonomous flight, applied AI, sustainable energy, computer vision, and real-world hardware."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Rithish Dharanidharan | Founder of Project Phantom" />
+    <meta
+      property="og:description"
+      content="A personal build record across autonomous flight, applied AI, energy, computer vision, and hardware."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700&family=DM+Mono&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <title>Rithish Dharanidharan | Founder of Project Phantom</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rithish Dharanidharan",
+        "jobTitle": "Student Engineer and Founder of Project Phantom",
+        "address": { "@type": "PostalAddress", "addressCountry": "AE" },
+        "sameAs": [
+          "https://www.linkedin.com/in/rithishdharanidharan",
+          "https://projectphantom.space",
+          "https://www.linkedin.com/company/projectphantom"
+        ]
       }
-      pct.textContent = Math.floor(val) + '%';
-      bar.style.width = val + '%';
-      var newIndex = Math.min(messages.length - 1, Math.floor(val / 26));
-      if(newIndex !== msgIndex){ msgIndex = newIndex; status.textContent = messages[msgIndex]; }
-    }, 140);
+    </script>
+    <style>
+      :root {
+        --ink: #050505;
+        --ink-soft: #111111;
+        --paper: #f5f5f2;
+        --muted: #a4a4a0;
+        --line: rgba(245, 245, 242, 0.18);
+        --dark-line: rgba(5, 5, 5, 0.2);
+        --display: "Barlow Condensed", Impact, sans-serif;
+        --body: "Manrope", Arial, sans-serif;
+        --mono: "DM Mono", monospace;
+        --ease: cubic-bezier(0.23, 1, 0.32, 1);
+      }
 
-    // safety fallback so nobody ever gets stuck
-    setTimeout(function(){
-      if(document.body.classList.contains('locked')) finishPortal();
-    }, 4500);
-  }
+      * { box-sizing: border-box; }
 
-  // ---------- scroll reveal ----------
-  var revealEls = document.querySelectorAll('.reveal');
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, {threshold:.15});
-  revealEls.forEach(function(el){ io.observe(el); });
+      html { scroll-behavior: smooth; background: var(--ink); }
 
-  // ---------- mobile nav ----------
-  var toggle = document.getElementById('navToggle');
-  var close = document.getElementById('mobileClose');
-  var panel = document.getElementById('mobilePanel');
-  toggle.addEventListener('click', function(){ panel.classList.add('open'); });
-  close.addEventListener('click', function(){ panel.classList.remove('open'); });
-  panel.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ panel.classList.remove('open'); });
-  });
+      body {
+        min-width: 320px;
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: var(--body);
+      }
 
-  // ---------- header show on scroll (in case portal skipped) ----------
-  window.addEventListener('scroll', function(){
-    if(window.scrollY > 10){ header.classList.add('show'); }
-  });
+      body.menu-open { overflow: hidden; }
 
-  // ---------- sys clock ----------
-  var clockEl = document.getElementById('clock');
-  var footClockEl = document.getElementById('footClock');
-  function tick(){
-    var d = new Date();
-    var t = d.toUTCString().split(' ')[4] + ' UTC';
-    if(clockEl) clockEl.textContent = 'SYS TIME ' + t;
-    if(footClockEl) footClockEl.textContent = 'SYS ' + t;
-  }
-  tick();
-  setInterval(tick, 1000);
+      a { color: inherit; text-decoration: none; }
 
-  // ---------- subtle parallax on hero wireframe ----------
-  var wire = document.querySelector('.uav-wire');
-  if(wire && !reduced){
-    window.addEventListener('mousemove', function(e){
-      var x = (e.clientX / window.innerWidth - .5) * 14;
-      var y = (e.clientY / window.innerHeight - .5) * 14;
-      wire.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-    });
-  }
-})();
-</script>
+      button { color: inherit; font: inherit; cursor: pointer; }
 
-</body>
+      img { display: block; max-width: 100%; }
+
+      ::selection { background: var(--paper); color: var(--ink); }
+
+      :focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
+
+      .scroll-progress {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--paper);
+      }
+
+      .engineering-grid {
+        position: fixed;
+        z-index: 0;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(245, 245, 242, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 245, 242, 0.07) 1px, transparent 1px);
+        background-size: 84px 84px;
+        mask-image: linear-gradient(to bottom, black 0%, black 42%, transparent 100%);
+      }
+
+      .site-header {
+        position: fixed;
+        z-index: 50;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 85px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 44px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(5, 5, 5, 0.91);
+        backdrop-filter: blur(14px);
+      }
+
+      .personal-lockup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font: 600 9px/1.12 var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      .rd-mark {
+        display: grid;
+        width: 31px;
+        height: 31px;
+        place-items: center;
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+        background: var(--paper);
+        color: var(--ink);
+        font: 700 10px var(--mono);
+        letter-spacing: -0.13em;
+      }
+
+      .desktop-nav { display: flex; gap: 28px; }
+
+      .desktop-nav a,
+      .status,
+      .mono-label {
+        font: 500 10px var(--mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .desktop-nav a { color: var(--muted); transition: color 180ms ease; }
+
+      .desktop-nav a:hover,
+      .desktop-nav a.active { color: var(--paper); }
+
+      .status { display: flex; align-items: center; gap: 8px; color: var(--paper); font-size: 9px; }
+
+      .status::before {
+        width: 6px;
+        height: 6px;
+        content: "";
+        background: var(--paper);
+      }
+
+      .menu-toggle {
+        display: none;
+        padding: 8px;
+        border: 0;
+        background: transparent;
+      }
+
+      .menu-toggle span,
+      .menu-toggle::before,
+      .menu-toggle::after {
+        display: block;
+        width: 21px;
+        height: 1px;
+        margin: 5px 0;
+        content: "";
+        background: var(--paper);
+      }
+
+      .mobile-menu {
+        position: fixed;
+        z-index: 80;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+        pointer-events: none;
+        clip-path: inset(0 0 100% 0);
+        background: var(--ink);
+        transition: clip-path 480ms var(--ease);
+      }
+
+      .mobile-menu.open { pointer-events: auto; clip-path: inset(0); }
+
+      .mobile-menu__top { display: flex; align-items: center; justify-content: space-between; }
+
+      .mobile-menu__close {
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        background: transparent;
+        font: 500 11px var(--mono);
+      }
+
+      .mobile-menu nav { margin-top: 14vh; border-top: 1px solid var(--line); }
+
+      .mobile-menu nav a {
+        display: grid;
+        grid-template-columns: 35px 1fr 20px;
+        align-items: center;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--line);
+        font: 600 clamp(46px, 13vw, 74px) / 0.85 var(--display);
+        text-transform: uppercase;
+      }
+
+      .mobile-menu nav span { color: var(--muted); font: 500 10px var(--mono); }
+
+      .mobile-email {
+        width: fit-content;
+        margin-top: auto;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--paper);
+        font: 500 13px var(--mono);
+      }
+
+      .section-wrap {
+        position: relative;
+        z-index: 1;
+        width: min(100% - 112px, 1370px);
+        margin: auto;
+      }
+
+      .hero {
+        position: relative;
+        z-index: 1;
+        min-height: 900px;
+        height: max(100svh, 790px);
+        overflow: hidden;
+        padding-top: 137px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-frame {
+        position: relative;
+        display: flex;
+        width: min(100% - 112px, 1370px);
+        min-height: 763px;
+        height: 100%;
+        margin: auto;
+        flex-direction: column;
+      }
+
+      .hero-meta { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font: 500 9px var(--mono); letter-spacing: 0.09em; }
+
+      .hero-copy { position: relative; z-index: 2; margin-top: auto; }
+
+      .eyebrow { margin: 0 0 10px; font: 500 10px var(--mono); letter-spacing: 0.1em; }
+
+      h1,
+      h2 { margin: 0; font-family: var(--display); font-weight: 700; letter-spacing: -0.025em; text-transform: uppercase; }
+
+      h1 { font-size: clamp(88px, 13.8vw, 207px); line-height: 0.72; }
+
+      .hero-detail {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 360px 1fr 260px;
+        gap: 45px;
+        align-items: end;
+        margin-top: 40px;
+        margin-bottom: 56px;
+      }
+
+      .hero-detail p { margin: 0; color: #d0d0cc; font-size: 14px; line-height: 1.8; }
+
+      .hero-detail strong { color: var(--paper); }
+
+      .spec { padding-left: 14px; border-left: 1px solid var(--paper); }
+
+      .spec span { display: block; color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.08em; }
+
+      .spec b { display: block; margin-top: 7px; font: 600 16px/1 var(--display); letter-spacing: 0.04em; }
+
+      .line-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--paper); font: 500 10px var(--mono); letter-spacing: 0.05em; transition: opacity 180ms ease; }
+
+      .line-link:hover { opacity: 0.6; }
+
+      .hero-stamp {
+        position: absolute;
+        right: 0;
+        bottom: 56px;
+        display: grid;
+        width: 55px;
+        height: 55px;
+        align-content: center;
+        padding-left: 8px;
+        border: 1px solid var(--paper);
+        font: 500 8px/1.45 var(--mono);
+      }
+
+      .hero-orbit {
+        position: absolute;
+        top: 10%;
+        right: -9vw;
+        width: min(62vw, 920px);
+        aspect-ratio: 1;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+      }
+
+      .hero-orbit::before,
+      .hero-orbit::after {
+        position: absolute;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .hero-orbit::before { inset: 14%; }
+      .hero-orbit::after { inset: 34%; }
+
+      .hero-orbit b {
+        position: absolute;
+        top: 27%;
+        left: 21%;
+        display: grid;
+        width: 112px;
+        height: 112px;
+        place-items: center;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+        background: var(--paper);
+        color: var(--ink);
+        font: 700 64px/0.8 var(--display);
+      }
+
+      .signal-line {
+        position: absolute;
+        z-index: 1;
+        top: 53%;
+        right: 0;
+        left: 0;
+        height: 1px;
+        background: var(--paper);
+        opacity: 0.52;
+      }
+
+      .signal-line::before {
+        position: absolute;
+        top: -4px;
+        left: 13%;
+        width: 9px;
+        height: 9px;
+        background: var(--paper);
+        content: "";
+        transform: rotate(45deg);
+      }
+
+      .intro { padding: 159px 0 169px; }
+
+      .section-label {
+        display: grid;
+        grid-template-columns: 57px 1fr auto auto;
+        gap: 15px;
+        align-items: center;
+        color: var(--muted);
+        font: 500 9px var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      .section-label strong { color: var(--paper); font-size: 13px; }
+
+      .section-label i { font-style: normal; }
+
+      .section-label b { padding: 5px 6px; border: 1px solid var(--line); color: #d0d0cc; font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .intro-grid {
+        display: grid;
+        grid-template-columns: minmax(400px, 1.5fr) minmax(220px, 0.55fr);
+        gap: 11vw;
+        align-items: end;
+        margin: 108px 0 0 72px;
+      }
+
+      .intro h2 { font-size: clamp(50px, 6.5vw, 97px); line-height: 0.86; }
+
+      .intro-copy { padding-bottom: 5px; }
+
+      .intro-copy p { margin: 0; color: #c0c0bc; font-size: 13px; line-height: 1.85; }
+
+      .intro-copy p + p { margin-top: 18px; }
+
+      .field-note {
+        margin-top: 25px;
+        padding: 10px;
+        border-left: 1px solid var(--paper);
+        background: rgba(245, 245, 242, 0.035);
+        color: #d0d0cc;
+        font: 500 8px/1.8 var(--mono);
+        letter-spacing: 0.06em;
+        white-space: pre-line;
+      }
+
+      .intro-copy .line-link { width: fit-content; margin-top: 31px; }
+
+      .ticker { position: relative; z-index: 1; overflow: hidden; border-top: 1px solid var(--paper); border-bottom: 1px solid var(--paper); background: var(--ink-soft); transform: rotate(-1.4deg) scale(1.025); }
+
+      .ticker-track { display: flex; min-width: max-content; animation: ticker 32s linear infinite; }
+
+      .ticker span { display: inline-flex; gap: 24px; align-items: center; padding: 13px 19px; font: 700 24px var(--display); letter-spacing: 0.02em; }
+
+      .ticker i { font: 600 11px var(--mono); font-style: normal; }
+
+      @keyframes ticker { to { transform: translateX(-50%); } }
+
+      .systems { padding: 174px 0 166px; }
+
+      .systems-heading { display: flex; gap: 30px; align-items: end; justify-content: space-between; margin: 87px 0 0 72px; }
+
+      .systems-heading h2 { font-size: clamp(56px, 8.4vw, 128px); line-height: 0.76; }
+
+      .systems-heading p { max-width: 260px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+
+      .systems-layout { display: grid; grid-template-columns: 36% 1fr; gap: 9%; margin: 92px 0 0 72px; }
+
+      .system-visual { position: sticky; top: 105px; align-self: start; border: 1px solid var(--line); background: var(--ink-soft); }
+
+      .system-visual > img:first-child { width: 100%; aspect-ratio: 0.92; object-fit: cover; filter: grayscale(1) contrast(1.2) brightness(0.73); }
+
+      .phantom-logo { position: absolute; top: 12px; left: 12px; width: 46px; aspect-ratio: 1; border: 1px solid rgba(245, 245, 242, 0.45); border-radius: 50%; background: var(--ink); object-fit: cover; filter: grayscale(1) contrast(1.14); }
+
+      .image-code { display: block; padding: 10px; border-top: 1px solid var(--line); color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .image-marker { position: absolute; top: 10px; right: 10px; padding: 5px; background: var(--paper); color: var(--ink); font: 500 8px/1.3 var(--mono); letter-spacing: 0.06em; text-align: right; }
+
+      .systems-list { border-top: 1px solid var(--line); }
+
+      .system { border-bottom: 1px solid var(--line); }
+
+      .system-toggle {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 55px 1fr 130px 18px;
+        gap: 14px;
+        align-items: center;
+        padding: 20px 0;
+        border: 0;
+        background: transparent;
+        text-align: left;
+      }
+
+      .system-toggle span { color: var(--muted); font: 500 9px var(--mono); }
+
+      .system-toggle h3 { margin: 0; font: 600 clamp(31px, 3.4vw, 51px) / 0.85 var(--display); letter-spacing: 0.01em; text-transform: uppercase; }
+
+      .system-toggle em { color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.08em; font-style: normal; }
+
+      .system-toggle b { font-size: 16px; font-weight: 400; transition: transform 220ms var(--ease); }
+
+      .system.active .system-toggle b { transform: rotate(90deg); }
+
+      .system-detail { display: none; padding: 0 30px 26px 69px; }
+
+      .system.active .system-detail { display: block; animation: reveal 360ms var(--ease); }
+
+      @keyframes reveal { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+      .record-tag { display: inline-block; margin-bottom: 15px; padding: 5px 6px; border: 1px solid var(--line); color: #d0d0cc; font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .system-detail p { max-width: 550px; margin: 0; color: #d4d4d0; font-size: 13px; line-height: 1.72; }
+
+      .system-detail .note { margin-top: 10px; color: var(--muted); }
+
+      .company-record { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; margin-top: 18px; padding: 10px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+      .company-record img { width: 38px; aspect-ratio: 1; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.12); }
+
+      .company-record strong { display: block; font: 600 11px var(--display); letter-spacing: 0.05em; }
+
+      .company-record span { display: block; margin-top: 4px; color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+
+      .tags span { padding: 5px 6px; border: 1px solid var(--line); color: #d0d0cc; font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .company-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; }
+
+      .company-links a { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .company-links a:hover { color: var(--paper); }
+
+      .log { width: 100%; padding: 153px max(56px, calc((100vw - 1370px) / 2 + 56px)) 135px; background: var(--paper); color: var(--ink); }
+
+      .log .section-label { color: #666660; }
+      .log .section-label strong,
+      .log .section-label b { color: var(--ink); }
+      .log .section-label b { border-color: var(--dark-line); }
+
+      .log h2 { margin: 88px 0 0 72px; font-size: clamp(61px, 9.3vw, 140px); line-height: 0.75; }
+
+      .roles { margin: 99px 0 0 72px; border-top: 1px solid var(--dark-line); }
+
+      .role { position: relative; display: grid; grid-template-columns: 196px 1fr 220px; gap: 18px; align-items: center; padding: 22px 35px 22px 0; border-bottom: 1px solid var(--dark-line); transition: padding 230ms var(--ease), background 230ms var(--ease); }
+
+      .role:hover { padding-left: 15px; background: #e5e5df; }
+
+      .role span { color: #4d4d49; font: 500 8px var(--mono); letter-spacing: 0.07em; }
+
+      .role h3 { margin: 0; font: 600 clamp(27px, 3vw, 43px) / 0.9 var(--display); text-transform: uppercase; }
+
+      .role p { margin: 0; color: #596159; font-size: 11px; line-height: 1.55; }
+
+      .role i { position: absolute; top: 50%; right: 10px; width: 8px; height: 8px; background: var(--ink); transform: translateY(-50%) rotate(45deg); }
+
+      .recognition { display: grid; grid-template-columns: 1.2fr repeat(3, 1fr); gap: 15px; margin: 100px 0 0 72px; padding: 16px 0; border-top: 1px solid var(--dark-line); border-bottom: 1px solid var(--dark-line); }
+
+      .recognition span { color: #4d4d49; font: 500 8px var(--mono); letter-spacing: 0.05em; }
+
+      .recognition p { margin: 0; font: 600 13px/1.25 var(--display); text-transform: uppercase; }
+
+      .achievements { position: relative; z-index: 1; padding: 150px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+      .achievements-heading { display: flex; gap: 30px; align-items: end; justify-content: space-between; margin: 86px 0 0 72px; }
+
+      .achievements-heading h2 { font-size: clamp(60px, 9.2vw, 142px); line-height: 0.75; }
+
+      .achievements-heading p { max-width: 290px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+
+      .achievements-ledger { margin: 92px 0 0 72px; border-top: 1px solid var(--line); }
+
+      .achievement { display: grid; grid-template-columns: 68px minmax(160px, 0.75fr) minmax(260px, 1.55fr) minmax(230px, 0.9fr); gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--line); transition: padding 220ms var(--ease), background 220ms var(--ease); }
+
+      .achievement:hover { padding-left: 15px; background: rgba(245, 245, 242, 0.035); }
+
+      .achievement-code { color: var(--muted); font: 500 9px var(--mono); letter-spacing: 0.08em; }
+
+      .achievement-date { color: #d0d0cc; font: 500 9px/1.5 var(--mono); letter-spacing: 0.05em; }
+
+      .achievement h3 { margin: 0; font: 600 clamp(25px, 2.65vw, 39px) / 0.9 var(--display); letter-spacing: 0.01em; text-transform: uppercase; }
+
+      .achievement p { margin: 11px 0 0; color: var(--muted); font-size: 11px; line-height: 1.72; }
+
+      .achievement-issuer { color: #d0d0cc; font: 500 9px/1.65 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; }
+
+      .achievement-issuer::before { display: block; width: 20px; height: 1px; margin-bottom: 11px; background: var(--paper); content: ""; }
+
+      .achievement-count { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; color: var(--muted); font: 500 9px var(--mono); letter-spacing: 0.07em; }
+
+      .achievement-count b { width: 7px; height: 7px; background: var(--paper); transform: rotate(45deg); }
+
+      .contact { position: relative; z-index: 1; min-height: 720px; overflow: hidden; padding: 156px 0 108px; }
+
+      .contact h2 { position: relative; z-index: 1; margin-top: 78px; font-size: clamp(68px, 10.7vw, 162px); line-height: 0.72; }
+
+      .contact-card { position: relative; z-index: 2; width: min(470px, 100%); margin: 80px 0 0 46%; }
+
+      .contact-card p { margin: 0; color: #c2c2be; font-size: 13px; line-height: 1.8; }
+
+      .email-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 30px; padding-bottom: 10px; border-bottom: 1px solid var(--paper); font: 500 clamp(17px, 2.2vw, 27px) var(--display); letter-spacing: 0.03em; }
+
+      .contact-links { display: flex; flex-wrap: wrap; gap: 15px 20px; margin-top: 18px; }
+
+      .contact-links a { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.06em; }
+
+      .contact-links a:hover { color: var(--paper); }
+
+      .contact-orbit { position: absolute; top: 33px; right: -5vw; width: min(53vw, 750px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; }
+
+      .contact-orbit::before,
+      .contact-orbit::after { position: absolute; border: 1px solid var(--line); border-radius: 50%; content: ""; }
+
+      .contact-orbit::before { inset: 18%; }
+      .contact-orbit::after { inset: 35%; }
+
+      footer { position: relative; z-index: 1; display: flex; min-height: 73px; align-items: center; justify-content: space-between; gap: 20px; padding: 0 56px; border-top: 1px solid var(--line); color: var(--muted); font: 500 8px var(--mono); letter-spacing: 0.07em; }
+
+      .footer-rd { display: grid; width: 25px; height: 25px; place-items: center; clip-path: polygon(0 0, 100% 0, 100% 76%, 76% 100%, 0 100%); background: var(--paper); color: var(--ink); font: 700 8px var(--mono); letter-spacing: -0.1em; }
+
+      footer a { display: inline-flex; gap: 6px; align-items: center; color: var(--paper); }
+
+      [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 680ms var(--ease), transform 680ms var(--ease); }
+
+      [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 900px) {
+        .section-wrap,
+        .hero-frame { width: min(100% - 64px, 1370px); }
+
+        .site-header { padding-inline: 28px; }
+        .hero-detail { grid-template-columns: 1fr 1fr; }
+        .hero-detail .line-link { grid-column: span 2; }
+        .intro-grid,
+        .systems-heading,
+        .systems-layout,
+        .roles,
+        .log h2,
+        .recognition { margin-left: 0; }
+        .systems-layout { grid-template-columns: 38% 1fr; gap: 6%; }
+        .log { padding-inline: 32px; }
+        .role { grid-template-columns: 160px 1fr 150px; }
+        .recognition { grid-template-columns: 1fr 1fr; }
+        .recognition span { grid-column: span 2; }
+        .achievements-heading,
+        .achievements-ledger { margin-left: 0; }
+        .achievement { grid-template-columns: 55px 1fr 1.25fr; }
+        .achievement-issuer { grid-column: 2 / -1; }
+        .contact-card { margin-left: 42%; }
+      }
+
+      @media (max-width: 680px) {
+        .section-wrap,
+        .hero-frame { width: min(100% - 42px, 1370px); }
+
+        .site-header { height: 67px; padding-inline: 20px; }
+        .desktop-nav,
+        .status { display: none; }
+        .menu-toggle { display: block; }
+        .hero { min-height: 760px; height: 100svh; padding-top: 98px; }
+        .hero-frame { min-height: 662px; }
+        .hero-meta span:nth-child(2) { display: none; }
+        .hero-meta { font-size: 8px; }
+        .eyebrow { font-size: 8px; }
+        h1 { font-size: clamp(69px, 19.3vw, 106px); line-height: 0.74; }
+        .hero-orbit { top: 19%; right: -48vw; width: 100vw; }
+        .hero-orbit b { width: 68px; height: 68px; font-size: 38px; }
+        .hero-detail { display: block; margin-top: 30px; margin-bottom: 34px; }
+        .hero-detail p { max-width: 285px; font-size: 12px; }
+        .spec { margin-top: 21px; }
+        .hero-detail .line-link { width: 230px; margin-top: 24px; }
+        .hero-stamp { right: 0; bottom: 34px; }
+        .signal-line { top: 51%; }
+        .intro,
+        .systems { padding: 90px 0 95px; }
+        .section-label { grid-template-columns: 40px 1fr; gap: 10px; }
+        .section-label i,
+        .section-label b { display: none; }
+        .intro-grid { display: block; margin-top: 58px; }
+        .intro h2 { font-size: clamp(45px, 12.8vw, 70px); line-height: 0.87; }
+        .intro-copy { margin-top: 42px; }
+        .intro-copy p { font-size: 12px; }
+        .ticker span { padding: 11px 16px; font-size: 21px; }
+        .systems-heading { display: block; margin-top: 58px; }
+        .systems-heading h2 { font-size: clamp(54px, 15vw, 80px); }
+        .systems-heading p { margin-top: 23px; }
+        .systems-layout { display: flex; flex-direction: column; margin-top: 52px; }
+        .system-visual { position: relative; top: auto; order: 2; margin-top: 35px; }
+        .system-visual > img:first-child { aspect-ratio: 1.32; }
+        .phantom-logo { top: 9px; left: 9px; width: 38px; }
+        .system-toggle { grid-template-columns: 40px 1fr 17px; }
+        .system-toggle h3 { font-size: 34px; }
+        .system-toggle em { display: none; }
+        .system-detail { padding: 0 5px 22px 40px; }
+        .system-detail p { font-size: 12px; }
+        .log { padding: 91px 21px 84px; }
+        .log h2 { margin-top: 56px; font-size: clamp(56px, 15.8vw, 84px); }
+        .roles { margin-top: 60px; }
+        .role { display: block; padding: 19px 27px 19px 0; }
+        .role span { display: block; margin-bottom: 11px; }
+        .role h3 { font-size: 31px; }
+        .role p { max-width: 210px; margin-top: 7px; }
+        .recognition { display: block; margin-top: 60px; }
+        .recognition p { margin-top: 10px; font-size: 15px; }
+        .achievements { padding: 90px 0; }
+        .achievements-heading { display: block; margin-top: 58px; }
+        .achievements-heading h2 { font-size: clamp(56px, 15.6vw, 82px); }
+        .achievements-heading p { margin-top: 23px; font-size: 11px; }
+        .achievements-ledger { margin-top: 55px; }
+        .achievement { grid-template-columns: 32px 1fr; gap: 12px; padding: 21px 0; }
+        .achievement:hover { padding-left: 0; background: transparent; }
+        .achievement-date { grid-column: 2; grid-row: 1; }
+        .achievement-main { grid-column: 2; }
+        .achievement h3 { font-size: 29px; }
+        .achievement p { font-size: 11px; }
+        .achievement-issuer { grid-column: 2; margin-top: 2px; font-size: 8px; }
+        .achievement-issuer::before { display: none; }
+        .contact { min-height: 680px; padding: 90px 0 80px; }
+        .contact h2 { margin-top: 54px; font-size: clamp(59px, 16.3vw, 92px); }
+        .contact-card { width: 100%; margin: 55px 0 0; }
+        .contact-orbit { top: 45px; right: -43vw; width: 100vw; opacity: 0.8; }
+        footer { display: grid; grid-template-columns: 25px 1fr; gap: 14px; padding: 20px 21px; font-size: 7px; }
+        footer a { grid-column: 1 / -1; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 1ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 1ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="engineering-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="personal-lockup" href="#top" aria-label="Rithish Dharanidharan home">
+        <span class="rd-mark">RD</span>
+        <span>RITHISH<br />DHARANIDHARAN</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="active" href="#profile">Profile</a>
+        <a href="#systems">Systems</a>
+        <a href="#log">Log</a>
+        <a href="#achievements">Awards</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="status" href="#contact">Available to build</a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </header>
+
+    <aside class="mobile-menu" aria-hidden="true">
+      <div class="mobile-menu__top">
+        <span class="mono-label">Personal menu / 00</span>
+        <button class="mobile-menu__close" type="button">Close</button>
+      </div>
+      <nav aria-label="Mobile navigation">
+        <a href="#profile"><span>01</span>Profile <b>›</b></a>
+        <a href="#systems"><span>02</span>Systems <b>›</b></a>
+        <a href="#log"><span>03</span>Log <b>›</b></a>
+        <a href="#achievements"><span>04</span>Awards <b>›</b></a>
+        <a href="#contact"><span>05</span>Contact <b>›</b></a>
+      </nav>
+      <a class="mobile-email" href="mailto:rithishwork@gmail.com">rithishwork@gmail.com</a>
+    </aside>
+
+    <main id="top">
+      <section class="hero" id="profile">
+        <div class="signal-line" aria-hidden="true"></div>
+        <div class="hero-frame">
+          <div class="hero-meta">
+            <span>RD / Personal system profile / 01</span>
+            <span>Sharjah · Dubai · UAE</span>
+            <span id="utc-clock">UTC --:--:--</span>
+          </div>
+          <div class="hero-copy">
+            <p class="eyebrow">Rithish Dharanidharan / Founder, Project Phantom</p>
+            <h1>Autonomous<br />Flight. Applied AI.</h1>
+          </div>
+          <div class="hero-detail">
+            <p>
+              This is the personal work of a UAE student engineer building systems across
+              <strong>autonomous flight, AI, energy, computer vision, and real-world hardware.</strong>
+            </p>
+            <div class="spec">
+              <span>Primary mode</span>
+              <b>Prototype.<br />Test. Iterate.</b>
+            </div>
+            <a class="line-link" href="#systems">View selected systems <span>↓</span></a>
+          </div>
+          <div class="hero-stamp">01<br />PERSON<br />FIRST</div>
+        </div>
+        <div class="hero-orbit" aria-hidden="true"><b>R</b></div>
+      </section>
+
+      <section class="intro section-wrap">
+        <div class="section-label" data-reveal>
+          <strong>02</strong>
+          <span>The throughline</span>
+          <i>Personal overview</i>
+          <b>RD / FIELD</b>
+        </div>
+        <div class="intro-grid">
+          <div data-reveal>
+            <h2>I don&apos;t want to just ideate.<br />I want to build, test,<br />and learn in public.</h2>
+          </div>
+          <div class="intro-copy" data-reveal>
+            <p>
+              My work has ranged from flight systems and computer vision to energy concepts and games.
+              Different fields, same instinct: find the constraint, make a version, and push it hard enough to reveal what matters.
+            </p>
+            <p>
+              I founded Project Phantom, but this website is my personal record—the work, the experiments, and the direction I&apos;m heading next.
+            </p>
+            <div class="field-note">RD / FIELD NOTE
+BASE / UAE
+METHOD / BUILD IN PUBLIC
+STATE / ACTIVE LEARNING</div>
+            <a class="line-link" href="#log">Read the build log <span>↓</span></a>
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker" aria-label="Areas of work">
+        <div class="ticker-track">
+          <span>Autonomous flight <i>✦</i></span><span>Applied AI <i>✦</i></span><span>Embedded systems <i>✦</i></span><span>Computer vision <i>✦</i></span><span>Sustainable hardware <i>✦</i></span><span>Rapid prototyping <i>✦</i></span>
+          <span>Autonomous flight <i>✦</i></span><span>Applied AI <i>✦</i></span><span>Embedded systems <i>✦</i></span><span>Computer vision <i>✦</i></span><span>Sustainable hardware <i>✦</i></span><span>Rapid prototyping <i>✦</i></span>
+        </div>
+      </div>
+
+      <section class="systems section-wrap" id="systems">
+        <div class="section-label" data-reveal>
+          <strong>03</strong>
+          <span>Selected systems</span>
+          <i>Field work / active</i>
+          <b>RD / BUILD FILES</b>
+        </div>
+        <div class="systems-heading" data-reveal>
+          <h2>Real-world<br />builds.</h2>
+          <p>From flight tests in the UAE to AI systems for healthcare and energy, each project begins with a specific constraint.</p>
+        </div>
+        <div class="systems-layout">
+          <aside class="system-visual" aria-label="Project Phantom aircraft image">
+            <img src="assets/project-phantom-aircraft.webp" alt="Project Phantom prototype aircraft displayed at a sustainability event" />
+            <img class="phantom-logo" src="assets/project-phantom-logo.png" alt="Project Phantom logo" />
+            <span class="image-code">RD / 01 / FOUNDING BUILD</span>
+            <span class="image-marker">BUILD<br />FILE</span>
+          </aside>
+
+          <div class="systems-list" role="tablist" aria-label="Selected personal projects">
+            <article class="system active">
+              <button class="system-toggle" type="button" role="tab" aria-selected="true" aria-controls="project-phantom-detail">
+                <span>01</span><h3>Project Phantom</h3><em>Autonomous flight</em><b>›</b>
+              </button>
+              <div class="system-detail" id="project-phantom-detail" role="tabpanel">
+                <span class="record-tag">RD / PROJECT RECORD / EVIDENCE</span>
+                <p>A youth-led VTOL fixed-wing UAV platform for environmental monitoring, sustainable endurance, and onboard Mercury AI.</p>
+                <p class="note">My founding project. I lead platform direction and flight-system development; four early flights collected 28 minutes of atmospheric data up to 150 metres.</p>
+                <div class="company-record">
+                  <img src="assets/project-phantom-logo.png" alt="Project Phantom logo" />
+                  <div><strong>Project Phantom</strong><span>Founded by Rithish Dharanidharan</span></div>
+                </div>
+                <div class="tags"><span>VTOL</span><span>AEROSPACE</span><span>MERCURY AI</span></div>
+                <div class="company-links">
+                  <a href="https://projectphantom.space" target="_blank" rel="noreferrer">Company website ↗</a>
+                  <a href="https://www.linkedin.com/company/projectphantom" target="_blank" rel="noreferrer">Company LinkedIn ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="system">
+              <button class="system-toggle" type="button" role="tab" aria-selected="false" aria-controls="licycle-detail">
+                <span>02</span><h3>LiCycle</h3><em>Intelligent batteries</em><b>›</b>
+              </button>
+              <div class="system-detail" id="licycle-detail" role="tabpanel">
+                <span class="record-tag">RD / PROJECT RECORD / OUTCOME</span>
+                <p>A self-healing battery concept using sensor data and AI analytics to predict failure before it takes useful energy offline.</p>
+                <p class="note">A systems-thinking project recognised with first place at the WFES AI Energy Hackathon.</p>
+                <div class="tags"><span>AI</span><span>SENSORS</span><span>SUSTAINABILITY</span></div>
+              </div>
+            </article>
+
+            <article class="system">
+              <button class="system-toggle" type="button" role="tab" aria-selected="false" aria-controls="aegis-detail">
+                <span>03</span><h3>AEGIS</h3><em>Computer vision</em><b>›</b>
+              </button>
+              <div class="system-detail" id="aegis-detail" role="tabpanel">
+                <span class="record-tag">RD / PROJECT RECORD / METHOD</span>
+                <p>A diagnostic-support concept applying deep learning to endoscopic imaging for earlier gastrointestinal-disease signals.</p>
+                <p class="note">An exploration of where visual AI can make complex medical information easier to interpret.</p>
+                <div class="tags"><span>VISION</span><span>HEALTH AI</span></div>
+              </div>
+            </article>
+
+            <article class="system">
+              <button class="system-toggle" type="button" role="tab" aria-selected="false" aria-controls="viper-detail">
+                <span>04</span><h3>VIPER</h3><em>Inspection automation</em><b>›</b>
+              </button>
+              <div class="system-detail" id="viper-detail" role="tabpanel">
+                <span class="record-tag">RD / PROJECT RECORD / FLOW</span>
+                <p>A vision-based system that identifies faulty pipe fittings on a moving conveyor and triggers a physical response.</p>
+                <p class="note">A practical chain from camera input to automation—not just a model on a screen.</p>
+                <div class="tags"><span>IOT</span><span>AUTOMATION</span></div>
+              </div>
+            </article>
+
+            <article class="system">
+              <button class="system-toggle" type="button" role="tab" aria-selected="false" aria-controls="oneforce-detail">
+                <span>05</span><h3>One Force</h3><em>Autonomous coordination</em><b>›</b>
+              </button>
+              <div class="system-detail" id="oneforce-detail" role="tabpanel">
+                <span class="record-tag">RD / PROJECT RECORD / CONSTRAINT</span>
+                <p>An AI-driven disaster-response concept coordinating drones for detection, assistance, and communications relay in low-connectivity areas.</p>
+                <p class="note">An attempt to design for the situations where a fragmented response costs the most.</p>
+                <div class="tags"><span>ROBOTICS</span><span>RESILIENCE</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="log" id="log">
+        <div class="section-label" data-reveal>
+          <strong>04</strong>
+          <span>Activity log</span>
+          <i>Where I&apos;m learning</i>
+          <b>RD / LIVE RECORD</b>
+        </div>
+        <h2 data-reveal>The work keeps<br />moving.</h2>
+        <div class="roles">
+          <article class="role" data-reveal><span>APR 2025 — PRESENT</span><h3>Founder</h3><p>Project Phantom · Dubai</p><i></i></article>
+          <article class="role" data-reveal><span>JAN 2026 — PRESENT</span><h3>Tech &amp; AI Committee Ambassador</h3><p>Unipreneur Inc. · Dubai</p><i></i></article>
+          <article class="role" data-reveal><span>JUN 2026 — PRESENT</span><h3>Artificial Intelligence Ambassador</h3><p>Gulf Asian English School · Sharjah</p><i></i></article>
+          <article class="role" data-reveal><span>MAY 2025 — JUN 2026</span><h3>Community Ambassador</h3><p>Gulf Asian English School · Sharjah</p><i></i></article>
+        </div>
+        <div class="recognition" data-reveal>
+          <span>SELECTED SIGNALS</span>
+          <p>WFES AI Energy Hackathon / 1st Place</p>
+          <p>AppSmart 2025 / Overall Champion</p>
+          <p>Frijna Competition / 1st Place</p>
+        </div>
+      </section>
+
+      <section class="achievements section-wrap" id="achievements">
+        <div class="section-label" data-reveal>
+          <strong>05</strong>
+          <span>Achievement ledger</span>
+          <i>Full record / 2020–2026</i>
+          <b>RD / HONOURS</b>
+        </div>
+        <div class="achievements-heading" data-reveal>
+          <h2>Honours<br />&amp; Awards.</h2>
+          <p>A full, date-ordered record of competition results, finalist selections, scholarships, representation, and recognition across sustainability, AI, aviation, and digital innovation.</p>
+        </div>
+        <div class="achievements-ledger">
+          <article class="achievement" data-reveal><span class="achievement-code">01</span><span class="achievement-date">JUL 2026</span><div class="achievement-main"><h3>SSA Sharjah Sustainability Awards Finalist</h3><p>Selected as one of six finalist teams to present Project Phantom’s sustainable aviation framework. The 222-page technical thesis and final presentation were evaluated by government, university, and industry stakeholders.</p></div><span class="achievement-issuer">Environment and Protected Areas Authority</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">02</span><span class="achievement-date">MAY 2026</span><div class="achievement-main"><h3>Finalist &amp; Scholarship Winner — Earth Day Sustainability Competition</h3><p>Selected as one of six shortlisted Project Phantom teams and awarded a 20% institutional academic scholarship for undergraduate studies in recognition of the team’s technical design and presentation.</p></div><span class="achievement-issuer">University of Birmingham Dubai</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">03</span><span class="achievement-date">JAN 2026</span><div class="achievement-main"><h3>WFES AI Energy Hackathon — 1st Place</h3><p>Part of the winning team for LiCycle, an AI-assisted self-healing intelligent battery system for sustainability, monitoring, efficiency optimization, and future energy resilience.</p></div><span class="achievement-issuer">World Future Energy Summit AI Energy Hackathon</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">04</span><span class="achievement-date">NOV 2025</span><div class="achievement-main"><h3>PACEGEN 2025 — 3rd Place</h3><p>Secured third place in the STEM &amp; AI Innovators’ Challenge for AEGIS, an AI-based healthcare concept focused on gastrointestinal disease detection through medical imaging and machine learning.</p></div><span class="achievement-issuer">Delhi Private School Ajman</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">05</span><span class="achievement-date">NOV 2025</span><div class="achievement-main"><h3>Selected Representative — CBSE Skill Expo 2025–26</h3><p>Selected to represent Gulf Asian English School, Sharjah, at the CBSE Skill Expo 2025–26 First International &amp; Regional Event in Dubai, presenting innovation and project-based learning.</p></div><span class="achievement-issuer">Central Board of Secondary Education</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">06</span><span class="achievement-date">SEP 2025</span><div class="achievement-main"><h3>AppSmart 2025 — Overall Champion</h3><p>Awarded Overall Champion and Best Social Impact for an AI-powered emergency evacuation and response system integrating smart monitoring and drone-assisted support.</p></div><span class="achievement-issuer">JSS Private School Dubai</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">07</span><span class="achievement-date">MAY 2025</span><div class="achievement-main"><h3>Frijna Competition — 1st Place</h3><p>Awarded first place for participation and innovation in game development and digital creativity during the 2024–2025 academic year.</p></div><span class="achievement-issuer">Emirates American School</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">08</span><span class="achievement-date">MAY 2024</span><div class="achievement-main"><h3>HOPE 24 — 2nd Place</h3><p>Secured second place in the Innovation with Sustainability Interschool Competition for a sustainable smart-city concept with self-powered infrastructure and environmental systems.</p></div><span class="achievement-issuer">PACE International School Sharjah</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">09</span><span class="achievement-date">OCT 2020</span><div class="achievement-main"><h3>Virtual Best Learner Award</h3><p>Recognized for excellence in adapting to virtual learning, maintaining strong outcomes, and active participation during the transition to online education.</p></div><span class="achievement-issuer">Green Mentors</span></article>
+          <article class="achievement" data-reveal><span class="achievement-code">10</span><span class="achievement-date">JAN 2020</span><div class="achievement-main"><h3>#50 Challenge by SPEA — 3rd Place</h3><p>Awarded third place for a sustainability-focused solar-energy concept using unused infrastructure space to reduce operational energy costs.</p></div><span class="achievement-issuer">Sharjah Private Education Authority</span></article>
+        </div>
+        <span class="achievement-count" data-reveal><b></b> 10 RECORDED HONOURS / FULL PERSONAL LEDGER</span>
+      </section>
+
+      <section class="contact section-wrap" id="contact">
+        <div class="contact-orbit" aria-hidden="true"></div>
+        <div class="section-label" data-reveal>
+          <strong>06</strong>
+          <span>Open channel</span>
+          <i>Let&apos;s talk</i>
+          <b>RD / CONTACT</b>
+        </div>
+        <h2 data-reveal>Got an idea<br />that needs a<br />builder?</h2>
+        <div class="contact-card" data-reveal>
+          <p>For meaningful projects, engineering conversations, collaborations, or a problem that feels worth taking apart—send a signal.</p>
+          <a class="email-link" href="mailto:rithishwork@gmail.com">rithishwork@gmail.com <span>↗</span></a>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/rithishdharanidharan" target="_blank" rel="noreferrer">Rithish on LinkedIn ↗</a>
+            <a href="https://projectphantom.space" target="_blank" rel="noreferrer">Project Phantom website ↗</a>
+            <a href="https://www.linkedin.com/company/projectphantom" target="_blank" rel="noreferrer">Phantom on LinkedIn ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span class="footer-rd">RD</span>
+      <span>© 2026 Rithish Dharanidharan</span>
+      <span>Built in UAE</span>
+      <a href="mailto:rithishwork@gmail.com">Email ↗</a>
+    </footer>
+
+    <script>
+      const progress = document.querySelector(".scroll-progress");
+      const sections = [...document.querySelectorAll("main section[id]")];
+      const navLinks = [...document.querySelectorAll(".desktop-nav a")];
+
+      function updateScrollProgress() {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const percentage = height > 0 ? (window.scrollY / height) * 100 : 0;
+        progress.style.width = `${percentage}%`;
+      }
+
+      window.addEventListener("scroll", updateScrollProgress, { passive: true });
+      updateScrollProgress();
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
+        { threshold: 0.14 }
+      );
+
+      document.querySelectorAll("[data-reveal]").forEach((item) => revealObserver.observe(item));
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          const current = entries.find((entry) => entry.isIntersecting);
+          if (!current) return;
+          navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${current.target.id}`));
+        },
+        { rootMargin: "-42% 0px -48% 0px", threshold: 0 }
+      );
+
+      sections.forEach((section) => sectionObserver.observe(section));
+
+      document.querySelectorAll(".system-toggle").forEach((button) => {
+        button.addEventListener("click", () => {
+          const selectedSystem = button.closest(".system");
+          document.querySelectorAll(".system").forEach((system) => {
+            const active = system === selectedSystem;
+            system.classList.toggle("active", active);
+            system.querySelector(".system-toggle").setAttribute("aria-selected", String(active));
+          });
+        });
+      });
+
+      const menu = document.querySelector(".mobile-menu");
+      const menuToggle = document.querySelector(".menu-toggle");
+      const menuClose = document.querySelector(".mobile-menu__close");
+
+      function setMenu(open) {
+        menu.classList.toggle("open", open);
+        menu.setAttribute("aria-hidden", String(!open));
+        menuToggle.setAttribute("aria-expanded", String(open));
+        document.body.classList.toggle("menu-open", open);
+      }
+
+      menuToggle.addEventListener("click", () => setMenu(true));
+      menuClose.addEventListener("click", () => setMenu(false));
+      menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
+
+      function updateClock() {
+        const time = new Date().toUTCString().split(" ")[4];
+        document.getElementById("utc-clock").textContent = `UTC ${time}`;
+      }
+
+      updateClock();
+      window.setInterval(updateClock, 1000);
+    </script>
+  </body>
 </html>
