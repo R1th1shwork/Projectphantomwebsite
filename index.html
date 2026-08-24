@@ -8,8 +8,8 @@
   <!-- Meta description (fixes SEO) -->
   <meta name="description" content="Project Phantom is the UAE's first youth-led aerospace initiative developing a next-generation UAV platform with single-rotor VTOL fixed-wing drones, solar integration, and Mercury AI for high-endurance missions." />
 
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png" />
+  <link rel="icon" type="image/svg+xml" href="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/favicon_6d8022a5.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/glo_cdbd7790.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
@@ -617,13 +617,46 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--border);
-      margin-top: 80px;
+      margin-top: 26px;
     }
 
     .card {
       background: var(--bg);
       padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background .45s cubic-bezier(.16, 1, .3, 1), transform .45s cubic-bezier(.16, 1, .3, 1);
     }
+
+    .card::before {
+      content: attr(data-module);
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--white-20);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -30%;
+      width: 24%;
+      height: 1px;
+      background: #fff;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .overview-system.is-active .card::after { opacity: .72; animation: card-scan 2.8s cubic-bezier(.16, 1, .3, 1) infinite; }
+    .overview-system.is-active .card:nth-child(2)::after { animation-delay: .35s; }
+    .overview-system.is-active .card:nth-child(3)::after { animation-delay: .7s; }
+    .card:hover { background: #111; transform: translateY(-6px); }
+
+    @keyframes card-scan { 0% { left: -30%; } 58%, 100% { left: 112%; } }
 
     .card-title {
       font-size: 20px;
@@ -635,6 +668,18 @@
       line-height: 1.7;
       font-size: 14px;
     }
+
+    .overview-system { position: relative; margin-top: 60px; padding: 46px 0 0; }
+    .overview-system::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border); }
+    .overview-system-visual { position: relative; height: 148px; overflow: hidden; border: 1px solid var(--border); background: linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px); background-size: 30px 30px; }
+    .overview-system-visual::before { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, var(--white-30), transparent); transform: scaleX(.1); transform-origin: center; transition: transform 1.1s cubic-bezier(.16, 1, .3, 1); }
+    .overview-system.is-active .overview-system-visual::before { transform: scaleX(1); }
+    .overview-node { position: absolute; top: 50%; width: 10px; height: 10px; border: 1px solid var(--white-80); border-radius: 50%; background: var(--bg); transform: translate(-50%, -50%) scale(.4); transition: transform .7s cubic-bezier(.16, 1, .3, 1), background .4s ease, box-shadow .4s ease; }
+    .overview-node::after { content: attr(data-label); position: absolute; top: 18px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; color: var(--white-50); }
+    .overview-node:nth-child(1) { left: 18%; transition-delay: .18s; }.overview-node:nth-child(2) { left: 50%; transition-delay: .36s; }.overview-node:nth-child(3) { left: 82%; transition-delay: .54s; }
+    .overview-system.is-active .overview-node { transform: translate(-50%, -50%) scale(1); background: #fff; box-shadow: 0 0 0 5px rgba(255,255,255,.07), 0 0 24px rgba(255,255,255,.18); animation: node-pulse 2.6s ease-in-out infinite; }
+    .overview-system.is-active .overview-node:nth-child(2) { animation-delay: .35s; }.overview-system.is-active .overview-node:nth-child(3) { animation-delay: .7s; }
+    @keyframes node-pulse { 0%, 100% { box-shadow: 0 0 0 5px rgba(255,255,255,.07), 0 0 18px rgba(255,255,255,.14); } 50% { box-shadow: 0 0 0 9px rgba(255,255,255,.03), 0 0 34px rgba(255,255,255,.26); } }
 
     .configs-grid {
       display: grid;
@@ -1587,6 +1632,68 @@
     .config-region {
       color: rgba(255, 255, 255, 0.55);
     }
+    /* Project Phantom merge: added interaction layers preserve the supplied content and visual system. */
+    .hero { isolation: isolate; }
+    .phantom-field-canvas { position:absolute; inset:0; z-index:0; width:100%; height:100%; opacity:.92; pointer-events:none; }
+    .hero-grid { z-index:1; pointer-events:none; }
+    .hero-glow { z-index:1; pointer-events:none; }
+    .hero-content, .hero-stats, .hero-scroll-hint { z-index:2; }
+
+    .phantom-kinetic { height:124vh; padding:10vh 0; overflow:clip; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
+    .phantom-kinetic-stage { position:sticky; top:10vh; height:80vh; display:flex; align-items:center; overflow:hidden; background:radial-gradient(ellipse 58% 66% at 50% 50%, #141414 0%, #050505 73%); }
+    .phantom-kinetic-meta { position:absolute; z-index:3; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--white-50); }
+    .phantom-kinetic-rows { width:100%; display:grid; gap:clamp(14px, 3vh, 28px); }
+    .phantom-kinetic-row { overflow:hidden; white-space:nowrap; }
+    .phantom-kinetic-track { display:inline-flex; align-items:baseline; width:max-content; padding:0 6vw; will-change:transform; backface-visibility:hidden; transform:translate3d(0,0,0); }
+    .phantom-kinetic-word { display:inline-block; margin-right:.2em; color:#fff; font-family:var(--font-sans); font-size:clamp(56px, 9vw, 142px); font-weight:700; line-height:.76; letter-spacing:-.08em; }
+    .phantom-kinetic-word.outline { color:transparent; -webkit-text-stroke:1px #fff; text-stroke:1px #fff; }
+
+    /* Compact finite scroll carousel — visual documentation of the build, not a primary site chapter. */
+    .project-carousel { position:relative; height:138vh; padding:0 !important; overflow:clip; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
+    .project-carousel-stage { position:sticky; top:10vh; height:80vh; overflow:hidden; perspective:1100px; perspective-origin:50% 48%; background:radial-gradient(ellipse 45% 70% at 50% 50%, #151515 0%, #050505 76%); }
+    .project-carousel-meta { position:absolute; z-index:5; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; color:var(--white-50); font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
+    .project-carousel-title { position:absolute; z-index:5; left:48px; bottom:36px; width:min(270px, 28vw); color:var(--white); font-size:clamp(28px, 3.7vw, 58px); line-height:.9; letter-spacing:-.065em; }
+    .project-carousel-title span { display:block; color:var(--white-50); font-family:var(--font-mono); font-size:9px; font-weight:400; letter-spacing:.15em; line-height:1.5; text-transform:uppercase; }
+    .project-carousel-cards { position:absolute; inset:0; transform-style:preserve-3d; }
+    .project-carousel-card { position:absolute; top:50%; left:55%; width:clamp(184px, 21vw, 318px); aspect-ratio:4/5; transform-style:preserve-3d; will-change:transform,opacity; }
+    .project-carousel-card-number { display:block; margin:0 0 9px 2px; color:var(--white-50); font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; }
+    .project-carousel-card-surface { position:relative; height:100%; overflow:hidden; background:#111; box-shadow:0 28px 76px rgba(0,0,0,.7); }
+    .project-carousel-card-surface::after { position:absolute; inset:0; content:''; border:1px solid var(--white-30); background:linear-gradient(135deg,rgba(255,255,255,.09),transparent 26%,transparent 76%,rgba(255,255,255,.07)); pointer-events:none; }
+    .project-carousel-card img { display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.15) brightness(.9); }
+
+    @media (max-width:900px) {
+      .overview-system { margin-top: 44px; padding-top: 34px; }
+      .overview-system-visual { height: 116px; }
+      .overview-node::after { font-size: 8px; letter-spacing: .08em; }
+      .card { padding: 36px 28px; }
+    }
+
+    .mission-trace { padding:0; min-height:100vh; overflow:hidden; border-bottom:1px solid var(--border); background:var(--bg); }
+    .mission-trace-stage { position:relative; height:100vh; overflow:hidden; isolation:isolate; touch-action:pan-y; background:radial-gradient(ellipse 55% 65% at 50% 50%, #131313 0%, #050505 76%); }
+    .mission-trace-head { position:absolute; z-index:5; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--white-50); pointer-events:none; }
+    .mission-trace-title { position:absolute; z-index:4; top:50%; left:50%; transform:translate(-50%,-50%); margin:0; font-size:clamp(48px, 10vw, 160px); line-height:.8; letter-spacing:-.07em; white-space:nowrap; pointer-events:none; mix-blend-mode:difference; }
+    .mission-trace-subtitle { position:absolute; z-index:5; right:48px; bottom:36px; display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--white-50); pointer-events:none; }
+    .mission-trace-subtitle::before { content:''; display:block; width:28px; height:1px; background:var(--white-50); }
+    .mission-trace-image { position:absolute; z-index:2; width:clamp(150px, 19vw, 270px); aspect-ratio:4/5; object-fit:cover; border:1px solid var(--white-30); box-shadow:0 28px 70px rgba(0,0,0,.68); filter:grayscale(1) contrast(1.18) brightness(.86); opacity:0; pointer-events:none; --mx:0px; --my:0px; --mr:0deg; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(.55); transition:opacity .42s cubic-bezier(.16,1,.3,1),transform .42s cubic-bezier(.16,1,.3,1); will-change:transform,opacity; }
+    .mission-trace-image.in { opacity:1; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(1); }
+    .mission-trace-image.out { opacity:0; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(.94); }
+
+    @media(max-width:900px) {
+      .phantom-kinetic-meta, .mission-trace-head { top:20px; left:24px; right:24px; }
+      .phantom-kinetic-meta span:last-child, .mission-trace-head span:last-child { display:none; }
+      .phantom-kinetic { height:114vh; padding:9vh 0; }
+      .phantom-kinetic-stage { top:9vh; height:80vh; }
+      .phantom-kinetic-word { font-size:clamp(48px, 15vw, 88px); }
+      .project-carousel { height:126vh; }
+      .project-carousel-stage { top:9vh; height:80vh; }
+      .project-carousel-meta { top:20px; left:24px; right:24px; }
+      .project-carousel-meta span:last-child { display:none; }
+      .project-carousel-title { left:24px; bottom:28px; width:170px; font-size:30px; }
+      .project-carousel-card { left:57%; width:clamp(160px, 53vw, 246px); }
+      .mission-trace-title { font-size:clamp(40px, 13vw, 74px); }
+      .mission-trace-subtitle { right:24px; bottom:28px; font-size:9px; }
+      .mission-trace-image { width:clamp(135px, 48vw, 220px); }
+    }
   </style>
 </head>
 
@@ -1604,7 +1711,7 @@
 
   <nav id="mainNav" aria-label="Main navigation">
     <a href="./" class="nav-logo">
-      <img src="assets/nav.png" alt="Project Phantom logo mark" class="nav-logo-mark" width="500" height="500" loading="eager" />
+      <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/nav_f57fee7f.png" alt="Project Phantom logo mark" class="nav-logo-mark" width="500" height="500" loading="eager" />
       PHANTOM
     </a>
 
@@ -1621,6 +1728,8 @@
   <main>
 
     <section class="hero" aria-labelledby="hero-title">
+
+      <canvas class="phantom-field-canvas" id="phantomField" aria-hidden="true"></canvas>
 
       <div class="hero-grid"></div>
       <div class="hero-glow"></div>
@@ -1684,6 +1793,24 @@
       </div>
     </section>
 
+    <section class="phantom-kinetic" id="phantom-kinetic" aria-label="Project Phantom kinetic identity interlude">
+      <div class="phantom-kinetic-stage">
+        <div class="phantom-kinetic-meta"><span>Project Phantom / Signal Identity</span><span>Scroll Linked / Counterflow</span></div>
+        <div class="phantom-kinetic-rows" aria-hidden="true">
+          <div class="phantom-kinetic-row"><div class="phantom-kinetic-track"><span class="phantom-kinetic-word">PROJECT</span><span class="phantom-kinetic-word outline">PROJECT</span><span class="phantom-kinetic-word">PROJECT</span><span class="phantom-kinetic-word outline">PROJECT</span><span class="phantom-kinetic-word">PROJECT</span></div></div>
+          <div class="phantom-kinetic-row"><div class="phantom-kinetic-track"><span class="phantom-kinetic-word outline">PHANTOM</span><span class="phantom-kinetic-word">PHANTOM</span><span class="phantom-kinetic-word outline">PHANTOM</span><span class="phantom-kinetic-word">PHANTOM</span><span class="phantom-kinetic-word outline">PHANTOM</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-trace" id="mission-trace" aria-label="Project Phantom build activity image trail">
+      <div class="mission-trace-stage" id="missionTraceStage">
+        <div class="mission-trace-head"><span>Project Phantom / In the Build</span><span>Move to Reveal the Work</span></div>
+        <h2 class="mission-trace-title">IN THE BUILD</h2>
+        <div class="mission-trace-subtitle">Move Across the Mission</div>
+      </div>
+    </section>
+
     <section id="overview" aria-labelledby="overview-title">
 
       <div class="section-label reveal">Overview</div>
@@ -1694,9 +1821,16 @@
         Most UAVs force a tradeoff between range, payload, and versatility. Phantom's modular architecture removes that tradeoff.
       </p>
 
+      <div class="overview-system" id="overviewSystem" aria-label="Linked Project Phantom systems">
+        <div class="overview-system-visual" aria-hidden="true">
+          <span class="overview-node" data-label="CORE"></span>
+          <span class="overview-node" data-label="VTOL"></span>
+          <span class="overview-node" data-label="SOLAR"></span>
+        </div>
+
       <div class="cards-grid">
 
-        <div class="card reveal">
+        <div class="card reveal" data-module="01 / CORE">
           <div class="card-title">Persistent Core</div>
           <div class="card-text">
             One standardized fuselage carries flight control,
@@ -1704,14 +1838,14 @@
           </div>
         </div>
 
-        <div class="card reveal reveal-delay-1">
+        <div class="card reveal reveal-delay-1" data-module="02 / VTOL">
           <div class="card-title">Single-Engine VTOL</div>
           <div class="card-text">
             Vertical takeoff and landing with zero runway required, transitioning to efficient fixed-wing glide for cruise.
           </div>
         </div>
 
-        <div class="card reveal reveal-delay-2">
+        <div class="card reveal reveal-delay-2" data-module="03 / SOLAR">
           <div class="card-title">Solar Integration</div>
           <div class="card-text">
             Solar cells integrated into the wing surface reduce battery drain during cruise.
@@ -1722,61 +1856,20 @@
 
     </section>
 
-    <section id="technology" aria-labelledby="tech-title">
-
-      <div class="parallax-text" id="parallaxText1" aria-hidden="true">
-        CONFIGURATIONS
+    <section class="project-carousel" id="technology" aria-labelledby="tech-title">
+      <div class="project-carousel-stage" id="projectCarouselStage">
+        <div class="project-carousel-meta"><span>Development Log / Five Frames</span><span>Scroll to Advance / Finite Sequence</span></div>
+        <h2 class="project-carousel-title" id="tech-title">Inside the build.<span>UAV development / active documentation</span></h2>
+        <div class="project-carousel-cards" aria-label="Five-image scroll-driven development carousel">
+          <article class="project-carousel-card"><span class="project-carousel-card-number">01 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-lab_4e1616ff.jpg" alt="UAV engineering workshop development" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">02 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-test_a2da5a0d.jpg" alt="UAV system test documentation" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">03 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-data_a59e5a69.jpg" alt="UAV telemetry and mission data work" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">04 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-propulsion_4a28b0b0.jpg" alt="UAV propulsion and avionics assembly" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">05 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-fieldtest_733dc29f.jpg" alt="UAV field testing documentation" /></div></article>
+        </div>
       </div>
 
-      <div style="margin-top:80px">
-
-        <div class="section-label reveal">Configurable Wing System</div>
-
-        <h2 class="section-title reveal" id="tech-title">
-          One architecture adapted for every environment.
-        </h2>
-
-        <p class="section-desc reveal reveal-delay-1">
-          Interchangeable wing modules let a single fuselage operate across
-          fundamentally different conditions, without redesigning the aircraft.
-        </p>
-
       </div>
-
-      <div class="configs-grid" id="configurations">
-
-        <div class="config-card reveal">
-          <div class="config-letter">A</div>
-          <div class="config-name">Arid Range</div>
-          <div class="config-region">Arabian Peninsula</div>
-          <div class="config-desc">
-            Reinforced thermal shielding and maximized solar exposure for
-            sustained high-heat, high-sun operation.
-          </div>
-        </div>
-
-        <div class="config-card reveal reveal-delay-1">
-          <div class="config-letter">B</div>
-          <div class="config-name">Coastal Range</div>
-          <div class="config-region">Coastal Operations</div>
-          <div class="config-desc">
-            Salt-resistant composites and extended range for sustained
-            flight over open water.
-          </div>
-        </div>
-
-        <div class="config-card reveal reveal-delay-2">
-          <div class="config-letter">C</div>
-          <div class="config-name">Alpine Range</div>
-          <div class="config-region">High Altitude</div>
-          <div class="config-desc">
-            Extended wingspan and low-density optimization for thin-air,
-            high-altitude flight.
-          </div>
-        </div>
-
-      </div>
-
     </section>
 
     <section id="impact" aria-labelledby="impact-title">
@@ -1898,7 +1991,7 @@
         <a href="https://projectphantom.space/rithishdharanidharan" target="_blank" rel="noopener" class="team-card reveal">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/rit.jpg" alt="Rithish Dharanidharan, Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/rit_89aa7dd2.jpg" alt="Rithish Dharanidharan, Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">RD</span>
             </div>
             <div class="avatar-linkedin-badge" aria-hidden="true">
@@ -1917,7 +2010,7 @@
         <a href="https://projectphantom.space/meherabhossain" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/meh.jpg" alt="Meherab Hossain Mokter, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/meh_8a4c0a3d.jpg" alt="Meherab Hossain Mokter, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">MH</span>
             </div>
             <div class="avatar-linkedin-badge" aria-hidden="true">
@@ -1936,7 +2029,7 @@
         <a href="https://projectphantom.space/janaswilam" target="_blank" rel="noopener" class="team-card reveal reveal-delay-2">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/jana.jpg" alt="Jana Swilam, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/jana_26f5c4a2.jpg" alt="Jana Swilam, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">JS</span>
             </div>
           </div>
@@ -1952,7 +2045,7 @@
         <a href="https://projectphantom.space/mohammedfuad" target="_blank" rel="noopener" class="team-card reveal reveal-delay-3">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/fuad.jpeg" alt="Mohammed Fuad, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/fuad_0875d037.jpeg" alt="Mohammed Fuad, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">MF</span>
             </div>
           </div>
@@ -1981,7 +2074,7 @@
         <a href="https://www.linkedin.com/in/mufeed-kakkidi-021368397/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/muf.jpg" alt="Mufeed Kakkidi, former AI Architect" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/muf_81c029be.jpg" alt="Mufeed Kakkidi, former AI Architect" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">MK</span>
             </div>
           </div>
@@ -1993,7 +2086,7 @@
         <a href="https://www.linkedin.com/in/ashwin-krishnakumar-074a973a7/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/ash.jpg" alt="Ashwin Krishnakumar, former Head Speaker" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/ash_70dcfb64.jpg" alt="Ashwin Krishnakumar, former Head Speaker" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">AK</span>
             </div>
           </div>
@@ -2005,7 +2098,7 @@
         <a href="https://www.linkedin.com/in/devaj-shylesh-nair-1bb1493a5/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/dev.jpg" alt="Devaj Shylesh Nair, former Speaker & Dev" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/dev_a0f904c4.jpg" alt="Devaj Shylesh Nair, former Speaker & Dev" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">DN</span>
             </div>
           </div>
@@ -2017,7 +2110,7 @@
         <a href="https://www.linkedin.com/in/roopesh-kr-build/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/roo.png" alt="Roopesh Kr, former Outreach & Research" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/roo_6993db13.png" alt="Roopesh Kr, former Outreach & Research" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">RK</span>
             </div>
           </div>
@@ -2068,7 +2161,7 @@
           <div class="backing-visual reveal reveal-delay-1">
             <div class="backing-logo-glow"></div>
             <!-- FIX: removed width/height attributes to prevent stretching -->
-            <img src="assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
+            <img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/uni_f6a6f40f.png" alt="Unipreneur Inc. logo" class="backing-logo" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
           </div>
 
         </div>
@@ -2237,6 +2330,20 @@
 
       revealEls.forEach(el => revealObs.observe(el));
 
+      /* OVERVIEW SYSTEM: activate the connection diagram only once its existing content enters view. */
+      const overviewSystem = document.getElementById('overviewSystem');
+      if (overviewSystem) {
+        const overviewObs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              overviewSystem.classList.add('is-active');
+              overviewObs.unobserve(overviewSystem);
+            }
+          });
+        }, { threshold: .28 });
+        overviewObs.observe(overviewSystem);
+      }
+
       /* FLIGHT MEDIA TILT + GLARE */
       const flightMedia = document.getElementById('flightMedia');
       const flightGlare = document.getElementById('flightGlare');
@@ -2354,6 +2461,124 @@
       }
 
       animate();
+
+      /* TOP MISSION FIELD: magnetic filings respond behind the original One UAV. Infinite Missions. hero. */
+      const fieldCanvas = document.getElementById('phantomField');
+      const hero = document.querySelector('.hero');
+      if (fieldCanvas && hero) {
+        const fieldContext = fieldCanvas.getContext('2d', { alpha: true, desynchronized: true });
+        const field = { nodes: [], width: 0, height: 0, dpr: 1, last: performance.now(), pointer: { x: 0, y: 0, active: false } };
+        const neutralAngle = Math.PI / 2;
+        const constrain = (value, min, max) => Math.min(Math.max(value, min), max);
+        const smooth = (a, b, value) => { const t = constrain((value - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+        const deltaAngle = (target, current) => Math.atan2(Math.sin(target - current), Math.cos(target - current));
+        function resizeMissionField() {
+          const rect = hero.getBoundingClientRect();
+          field.width = Math.round(rect.width); field.height = Math.round(rect.height); field.dpr = Math.min(window.devicePixelRatio || 1, 2);
+          fieldCanvas.width = Math.round(field.width * field.dpr); fieldCanvas.height = Math.round(field.height * field.dpr);
+          const gap = field.width < 700 ? 25 : 30;
+          field.nodes = [];
+          for (let y = gap / 2; y < field.height; y += gap) for (let x = gap / 2; x < field.width; x += gap) field.nodes.push({ x, y, angle: neutralAngle, velocity: 0, power: 0 });
+        }
+        function drawMissionField(now) {
+          const dt = constrain((now - field.last) / 16.667, .4, 1.8); field.last = now;
+          fieldContext.setTransform(1, 0, 0, 1, 0, 0); fieldContext.clearRect(0, 0, fieldCanvas.width, fieldCanvas.height); fieldContext.setTransform(field.dpr, 0, 0, field.dpr, 0, 0);
+          const tiers = [[], [], [], []];
+          field.nodes.forEach(node => {
+            let target = neutralAngle, power = 0;
+            if (field.pointer.active) {
+              const dx = field.pointer.x - node.x, dy = field.pointer.y - node.y;
+              power = 1 - smooth(0, 170, Math.hypot(dx, dy));
+              target = Math.atan2(dy, dx);
+            }
+            node.velocity += deltaAngle(target, node.angle) * .135 * dt; node.velocity *= Math.pow(.73, dt); node.angle += node.velocity * dt;
+            node.power += (power - node.power) * .15 * dt;
+            tiers[constrain(Math.floor((.12 + node.power * .76) * 4), 0, 3)].push(node);
+          });
+          tiers.forEach((nodes, tier) => {
+            if (!nodes.length) return;
+            fieldContext.beginPath(); fieldContext.strokeStyle = '#fff'; fieldContext.globalAlpha = .075 + tier * .12; fieldContext.lineWidth = .75 + tier * .15;
+            nodes.forEach(node => { const half = 3 + node.power * 4; const c = Math.cos(node.angle), s = Math.sin(node.angle); fieldContext.moveTo(node.x - c * half, node.y - s * half); fieldContext.lineTo(node.x + c * half, node.y + s * half); });
+            fieldContext.stroke();
+          });
+          fieldContext.globalAlpha = 1; requestAnimationFrame(drawMissionField);
+        }
+        hero.addEventListener('pointermove', event => { const r = hero.getBoundingClientRect(); field.pointer.x = event.clientX - r.left; field.pointer.y = event.clientY - r.top; field.pointer.active = true; });
+        hero.addEventListener('pointerleave', () => { field.pointer.active = false; });
+        hero.addEventListener('pointercancel', () => { field.pointer.active = false; });
+        window.addEventListener('resize', resizeMissionField, { passive: true });
+        resizeMissionField(); requestAnimationFrame(drawMissionField);
+      }
+
+      /* PROJECT PHANTOM MARQUEE: eased target-versus-current progression avoids raw-scroll jitter. */
+      const phantomKinetic = document.getElementById('phantom-kinetic');
+      const kineticTracks = Array.from(document.querySelectorAll('.phantom-kinetic-track'));
+      if (phantomKinetic && kineticTracks.length) {
+        let targetKineticProgress = 0, currentKineticProgress = 0, kineticFrame = 0;
+        const clampKinetic = (value, min, max) => Math.min(Math.max(value, min), max);
+        function kineticProgress() { return clampKinetic((window.scrollY - phantomKinetic.offsetTop) / Math.max(phantomKinetic.offsetHeight - window.innerHeight, 1), 0, 1); }
+        function renderKinetic() {
+          currentKineticProgress += (targetKineticProgress - currentKineticProgress) * .078;
+          kineticTracks.forEach((track, index) => { const offset = index % 2 === 0 ? -18 * currentKineticProgress : -18 + 18 * currentKineticProgress; track.style.transform = `translate3d(${offset.toFixed(3)}%,0,0)`; });
+          if (Math.abs(targetKineticProgress - currentKineticProgress) > .00015) kineticFrame = requestAnimationFrame(renderKinetic); else { currentKineticProgress = targetKineticProgress; kineticFrame = 0; }
+        }
+        function requestKinetic() { targetKineticProgress = kineticProgress(); if (!kineticFrame) kineticFrame = requestAnimationFrame(renderKinetic); }
+        window.addEventListener('scroll', requestKinetic, { passive: true }); window.addEventListener('resize', requestKinetic, { passive: true }); requestKinetic();
+      }
+
+      /* FINITE DEVELOPMENT CAROUSEL: scroll position moves through five documentation frames, without looping. */
+      const projectCarousel = document.getElementById('technology');
+      const projectCarouselCards = Array.from(document.querySelectorAll('.project-carousel-card'));
+      if (projectCarousel && projectCarouselCards.length) {
+        let targetCarouselProgress = 0, currentCarouselProgress = 0, carouselFrame = 0;
+        const clampCarousel = (value, min, max) => Math.min(Math.max(value, min), max);
+        function getCarouselProgress() { return clampCarousel((window.scrollY - projectCarousel.offsetTop) / Math.max(projectCarousel.offsetHeight - window.innerHeight, 1), 0, 1); }
+        function renderProjectCarousel() {
+          currentCarouselProgress += (targetCarouselProgress - currentCarouselProgress) * .085;
+          const activeFrame = currentCarouselProgress * (projectCarouselCards.length - 1);
+          const spacing = Math.min(window.innerWidth * .27, 330);
+          projectCarouselCards.forEach((card, index) => {
+            const delta = index - activeFrame;
+            const distance = Math.abs(delta);
+            const x = delta * spacing;
+            const y = Math.sin(delta * Math.PI * .55) * 22;
+            const z = -distance * 245 + (1 - Math.min(distance, 1)) * 48;
+            const rotateY = -delta * 28;
+            const rotateX = distance * 2;
+            const rotateZ = -delta * 2.4;
+            const scale = 1 - Math.min(distance * .12, .38);
+            const opacity = clampCarousel(1 - Math.max(distance - 1.28, 0) * .58, 0, 1);
+            card.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+            card.style.opacity = opacity;
+            card.style.zIndex = String(Math.round(1000 + z));
+          });
+          if (Math.abs(targetCarouselProgress - currentCarouselProgress) > .00015) carouselFrame = requestAnimationFrame(renderProjectCarousel); else { currentCarouselProgress = targetCarouselProgress; carouselFrame = 0; }
+        }
+        function requestCarouselUpdate() { targetCarouselProgress = getCarouselProgress(); if (!carouselFrame) carouselFrame = requestAnimationFrame(renderProjectCarousel); }
+        window.addEventListener('scroll', requestCarouselUpdate, { passive: true }); window.addEventListener('resize', requestCarouselUpdate, { passive: true }); requestCarouselUpdate();
+      }
+
+      /* MISSION TRACE: generated aerospace documentation frames appear only after deliberate pointer travel. */
+      const missionStage = document.getElementById('missionTraceStage');
+      if (missionStage) {
+        const missionImages = ['/manus-storage/phantom-mission-lab_4e1616ff.jpg', '/manus-storage/phantom-mission-test_a2da5a0d.jpg', '/manus-storage/phantom-mission-data_a59e5a69.jpg'];
+        const activeTrace = []; const traceLimit = 8; const traceThreshold = 82;
+        let lastTrace = null, traceIndex = 0;
+        function addMissionFrame(clientX, clientY) {
+          const rect = missionStage.getBoundingClientRect(); const image = document.createElement('img');
+          image.className = 'mission-trace-image'; image.src = missionImages[traceIndex % missionImages.length]; image.alt = ''; image.draggable = false;
+          image.style.setProperty('--mx', `${clientX - rect.left}px`); image.style.setProperty('--my', `${clientY - rect.top}px`); image.style.setProperty('--mr', `${[-5, 4, -2, 5, -4][traceIndex % 5]}deg`);
+          missionStage.appendChild(image); activeTrace.push(image); traceIndex += 1; requestAnimationFrame(() => image.classList.add('in'));
+          while (activeTrace.length > traceLimit) { const old = activeTrace.shift(); old.classList.remove('in'); old.classList.add('out'); window.setTimeout(() => old.remove(), 460); }
+        }
+        function tracePointer(clientX, clientY) {
+          if (!lastTrace) { lastTrace = { x: clientX, y: clientY }; addMissionFrame(clientX, clientY); return; }
+          if (Math.hypot(clientX - lastTrace.x, clientY - lastTrace.y) >= traceThreshold) { addMissionFrame(clientX, clientY); lastTrace = { x: clientX, y: clientY }; }
+        }
+        missionStage.addEventListener('pointermove', event => tracePointer(event.clientX, event.clientY));
+        missionStage.addEventListener('pointerdown', event => tracePointer(event.clientX, event.clientY));
+        missionStage.addEventListener('pointerleave', () => { lastTrace = null; }); missionStage.addEventListener('pointercancel', () => { lastTrace = null; });
+      }
 
       /* PAST TEAM TOGGLE */
       const pastToggle = document.getElementById('pastToggle');
