@@ -8,7 +8,8 @@
   <!-- Meta description (fixes SEO) -->
   <meta name="description" content="Project Phantom is the UAE's first youth-led aerospace initiative developing a next-generation UAV platform with single-rotor VTOL fixed-wing drones, solar integration, and Mercury AI for high-endurance missions." />
 
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="https://projectphantom.space/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://projectphantom.space/assets/glo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
@@ -65,6 +66,7 @@
       --font-sans: 'Space Grotesk', sans-serif;
       --font-mono: 'Space Mono', monospace;
       --nav-h: 68px;
+      --alert-h: 36px;
     }
 
     *,
@@ -143,13 +145,57 @@
       transition: width 0.1s linear;
     }
 
-    
+    .alert-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--alert-h);
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 101;
+      padding: 0 24px;
+    }
 
-    
+    .alert-text {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .alert-cta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      background: #c96a4a;
+      padding: 4px 12px;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .alert-cta:hover {
+      background: #da7756;
+    }
 
     nav {
       position: fixed;
-            left: 0;
+      top: var(--alert-h);
+      left: 0;
       right: 0;
       z-index: 100;
       display: flex;
@@ -223,7 +269,7 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding: calc(var(--nav-h) + 40px) 48px 80px;
+      padding: calc(var(--alert-h) + var(--nav-h) + 40px) 48px 80px;
     }
 
     .hero-grid {
@@ -430,7 +476,7 @@
     }
 
     section[id] {
-      scroll-margin-top: calc(var(--nav-h) + 16px);
+      scroll-margin-top: calc(var(--alert-h) + var(--nav-h) + 16px);
     }
 
     .section-label {
@@ -1330,7 +1376,19 @@
     /* ===== MOBILE FIXES ===== */
     @media(max-width:900px) {
 
-      
+      .alert-banner {
+        position: static;
+        height: auto;
+        padding: 10px 16px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .alert-text {
+        white-space: normal;
+        font-size: 10px;
+      }
 
       nav {
         position: static;
@@ -1581,18 +1639,18 @@
     .hero-glow { z-index:1; pointer-events:none; }
     .hero-content, .hero-stats, .hero-scroll-hint { z-index:2; }
 
-    .phantom-kinetic { height:124vh; padding:10vh 0; overflow:clip; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
-    .phantom-kinetic-stage { position:sticky; top:10vh; height:80vh; display:flex; align-items:center; overflow:hidden; background:radial-gradient(ellipse 58% 66% at 50% 50%, #141414 0%, #050505 73%); }
+    .phantom-kinetic { height:46vh; min-height:330px; padding:0; overflow:clip; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
+    .phantom-kinetic-stage { position:relative; top:auto; height:100%; display:flex; align-items:center; overflow:hidden; background:radial-gradient(ellipse 58% 66% at 50% 50%, #141414 0%, #050505 73%); }
     .phantom-kinetic-meta { position:absolute; z-index:3; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--white-50); }
-    .phantom-kinetic-rows { width:100%; display:grid; gap:clamp(14px, 3vh, 28px); }
+    .phantom-kinetic-rows { width:100%; display:grid; gap:clamp(8px, 1.6vh, 15px); }
     .phantom-kinetic-row { overflow:hidden; white-space:nowrap; }
     .phantom-kinetic-track { display:inline-flex; align-items:baseline; width:max-content; padding:0 6vw; will-change:transform; backface-visibility:hidden; transform:translate3d(0,0,0); }
-    .phantom-kinetic-word { display:inline-block; margin-right:.2em; color:#fff; font-family:var(--font-sans); font-size:clamp(56px, 9vw, 142px); font-weight:700; line-height:.76; letter-spacing:-.08em; }
+    .phantom-kinetic-word { display:inline-block; margin-right:.2em; color:#fff; font-family:var(--font-sans); font-size:clamp(46px, 6.4vw, 100px); font-weight:700; line-height:.78; letter-spacing:-.08em; }
     .phantom-kinetic-word.outline { color:transparent; -webkit-text-stroke:1px #fff; text-stroke:1px #fff; }
 
     /* Compact finite scroll carousel — visual documentation of the build, not a primary site chapter. */
-    .project-carousel { position:relative; height:138vh; padding:0 !important; overflow:clip; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
-    .project-carousel-stage { position:sticky; top:10vh; height:80vh; overflow:hidden; perspective:1100px; perspective-origin:50% 48%; background:radial-gradient(ellipse 45% 70% at 50% 50%, #151515 0%, #050505 76%); }
+    .project-carousel { position:relative; height:158vh; padding:0 !important; overflow:clip; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg); }
+    .project-carousel-stage { position:sticky; top:8vh; height:72vh; overflow:hidden; perspective:1100px; perspective-origin:50% 48%; background:radial-gradient(ellipse 45% 70% at 50% 50%, #151515 0%, #050505 76%); }
     .project-carousel-meta { position:absolute; z-index:5; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; color:var(--white-50); font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
     .project-carousel-title { position:absolute; z-index:5; left:48px; bottom:36px; width:min(270px, 28vw); color:var(--white); font-size:clamp(28px, 3.7vw, 58px); line-height:.9; letter-spacing:-.065em; }
     .project-carousel-title span { display:block; color:var(--white-50); font-family:var(--font-mono); font-size:9px; font-weight:400; letter-spacing:.15em; line-height:1.5; text-transform:uppercase; }
@@ -1610,10 +1668,10 @@
       .card { padding: 36px 28px; }
     }
 
-    .mission-trace { padding:0; min-height:100vh; overflow:hidden; border-bottom:1px solid var(--border); background:var(--bg); }
-    .mission-trace-stage { position:relative; height:100vh; overflow:hidden; isolation:isolate; touch-action:pan-y; background:radial-gradient(ellipse 55% 65% at 50% 50%, #131313 0%, #050505 76%); }
+    .mission-trace { padding:0; min-height:48vh; overflow:hidden; border-bottom:1px solid var(--border); background:var(--bg); }
+    .mission-trace-stage { position:relative; height:48vh; overflow:hidden; isolation:isolate; touch-action:pan-y; background:radial-gradient(ellipse 55% 65% at 50% 50%, #131313 0%, #050505 76%); }
     .mission-trace-head { position:absolute; z-index:5; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--white-50); pointer-events:none; }
-    .mission-trace-title { position:absolute; z-index:4; top:50%; left:50%; transform:translate(-50%,-50%); margin:0; font-size:clamp(48px, 10vw, 160px); line-height:.8; letter-spacing:-.07em; white-space:nowrap; pointer-events:none; mix-blend-mode:difference; }
+    .mission-trace-title { position:absolute; z-index:4; top:50%; left:50%; transform:translate(-50%,-50%); margin:0; font-size:clamp(48px, 8vw, 122px); line-height:.8; letter-spacing:-.07em; white-space:nowrap; pointer-events:none; color:#fff; mix-blend-mode:normal; }
     .mission-trace-subtitle { position:absolute; z-index:5; right:48px; bottom:36px; display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--white-50); pointer-events:none; }
     .mission-trace-subtitle::before { content:''; display:block; width:28px; height:1px; background:var(--white-50); }
     .mission-trace-image { position:absolute; z-index:2; width:clamp(150px, 19vw, 270px); aspect-ratio:4/5; object-fit:cover; border:1px solid var(--white-30); box-shadow:0 28px 70px rgba(0,0,0,.68); filter:grayscale(1) contrast(1.18) brightness(.86); opacity:0; pointer-events:none; --mx:0px; --my:0px; --mr:0deg; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(.55); transition:opacity .42s cubic-bezier(.16,1,.3,1),transform .42s cubic-bezier(.16,1,.3,1); will-change:transform,opacity; }
@@ -1623,21 +1681,45 @@
     @media(max-width:900px) {
       .phantom-kinetic-meta, .mission-trace-head { top:20px; left:24px; right:24px; }
       .phantom-kinetic-meta span:last-child, .mission-trace-head span:last-child { display:none; }
-      .phantom-kinetic { height:114vh; padding:9vh 0; }
-      .phantom-kinetic-stage { top:9vh; height:80vh; }
-      .phantom-kinetic-word { font-size:clamp(48px, 15vw, 88px); }
-      .project-carousel { height:126vh; }
-      .project-carousel-stage { top:9vh; height:80vh; }
+      .phantom-kinetic { height:32svh; min-height:240px; padding:0; }
+      .phantom-kinetic-stage { top:auto; height:100%; }
+      .phantom-kinetic-word { font-size:clamp(34px, 10.5vw, 52px); }
+      .project-carousel { height:128svh; }
+      .project-carousel-stage { top:4svh; height:68svh; }
       .project-carousel-meta { top:20px; left:24px; right:24px; }
       .project-carousel-meta span:last-child { display:none; }
       .project-carousel-title { left:24px; bottom:28px; width:170px; font-size:30px; }
       .project-carousel-card { left:57%; width:clamp(160px, 53vw, 246px); }
+      .mission-trace { min-height:46svh; }
+      .mission-trace-stage { height:46svh; }
       .mission-trace-title { font-size:clamp(40px, 13vw, 74px); }
       .mission-trace-subtitle { right:24px; bottom:28px; font-size:9px; }
       .mission-trace-image { width:clamp(135px, 48vw, 220px); }
     }
+
+    /* Mobile compression preserves the original site flow; no separate mobile interface is shown. */
+    .mobile-context, .mobile-tabs { display:none !important; }
+    @media(max-width:900px) {
+      body { padding-bottom:0; }
+      nav { position:static; padding:16px 24px; background:transparent; backdrop-filter:none; border-bottom:1px solid transparent; }
+      section[id] { scroll-margin-top:16px; }
+      section { padding:56px 20px; }
+      .hero { min-height:auto; padding:44px 20px 50px; }
+      .hero-title { font-size:clamp(50px, 15.5vw, 74px); margin-bottom:20px; }
+      .hero-subtitle { margin-bottom:28px; font-size:14px; }
+      .hero-stats { margin-top:36px; }
+      .stat-item { padding:18px 8px; }
+      .section-title { font-size:clamp(32px, 10vw, 46px); }
+      .section-desc { font-size:15px; }
+      .card { padding:28px 20px; }
+    }
+
+    /* Contact field: preserves existing copy and controls while introducing a responsive magnetic line layer. */
+    #contact { position:relative; isolation:isolate; overflow:hidden; }
+    #contact .strategic-ops-container { position:relative; z-index:2; }
+    .contact-field-canvas { position:absolute; z-index:1; inset:0; width:100%; height:100%; opacity:.68; pointer-events:none; }
+    @media(max-width:900px) { .contact-field-canvas { opacity:.5; } }
   </style>
-<base target="_blank">
 </head>
 
 <body>
@@ -1648,7 +1730,7 @@
 
   <nav id="mainNav" aria-label="Main navigation">
     <a href="./" class="nav-logo">
-      <img src="assets/nav.png" alt="Project Phantom logo mark" class="nav-logo-mark" width="500" height="500" loading="eager" />
+      <img src="https://projectphantom.space/assets/nav.png" alt="Project Phantom logo mark" class="nav-logo-mark" width="500" height="500" loading="eager" />
       PHANTOM
     </a>
 
@@ -1740,14 +1822,6 @@
       </div>
     </section>
 
-    <section class="mission-trace" id="mission-trace" aria-label="Project Phantom build activity image trail">
-      <div class="mission-trace-stage" id="missionTraceStage">
-        <div class="mission-trace-head"><span>Project Phantom / In Development</span><span>Move to Reveal the Work</span></div>
-        <h2 class="mission-trace-title">IN DEVELOPMENT</h2>
-        <div class="mission-trace-subtitle">Move Across the Mission</div>
-      </div>
-    </section>
-
     <section id="overview" aria-labelledby="overview-title">
 
       <div class="section-label reveal">Overview</div>
@@ -1795,14 +1869,13 @@
 
     <section class="project-carousel" id="technology" aria-labelledby="tech-title">
       <div class="project-carousel-stage" id="projectCarouselStage">
-        <div class="project-carousel-meta"><span>Development Log / Five Frames</span><span>Scroll to Advance / Finite Sequence</span></div>
-        <h2 class="project-carousel-title" id="tech-title">Behind the Scenes.<span>UAV development / active documentation</span></h2>
-        <div class="project-carousel-cards" aria-label="Five-image scroll-driven development carousel">
-          <article class="project-carousel-card"><span class="project-carousel-card-number">01 / 05</span><div class="project-carousel-card-surface"><img src="assets/f1.jpeg" alt="UAV engineering workshop development" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">02 / 05</span><div class="project-carousel-card-surface"><img src="assets/f2.jpeg" alt="UAV system test documentation" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">03 / 05</span><div class="project-carousel-card-surface"><img src="assets/f3.jpeg" alt="UAV telemetry and mission data work" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">04 / 05</span><div class="project-carousel-card-surface"><img src="assets/f4.jpeg" alt="UAV propulsion and avionics assembly" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">05 / 05</span><div class="project-carousel-card-surface"><img src="assets/f5.jpeg" alt="UAV field testing documentation" /></div></article>
+        <h2 class="project-carousel-title" id="tech-title">Behind the Scenes</h2>
+        <div class="project-carousel-cards" aria-label="Five-image Behind the Scenes carousel">
+          <article class="project-carousel-card"><div class="project-carousel-card-surface"><img src="https://projectphantom.space/assets/f1.jpeg" alt="UAV engineering workshop development" /></div></article>
+          <article class="project-carousel-card"><div class="project-carousel-card-surface"><img src="https://projectphantom.space/assets/f2.jpeg" alt="UAV system test documentation" /></div></article>
+          <article class="project-carousel-card"><div class="project-carousel-card-surface"><img src="https://projectphantom.space/assets/f3.jpeg" alt="UAV telemetry and mission data work" /></div></article>
+          <article class="project-carousel-card"><div class="project-carousel-card-surface"><img src="https://projectphantom.space/assets/f4.jpeg" alt="UAV propulsion and avionics assembly" /></div></article>
+          <article class="project-carousel-card"><div class="project-carousel-card-surface"><img src="https://projectphantom.space/assets/f5.jpeg" alt="UAV field testing documentation" /></div></article>
         </div>
       </div>
 
@@ -1928,7 +2001,7 @@
         <a href="https://projectphantom.space/rithishdharanidharan" target="_blank" rel="noopener" class="team-card reveal">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/rit.jpg" alt="Rithish Dharanidharan, Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/rit.jpg" alt="Rithish Dharanidharan, Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">RD</span>
             </div>
             <div class="avatar-linkedin-badge" aria-hidden="true">
@@ -1947,7 +2020,7 @@
         <a href="https://projectphantom.space/meherabhossain" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/meh.jpg" alt="Meherab Hossain Mokter, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/meh.jpg" alt="Meherab Hossain Mokter, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">MH</span>
             </div>
             <div class="avatar-linkedin-badge" aria-hidden="true">
@@ -1966,7 +2039,7 @@
         <a href="https://projectphantom.space/janaswilam" target="_blank" rel="noopener" class="team-card reveal reveal-delay-2">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/jana.jpg" alt="Jana Swilam, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/jana.jpg" alt="Jana Swilam, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">JS</span>
             </div>
           </div>
@@ -1982,7 +2055,7 @@
         <a href="https://projectphantom.space/mohammedfuad" target="_blank" rel="noopener" class="team-card reveal reveal-delay-3">
           <div class="avatar-ring">
             <div class="avatar-photo">
-              <img src="assets/fuad.jpeg" alt="Mohammed Fuad, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/fuad.jpeg" alt="Mohammed Fuad, Media Intern at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
               <span class="avatar-initials" style="display:none;">MF</span>
             </div>
           </div>
@@ -2011,7 +2084,7 @@
         <a href="https://www.linkedin.com/in/mufeed-kakkidi-021368397/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/muf.jpg" alt="Mufeed Kakkidi, former AI Architect" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/muf.jpg" alt="Mufeed Kakkidi, former AI Architect" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">MK</span>
             </div>
           </div>
@@ -2023,7 +2096,7 @@
         <a href="https://www.linkedin.com/in/ashwin-krishnakumar-074a973a7/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/ash.jpg" alt="Ashwin Krishnakumar, former Head Speaker" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/ash.jpg" alt="Ashwin Krishnakumar, former Head Speaker" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">AK</span>
             </div>
           </div>
@@ -2035,7 +2108,7 @@
         <a href="https://www.linkedin.com/in/devaj-shylesh-nair-1bb1493a5/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/dev.jpg" alt="Devaj Shylesh Nair, former Speaker & Dev" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/dev.jpg" alt="Devaj Shylesh Nair, former Speaker & Dev" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">DN</span>
             </div>
           </div>
@@ -2047,7 +2120,7 @@
         <a href="https://www.linkedin.com/in/roopesh-kr-build/" target="_blank" rel="noopener" class="team-card-small">
           <div class="avatar-ring-small">
             <div class="avatar-photo-small">
-              <img src="assets/roo.png" alt="Roopesh Kr, former Outreach & Research" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <img src="https://projectphantom.space/assets/roo.png" alt="Roopesh Kr, former Outreach & Research" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
               <span class="avatar-initials-small" style="display:none;">RK</span>
             </div>
           </div>
@@ -2098,12 +2171,20 @@
           <div class="backing-visual reveal reveal-delay-1">
             <div class="backing-logo-glow"></div>
             <!-- FIX: removed width/height attributes to prevent stretching -->
-            <img src="assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
+            <img src="https://projectphantom.space/assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
           </div>
 
         </div>
 
       </section>
+    </section>
+
+    <section class="mission-trace" id="mission-trace" aria-label="Project Phantom development activity image trail">
+      <div class="mission-trace-stage" id="missionTraceStage">
+        <div class="mission-trace-head"><span>Project Phantom / In Development</span><span>Move to Reveal the Work</span></div>
+        <h2 class="mission-trace-title">IN DEVELOPMENT</h2>
+        <div class="mission-trace-subtitle">Move Across the Mission</div>
+      </div>
     </section>
 
     <section class="join-section" id="join" aria-labelledby="join-title">
@@ -2120,7 +2201,7 @@
     </section>
 
     <section class="strategic-ops-section" id="contact" aria-labelledby="contact-title">
-      <canvas class="phantom-field-canvas" id="footerField" aria-hidden="true" style="opacity:.45;"></canvas>
+      <canvas class="contact-field-canvas" id="contactField" aria-hidden="true"></canvas>
       <div class="strategic-ops-container">
         <div class="section-label">Get in Touch</div>
         <h2 class="section-title" id="contact-title">LET'S CONNECT</h2>
@@ -2448,13 +2529,59 @@
         resizeMissionField(); requestAnimationFrame(drawMissionField);
       }
 
+      /* CONTACT FIELD: the existing Let’s Connect content remains intact above a cursor-responsive magnetic line system. */
+      const contactFieldCanvas = document.getElementById('contactField');
+      const contactSection = document.getElementById('contact');
+      if (contactFieldCanvas && contactSection) {
+        const contactContext = contactFieldCanvas.getContext('2d', { alpha: true, desynchronized: true });
+        const contactField = { nodes: [], width: 0, height: 0, dpr: 1, last: performance.now(), pointer: { x: 0, y: 0, active: false } };
+        const contactNeutral = Math.PI / 2;
+        const contactClamp = (value, min, max) => Math.min(Math.max(value, min), max);
+        const contactSmooth = (a, b, value) => { const t = contactClamp((value - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+        const contactAngleDelta = (target, current) => Math.atan2(Math.sin(target - current), Math.cos(target - current));
+        function resizeContactField() {
+          const rect = contactSection.getBoundingClientRect();
+          contactField.width = Math.round(rect.width); contactField.height = Math.round(rect.height); contactField.dpr = Math.min(window.devicePixelRatio || 1, 2);
+          contactFieldCanvas.width = Math.round(contactField.width * contactField.dpr); contactFieldCanvas.height = Math.round(contactField.height * contactField.dpr);
+          const gap = contactField.width < 700 ? 29 : 34; contactField.nodes = [];
+          for (let y = gap / 2; y < contactField.height; y += gap) for (let x = gap / 2; x < contactField.width; x += gap) contactField.nodes.push({ x, y, angle: contactNeutral, velocity: 0, power: 0 });
+        }
+        function drawContactField(now) {
+          const dt = contactClamp((now - contactField.last) / 16.667, .4, 1.8); contactField.last = now;
+          contactContext.setTransform(1, 0, 0, 1, 0, 0); contactContext.clearRect(0, 0, contactFieldCanvas.width, contactFieldCanvas.height); contactContext.setTransform(contactField.dpr, 0, 0, contactField.dpr, 0, 0);
+          const tiers = [[], [], [], []];
+          contactField.nodes.forEach(node => {
+            let target = contactNeutral, power = 0;
+            if (contactField.pointer.active) {
+              const dx = contactField.pointer.x - node.x, dy = contactField.pointer.y - node.y;
+              power = 1 - contactSmooth(0, 185, Math.hypot(dx, dy)); target = Math.atan2(dy, dx);
+            }
+            node.velocity += contactAngleDelta(target, node.angle) * .13 * dt; node.velocity *= Math.pow(.74, dt); node.angle += node.velocity * dt;
+            node.power += (power - node.power) * .15 * dt;
+            tiers[contactClamp(Math.floor((.08 + node.power * .72) * 4), 0, 3)].push(node);
+          });
+          tiers.forEach((nodes, tier) => {
+            if (!nodes.length) return;
+            contactContext.beginPath(); contactContext.strokeStyle = '#fff'; contactContext.globalAlpha = .035 + tier * .09; contactContext.lineWidth = .7 + tier * .14;
+            nodes.forEach(node => { const half = 2.8 + node.power * 4.2; const c = Math.cos(node.angle), s = Math.sin(node.angle); contactContext.moveTo(node.x - c * half, node.y - s * half); contactContext.lineTo(node.x + c * half, node.y + s * half); });
+            contactContext.stroke();
+          });
+          contactContext.globalAlpha = 1; requestAnimationFrame(drawContactField);
+        }
+        contactSection.addEventListener('pointermove', event => { const rect = contactSection.getBoundingClientRect(); contactField.pointer.x = event.clientX - rect.left; contactField.pointer.y = event.clientY - rect.top; contactField.pointer.active = true; });
+        contactSection.addEventListener('pointerleave', () => { contactField.pointer.active = false; });
+        contactSection.addEventListener('pointercancel', () => { contactField.pointer.active = false; });
+        window.addEventListener('resize', resizeContactField, { passive: true });
+        resizeContactField(); requestAnimationFrame(drawContactField);
+      }
+
       /* PROJECT PHANTOM MARQUEE: eased target-versus-current progression avoids raw-scroll jitter. */
       const phantomKinetic = document.getElementById('phantom-kinetic');
       const kineticTracks = Array.from(document.querySelectorAll('.phantom-kinetic-track'));
       if (phantomKinetic && kineticTracks.length) {
         let targetKineticProgress = 0, currentKineticProgress = 0, kineticFrame = 0;
         const clampKinetic = (value, min, max) => Math.min(Math.max(value, min), max);
-        function kineticProgress() { return clampKinetic((window.scrollY - phantomKinetic.offsetTop) / Math.max(phantomKinetic.offsetHeight - window.innerHeight, 1), 0, 1); }
+        function kineticProgress() { return clampKinetic((window.scrollY - phantomKinetic.offsetTop + window.innerHeight * .12) / Math.max(phantomKinetic.offsetHeight, 1), 0, 1); }
         function renderKinetic() {
           currentKineticProgress += (targetKineticProgress - currentKineticProgress) * .078;
           kineticTracks.forEach((track, index) => { const offset = index % 2 === 0 ? -18 * currentKineticProgress : -18 + 18 * currentKineticProgress; track.style.transform = `translate3d(${offset.toFixed(3)}%,0,0)`; });
@@ -2472,8 +2599,9 @@
         const clampCarousel = (value, min, max) => Math.min(Math.max(value, min), max);
         function getCarouselProgress() { return clampCarousel((window.scrollY - projectCarousel.offsetTop) / Math.max(projectCarousel.offsetHeight - window.innerHeight, 1), 0, 1); }
         function renderProjectCarousel() {
-          currentCarouselProgress += (targetCarouselProgress - currentCarouselProgress) * .085;
-          const activeFrame = currentCarouselProgress * (projectCarouselCards.length - 1);
+          currentCarouselProgress += (targetCarouselProgress - currentCarouselProgress) * .048;
+          const easedCarouselProgress = currentCarouselProgress * currentCarouselProgress * (3 - 2 * currentCarouselProgress);
+          const activeFrame = easedCarouselProgress * (projectCarouselCards.length - 1);
           const spacing = Math.min(window.innerWidth * .27, 330);
           projectCarouselCards.forEach((card, index) => {
             const delta = index - activeFrame;
@@ -2499,7 +2627,7 @@
       /* MISSION TRACE: generated aerospace documentation frames appear only after deliberate pointer travel. */
       const missionStage = document.getElementById('missionTraceStage');
       if (missionStage) {
-        const missionImages = ['assets/1.jpeg', 'assets/2.jpeg', 'assets/3.jpeg', 'assets/4.jpeg', 'assets/5.jpeg', 'assets/7.jpeg', 'assets/8.jpg', 'assets/9.jpg', 'assets/10.jpg', 'assets/11.jpg'];
+        const missionImages = ['https://projectphantom.space/assets/f1.jpeg', 'https://projectphantom.space/assets/f2.jpeg', 'https://projectphantom.space/assets/f3.jpeg', 'https://projectphantom.space/assets/f4.jpeg', 'https://projectphantom.space/assets/f5.jpeg'];
         const activeTrace = []; const traceLimit = 8; const traceThreshold = 82;
         let lastTrace = null, traceIndex = 0;
         function addMissionFrame(clientX, clientY) {
@@ -2526,55 +2654,6 @@
           pastToggle.classList.toggle('open');
           pastGrid.classList.toggle('visible');
         });
-      }
-
-
-      /* FOOTER MAGNETIC FIELD: same filings effect for the contact section */
-      const footerCanvas = document.getElementById('footerField');
-      const footerSection = document.getElementById('contact');
-      if (footerCanvas && footerSection) {
-        const fCtx = footerCanvas.getContext('2d', { alpha: true, desynchronized: true });
-        const fField = { nodes: [], width: 0, height: 0, dpr: 1, last: performance.now(), pointer: { x: 0, y: 0, active: false } };
-        const fNeutral = Math.PI / 2;
-        const fClamp = (v, min, max) => Math.min(Math.max(v, min), max);
-        const fSmooth = (a, b, v) => { const t = fClamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
-        const fDelta = (t, c) => Math.atan2(Math.sin(t - c), Math.cos(t - c));
-        function resizeFooterField() {
-          const r = footerSection.getBoundingClientRect();
-          fField.width = Math.round(r.width); fField.height = Math.round(r.height); fField.dpr = Math.min(window.devicePixelRatio || 1, 2);
-          footerCanvas.width = Math.round(fField.width * fField.dpr); footerCanvas.height = Math.round(fField.height * fField.dpr);
-          const gap = fField.width < 700 ? 25 : 30;
-          fField.nodes = [];
-          for (let y = gap / 2; y < fField.height; y += gap) for (let x = gap / 2; x < fField.width; x += gap) fField.nodes.push({ x, y, angle: fNeutral, velocity: 0, power: 0 });
-        }
-        function drawFooterField(now) {
-          const dt = fClamp((now - fField.last) / 16.667, .4, 1.8); fField.last = now;
-          fCtx.setTransform(1, 0, 0, 1, 0, 0); fCtx.clearRect(0, 0, footerCanvas.width, footerCanvas.height); fCtx.setTransform(fField.dpr, 0, 0, fField.dpr, 0, 0);
-          const tiers = [[], [], [], []];
-          fField.nodes.forEach(node => {
-            let target = fNeutral, power = 0;
-            if (fField.pointer.active) {
-              const dx = fField.pointer.x - node.x, dy = fField.pointer.y - node.y;
-              power = 1 - fSmooth(0, 170, Math.hypot(dx, dy));
-              target = Math.atan2(dy, dx);
-            }
-            node.velocity += fDelta(target, node.angle) * .135 * dt; node.velocity *= Math.pow(.73, dt); node.angle += node.velocity * dt;
-            node.power += (power - node.power) * .15 * dt;
-            tiers[fClamp(Math.floor((.12 + node.power * .76) * 4), 0, 3)].push(node);
-          });
-          tiers.forEach((nodes, tier) => {
-            if (!nodes.length) return;
-            fCtx.beginPath(); fCtx.strokeStyle = '#fff'; fCtx.globalAlpha = .075 + tier * .12; fCtx.lineWidth = .75 + tier * .15;
-            nodes.forEach(node => { const half = 3 + node.power * 4; const c = Math.cos(node.angle), s = Math.sin(node.angle); fCtx.moveTo(node.x - c * half, node.y - s * half); fCtx.lineTo(node.x + c * half, node.y + s * half); });
-            fCtx.stroke();
-          });
-          fCtx.globalAlpha = 1; requestAnimationFrame(drawFooterField);
-        }
-        footerSection.addEventListener('pointermove', e => { const r = footerSection.getBoundingClientRect(); fField.pointer.x = e.clientX - r.left; fField.pointer.y = e.clientY - r.top; fField.pointer.active = true; });
-        footerSection.addEventListener('pointerleave', () => { fField.pointer.active = false; });
-        footerSection.addEventListener('pointercancel', () => { fField.pointer.active = false; });
-        window.addEventListener('resize', resizeFooterField, { passive: true });
-        resizeFooterField(); requestAnimationFrame(drawFooterField);
       }
 
     })();
