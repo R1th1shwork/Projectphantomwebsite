@@ -1705,7 +1705,7 @@
   <div id="cur-ring"></div>
 
   <div class="alert-banner">
-    <span class="alert-text">ACTIVE DEVELOPMENT</span>
+    <span class="alert-text">IN DEVELOPMENT</span>
     <!-- external link: opens in new tab -->
     <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="alert-cta">TRACK DEVELOPMENT</a>
   </div>
@@ -1806,8 +1806,8 @@
 
     <section class="mission-trace" id="mission-trace" aria-label="Project Phantom build activity image trail">
       <div class="mission-trace-stage" id="missionTraceStage">
-        <div class="mission-trace-head"><span>Project Phantom / In the Build</span><span>Move to Reveal the Work</span></div>
-        <h2 class="mission-trace-title">ACTIVE DEVELOPMENT</h2>
+        <div class="mission-trace-head"><span>Project Phantom / In Development</span><span>Move to Reveal the Work</span></div>
+        <h2 class="mission-trace-title">IN DEVELOPMENT</h2>
         <div class="mission-trace-subtitle">Move Across the Mission</div>
       </div>
     </section>
@@ -1860,13 +1860,13 @@
     <section class="project-carousel" id="technology" aria-labelledby="tech-title">
       <div class="project-carousel-stage" id="projectCarouselStage">
         <div class="project-carousel-meta"><span>Development Log / Five Frames</span><span>Scroll to Advance / Finite Sequence</span></div>
-        <h2 class="project-carousel-title" id="tech-title">Inside the build.<span>UAV development / active documentation</span></h2>
+        <h2 class="project-carousel-title" id="tech-title">Behind the Scenes.<span>UAV development / active documentation</span></h2>
         <div class="project-carousel-cards" aria-label="Five-image scroll-driven development carousel">
-          <article class="project-carousel-card"><span class="project-carousel-card-number">01 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-lab_4e1616ff.jpg" alt="UAV engineering workshop development" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">02 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-test_a2da5a0d.jpg" alt="UAV system test documentation" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">03 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-data_a59e5a69.jpg" alt="UAV telemetry and mission data work" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">04 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-propulsion_4a28b0b0.jpg" alt="UAV propulsion and avionics assembly" /></div></article>
-          <article class="project-carousel-card"><span class="project-carousel-card-number">05 / 05</span><div class="project-carousel-card-surface"><img src="https://3000-izfavz1a37ts6r4kew58b-8ce037ca.sg1.manus.computer/manus-storage/phantom-mission-fieldtest_733dc29f.jpg" alt="UAV field testing documentation" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">01 / 05</span><div class="project-carousel-card-surface"><img src="assets/f1.jpeg" alt="UAV engineering workshop development" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">02 / 05</span><div class="project-carousel-card-surface"><img src="assets/f2.jpeg" alt="UAV system test documentation" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">03 / 05</span><div class="project-carousel-card-surface"><img src="assets/f3.jpeg" alt="UAV telemetry and mission data work" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">04 / 05</span><div class="project-carousel-card-surface"><img src="assets/f4.jpeg" alt="UAV propulsion and avionics assembly" /></div></article>
+          <article class="project-carousel-card"><span class="project-carousel-card-number">05 / 05</span><div class="project-carousel-card-surface"><img src="assets/f5.jpeg" alt="UAV field testing documentation" /></div></article>
         </div>
       </div>
 
@@ -2184,6 +2184,7 @@
     </section>
 
     <section class="strategic-ops-section" id="contact" aria-labelledby="contact-title">
+      <canvas class="phantom-field-canvas" id="footerField" aria-hidden="true" style="opacity:.45;"></canvas>
       <div class="strategic-ops-container">
         <div class="section-label">Get in Touch</div>
         <h2 class="section-title" id="contact-title">LET'S CONNECT</h2>
@@ -2589,6 +2590,55 @@
           pastToggle.classList.toggle('open');
           pastGrid.classList.toggle('visible');
         });
+      }
+
+
+      /* FOOTER MAGNETIC FIELD: same filings effect for the contact section */
+      const footerCanvas = document.getElementById('footerField');
+      const footerSection = document.getElementById('contact');
+      if (footerCanvas && footerSection) {
+        const fCtx = footerCanvas.getContext('2d', { alpha: true, desynchronized: true });
+        const fField = { nodes: [], width: 0, height: 0, dpr: 1, last: performance.now(), pointer: { x: 0, y: 0, active: false } };
+        const fNeutral = Math.PI / 2;
+        const fClamp = (v, min, max) => Math.min(Math.max(v, min), max);
+        const fSmooth = (a, b, v) => { const t = fClamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+        const fDelta = (t, c) => Math.atan2(Math.sin(t - c), Math.cos(t - c));
+        function resizeFooterField() {
+          const r = footerSection.getBoundingClientRect();
+          fField.width = Math.round(r.width); fField.height = Math.round(r.height); fField.dpr = Math.min(window.devicePixelRatio || 1, 2);
+          footerCanvas.width = Math.round(fField.width * fField.dpr); footerCanvas.height = Math.round(fField.height * fField.dpr);
+          const gap = fField.width < 700 ? 25 : 30;
+          fField.nodes = [];
+          for (let y = gap / 2; y < fField.height; y += gap) for (let x = gap / 2; x < fField.width; x += gap) fField.nodes.push({ x, y, angle: fNeutral, velocity: 0, power: 0 });
+        }
+        function drawFooterField(now) {
+          const dt = fClamp((now - fField.last) / 16.667, .4, 1.8); fField.last = now;
+          fCtx.setTransform(1, 0, 0, 1, 0, 0); fCtx.clearRect(0, 0, footerCanvas.width, footerCanvas.height); fCtx.setTransform(fField.dpr, 0, 0, fField.dpr, 0, 0);
+          const tiers = [[], [], [], []];
+          fField.nodes.forEach(node => {
+            let target = fNeutral, power = 0;
+            if (fField.pointer.active) {
+              const dx = fField.pointer.x - node.x, dy = fField.pointer.y - node.y;
+              power = 1 - fSmooth(0, 170, Math.hypot(dx, dy));
+              target = Math.atan2(dy, dx);
+            }
+            node.velocity += fDelta(target, node.angle) * .135 * dt; node.velocity *= Math.pow(.73, dt); node.angle += node.velocity * dt;
+            node.power += (power - node.power) * .15 * dt;
+            tiers[fClamp(Math.floor((.12 + node.power * .76) * 4), 0, 3)].push(node);
+          });
+          tiers.forEach((nodes, tier) => {
+            if (!nodes.length) return;
+            fCtx.beginPath(); fCtx.strokeStyle = '#fff'; fCtx.globalAlpha = .075 + tier * .12; fCtx.lineWidth = .75 + tier * .15;
+            nodes.forEach(node => { const half = 3 + node.power * 4; const c = Math.cos(node.angle), s = Math.sin(node.angle); fCtx.moveTo(node.x - c * half, node.y - s * half); fCtx.lineTo(node.x + c * half, node.y + s * half); });
+            fCtx.stroke();
+          });
+          fCtx.globalAlpha = 1; requestAnimationFrame(drawFooterField);
+        }
+        footerSection.addEventListener('pointermove', e => { const r = footerSection.getBoundingClientRect(); fField.pointer.x = e.clientX - r.left; fField.pointer.y = e.clientY - r.top; fField.pointer.active = true; });
+        footerSection.addEventListener('pointerleave', () => { fField.pointer.active = false; });
+        footerSection.addEventListener('pointercancel', () => { fField.pointer.active = false; });
+        window.addEventListener('resize', resizeFooterField, { passive: true });
+        resizeFooterField(); requestAnimationFrame(drawFooterField);
       }
 
     })();
