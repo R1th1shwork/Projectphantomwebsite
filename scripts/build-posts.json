@@ -4,13 +4,13 @@ on:
   push:
     paths:
       - 'content/posts/**'
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # ALLOWS PUSHING POSTS.JSON BACK TO REPO
 
     steps:
       - name: Checkout repository
@@ -25,7 +25,7 @@ jobs:
         run: npm install gray-matter
 
       - name: Run build script
-        run: node scripts/build-posts.js
+        run: node admin/build-posts.js # RUNS DIRECTLY FROM YOUR ADMIN FOLDER
 
       - name: Commit and push posts.json
         run: |
