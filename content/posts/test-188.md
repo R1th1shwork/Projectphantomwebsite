@@ -1,5 +1,5 @@
 ---
-title: test 188
+title: test 1889
 date: Sep 2026
 tag: Hardware
 image: /assets/blog/minor.png
