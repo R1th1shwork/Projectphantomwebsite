@@ -28,5 +28,6 @@ collections:
       - label: "Extra Images"
         name: "gallery"
         widget: "list"
-        field: { label: "Image", name: "src", widget: "image" }
+        summary: "{{fields.image}}"
+        field: { label: "Image", widget: "image" }
         required: false
