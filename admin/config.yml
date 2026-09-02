@@ -3,6 +3,7 @@ backend:
   repo: R1th1shwork/Projectphantomwebsite   # e.g. rithishwork/project-phantom
   branch: main
   base_url: https://api.netlify.com   # Netlify's built in OAuth relay, works even though your site is on GitHub Pages
+  site_domain: projectphantomm.netlify.app
   auth_endpoint: auth
 
 # Only people added as collaborators on the GitHub repo above can log in here.
