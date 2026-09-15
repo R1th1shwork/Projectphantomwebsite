@@ -314,10 +314,10 @@ const firebaseConfig = {
   messagingSenderId: "68589774583",
   appId: "1:68589774583:web:e8363dfcae234c7f56d5f2"
 };
-const EMAILJS_PUBLIC_KEY  = "PASTE_YOUR_EMAILJS_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID  = "PASTE_YOUR_EMAILJS_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "PASTE_YOUR_EMAILJS_TEMPLATE_ID";
-const ADMIN_EMAIL         = "PASTE_YOUR_ADMIN_GMAIL";
+const EMAILJS_PUBLIC_KEY  = "NCjWOoQxl_ltg2kDP";
+const EMAILJS_SERVICE_ID  = "service_c7jhads";
+const EMAILJS_TEMPLATE_ID = "template_0tkn4ev";
+const ADMIN_EMAILS        = ["admin@projectphantom.space", "hr@projectphantom.space"];
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -742,9 +742,11 @@ document.getElementById('confirmSubmit').addEventListener('click', async () => {
       completedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-    sendEmail(ADMIN_EMAIL, 'Task completed: ' + t.title,
-      (currentUser.name || currentUser.email) + ' marked "' + t.title + '" complete. Link: ' + url +
-      (note ? '. Note: ' + note : ''));
+    ADMIN_EMAILS.forEach(email => {
+      sendEmail(email, 'Task completed: ' + t.title,
+        (currentUser.name || currentUser.email) + ' marked "' + t.title + '" complete. Link: ' + url +
+        (note ? '. Note: ' + note : ''));
+    });
 
     showToast('Task submitted');
   } catch (err){
