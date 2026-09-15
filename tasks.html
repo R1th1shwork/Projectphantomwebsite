@@ -7,6 +7,8 @@
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 <style>
   @view-transition { navigation: auto; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
@@ -132,6 +134,23 @@
   #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#fff;color:#000;font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;padding:14px 24px;opacity:0;pointer-events:none;transition:.3s cubic-bezier(.16,1,.3,1);z-index:300;}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
+  /* FLATPICKR THEME */
+  .flatpickr-calendar{background:var(--bg-1) !important;border:1px solid var(--border) !important;box-shadow:0 16px 40px rgba(0,0,0,.85) !important;font-family:var(--font-mono) !important;}
+  .flatpickr-calendar.arrowTop:before,.flatpickr-calendar.arrowTop:after{border-bottom-color:var(--bg-1) !important;}
+  .flatpickr-calendar.arrowBottom:before,.flatpickr-calendar.arrowBottom:after{border-top-color:var(--bg-1) !important;}
+  .flatpickr-months{background:var(--bg-1) !important;}
+  .flatpickr-months .flatpickr-month{background:var(--bg-1) !important;color:#fff !important;fill:#fff !important;}
+  .flatpickr-current-month .flatpickr-monthDropdown-months{background:var(--bg-1) !important;color:#fff !important;}
+  .flatpickr-current-month input.cur-year{color:#fff !important;}
+  .flatpickr-months .flatpickr-prev-month,.flatpickr-months .flatpickr-next-month{color:#fff !important;fill:#fff !important;}
+  .flatpickr-months .flatpickr-prev-month:hover svg,.flatpickr-months .flatpickr-next-month:hover svg{fill:var(--white-50) !important;}
+  .flatpickr-weekday{background:var(--bg-1) !important;color:var(--white-40) !important;font-weight:600 !important;}
+  .flatpickr-day{color:var(--white-80) !important;border-radius:0 !important;}
+  .flatpickr-day:hover{background:var(--white-10) !important;border-color:transparent !important;}
+  .flatpickr-day.today{border-color:var(--white-40) !important;}
+  .flatpickr-day.selected{background:#fff !important;color:#000 !important;border-color:#fff !important;font-weight:700 !important;}
+  .flatpickr-day.flatpickr-disabled,.flatpickr-day.prevMonthDay,.flatpickr-day.nextMonthDay{color:var(--white-20) !important;}
+
   @media(max-width:900px){
     nav{padding:16px 24px;}
     .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(5,5,5,0.98);backdrop-filter:blur(20px);padding:20px 24px;gap:16px;border-bottom:1px solid var(--border);}
@@ -212,14 +231,25 @@
             <div class="field">
               <label>Department</label>
               <select id="fDept">
-                <option>Flight Systems</option><option>Software</option>
-                <option>Aerodynamics / CAD</option><option>Media</option>
-                <option>Outreach</option><option>General</option>
+                <option value="Flight Systems">Flight Systems</option>
+                <option value="Software">Software</option>
+                <option value="Aerodynamics / CAD">Aerodynamics / CAD</option>
+                <option value="Media">Media</option>
+                <option value="Outreach">Outreach</option>
+                <option value="General">General</option>
+                <option value="__create_new__">+ Create New Department…</option>
               </select>
+              <div id="newDeptRow" style="display:none; margin-top:8px;">
+                <div style="display:flex; gap:8px;">
+                  <input type="text" id="newDeptInput" placeholder="New department name" style="flex:1;">
+                  <button type="button" class="btn-solid" id="newDeptSaveBtn" style="padding:10px 18px; font-size:11px;">Add</button>
+                  <button type="button" class="modal-cancel" id="newDeptCancelBtn" style="padding:10px 14px; font-size:11px;">Cancel</button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="field"><label>Task</label><input type="text" id="fTitle" placeholder="What needs to get done"></div>
-          <div class="field"><label>Deadline</label><input type="date" id="fDeadline"></div>
+          <div class="field"><label>Deadline (DD/MM/YYYY)</label><input type="text" id="fDeadline" placeholder="DD/MM/YYYY" autocomplete="off"></div>
           <button class="btn-solid" id="assignBtn">Assign Task</button>
         </div>
       </div>
@@ -274,6 +304,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
 const firebaseConfig = {
@@ -310,12 +341,75 @@ function sendEmail(toEmail, subject, message){
     .catch(err => console.error('EmailJS error:', err));
 }
 
+function parseDate(d){
+  if (!d) return null;
+  if (typeof d === 'object' && d.toDate) return d.toDate();
+  if (typeof d === 'string' && /^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}$/.test(d)) {
+    const parts = d.split(/[\/\-]/).map(Number);
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+  }
+  const parsed = new Date(d);
+  if (!isNaN(parsed.getTime())) return parsed;
+  return new Date(d + 'T00:00:00');
+}
+
 function formatDate(d){
   if (!d) return 'No deadline';
-  return new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const dt = parseDate(d);
+  if (!dt || isNaN(dt.getTime())) return d;
+  const day = String(dt.getDate()).padStart(2, '0');
+  const month = String(dt.getMonth() + 1).padStart(2, '0');
+  const year = dt.getFullYear();
+  return `${day}/${month}/${year}`;
 }
+
 function isOverdue(t){
-  return t.status !== 'completed' && t.deadline && new Date(t.deadline) < new Date(new Date().toDateString());
+  if (t.status === 'completed' || !t.deadline) return false;
+  const dt = parseDate(t.deadline);
+  if (!dt || isNaN(dt.getTime())) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return dt < today;
+}
+
+const DEFAULT_DEPTS = ['Flight Systems', 'Software', 'Aerodynamics / CAD', 'Media', 'Outreach', 'General'];
+let departmentsList = [...DEFAULT_DEPTS];
+let lastSelectedDept = DEFAULT_DEPTS[0];
+let departmentsUnsub = null;
+let fpDeadline = null;
+
+function renderDeptDropdown(selectedVal){
+  const select = document.getElementById('fDept');
+  if (!select) return;
+  const currentVal = selectedVal || select.value;
+  select.innerHTML = departmentsList.map(d => `<option value="${d}">${d}</option>`).join('')
+    + `<option value="__create_new__">+ Create New Department…</option>`;
+  if (currentVal && currentVal !== '__create_new__' && departmentsList.includes(currentVal)){
+    select.value = currentVal;
+    lastSelectedDept = currentVal;
+  }
+}
+
+function loadSavedDepartments(){
+  try {
+    const saved = JSON.parse(localStorage.getItem('phantom_departments') || '[]');
+    saved.forEach(d => {
+      if (d && !departmentsList.includes(d)) departmentsList.push(d);
+    });
+  } catch(e){}
+  renderDeptDropdown();
+}
+
+function watchDepartments(){
+  try {
+    departmentsUnsub = db.collection('departments').orderBy('createdAt', 'asc').onSnapshot(snap => {
+      snap.docs.forEach(doc => {
+        const name = doc.data().name;
+        if (name && !departmentsList.includes(name)) departmentsList.push(name);
+      });
+      renderDeptDropdown();
+    }, () => {});
+  } catch(e){}
 }
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -336,6 +430,7 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   if (myTasksUnsub) myTasksUnsub();
   if (allTasksUnsub) allTasksUnsub();
   if (employeesUnsub) employeesUnsub();
+  if (departmentsUnsub) departmentsUnsub();
   auth.signOut();
 });
 
@@ -367,6 +462,8 @@ auth.onAuthStateChanged(async (user) => {
   if (currentUser.role === 'admin'){
     document.getElementById('adminView').style.display = 'block';
     document.getElementById('employeeView').style.display = 'none';
+    loadSavedDepartments();
+    watchDepartments();
     watchAllTasks();
     watchEmployees();
   } else {
@@ -422,12 +519,98 @@ function watchEmployees(){
   });
 }
 
+const deptSelect = document.getElementById('fDept');
+if (deptSelect){
+  deptSelect.addEventListener('change', (e) => {
+    if (e.target.value === '__create_new__'){
+      document.getElementById('newDeptRow').style.display = 'block';
+      const inp = document.getElementById('newDeptInput');
+      inp.value = '';
+      inp.focus();
+    } else {
+      document.getElementById('newDeptRow').style.display = 'none';
+      lastSelectedDept = e.target.value;
+    }
+  });
+}
+
+async function addNewDepartment(){
+  const inp = document.getElementById('newDeptInput');
+  const name = inp.value.trim();
+  if (!name) return showToast('Enter department name');
+  const existing = departmentsList.find(d => d.toLowerCase() === name.toLowerCase());
+  if (existing){
+    renderDeptDropdown(existing);
+    document.getElementById('newDeptRow').style.display = 'none';
+    showToast('Department already exists');
+    return;
+  }
+  departmentsList.push(name);
+  try {
+    localStorage.setItem('phantom_departments', JSON.stringify(departmentsList.filter(d => !DEFAULT_DEPTS.includes(d))));
+    await db.collection('departments').add({
+      name,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  } catch(err){}
+  renderDeptDropdown(name);
+  lastSelectedDept = name;
+  document.getElementById('newDeptRow').style.display = 'none';
+  showToast(`Department "${name}" added`);
+}
+
+document.getElementById('newDeptSaveBtn').addEventListener('click', addNewDepartment);
+document.getElementById('newDeptInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter'){
+    e.preventDefault();
+    addNewDepartment();
+  } else if (e.key === 'Escape'){
+    cancelNewDept();
+  }
+});
+
+function cancelNewDept(){
+  document.getElementById('newDeptRow').style.display = 'none';
+  document.getElementById('fDept').value = lastSelectedDept || DEFAULT_DEPTS[0];
+}
+document.getElementById('newDeptCancelBtn').addEventListener('click', cancelNewDept);
+
+if (window.flatpickr){
+  fpDeadline = flatpickr("#fDeadline", {
+    dateFormat: "d/m/Y",
+    allowInput: true,
+    minDate: "today"
+  });
+}
+
 document.getElementById('assignBtn').addEventListener('click', async () => {
   const assigneeEmail = document.getElementById('fAssignee').value;
-  const dept = document.getElementById('fDept').value;
+  let dept = document.getElementById('fDept').value;
+  if (dept === '__create_new__'){
+    return showToast('Finish adding department or choose an existing one');
+  }
   const title = document.getElementById('fTitle').value.trim();
-  const deadline = document.getElementById('fDeadline').value;
+  const rawDeadline = document.getElementById('fDeadline').value.trim();
   if (!assigneeEmail || !title) return showToast('Pick an assignee and a task title');
+
+  let deadline = '';
+  if (rawDeadline){
+    if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(rawDeadline)){
+      const parts = rawDeadline.split('/');
+      deadline = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+    } else if (/^\d{4}-\d{2}-\d{2}$/.test(rawDeadline)){
+      deadline = rawDeadline;
+    } else {
+      const dt = parseDate(rawDeadline);
+      if (dt && !isNaN(dt.getTime())){
+        const d = String(dt.getDate()).padStart(2, '0');
+        const m = String(dt.getMonth() + 1).padStart(2, '0');
+        deadline = `${dt.getFullYear()}-${m}-${d}`;
+      } else {
+        return showToast('Please enter a valid deadline (DD/MM/YYYY)');
+      }
+    }
+  }
 
   const assignee = allEmployeesCache.find(e => e.email === assigneeEmail);
   const btn = document.getElementById('assignBtn');
@@ -445,7 +628,8 @@ document.getElementById('assignBtn').addEventListener('click', async () => {
     '" (' + dept + '), due ' + formatDate(deadline) + '. Check the dashboard for details.');
 
   document.getElementById('fTitle').value = '';
-  document.getElementById('fDeadline').value = '';
+  if (fpDeadline) fpDeadline.clear();
+  else document.getElementById('fDeadline').value = '';
   btn.disabled = false;
   showToast('Task assigned');
 });
@@ -459,8 +643,13 @@ function watchAllTasks(){
       return;
     }
     let pendingCount = 0;
+    let deptAdded = false;
     body.innerHTML = snap.docs.map(doc => {
       const t = doc.data();
+      if (t.dept && !departmentsList.includes(t.dept)){
+        departmentsList.push(t.dept);
+        deptAdded = true;
+      }
       if (t.status !== 'completed') pendingCount++;
       const overdue = isOverdue(t);
       return `
@@ -473,6 +662,7 @@ function watchAllTasks(){
           <td class="row-actions"><button class="icon-btn" data-del="${doc.id}" aria-label="Delete task">✕</button></td>
         </tr>`;
     }).join('');
+    if (deptAdded) renderDeptDropdown();
     updateAdminCount(pendingCount);
 
     document.querySelectorAll('[data-del]').forEach(btn => {

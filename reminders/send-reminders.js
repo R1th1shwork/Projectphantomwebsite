@@ -4,8 +4,25 @@ const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 const db = admin.firestore();
 
+function parseDeadline(d) {
+  if (!d) return null;
+  if (d instanceof Date) return d;
+  if (d.toDate) return d.toDate();
+  if (typeof d === 'string' && /^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}$/.test(d)) {
+    const parts = d.split(/[\/\-]/).map(Number);
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+  }
+  return new Date(d);
+}
+
 function formatDate(d) {
-  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  if (!d) return '';
+  const dt = parseDeadline(d);
+  if (!dt || isNaN(dt.getTime())) return String(d);
+  const day = String(dt.getDate()).padStart(2, '0');
+  const month = String(dt.getMonth() + 1).padStart(2, '0');
+  const year = dt.getFullYear();
+  return `${day}/${month}/${year}`;
 }
 
 async function sendEmail(toEmail, subject, message) {
@@ -41,7 +58,7 @@ async function main() {
     const t = doc.data();
     if (!t.assigneeEmail) continue;
 
-    const deadline = t.deadline ? new Date(t.deadline) : null;
+    const deadline = parseDeadline(t.deadline);
     const subject = 'Reminder: "' + t.title + '" is still pending';
     const message =
       'Hi ' + (t.assigneeName || '') + ', this is a daily reminder that your task "' + t.title +
