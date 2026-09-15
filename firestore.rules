@@ -16,26 +16,14 @@ service cloud.firestore {
         get(/databases/$(database)/documents/users/$(myEmail())).data.role == 'admin';
     }
 
-    // users/{email}  ->  { name, role: 'admin' | 'employee' }
     match /users/{email} {
-      // Anyone signed in can read the list (needed for the assignee dropdown
-      // and for checking their own profile on login).
       allow read: if isSignedIn();
-      // Only an admin can create or edit profiles, so only an admin can
-      // grant admin. Nobody can self-promote.
       allow write: if isAdmin();
     }
 
-    // tasks/{taskId}
     match /tasks/{taskId} {
       allow read: if isSignedIn();
-
-      // Only an admin can create a task, or delete one.
       allow create, delete: if isAdmin();
-
-      // Updates: an admin can change anything. An employee can only touch
-      // their own assigned task, and only to mark it complete, they can't
-      // reassign it, rename it, move the deadline, or touch anyone else's.
       allow update: if isAdmin() || (
         isSignedIn() &&
         resource.data.assigneeEmail == myEmail() &&

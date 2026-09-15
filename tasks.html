@@ -86,7 +86,7 @@
   .panel{display:none;}
   .panel.active{display:block;}
 
-  /* FORMS AND TABLES, shared look */
+  /* Forms and Tables */
   .card-block{background:var(--bg-1);border:1px solid var(--border);padding:36px;margin-bottom:32px;}
   .card-block h2{font-size:18px;font-weight:600;margin-bottom:24px;letter-spacing:-.01em;}
   .field{margin-bottom:18px;}
@@ -276,10 +276,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-/* =====================================================================
-   CONFIG. Paste your own values here. See the setup guide for where
-   each of these comes from. Nothing else in this file needs editing.
-===================================================================== */
 const firebaseConfig = {
   apiKey: "AIzaSyBpwFuEq1u9vcBRrGVjpmDTWS4DRjp8u4s",
   authDomain: "phantom-ta.firebaseapp.com",
@@ -291,7 +287,6 @@ const EMAILJS_PUBLIC_KEY  = "PASTE_YOUR_EMAILJS_PUBLIC_KEY";
 const EMAILJS_SERVICE_ID  = "PASTE_YOUR_EMAILJS_SERVICE_ID";
 const EMAILJS_TEMPLATE_ID = "PASTE_YOUR_EMAILJS_TEMPLATE_ID";
 const ADMIN_EMAIL         = "PASTE_YOUR_ADMIN_GMAIL";
-/* ===================================================================== */
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -323,7 +318,6 @@ function isOverdue(t){
   return t.status !== 'completed' && t.deadline && new Date(t.deadline) < new Date(new Date().toDateString());
 }
 
-/* ---------- AUTH ---------- */
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 document.getElementById('googleLoginBtn').addEventListener('click', () => {
@@ -382,7 +376,6 @@ auth.onAuthStateChanged(async (user) => {
   }
 });
 
-/* ---------- TABS ---------- */
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -392,7 +385,6 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
-/* ---------- ADMIN: EMPLOYEES ---------- */
 document.getElementById('addEmployeeBtn').addEventListener('click', async () => {
   const name = document.getElementById('eName').value.trim();
   const email = document.getElementById('eEmail').value.trim().toLowerCase();
@@ -430,7 +422,6 @@ function watchEmployees(){
   });
 }
 
-/* ---------- ADMIN: ASSIGN + ALL TASKS ---------- */
 document.getElementById('assignBtn').addEventListener('click', async () => {
   const assigneeEmail = document.getElementById('fAssignee').value;
   const dept = document.getElementById('fDept').value;
@@ -497,7 +488,6 @@ function updateAdminCount(n){
     n === 0 ? 'All tasks across the team are handled' : n + ' task' + (n === 1 ? '' : 's') + ' across the team need attention';
 }
 
-/* ---------- EMPLOYEE: MY TASKS ---------- */
 function watchMyTasks(){
   myTasksUnsub = db.collection('tasks').where('assigneeEmail', '==', currentUser.email).onSnapshot(snap => {
     const list = document.getElementById('myTasksList');
@@ -578,7 +568,6 @@ document.getElementById('confirmSubmit').addEventListener('click', async () => {
   document.getElementById('submitModal').classList.remove('open');
 });
 
-/* ---------- cursor, scroll progress, hamburger, same as the rest of the site ---------- */
 (() => {
   const hasFine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   if (hasFine) {

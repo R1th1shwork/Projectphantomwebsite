@@ -1,12 +1,3 @@
-// Runs once a day via GitHub Actions. Finds every task that isn't completed
-// and emails the assignee a reminder. See ../.github/workflows/daily-reminders.yml
-// for the schedule, and the setup guide for which secrets this needs.
-//
-// This uses the Firebase Admin SDK, which authenticates with a service
-// account and bypasses firestore.rules entirely. That's expected and fine,
-// it's a trusted server-side script, not a client, the rules exist to
-// stop the browser from doing this, not this script.
-
 const admin = require('firebase-admin');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -38,9 +29,6 @@ async function sendEmail(toEmail, subject, message) {
 }
 
 async function main() {
-  // Tasks written with a missing status field would be silently skipped by
-  // a != query, so this pulls everything and filters in code instead,
-  // which catches any task regardless of how it was created.
   const snapshot = await db.collection('tasks').get();
   const pending = snapshot.docs.filter(doc => doc.data().status !== 'completed');
 
