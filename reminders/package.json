@@ -1,0 +1,13 @@
+{
+  "name": "phantom-task-reminders",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Daily email reminders for pending Project Phantom tasks",
+  "main": "send-reminders.js",
+  "scripts": {
+    "start": "node send-reminders.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}
