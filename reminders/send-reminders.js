@@ -25,18 +25,39 @@ function formatDate(d) {
   return `${day}/${month}/${year}`;
 }
 
-async function sendEmail(toEmail, subject, message) {
-  const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+async function sendEmail(toEmail, toName, subject, message) {
+  const apiKey = process.env.BREVO_API_KEY;
+  if (!apiKey) {
+    throw new Error('Missing BREVO_API_KEY environment variable');
+  }
+
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'accept': 'application/json',
+      'api-key': apiKey,
+      'content-type': 'application/json'
+    },
     body: JSON.stringify({
-      service_id: process.env.EMAILJS_SERVICE_ID,
-      template_id: process.env.EMAILJS_TEMPLATE_ID,
-      user_id: process.env.EMAILJS_PUBLIC_KEY,
-      accessToken: process.env.EMAILJS_PRIVATE_KEY,
-      template_params: { to_email: toEmail, subject, message }
+      sender: {
+        name: 'PHANTOM Tasks',
+        email: 'notifications@projectphantom.space'
+      },
+      to: [
+        {
+          email: toEmail,
+          name: toName || toEmail
+        }
+      ],
+      replyTo: {
+        email: 'admin@projectphantom.space',
+        name: 'PHANTOM Admin'
+      },
+      subject: subject,
+      textContent: message
     })
   });
+
   if (!res.ok) {
     const body = await res.text();
     console.error('Failed to email', toEmail, '-', res.status, body);
@@ -65,7 +86,7 @@ async function main() {
       '"' + (deadline ? ' (due ' + formatDate(deadline) + ')' : '') +
       ' has not been marked complete yet. Submit it from the dashboard when it is done.';
 
-    await sendEmail(t.assigneeEmail, subject, message);
+    await sendEmail(t.assigneeEmail, t.assigneeName, subject, message);
   }
 }
 
