@@ -463,27 +463,51 @@ document.getElementById('addEmployeeBtn').addEventListener('click', async () => 
 });
 
 function watchEmployees(){
-  employeesUnsub = db.collection('users').where('role', '==', 'employee').onSnapshot(snap => {
-    allEmployeesCache = snap.docs.map(d => ({ email: d.id, ...d.data() }));
+  employeesUnsub = db.collection('users').onSnapshot(snap => {
+    // Include both employees and admins in the assignment dropdown
+    allEmployeesCache = snap.docs
+      .filter(d => {
+        const role = d.data().role;
+        return role === 'employee' || role === 'admin';
+      })
+      .map(d => ({ email: d.id, ...d.data() }));
 
+    // Populate assignee dropdown with employees + admins
     const select = document.getElementById('fAssignee');
-    select.innerHTML = allEmployeesCache.length
-      ? allEmployeesCache.map(e => `<option value="${e.email}">${e.name}</option>`).join('')
-      : '<option value="">No employees yet, add one first</option>';
 
+    select.innerHTML = allEmployeesCache.length
+      ? allEmployeesCache.map(e =>
+          `<option value="${e.email}">
+            ${e.name}${e.role === 'admin' ? ' (Admin)' : ''}
+          </option>`
+        ).join('')
+      : '<option value="">No users available</option>';
+
+    // Keep the Employees table showing employees only
+    const employeesOnly = allEmployeesCache.filter(e => e.role === 'employee');
     const body = document.getElementById('employeesBody');
-    if (!allEmployeesCache.length){
-      body.innerHTML = '<tr><td colspan="3" class="empty-row">No employees added yet.</td></tr>';
+
+    if (!employeesOnly.length){
+      body.innerHTML =
+        '<tr><td colspan="3" class="empty-row">No employees added yet.</td></tr>';
       return;
     }
+
     db.collection('tasks').where('status', '!=', 'completed').get().then(taskSnap => {
       const openCounts = {};
+
       taskSnap.docs.forEach(d => {
         const t = d.data();
-        openCounts[t.assigneeEmail] = (openCounts[t.assigneeEmail] || 0) + 1;
+        openCounts[t.assigneeEmail] =
+          (openCounts[t.assigneeEmail] || 0) + 1;
       });
-      body.innerHTML = allEmployeesCache.map(e => `
-        <tr><td>${e.name}</td><td>${e.email}</td><td>${openCounts[e.email] || 0}</td></tr>
+
+      body.innerHTML = employeesOnly.map(e => `
+        <tr>
+          <td>${e.name}</td>
+          <td>${e.email}</td>
+          <td>${openCounts[e.email] || 0}</td>
+        </tr>
       `).join('');
     });
   });
