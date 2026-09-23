@@ -188,12 +188,17 @@
     <!-- ADMIN VIEW -->
     <div id="adminView" style="display:none;">
       <div class="tabs">
-        <button class="tab active" data-tab="assign">Assign</button>
+        <button class="tab active" data-tab="my-tasks">My Tasks</button>
+        <button class="tab" data-tab="assign">Assign</button>
         <button class="tab" data-tab="tasks">All Tasks</button>
         <button class="tab" data-tab="employees">Employees</button>
       </div>
 
-      <div class="panel active" id="panel-assign">
+      <div class="panel active" id="panel-my-tasks">
+        <div id="myTasksList" class="stagger"></div>
+      </div>
+
+      <div class="panel" id="panel-assign">
         <div class="card-block">
           <h2>Assign a Task</h2>
           <div class="form-row">
@@ -253,7 +258,7 @@
 
     <!-- EMPLOYEE VIEW -->
     <div id="employeeView" style="display:none;">
-      <div id="myTasksList" class="stagger"></div>
+      <div id="employeeMyTasksList" class="stagger"></div>
     </div>
   </div>
 </main>
@@ -434,6 +439,7 @@ auth.onAuthStateChanged(async (user) => {
     document.getElementById('employeeView').style.display = 'none';
     loadSavedDepartments();
     watchDepartments();
+    watchMyTasks();
     watchAllTasks();
     watchEmployees();
   } else {
@@ -464,50 +470,41 @@ document.getElementById('addEmployeeBtn').addEventListener('click', async () => 
 
 function watchEmployees(){
   employeesUnsub = db.collection('users').onSnapshot(snap => {
-    // Include both employees and admins in the assignment dropdown
-    allEmployeesCache = snap.docs
+    // Employees + admins can both be assigned tasks.
+    const assignableUsers = snap.docs
       .filter(d => {
         const role = d.data().role;
         return role === 'employee' || role === 'admin';
       })
       .map(d => ({ email: d.id, ...d.data() }));
 
-    // Populate assignee dropdown with employees + admins
-    const select = document.getElementById('fAssignee');
+    allEmployeesCache = assignableUsers;
 
-    select.innerHTML = allEmployeesCache.length
-      ? allEmployeesCache.map(e =>
-          `<option value="${e.email}">
-            ${e.name}${e.role === 'admin' ? ' (Admin)' : ''}
-          </option>`
+    const select = document.getElementById('fAssignee');
+    select.innerHTML = assignableUsers.length
+      ? assignableUsers.map(e =>
+          `<option value="${e.email}">${e.name}${e.role === 'admin' ? ' (Admin)' : ''}</option>`
         ).join('')
       : '<option value="">No users available</option>';
 
-    // Keep the Employees table showing employees only
-    const employeesOnly = allEmployeesCache.filter(e => e.role === 'employee');
+    // Keep the Employees table employee-only.
+    const employeesOnly = assignableUsers.filter(e => e.role === 'employee');
     const body = document.getElementById('employeesBody');
 
     if (!employeesOnly.length){
-      body.innerHTML =
-        '<tr><td colspan="3" class="empty-row">No employees added yet.</td></tr>';
+      body.innerHTML = '<tr><td colspan="3" class="empty-row">No employees added yet.</td></tr>';
       return;
     }
 
     db.collection('tasks').where('status', '!=', 'completed').get().then(taskSnap => {
       const openCounts = {};
-
       taskSnap.docs.forEach(d => {
         const t = d.data();
-        openCounts[t.assigneeEmail] =
-          (openCounts[t.assigneeEmail] || 0) + 1;
+        openCounts[t.assigneeEmail] = (openCounts[t.assigneeEmail] || 0) + 1;
       });
 
       body.innerHTML = employeesOnly.map(e => `
-        <tr>
-          <td>${e.name}</td>
-          <td>${e.email}</td>
-          <td>${openCounts[e.email] || 0}</td>
-        </tr>
+        <tr><td>${e.name}</td><td>${e.email}</td><td>${openCounts[e.email] || 0}</td></tr>
       `).join('');
     });
   });
@@ -674,7 +671,9 @@ function updateAdminCount(n){
 
 function watchMyTasks(){
   myTasksUnsub = db.collection('tasks').where('assigneeEmail', '==', currentUser.email).onSnapshot(snap => {
-    const list = document.getElementById('myTasksList');
+    const list = document.getElementById(
+      currentUser.role === 'admin' ? 'myTasksList' : 'employeeMyTasksList'
+    );
     if (snap.empty){
       list.innerHTML = '<p style="color:var(--white-40);">No tasks assigned yet.</p>';
       document.getElementById('welcomeCount').textContent = 'You have 0 tasks remaining';
