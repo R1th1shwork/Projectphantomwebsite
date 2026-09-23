@@ -157,6 +157,16 @@ async function sendEmail(toEmail, toName, subject, message) {
           name: toName || toEmail
         }
       ],
+      cc : [
+        {
+          email: 'admin@projectphantom.space',
+          name: 'Admin'
+        },
+        {
+          email: 'founder@projectphantom.space',
+          name: 'Rithish'
+        }
+      ],
       replyTo: {
         email: 'admin@projectphantom.space',
         name: 'PHANTOM Admin'
