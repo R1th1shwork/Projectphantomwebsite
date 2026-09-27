@@ -982,52 +982,97 @@
       padding: 4px 10px;
     }
 
-    .backing-layout {
+    #backing {
+      padding-top: 100px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+
+    .backing-minimal {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .backing-minimal .section-label {
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .backing-minimal .section-title {
+      margin-bottom: 48px;
+    }
+
+    .backing-partners-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 60px;
+      justify-content: center;
+      gap: clamp(32px, 6vw, 80px);
       flex-wrap: wrap;
     }
 
-    .backing-content {
-      flex: 1 1 480px;
+    .backing-partner-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .backing-visual {
-      flex: 1 1 300px;
+    .backing-partner-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .backing-partner-logo-box {
+      width: clamp(150px, 18vw, 210px);
+      height: clamp(150px, 18vw, 210px);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      min-height: 480px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 24px;
+      transition: all 0.3s ease;
     }
 
-    .backing-logo-glow {
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      background: radial-gradient(circle, rgba(244, 166, 66, .18), transparent 70%);
-      animation: pulseGlow 5s ease-in-out infinite;
+    .backing-partner-item:hover .backing-partner-logo-box {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(244, 166, 66, 0.35);
+      box-shadow: 0 0 45px rgba(244, 166, 66, 0.15);
     }
 
-    .backing-logo {
-      width: clamp(280px, 26vw, 420px);
-      height: auto; /* ensure aspect ratio preserved */
-      position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 0 50px rgba(244, 166, 66, .25));
-      animation: floatLogo 6s ease-in-out infinite;
+    .backing-partner-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
     }
 
-    @keyframes floatLogo {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-14px);
-      }
+    .backing-partner-item:hover .backing-partner-img {
+      transform: scale(1.06);
+    }
+
+    .backing-partner-label {
+      margin-top: 18px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-70);
+      transition: color 0.2s ease;
+    }
+
+    .backing-partner-item:hover .backing-partner-label {
+      color: var(--white);
+    }
+
+    .backing-partner-sep {
+      width: 1px;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.15), transparent);
     }
 
     @keyframes pulseGlow {
@@ -1470,26 +1515,17 @@
         border-bottom: 1px solid var(--border);
       }
 
-      .backing-layout {
-        flex-direction: column;
-        text-align: center;
+      #backing {
+        padding-top: 60px;
+        margin-top: 50px;
       }
 
-      .backing-visual {
-        min-height: 260px;
+      .backing-partners-row {
+        gap: 32px;
       }
 
-      .backing-logo-glow {
-        width: 260px;
-        height: 260px;
-      }
-
-      .backing-logo {
-        width: clamp(160px, 45vw, 220px);
-      }
-
-      .strategic-ops-actions.backing-actions {
-        justify-content: center;
+      .backing-partner-sep {
+        display: none;
       }
 
       .team-grid {
@@ -1935,53 +1971,6 @@
       </div>
     </section>
 
-    <section id="impact" aria-labelledby="impact-title">
-
-      <div class="parallax-text" id="parallaxText2" aria-hidden="true">
-        IMPACT
-      </div>
-
-      <div style="margin-top:80px">
-
-        <div class="section-label reveal">Sustainable Development</div>
-
-        <h2 class="section-title reveal" id="impact-title">Engineered for Impact</h2>
-
-        <p class="section-desc reveal reveal-delay-1">
-          Designed to support global environmental monitoring and climate research.
-        </p>
-
-      </div>
-
-      <div class="sdg-grid">
-
-        <div class="sdg-card reveal">
-          <div class="sdg-num">SDG 13</div>
-          <div class="sdg-title">Climate Action</div>
-          <div class="sdg-text">Wildfire detection and methane monitoring.</div>
-        </div>
-
-        <div class="sdg-card reveal reveal-delay-1">
-          <div class="sdg-num">SDG 14</div>
-          <div class="sdg-title">Life Below Water</div>
-          <div class="sdg-text">Coastal monitoring and spill detection.</div>
-        </div>
-
-        <div class="sdg-card reveal reveal-delay-2">
-          <div class="sdg-num">SDG 15</div>
-          <div class="sdg-title">Life on Land</div>
-          <div class="sdg-text">Reforestation tracking and anti-poaching support.</div>
-        </div>
-
-        <div class="sdg-card reveal reveal-delay-3">
-          <div class="sdg-num">SDG 9</div>
-          <div class="sdg-title">Industry, Innovation and Infrastructure</div>
-          <div class="sdg-text">Enterprise-grade environmental sensing infrastructure.</div>
-        </div>
-
-      </div>
-
-    </section>
 
     <section class="flight-section" id="first-flight" aria-labelledby="flight-title">
 
@@ -2248,45 +2237,30 @@
 
       <section id="backing" aria-labelledby="backing-title">
 
-        <div class="backing-layout">
+        <div class="backing-minimal">
 
-          <div class="backing-content">
+          <div class="section-label reveal">Partners</div>
 
-            <div class="section-label reveal">Backed By</div>
+          <h2 class="section-title reveal" id="backing-title">Funded &amp; Backed by</h2>
 
-            <h2 class="section-title reveal" id="backing-title">Funded &amp; Backed by Unipreneur Inc.</h2>
+          <div class="backing-partners-row reveal reveal-delay-1">
 
-            <p class="section-desc reveal reveal-delay-1">
-              Project Phantom is proud to be funded and backed by Unipreneur Inc.,
-              the UAE's leading youth entrepreneurship and innovation platform,
-              empowering young founders aged 15–30 to turn ambitious ideas into
-              industry-grade ventures.
-            </p>
+            <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="backing-partner-item">
+              <div class="backing-partner-logo-box">
+                <img src="assets/uni.png" alt="Unipreneur" class="backing-partner-img" loading="lazy" />
+              </div>
+              <span class="backing-partner-label">Unipreneur</span>
+            </a>
 
-            <p class="section-desc reveal reveal-delay-2" style="margin-top:20px;">
-              This partnership marks a defining step for Phantom, moving us from
-              prototype to a scalable, deep-tech aerospace platform. We're deeply
-              grateful to Mohammed Mukhtar (CEO, Unipreneur) and Reem AlMusabbah
-              (Co-Founder, Unipreneur) for believing in our vision and giving us
-              the platform to build at the level this project deserves.
-            </p>
+            <div class="backing-partner-sep" aria-hidden="true"></div>
 
-            <div class="strategic-ops-actions backing-actions" style="margin-top:40px;">
-              <!-- external links: open in new tab -->
-              <a href="https://www.linkedin.com/company/unipreneur-inc/" target="_blank" rel="noopener" class="btn-secondary">
-                Visit Unipreneur Inc
-              </a>
-              <a href="https://www.linkedin.com/posts/mohammedmukhtarj_dubaiit-share-7485697531440435200-HURC/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGBAxMgBcZF9B4uP7fpV_qOoPytKNPcIiYQ" target="_blank" rel="noopener" class="btn-primary">
-                See the Announcement
-              </a>
-            </div>
+            <a href="https://sheraa.ae/" target="_blank" rel="noopener" class="backing-partner-item">
+              <div class="backing-partner-logo-box">
+                <img src="assets/sheraa.png" alt="Sheraa" class="backing-partner-img" loading="lazy" />
+              </div>
+              <span class="backing-partner-label">Sheraa</span>
+            </a>
 
-          </div>
-
-          <div class="backing-visual reveal reveal-delay-1">
-            <div class="backing-logo-glow"></div>
-            <!-- FIX: removed width/height attributes to prevent stretching -->
-            <img src="https://projectphantom.space/assets/uni.png" alt="Unipreneur Inc. logo" class="backing-logo" loading="lazy" onerror="this.closest('.backing-visual').style.display='none';" />
           </div>
 
         </div>
