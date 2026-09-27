@@ -600,6 +600,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
+      padding: 24px 0;
     }
 
     .network-marquee-fade-left,
@@ -627,6 +628,7 @@
       width: max-content;
       will-change: transform;
       animation: networkMarquee 45s linear infinite;
+      padding: 16px 0;
     }
 
     .network-marquee-stage:hover .network-marquee-content {
@@ -646,6 +648,7 @@
       display: flex;
       align-items: center;
       flex-shrink: 0;
+      padding: 4px 0;
     }
 
     .network-logo-box {
@@ -659,6 +662,7 @@
       justify-content: center;
       cursor: pointer;
       z-index: 1;
+      overflow: visible;
       transition: z-index 0.3s;
     }
 
@@ -672,6 +676,7 @@
       max-height: 100%;
       object-fit: contain;
       pointer-events: none;
+      transform-origin: center center;
       transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
       will-change: transform, opacity;
     }
@@ -694,7 +699,7 @@
     .network-logo-box:hover .network-logo-color {
       opacity: 1;
       transform: scale(1.25);
-      filter: drop-shadow(0 6px 16px rgba(255, 255, 255, 0.16));
+      filter: drop-shadow(0 8px 20px rgba(255, 255, 255, 0.18));
     }
 
     @media (max-width: 900px) {
@@ -1137,8 +1142,8 @@
     }
 
     .backing-partner-logo-box {
-      width: clamp(280px, 32vw, 440px);
-      height: clamp(190px, 22vw, 290px);
+      width: clamp(280px, 34vw, 480px);
+      min-height: clamp(180px, 22vw, 280px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1146,15 +1151,17 @@
       background: transparent;
       border: none;
       padding: 0;
+      overflow: visible;
       transition: all 0.4s ease;
     }
 
     .backing-partner-img {
       max-width: 100%;
-      max-height: 100%;
+      max-height: clamp(220px, 26vw, 340px);
       width: auto;
       height: auto;
       object-fit: contain;
+      transform-origin: center center;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
       filter: drop-shadow(0 0 45px rgba(244, 166, 66, 0.22));
     }
