@@ -1748,19 +1748,9 @@
       .card { padding: 36px 28px; }
     }
 
-    .mission-trace { padding:0; min-height:48vh; overflow:hidden; border-bottom:1px solid var(--border); background:var(--bg); }
-    .mission-trace-stage { position:relative; height:48vh; overflow:hidden; isolation:isolate; touch-action:pan-y; background:radial-gradient(ellipse 55% 65% at 50% 50%, #131313 0%, #050505 76%); }
-    .mission-trace-head { position:absolute; z-index:5; top:28px; left:48px; right:48px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--white-50); pointer-events:none; }
-    .mission-trace-title { position:absolute; z-index:4; top:50%; left:50%; transform:translate(-50%,-50%); margin:0; font-size:clamp(48px, 8vw, 122px); line-height:.8; letter-spacing:-.07em; white-space:nowrap; pointer-events:none; color:#fff; mix-blend-mode:normal; }
-    .mission-trace-subtitle { position:absolute; z-index:5; right:48px; bottom:36px; display:flex; align-items:center; gap:12px; font-family:var(--font-mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--white-50); pointer-events:none; }
-    .mission-trace-subtitle::before { content:''; display:block; width:28px; height:1px; background:var(--white-50); }
-    .mission-trace-image { position:absolute; z-index:2; width:clamp(150px, 19vw, 270px); aspect-ratio:4/5; object-fit:cover; border:1px solid var(--white-30); box-shadow:0 28px 70px rgba(0,0,0,.68); filter:grayscale(1) contrast(1.18) brightness(.86); opacity:0; pointer-events:none; --mx:0px; --my:0px; --mr:0deg; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(.55); transition:opacity .42s cubic-bezier(.16,1,.3,1),transform .42s cubic-bezier(.16,1,.3,1); will-change:transform,opacity; }
-    .mission-trace-image.in { opacity:1; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(1); }
-    .mission-trace-image.out { opacity:0; transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0) rotate(var(--mr)) scale(.94); }
-
     @media(max-width:900px) {
-      .phantom-kinetic-meta, .mission-trace-head { top:20px; left:24px; right:24px; }
-      .phantom-kinetic-meta span:last-child, .mission-trace-head span:last-child { display:none; }
+      .phantom-kinetic-meta { top:20px; left:24px; right:24px; }
+      .phantom-kinetic-meta span:last-child { display:none; }
       .phantom-kinetic { height:32svh; min-height:240px; padding:0; }
       .phantom-kinetic-stage { top:auto; height:100%; }
       .phantom-kinetic-word { font-size:clamp(34px, 10.5vw, 52px); }
@@ -1770,11 +1760,6 @@
       .project-carousel-meta span:last-child { display:none; }
       .project-carousel-title { left:24px; bottom:28px; width:170px; font-size:30px; }
       .project-carousel-card { left:57%; width:clamp(160px, 53vw, 246px); }
-      .mission-trace { min-height:46svh; }
-      .mission-trace-stage { height:46svh; }
-      .mission-trace-title { font-size:clamp(40px, 13vw, 74px); }
-      .mission-trace-subtitle { right:24px; bottom:28px; font-size:9px; }
-      .mission-trace-image { width:clamp(135px, 48vw, 220px); }
     }
 
     /* Mobile compression preserves the original site flow; no separate mobile interface is shown. */
@@ -2268,13 +2253,7 @@
       </section>
     </section>
 
-    <section class="mission-trace" id="mission-trace" aria-label="Project Phantom development activity image trail">
-      <div class="mission-trace-stage" id="missionTraceStage">
-        <div class="mission-trace-head"><span>Project Phantom / In Development</span><span>Move to Reveal the Work</span></div>
-        <h2 class="mission-trace-title">IN DEVELOPMENT</h2>
-        <div class="mission-trace-subtitle">Move Across the Mission</div>
-      </div>
-    </section>
+
 
     <section class="join-section" id="join" aria-labelledby="join-title">
       <div class="join-content">
@@ -2729,27 +2708,6 @@
         window.addEventListener('scroll', requestCarouselUpdate, { passive: true }); window.addEventListener('resize', requestCarouselUpdate, { passive: true }); requestCarouselUpdate();
       }
 
-      /* MISSION TRACE: generated aerospace documentation frames appear only after deliberate pointer travel. */
-      const missionStage = document.getElementById('missionTraceStage');
-      if (missionStage) {
-        const missionImages = ['https://projectphantom.space/assets/f1.jpeg', 'https://projectphantom.space/assets/f2.jpeg', 'https://projectphantom.space/assets/f3.jpeg', 'https://projectphantom.space/assets/f4.jpeg', 'https://projectphantom.space/assets/f5.jpeg'];
-        const activeTrace = []; const traceLimit = 8; const traceThreshold = 82;
-        let lastTrace = null, traceIndex = 0;
-        function addMissionFrame(clientX, clientY) {
-          const rect = missionStage.getBoundingClientRect(); const image = document.createElement('img');
-          image.className = 'mission-trace-image'; image.src = missionImages[traceIndex % missionImages.length]; image.alt = ''; image.draggable = false;
-          image.style.setProperty('--mx', `${clientX - rect.left}px`); image.style.setProperty('--my', `${clientY - rect.top}px`); image.style.setProperty('--mr', `${[-5, 4, -2, 5, -4][traceIndex % 5]}deg`);
-          missionStage.appendChild(image); activeTrace.push(image); traceIndex += 1; requestAnimationFrame(() => image.classList.add('in'));
-          while (activeTrace.length > traceLimit) { const old = activeTrace.shift(); old.classList.remove('in'); old.classList.add('out'); window.setTimeout(() => old.remove(), 460); }
-        }
-        function tracePointer(clientX, clientY) {
-          if (!lastTrace) { lastTrace = { x: clientX, y: clientY }; addMissionFrame(clientX, clientY); return; }
-          if (Math.hypot(clientX - lastTrace.x, clientY - lastTrace.y) >= traceThreshold) { addMissionFrame(clientX, clientY); lastTrace = { x: clientX, y: clientY }; }
-        }
-        missionStage.addEventListener('pointermove', event => tracePointer(event.clientX, event.clientY));
-        missionStage.addEventListener('pointerdown', event => tracePointer(event.clientX, event.clientY));
-        missionStage.addEventListener('pointerleave', () => { lastTrace = null; }); missionStage.addEventListener('pointercancel', () => { lastTrace = null; });
-      }
 
       /* PAST TEAM TOGGLE */
       const pastToggle = document.getElementById('pastToggle');
