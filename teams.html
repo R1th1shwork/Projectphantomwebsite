@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHANTOM | Meet the Team</title>
+  <meta name="description" content="Meet the team of teenagers based in the UAE behind Project Phantom—designing and building autonomous fixed-wing aircraft and aerospace AI.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+
+    :root {
+      --bg: #050505;
+      --bg-1: #0a0a0a;
+      --bg-2: #111111;
+      --bg-3: #1a1a1a;
+      --surface: #141414;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --white: #ffffff;
+      --white-80: rgba(255, 255, 255, 0.8);
+      --white-70: rgba(255, 255, 255, 0.7);
+      --white-50: rgba(255, 255, 255, 0.5);
+      --white-40: rgba(255, 255, 255, 0.4);
+      --white-30: rgba(255, 255, 255, 0.3);
+      --white-20: rgba(255, 255, 255, 0.2);
+      --white-10: rgba(255, 255, 255, 0.1);
+      --white-04: rgba(255, 255, 255, 0.04);
+      --accent: #ffffff;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --nav-h: 68px;
+      --alert-h: 36px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring { display: none; }
+    }
+
+    #cur-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s;
+    }
+
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9998;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, border-color 0.2s;
+    }
+
+    body:has(a:hover) #cur-ring,
+    body:has(button:hover) #cur-ring {
+      width: 56px;
+      height: 56px;
+      border-color: #fff;
+    }
+
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 1px;
+      background: #fff;
+      z-index: 102;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ALERT BANNER */
+    .alert-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--alert-h);
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 101;
+      padding: 0 24px;
+    }
+
+    .alert-text {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .alert-cta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #000;
+      background: var(--accent);
+      padding: 4px 12px;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .alert-cta:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: var(--alert-h);
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(5, 5, 5, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo-mark {
+      width: 28px;
+      height: 28px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--white-50);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+    }
+
+    .nav-cta {
+      background: var(--white);
+      color: var(--bg);
+      padding: 9px 22px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      background: var(--white-80);
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+      z-index: 101;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      transition: 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: calc(var(--alert-h) + var(--nav-h) + 70px) 48px 90px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.25;
+      animation: gridPulse 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.18; }
+      50% { opacity: 0.35; }
+    }
+
+    .page-hero-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-hero-label::before,
+    .page-hero-label::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--white-30);
+    }
+
+    .page-hero h1 {
+      font-size: clamp(38px, 6.5vw, 84px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-hero-desc {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--white-50);
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .team-tag {
+      display: inline-block;
+      margin-top: 24px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-1);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* SECTION ARCHITECTURE */
+    section {
+      padding: 96px 48px;
+      position: relative;
+    }
+
+    .team-tier-section {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tier-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 64px;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--white-30);
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.8vw, 48px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--white-50);
+      margin: 0 auto;
+    }
+
+    /* TEAM GRID & CARDS */
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      gap: 56px 48px;
+      flex-wrap: wrap;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      width: clamp(220px, 28vw, 290px);
+      transition: transform 0.3s ease;
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: clamp(170px, 24vw, 220px);
+      height: clamp(170px, 24vw, 220px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid var(--white-20);
+      transition: border-color .4s ease, transform .6s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      border-top-color: #fff;
+      border-right-color: #fff;
+      animation: spinRing 7s linear infinite;
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+
+    .team-card:hover .avatar-ring::after {
+      opacity: 1;
+    }
+
+    .team-card:hover .avatar-ring::before {
+      border-color: var(--white-50);
+      transform: scale(1.04);
+    }
+
+    @keyframes spinRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .avatar-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(1) contrast(1.1);
+      transition: filter .4s ease, transform .6s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .team-card:hover .avatar-photo img {
+      filter: grayscale(0) contrast(1);
+      transform: scale(1.06);
+    }
+
+    .avatar-initials {
+      font-family: var(--font-mono);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--white-30);
+      letter-spacing: .05em;
+    }
+
+    .avatar-linkedin-badge {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 28px;
+      height: 28px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+      opacity: 0;
+      transform: scale(.7);
+      transition: opacity .3s, transform .3s;
+    }
+
+    .team-card:hover .avatar-linkedin-badge {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .avatar-linkedin-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .team-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+    }
+
+    .team-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--white-50);
+      max-width: 240px;
+      margin-bottom: 16px;
+    }
+
+    .team-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .team-tag-chip {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      color: rgba(255, 255, 255, 0.55);
+      background: var(--bg-1);
+    }
+
+    /* ORIGINAL CREW (ALUMNI) */
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .team-card-small {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s;
+    }
+
+    .avatar-ring-small {
+      position: relative;
+      width: 108px;
+      height: 108px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .avatar-ring-small::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid var(--white-10);
+      transition: border-color .3s, transform .3s;
+    }
+
+    .team-card-small:hover .avatar-ring-small::before {
+      border-color: var(--white-40);
+      transform: scale(1.05);
+    }
+
+    .avatar-photo-small {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-photo-small img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(1) contrast(1.1);
+      transition: filter .3s, transform .4s;
+    }
+
+    .team-card-small:hover .avatar-photo-small img {
+      filter: grayscale(0) contrast(1);
+      transform: scale(1.08);
+    }
+
+    .avatar-initials-small {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white-30);
+      letter-spacing: .05em;
+    }
+
+    .team-name-small {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: 4px;
+    }
+
+    .team-role-small {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 8px;
+    }
+
+    .team-desc-small {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--white-40);
+      max-width: 220px;
+    }
+
+    /* REVEALS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* JOIN / CONTACT CTA */
+    .join-tier-section {
+      background: var(--bg-1);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 100px 48px;
+    }
+
+    .join-tier-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .btn-primary, .btn-secondary {
+      text-decoration: none;
+      padding: 16px 36px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #000;
+      border: 1px solid #fff;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--white-20);
+      color: #fff;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white-50);
+      background: var(--white-04);
+      transform: translateY(-2px);
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--white-40);
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--white-40);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav {
+        padding: 16px 24px;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(5, 5, 5, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 20px 24px;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+      .page-hero {
+        padding: calc(var(--alert-h) + var(--nav-h) + 40px) 24px 60px;
+      }
+      section {
+        padding: 72px 24px;
+      }
+      .team-grid {
+        gap: 48px 24px;
+      }
+      .alumni-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 24px;
+      }
+      footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 32px 24px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .alumni-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <div class="alert-banner">
+    <span class="alert-text">PHANTOM IS IN ACTIVE DEVELOPMENT. FOLLOW THE BUILD.</span>
+    <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="alert-cta">TRACK DEVELOPMENT</a>
+  </div>
+
+  <nav id="mainNav" aria-label="Main navigation">
+    <a href="./" class="nav-logo">
+      <img src="assets/nav.png" alt="Project Phantom logo mark" class="nav-logo-mark" width="500" height="500" loading="eager" />
+      PHANTOM
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="./">Overview</a></li>
+      <li><a href="technology">Technology</a></li>
+      <li><a href="mercury">Mercury AI</a></li>
+      <li><a href="deployment">Deployment</a></li>
+      <li><a href="teams" class="active">Team</a></li>
+    </ul>
+
+    <a href="./#contact" class="nav-cta">Get in Touch</a>
+  </nav>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-labelledby="hero-title">
+      <div class="page-hero-bg"></div>
+      <div class="page-hero-label">The Collective</div>
+      <h1 id="hero-title">THE MINDS BEHIND PHANTOM</h1>
+      <p class="page-hero-desc">
+        A team of teenagers based in the UAE, designing and building autonomous aircraft most professionals haven't attempted.
+      </p>
+      <div class="team-tag">Youth-Led Aerospace Initiative</div>
+    </section>
+
+    <!-- SECTION 1: LEADERSHIP -->
+    <section class="team-tier-section" id="leadership" aria-labelledby="leadership-title">
+      <div class="tier-header">
+        <div class="section-label reveal">01 / Executive Leadership</div>
+        <h2 class="section-title reveal" id="leadership-title">Founder &amp; Co-Founders</h2>
+        <p class="section-desc reveal reveal-delay-1">
+          Directing platform architecture, UAV flight engineering, and strategic aerospace partnerships.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Rithish Dharanidharan -->
+        <a href="https://projectphantom.space/rithishdharanidharan" target="_blank" rel="noopener" class="team-card reveal">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/rit.png" alt="Rithish Dharanidharan, Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">RD</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Rithish Dharanidharan</div>
+          <div class="team-role">Founder</div>
+          <div class="team-desc">Leads overall UAV development and platform direction.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Flight Systems</span>
+            <span class="team-tag-chip">Aerospace</span>
+          </div>
+        </a>
+
+        <!-- Meherab Hossain Mokter -->
+        <a href="https://projectphantom.space/meherabhossain" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/meh.jpg" alt="Meherab Hossain Mokter, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">MH</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Meherab Hossain Mokter</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-desc">Leads communications and assists development.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Communications</span>
+            <span class="team-tag-chip">Research</span>
+          </div>
+        </a>
+
+        <!-- Haneen Mohammed Almadani -->
+        <a href="https://www.linkedin.com/company/projectphantom/" target="_blank" rel="noopener" class="team-card reveal reveal-delay-2">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/han.jpeg" alt="Haneen Mohammed Almadani, Co-Founder of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">HA</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Haneen Mohammed Almadani</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-desc">Drives ecosystem partnerships and external relations.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Ecosystem</span>
+            <span class="team-tag-chip">Public Relations</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CORE TEAM -->
+    <section class="team-tier-section" id="core-team" aria-labelledby="core-team-title">
+      <div class="tier-header">
+        <div class="section-label reveal">02 / Department Leads</div>
+        <h2 class="section-title reveal" id="core-team-title">Engineering, Ops &amp; Media</h2>
+        <p class="section-desc reveal reveal-delay-1">
+          The core team executing CAD aerodynamics, flight logistics, creative brand direction, and external outreach.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Munazzah Anwar -->
+        <div class="team-card reveal">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/mun.jpeg" alt="Munazzah Anwar, Operations Lead of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">MA</span>
+            </div>
+          </div>
+          <div class="team-name">Munazzah Anwar</div>
+          <div class="team-role">Operations Lead</div>
+          <div class="team-desc">Manages operations and team strategy.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Operations</span>
+            <span class="team-tag-chip">Strategy</span>
+          </div>
+        </div>
+
+        <!-- Mohammed Zabith -->
+        <a href="https://projectphantom.space/mohammedzabith" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/zab.jpg" alt="Mohammed Zabith, Aerodynamics & CAD Engineer at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">MZ</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Mohammed Zabith</div>
+          <div class="team-role">Aerodynamics &amp; CAD Engineer</div>
+          <div class="team-desc">Develops CAD models and aerodynamic designs for Phantom.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">CAD</span>
+            <span class="team-tag-chip">Aerodynamics</span>
+          </div>
+        </a>
+
+        <!-- Amina Samreen -->
+        <div class="team-card reveal reveal-delay-2">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/ami.jpeg" alt="Amina Samreen, Outreach Lead of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">AM</span>
+            </div>
+          </div>
+          <div class="team-name">Amina Samreen</div>
+          <div class="team-role">Outreach Lead</div>
+          <div class="team-desc">Leads communications and partner outreach.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Communications</span>
+            <span class="team-tag-chip">Outreach</span>
+          </div>
+        </div>
+
+        <!-- Mohammed Fuad -->
+        <a href="https://projectphantom.space/mohammedfuad" target="_blank" rel="noopener" class="team-card reveal reveal-delay-1">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/fuad.jpeg" alt="Mohammed Fuad, Media Lead at Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">MF</span>
+            </div>
+            <div class="avatar-linkedin-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </div>
+          </div>
+          <div class="team-name">Mohammed Fuad</div>
+          <div class="team-role">Media Lead</div>
+          <div class="team-desc">Specializes in videography and visual storytelling.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Videography</span>
+            <span class="team-tag-chip">Media Production</span>
+          </div>
+        </a>
+
+        <!-- Habiba Ansari -->
+        <div class="team-card reveal reveal-delay-2">
+          <div class="avatar-ring">
+            <div class="avatar-photo">
+              <img src="assets/hab.jpeg" alt="Habiba Ansari, Marketing & Creative Head of Project Phantom" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials').style.display='flex';" />
+              <span class="avatar-initials" style="display:none;">HA</span>
+            </div>
+          </div>
+          <div class="team-name">Habiba Ansari</div>
+          <div class="team-role">Marketing &amp; Creative Head</div>
+          <div class="team-desc">Drives creative vision and marketing.</div>
+          <div class="team-tags">
+            <span class="team-tag-chip">Marketing</span>
+            <span class="team-tag-chip">Creative</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ORIGINAL CREW -->
+    <section class="team-tier-section" id="alumni" aria-labelledby="alumni-title">
+      <div class="tier-header">
+        <div class="section-label reveal">03 / Build History</div>
+        <h2 class="section-title reveal" id="alumni-title">The Original Crew</h2>
+        <p class="section-desc reveal reveal-delay-1">
+          The early builders behind Phantom's first iteration. Not actively with the project today, but permanently part of the journey.
+        </p>
+      </div>
+
+      <div class="alumni-grid">
+        <!-- Mufeed -->
+        <div class="team-card-small reveal">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/muf.jpg" alt="Mufeed, former AI Architect" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">MF</span>
+            </div>
+          </div>
+          <div class="team-name-small">Mufeed</div>
+          <div class="team-role-small">AI Architect</div>
+          <div class="team-desc-small">Built the software stack and trained Mercury AI.</div>
+        </div>
+
+        <!-- Ashwin Krishnakumar -->
+        <a href="https://www.linkedin.com/in/ashwin-krishnakumar-074a973a7/" target="_blank" rel="noopener" class="team-card-small reveal reveal-delay-1">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/ash.jpg" alt="Ashwin Krishnakumar, former Head Speaker" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">AK</span>
+            </div>
+          </div>
+          <div class="team-name-small">Ashwin Krishnakumar</div>
+          <div class="team-role-small">Head Speaker</div>
+          <div class="team-desc-small">Led presentations and pitched Phantom to judges and investors.</div>
+        </a>
+
+        <!-- Devaj Shylesh Nair -->
+        <a href="https://www.linkedin.com/in/devaj-shylesh-nair-1bb1493a5/" target="_blank" rel="noopener" class="team-card-small reveal reveal-delay-2">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/dev.jpg" alt="Devaj Shylesh Nair, former Speaker & Dev" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">DN</span>
+            </div>
+          </div>
+          <div class="team-name-small">Devaj Shylesh Nair</div>
+          <div class="team-role-small">Speaker &amp; Dev</div>
+          <div class="team-desc-small">Spoke on stage and assisted with platform development.</div>
+        </a>
+
+        <!-- Roopesh Kr -->
+        <a href="https://www.linkedin.com/in/roopesh-kr-build/" target="_blank" rel="noopener" class="team-card-small reveal reveal-delay-3">
+          <div class="avatar-ring-small">
+            <div class="avatar-photo-small">
+              <img src="assets/roo.png" alt="Roopesh Kr, former Outreach & Research" loading="lazy" width="400" height="400" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-initials-small').style.display='flex';" />
+              <span class="avatar-initials-small" style="display:none;">RK</span>
+            </div>
+          </div>
+          <div class="team-name-small">Roopesh Kr</div>
+          <div class="team-role-small">Outreach &amp; Research</div>
+          <div class="team-desc-small">Connected us with partners and helped draft the thesis.</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 4: JOIN US / CTA -->
+    <section class="join-tier-section" aria-labelledby="join-title">
+      <div class="join-tier-content">
+        <div class="section-label reveal">Join the Mission</div>
+        <h2 class="section-title reveal" id="join-title">Build the Future with Us</h2>
+        <p class="section-desc reveal reveal-delay-1">
+          We are always looking for driven builders, aerospace engineers, researchers, and creators to shape autonomous flight.
+        </p>
+        <div class="cta-actions reveal reveal-delay-2">
+          <a href="https://forms.gle/gHDMvFZ5h9i4fhd97" target="_blank" rel="noopener" class="btn-primary">
+            <span>Apply Now</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+          <a href="mailto:rithishwork@gmail.com" class="btn-secondary">
+            <span>Email Us</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 PHANTOM UAV PLATFORM</p>
+    <div class="footer-links">
+      <a href="./">Overview</a>
+      <a href="technology">Technology</a>
+      <a href="mercury">Mercury AI</a>
+      <a href="deployment">Deployment</a>
+      <a href="teams">Team</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Scroll progress indicator
+      const progressBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight * 100) : 0;
+        progressBar.style.width = pct + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(pct));
+      }, { passive: true });
+
+      // Fine pointer custom cursor
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (hasFinePointer) {
+        const curDot = document.getElementById('cur-dot');
+        const curRing = document.getElementById('cur-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        (function animCursor() {
+          curDot.style.left = mx + 'px';
+          curDot.style.top = my + 'px';
+          rx += (mx - rx) * 0.14;
+          ry += (my - ry) * 0.14;
+          curRing.style.left = rx + 'px';
+          curRing.style.top = ry + 'px';
+          requestAnimationFrame(animCursor);
+        })();
+      }
+
+      // Reveal on scroll
+      const revealEls = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+
+      // Mobile nav hamburger toggle
+      const navToggle = document.getElementById('navToggle');
+      const navLinksEl = document.getElementById('navLinks');
+      if (navToggle && navLinksEl) {
+        navToggle.addEventListener('click', () => {
+          navToggle.classList.toggle('active');
+          navLinksEl.classList.toggle('open');
+        });
+        navLinksEl.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navLinksEl.classList.remove('open');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
