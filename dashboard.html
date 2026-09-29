@@ -48,7 +48,7 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
     <div class="brand">
       <div style="width:34px;height:34px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-weight:bold;color:var(--yellow);font-size:12px;">N1</div>
       <div>
-        <div class="kicker">Telemetry Link Active</div>
+        <div class="kicker">Live Wi-Fi Data Feed</div>
         <div class="title">NAQA-1 Mission Dashboard</div>
       </div>
     </div>
@@ -66,7 +66,7 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
         <div class="viewport">
           <div class="xyz" style="width:100%;max-width:550px;">
             <div><span>GPS LAT / LON</span><b id="hud-latlon" style="font-size:10px;">25.2048° N, 55.2708° E</b></div>
-            <div><span>ALTITUDE</span><b id="hud-alt">142.6 m</b></div>
+            <div><span>AMBIENT TEMP</span><b id="hud-temp">24.2 °C</b></div>
             <div><span>MQ-135 GAS</span><b id="hud-mq">412 PPM</b></div>
           </div>
         </div>
@@ -83,7 +83,7 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
           </div>
           <div class="readout">
             <div class="lab">TEMPERATURE</div>
-            <div class="num" id="stat-temp">34.2 °C</div>
+            <div class="num" id="stat-temp">24.2 °C</div>
             <div class="unit">BME680 Sensor</div>
           </div>
           <div class="readout">
@@ -98,7 +98,7 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
         <h2>LIVE TELEMETRY GRAPHS</h2>
         <div class="charts-container">
           <div class="chart-wrapper">
-            <canvas id="altChart"></canvas>
+            <canvas id="tempChart"></canvas>
           </div>
           <div class="chart-wrapper">
             <canvas id="gasChart"></canvas>
@@ -140,15 +140,13 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
         <div class="statusrow"><span>I2C FRAM Bus</span><span class="ok">Verified</span></div>
         <div class="statusrow"><span>INA216 Power Sensor</span><span class="ok" id="sensor-power">13.7 W</span></div>
         <div class="statusrow"><span>ESC Motor Channels</span><span class="ok">Responsive</span></div>
-        <div class="statusrow"><span>Flight Controller</span><span class="ok">Active</span></div>
-        <div class="statusrow"><span>Telemetry Radio</span><span class="ok">Tx/Rx Sync</span></div>
+        <div class="statusrow"><span>Live Wi-Fi Data Feed</span><span class="ok">Connected</span></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // Setup Chart.js defaults for dark theme
   Chart.defaults.color = '#9ba1aa';
   Chart.defaults.font.size = 9;
   Chart.defaults.font.family = 'Inter, sans-serif';
@@ -164,12 +162,12 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
     }
   };
 
-  // Init Altitude Chart
-  const ctxAlt = document.getElementById('altChart').getContext('2d');
-  const altChart = new Chart(ctxAlt, {
+  // Init Temperature Chart
+  const ctxTemp = document.getElementById('tempChart').getContext('2d');
+  const tempChart = new Chart(ctxTemp, {
     type: 'line',
-    data: { labels: [], datasets: [{ label: 'Altitude (m)', data: [], borderColor: '#82aaff', backgroundColor: 'rgba(130, 170, 255, 0.1)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] },
-    options: { ...chartOptions, plugins: { title: { display: true, text: 'Altitude (m)', color: '#f4f4f2', font: {size: 10} } } }
+    data: { labels: [], datasets: [{ label: 'Temperature (°C)', data: [], borderColor: '#82aaff', backgroundColor: 'rgba(130, 170, 255, 0.1)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] },
+    options: { ...chartOptions, plugins: { title: { display: true, text: 'Temperature (°C)', color: '#f4f4f2', font: {size: 10} } } }
   });
 
   // Init Gas Chart
@@ -180,26 +178,22 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
     options: { ...chartOptions, plugins: { title: { display: true, text: 'MQ-135 Gas Level (PPM)', color: '#f4f4f2', font: {size: 10} } } }
   });
 
-  // Data update loop
-  let timeLabel = 0;
   setInterval(() => {
     const now = new Date();
     document.getElementById('utc-clock').innerText = now.toUTCString().split(',')[1].trim();
     
     let lat = (25.2048 + (Math.random() - 0.5) * 0.002).toFixed(4);
     let lon = (55.2708 + (Math.random() - 0.5) * 0.002).toFixed(4);
-    let alt = (142.0 + Math.random() * 2).toFixed(1);
     let mq = Math.floor(400 + Math.random() * 15);
-    let temp = (34.0 + Math.random() * 0.5).toFixed(1);
+    let temp = (24.1 + Math.random() * 0.6).toFixed(1);
     let current = (1.2 + Math.random() * 0.1).toFixed(2);
     let volt = (11.0 + Math.random() * 0.1).toFixed(1);
     let roll = ((Math.random() - 0.5) * 2).toFixed(1);
     let pitch = ((Math.random() - 0.5) * 2).toFixed(1);
     let yaw = (180 + Math.random() * 2).toFixed(1);
 
-    // Update DOM texts
     document.getElementById('hud-latlon').innerText = `${lat}° N, ${lon}° E`;
-    document.getElementById('hud-alt').innerText = `${alt} m`;
+    document.getElementById('hud-temp').innerText = `${temp} °C`;
     document.getElementById('hud-mq').innerText = `${mq} PPM`;
     document.getElementById('stat-current').innerText = `${current} A`;
     document.getElementById('stat-volt').innerText = `${volt} V (3S)`;
@@ -212,17 +206,16 @@ canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding
     document.getElementById('sensor-mq').innerText = `Normal (${mq} PPM)`;
     document.getElementById('sensor-power').innerText = `${(current * volt).toFixed(1)} W`;
 
-    // Update Charts
     const timeStr = now.getSeconds() + 's';
     
-    // Altitude Graph
-    altChart.data.labels.push(timeStr);
-    altChart.data.datasets[0].data.push(alt);
-    if (altChart.data.labels.length > 20) {
-      altChart.data.labels.shift();
-      altChart.data.datasets[0].data.shift();
+    // Temp Graph
+    tempChart.data.labels.push(timeStr);
+    tempChart.data.datasets[0].data.push(temp);
+    if (tempChart.data.labels.length > 20) {
+      tempChart.data.labels.shift();
+      tempChart.data.datasets[0].data.shift();
     }
-    altChart.update();
+    tempChart.update();
 
     // Gas Graph
     gasChart.data.labels.push(timeStr);
