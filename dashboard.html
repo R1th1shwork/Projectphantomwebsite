@@ -3,224 +3,236 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NAQA-1 Mission Dashboard (Mock Localhost)</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<title>NAQA-1 Mission Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root{--bg:#060606;--panel:#121417;--line:#34383f;--text:#f4f4f2;--muted:#9ba1aa;--yellow:#f4c84a;--green:#c9e7c9;--blue:#b7bcc4;--pink:#d4d7dc}
+:root{--bg:#060606;--panel:#121417;--line:#34383f;--text:#f4f4f2;--muted:#9ba1aa;--yellow:#f4c84a;--green:#c9e7c9;--blue:#82aaff}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 78% -10%,#2a2d32 0,#121417 34%,#060606 78%);color:var(--text);font:13px Inter,system-ui,sans-serif}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:42px 42px}
-.wrap{max-width:1500px;margin:auto;padding:22px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px}
-.brand{display:flex;align-items:center;gap:15px}
-.brand img{width:65px;height:65px;border-radius:50%;object-fit:contain}
-.kicker{font-size:11px;color:#eee;letter-spacing:.17em;text-transform:uppercase}
-.title{font-size:clamp(20px,3vw,34px);font-weight:750;margin:4px 0}
-.subtitle,.hint{color:var(--muted);font-size:12px}
-.topright{text-align:right}
-.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #777d85;border-radius:30px;padding:8px 12px;color:var(--green);background:#181b20}
-.led{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 13px var(--green)}
-.clock{color:var(--muted);font-size:11px;margin-top:8px}
-.hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(330px,.75fr);gap:16px}
-.card{background:linear-gradient(145deg,#1a1d21ee,#101215f5);border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 40px #0004;padding:16px}
-.card h2{font-size:13px;letter-spacing:.08em;margin:0 0 4px}
-.earth-card{padding:0;overflow:hidden}
-.earth-head{display:flex;justify-content:space-between;gap:12px;padding:15px 16px 10px}
-.tag{font-size:10px;border:1px solid #686e76;color:#f0f0ec;padding:6px 8px;border-radius:5px}
-.viewport{height:515px;background:#08090b;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
-.earth-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-.readout{padding:12px 14px;border-right:1px solid var(--line)}
-.lab{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.num{font-size:19px;font-weight:700;margin-top:5px}
-.unit{font-size:11px;color:var(--muted);font-weight:500}
-.side{display:flex;flex-direction:column;gap:16px}
-.decision{border-color:#777d85}
-.decision .big{font-size:28px;font-weight:800;color:#f0f0ec;margin:10px 0 2px}
-.decision p{font-size:12px;line-height:1.55;color:#d2d3d0;margin:0}
-.bar{height:8px;background:#0b0c0e;border-radius:8px;margin:13px 0 6px;overflow:hidden}
-.bar span{display:block;height:100%;background:linear-gradient(90deg,#777d85,var(--yellow));border-radius:8px}
-.meta,.conops-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
-.xyz,.gpsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
-.xyz div,.smallstat,.mode{background:#171a1e;border:1px solid #373c43;padding:9px;border-radius:6px}
-.xyz b{display:block;font-size:15px;margin-top:4px}
-.xyz span{font-size:10px;color:var(--muted)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-.conops{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.mode.current{border-color:#eee;box-shadow:0 0 0 1px #fff3}
-.mode-head{display:flex;justify-content:space-between;font-weight:700}
-.mode small{display:block;color:var(--muted);margin-top:6px;font-size:10px}
-.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#121417;border:1px solid #34383f;border-radius:8px;padding:8px}
-.chart{height:175px}
-.chart canvas{width:100%!important;height:100%!important}
-.bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}
-.smallstat .num{font-size:16px}
-.statusrow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #34383f}
+html,body{height:100vh;margin:0;overflow:hidden;background:radial-gradient(circle at 78% -10%,#2a2d32 0,#121417 34%,#060606 78%);color:var(--text);font:11px/1.3 Inter,system-ui,sans-serif}
+.wrap{height:100vh;display:flex;flex-direction:column;max-width:1450px;margin:auto;padding:10px 14px;gap:10px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px}
+.kicker{font-size:9px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.title{font-size:18px;font-weight:750;margin:2px 0}
+.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid #777d85;border-radius:20px;padding:4px 8px;color:var(--green);background:#181b20;font-size:10px}
+.led{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.clock{color:var(--muted);font-size:9px;text-align:right;margin-top:3px}
+.main-grid{display:grid;grid-template-columns:1.4fr 0.8fr;gap:10px;flex:1;min-height:0}
+.col{display:flex;flex-direction:column;gap:10px;min-height:0}
+.card{background:linear-gradient(145deg,#1a1d21ee,#101215f5);border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;flex-direction:column}
+.card h2{font-size:10px;letter-spacing:.08em;margin:0 0 6px;color:var(--muted);flex-shrink:0}
+.viewport{background:#08090b;border-radius:6px;padding:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;flex:1;min-height:0}
+.foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px;flex-shrink:0}
+.readout{background:#15181c;border:1px solid var(--line);border-radius:5px;padding:6px}
+.lab{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.num{font-size:14px;font-weight:700;margin-top:2px}
+.unit{font-size:9px;color:var(--muted)}
+.xyz{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.xyz div{background:#171a1e;border:1px solid #373c43;padding:6px;border-radius:5px}
+.xyz b{display:block;font-size:12px;margin-top:2px}
+.xyz span{font-size:8px;color:var(--muted)}
+.statusrow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #34383f;font-size:10px}
 .statusrow:last-child{border:0}
 .ok{color:var(--green)}
-.footer{color:var(--muted);font-size:10px;padding:18px 2px;text-align:center}
-@media(max-width:1000px){.hero,.bottom{grid-template-columns:1fr}.viewport{height:430px}}
+.bar{height:5px;background:#0b0c0e;border-radius:5px;margin:6px 0 3px;overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,#777d85,var(--yellow));border-radius:5px}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:9px}
+.charts-container{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0}
+.chart-wrapper{position:relative;height:100%;width:100%;min-height:0}
+canvas{background:#121417;border:1px solid var(--line);border-radius:6px;padding:4px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <div style="width:65px;height:65px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-weight:bold;color:var(--yellow);">N1</div>
+      <div style="width:34px;height:34px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-weight:bold;color:var(--yellow);font-size:12px;">N1</div>
       <div>
-        <div class="kicker">Telemetry Localhost Emulator</div>
+        <div class="kicker">Telemetry Link Active</div>
         <div class="title">NAQA-1 Mission Dashboard</div>
-        <div class="subtitle">Fake Localhost Feed Active (No 3D Earth)</div>
       </div>
     </div>
-    <div class="topright">
-      <div class="pill"><span class="led"></span> <span id="sys-status">SYS OK / MOCK ACTIVE</span></div>
+    <div>
+      <div class="pill"><span class="led"></span> <span>SYS NOMINAL</span></div>
       <div class="clock" id="utc-clock">00:00:00 UTC</div>
     </div>
   </header>
 
-  <div class="hero">
-    <!-- Replaced 3D Earth Viewport with Telemetry Data & Status Panel -->
-    <div class="card earth-card">
-      <div class="earth-head">
-        <div>
-          <h2>TELEMETRY STREAM & MOCK SIMULATOR</h2>
-          <div class="subtitle">Live Sensor Feed & Diagnostics</div>
+  <div class="main-grid">
+    <!-- Left Column: HUD & Charts -->
+    <div class="col">
+      <div class="card" style="flex:0.8;">
+        <h2>TELEMETRY STREAM & SENSOR HUD</h2>
+        <div class="viewport">
+          <div class="xyz" style="width:100%;max-width:550px;">
+            <div><span>GPS LAT / LON</span><b id="hud-latlon" style="font-size:10px;">25.2048° N, 55.2708° E</b></div>
+            <div><span>ALTITUDE</span><b id="hud-alt">142.6 m</b></div>
+            <div><span>MQ-135 GAS</span><b id="hud-mq">412 PPM</b></div>
+          </div>
         </div>
-        <span class="tag">LOCALHOST MOCK MODE</span>
+        <div class="foot-grid">
+          <div class="readout">
+            <div class="lab">I2C BUS</div>
+            <div class="num" style="color:var(--green)">ONLINE</div>
+            <div class="unit">CRC: 0 Errors</div>
+          </div>
+          <div class="readout">
+            <div class="lab">INA CURRENT</div>
+            <div class="num" id="stat-current">1.24 A</div>
+            <div class="unit" id="stat-volt">11.1 V (3S)</div>
+          </div>
+          <div class="readout">
+            <div class="lab">TEMPERATURE</div>
+            <div class="num" id="stat-temp">34.2 °C</div>
+            <div class="unit">BME680 Sensor</div>
+          </div>
+          <div class="readout">
+            <div class="lab">MOTOR DRIVER</div>
+            <div class="num" style="color:var(--green)">ARMED</div>
+            <div class="unit">PWM: Normal</div>
+          </div>
+        </div>
       </div>
-      <div class="viewport">
-        <h3 style="color: var(--yellow); margin-bottom: 5px;">LIVE MOCK HUD SIMULATION</h3>
-        <p style="color: var(--muted); max-width: 450px;">3D Earth rendering replaced for local browser compatibility. Streaming live randomized sensor states for GPS, Gas, Motors, and I2C buses.</p>
-        <div class="xyz" style="width: 100%; max-width: 500px; text-align: left;">
-          <div><span>LAT / LON</span><b id="hud-latlon">25.2048° N, 55.2708° E</b></div>
-          <div><span>ALTITUDE</span><b id="hud-alt">142.6 m</b></div>
-          <div><span>MQ-135 GAS</span><b id="hud-mq">412 PPM</b></div>
-        </div>
-      </div>
-      <div class="earth-foot">
-        <div class="readout">
-          <div class="lab">I2C BUS</div>
-          <div class="num" id="stat-i2c" style="color:var(--green)">CONNECTED</div>
-          <div class="unit">Frame Error: 0</div>
-        </div>
-        <div class="readout">
-          <div class="lab">INA CURRENT</div>
-          <div class="num" id="stat-current">1.24 A</div>
-          <div class="unit" id="stat-volt">11.1 V (3S LiPo)</div>
-        </div>
-        <div class="readout">
-          <div class="lab">TEMPERATURE</div>
-          <div class="num" id="stat-temp">34.2 °C</div>
-          <div class="unit">BME680 / Internal</div>
-        </div>
-        <div class="readout" style="border:0">
-          <div class="lab">MOTOR DRIVER</div>
-          <div class="num" id="stat-motor" style="color:var(--green)">ACTIVE</div>
-          <div class="unit">PWM: Normal</div>
+
+      <div class="card" style="flex:1.2;">
+        <h2>LIVE TELEMETRY GRAPHS</h2>
+        <div class="charts-container">
+          <div class="chart-wrapper">
+            <canvas id="altChart"></canvas>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="gasChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Side Panel -->
-    <div class="side">
-      <div class="card decision">
+    <!-- Right Column: Status & Numbers -->
+    <div class="col">
+      <div class="card">
         <h2>SYSTEM HEALTH</h2>
-        <div class="big" id="health-score">98.4%</div>
-        <p>All telemetry parameters operating inside nominal safety thresholds.</p>
-        <div class="bar"><span id="health-bar" style="width:98%;"></span></div>
-        <div class="meta"><span>CPU Load: 14%</span><span>Memory: 42%</span></div>
+        <div style="font-size:20px;font-weight:800;color:#f0f0ec;">98.4%</div>
+        <div class="bar"><span style="width:98%;"></span></div>
+        <div class="meta"><span>CPU: 14%</span><span>RAM: 42%</span></div>
       </div>
 
       <div class="card">
-        <h2>GPS POSITION COORDINATES</h2>
-        <div class="gpsgrid">
-          <div><span>LATITUDE</span><b id="gps-lat" style="font-size:12px;">25.3463 N</b></div>
-          <div><span>LONGITUDE</span><b id="gps-lon" style="font-size:12px;">55.4209 E</b></div>
-          <div><span>FIX / SV</span><b id="gps-fix" style="color:var(--green)">3D / 14</b></div>
+        <h2>GPS POSITION FIX</h2>
+        <div class="xyz">
+          <div><span>LATITUDE</span><b id="gps-lat" style="font-size:10px;">25.3463 N</b></div>
+          <div><span>LONGITUDE</span><b id="gps-lon" style="font-size:10px;">55.4209 E</b></div>
+          <div><span>FIX / SV</span><b style="color:var(--green)">3D / 14</b></div>
         </div>
       </div>
 
       <div class="card">
-        <h2>XYZ ORIENTATION (IMU)</h2>
+        <h2>IMU ORIENTATION</h2>
         <div class="xyz">
           <div><span>ROLL (X)</span><b id="imu-x">+1.2°</b></div>
           <div><span>PITCH (Y)</span><b id="imu-y">-0.4°</b></div>
           <div><span>YAW (Z)</span><b id="imu-z">184.5°</b></div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="bottom">
-    <div class="card">
-      <h2>SENSOR SUBSYSTEM READOUTS</h2>
-      <div class="statusrow"><span>MQ-135 Air Quality Sensor</span><span class="ok" id="sensor-mq">Normal (412 PPM)</span></div>
-      <div class="statusrow"><span>I2C Bus Status (FRAM Check)</span><span class="ok" id="sensor-i2c">Verified (CRC OK)</span></div>
-      <div class="statusrow"><span>INA216 Current / Power Sensor</span><span class="ok" id="sensor-ina">13.7 W (1.24A @ 11.1V)</span></div>
-      <div class="statusrow"><span>Motor Driver Check (ESC / PWM)</span><span class="ok" id="sensor-motor">All 4 Channels Responding</span></div>
-      <div class="statusrow" style="border:0"><span>Internal Temperature (MCU/BME)</span><span class="ok" id="sensor-temp">34.2 °C</span></div>
-    </div>
-
-    <div class="card">
-      <h2>LOCALHOST CONTROLS</h2>
-      <p class="hint" style="margin-bottom: 12px;">Simulate live fluctuations or inject fault codes for testing your dashboard UI elements.</p>
-      <div style="display:flex; gap:10px;">
-        <button onclick="toggleMockSpike()" id="spike-btn" style="background:#171a1e; color:var(--text); border:1px solid #373c43; padding:8px 14px; border-radius:6px; cursor:pointer;">Inject Gas Spike</button>
-        <button onclick="resetMocks()" style="background:#171a1e; color:var(--text); border:1px solid #373c43; padding:8px 14px; border-radius:6px; cursor:pointer;">Reset Nominal</button>
+      <div class="card" style="flex:1;">
+        <h2>SUBSYSTEM READOUTS</h2>
+        <div class="statusrow"><span>MQ-135 Air Quality</span><span class="ok" id="sensor-mq">Normal (412 PPM)</span></div>
+        <div class="statusrow"><span>I2C FRAM Bus</span><span class="ok">Verified</span></div>
+        <div class="statusrow"><span>INA216 Power Sensor</span><span class="ok" id="sensor-power">13.7 W</span></div>
+        <div class="statusrow"><span>ESC Motor Channels</span><span class="ok">Responsive</span></div>
+        <div class="statusrow"><span>Flight Controller</span><span class="ok">Active</span></div>
+        <div class="statusrow"><span>Telemetry Radio</span><span class="ok">Tx/Rx Sync</span></div>
       </div>
     </div>
   </div>
-
-  <footer class="footer">NAQA-1 Mission Dashboard &bull; Localhost Telemetry Emulator</footer>
 </div>
 
 <script>
-  // Clock update
+  // Setup Chart.js defaults for dark theme
+  Chart.defaults.color = '#9ba1aa';
+  Chart.defaults.font.size = 9;
+  Chart.defaults.font.family = 'Inter, sans-serif';
+  
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 0 },
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false, color: '#34383f' } },
+      y: { grid: { color: '#34383f' }, border: { display: false } }
+    }
+  };
+
+  // Init Altitude Chart
+  const ctxAlt = document.getElementById('altChart').getContext('2d');
+  const altChart = new Chart(ctxAlt, {
+    type: 'line',
+    data: { labels: [], datasets: [{ label: 'Altitude (m)', data: [], borderColor: '#82aaff', backgroundColor: 'rgba(130, 170, 255, 0.1)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] },
+    options: { ...chartOptions, plugins: { title: { display: true, text: 'Altitude (m)', color: '#f4f4f2', font: {size: 10} } } }
+  });
+
+  // Init Gas Chart
+  const ctxGas = document.getElementById('gasChart').getContext('2d');
+  const gasChart = new Chart(ctxGas, {
+    type: 'line',
+    data: { labels: [], datasets: [{ label: 'MQ-135 (PPM)', data: [], borderColor: '#f4c84a', backgroundColor: 'rgba(244, 200, 74, 0.1)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] },
+    options: { ...chartOptions, plugins: { title: { display: true, text: 'MQ-135 Gas Level (PPM)', color: '#f4f4f2', font: {size: 10} } } }
+  });
+
+  // Data update loop
+  let timeLabel = 0;
   setInterval(() => {
     const now = new Date();
     document.getElementById('utc-clock').innerText = now.toUTCString().split(',')[1].trim();
-  }, 1000);
-
-  // Mock Data Generator Loop
-  let spikeMode = false;
-  function toggleMockSpike() { spikeMode = !spikeMode; document.getElementById('spike-btn').style.borderColor = spikeMode ? 'var(--yellow)' : '#373c43'; }
-  function resetMocks() { spikeMode = false; document.getElementById('spike-btn').style.borderColor = '#373c43'; }
-
-  setInterval(() => {
-    // Random variations
+    
     let lat = (25.2048 + (Math.random() - 0.5) * 0.002).toFixed(4);
     let lon = (55.2708 + (Math.random() - 0.5) * 0.002).toFixed(4);
-    let alt = (142.0 + Math.random() * 5).toFixed(1);
-    let mq = spikeMode ? Math.floor(850 + Math.random() * 200) : Math.floor(400 + Math.random() * 30);
-    let temp = (34.0 + Math.random() * 1.5).toFixed(1);
-    let current = (1.2 + Math.random() * 0.3).toFixed(2);
-    let volt = (11.0 + Math.random() * 0.2).toFixed(1);
+    let alt = (142.0 + Math.random() * 2).toFixed(1);
+    let mq = Math.floor(400 + Math.random() * 15);
+    let temp = (34.0 + Math.random() * 0.5).toFixed(1);
+    let current = (1.2 + Math.random() * 0.1).toFixed(2);
+    let volt = (11.0 + Math.random() * 0.1).toFixed(1);
     let roll = ((Math.random() - 0.5) * 2).toFixed(1);
     let pitch = ((Math.random() - 0.5) * 2).toFixed(1);
-    let yaw = (180 + Math.random() * 10).toFixed(1);
+    let yaw = (180 + Math.random() * 2).toFixed(1);
 
-    // Update DOM elements safely
+    // Update DOM texts
     document.getElementById('hud-latlon').innerText = `${lat}° N, ${lon}° E`;
     document.getElementById('hud-alt').innerText = `${alt} m`;
     document.getElementById('hud-mq').innerText = `${mq} PPM`;
-    
     document.getElementById('stat-current').innerText = `${current} A`;
-    document.getElementById('stat-volt').innerText = `${volt} V (3S LiPo)`;
+    document.getElementById('stat-volt').innerText = `${volt} V (3S)`;
     document.getElementById('stat-temp').innerText = `${temp} °C`;
-
     document.getElementById('gps-lat').innerText = `${lat} N`;
     document.getElementById('gps-lon').innerText = `${lon} E`;
-
     document.getElementById('imu-x').innerText = `${roll}°`;
     document.getElementById('imu-y').innerText = `${pitch}°`;
     document.getElementById('imu-z').innerText = `${yaw}°`;
+    document.getElementById('sensor-mq').innerText = `Normal (${mq} PPM)`;
+    document.getElementById('sensor-power').innerText = `${(current * volt).toFixed(1)} W`;
 
-    document.getElementById('sensor-mq').innerText = mq > 700 ? "WARNING: HIGH PPM" : `Normal (${mq} PPM)`;
-    document.getElementById('sensor-mq').className = mq > 700 ? "" : "ok";
-    document.getElementById('sensor-mq').style.color = mq > 700 ? "var(--yellow)" : "var(--green)";
+    // Update Charts
+    const timeStr = now.getSeconds() + 's';
+    
+    // Altitude Graph
+    altChart.data.labels.push(timeStr);
+    altChart.data.datasets[0].data.push(alt);
+    if (altChart.data.labels.length > 20) {
+      altChart.data.labels.shift();
+      altChart.data.datasets[0].data.shift();
+    }
+    altChart.update();
 
-    document.getElementById('sensor-temp').innerText = `${temp} °C`;
-    document.getElementById('sensor-ina').innerText = `${(current * volt).toFixed(1)} W (${current}A @ ${volt}V)`;
+    // Gas Graph
+    gasChart.data.labels.push(timeStr);
+    gasChart.data.datasets[0].data.push(mq);
+    if (gasChart.data.labels.length > 20) {
+      gasChart.data.labels.shift();
+      gasChart.data.datasets[0].data.shift();
+    }
+    gasChart.update();
+
   }, 1000);
 </script>
 </body>
