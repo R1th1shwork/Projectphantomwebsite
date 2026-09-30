@@ -1918,6 +1918,9 @@
     }
     /* Project Phantom merge: added interaction layers preserve the supplied content and visual system. */
     .hero { isolation: isolate; }
+    .gradient-waves-container { position:fixed; inset:0; z-index:-1; width:100%; height:100%; overflow:hidden; pointer-events:none; }
+    /* let the fixed wave layer show through every section (cards keep their own surfaces) */
+    main > section, .phantom-kinetic-stage { background:transparent !important; }
     .phantom-field-canvas { position:absolute; inset:0; z-index:0; width:100%; height:100%; opacity:.92; pointer-events:none; }
     .hero-grid { z-index:1; pointer-events:none; }
     .hero-glow { z-index:1; pointer-events:none; }
@@ -2023,6 +2026,8 @@
     </ul>
   </nav>
 
+  <div class="gradient-waves-container" id="gradientWaves" aria-hidden="true"></div>
+
   <main>
 
     <section class="hero" aria-labelledby="hero-title">
@@ -2092,112 +2097,112 @@
           <!-- SET 1 -->
           <div class="network-marquee-group">
             <div class="network-logo-box">
-              <img src="assets/partners/1.png" alt="Partner logo 1" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/1.png" alt="Partner logo 1" class="network-logo-color" loading="lazy" />
+              <img src="assets/1.png" alt="Partner logo 1" class="network-logo-white" loading="lazy" />
+              <img src="assets/1.png" alt="Partner logo 1" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/2_white.png" alt="Partner logo 2" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/2.png" alt="Partner logo 2" class="network-logo-color" loading="lazy" />
+              <img src="assets/2_white.png" alt="Partner logo 2" class="network-logo-white" loading="lazy" />
+              <img src="assets/2.png" alt="Partner logo 2" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/3_white.png" alt="Partner logo 3" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/3.png" alt="Partner logo 3" class="network-logo-color" loading="lazy" />
+              <img src="assets/3_white.png" alt="Partner logo 3" class="network-logo-white" loading="lazy" />
+              <img src="assets/3.png" alt="Partner logo 3" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/4_white.png" alt="Partner logo 4" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/4.png" alt="Partner logo 4" class="network-logo-color" loading="lazy" />
+              <img src="assets/4_white.png" alt="Partner logo 4" class="network-logo-white" loading="lazy" />
+              <img src="assets/4.png" alt="Partner logo 4" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/5_white.png" alt="Partner logo 5" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/5.png" alt="Partner logo 5" class="network-logo-color" loading="lazy" />
+              <img src="assets/5_white.png" alt="Partner logo 5" class="network-logo-white" loading="lazy" />
+              <img src="assets/5.png" alt="Partner logo 5" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/6_white.png" alt="Partner logo 6" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/6.png" alt="Partner logo 6" class="network-logo-color" loading="lazy" />
+              <img src="assets/6_white.png" alt="Partner logo 6" class="network-logo-white" loading="lazy" />
+              <img src="assets/6.png" alt="Partner logo 6" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/7_white.png" alt="Partner logo 7" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/7.png" alt="Partner logo 7" class="network-logo-color" loading="lazy" />
+              <img src="assets/7_white.png" alt="Partner logo 7" class="network-logo-white" loading="lazy" />
+              <img src="assets/7.png" alt="Partner logo 7" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/8_white.png" alt="Partner logo 8" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/8.png" alt="Partner logo 8" class="network-logo-color" loading="lazy" />
+              <img src="assets/8_white.png" alt="Partner logo 8" class="network-logo-white" loading="lazy" />
+              <img src="assets/8.png" alt="Partner logo 8" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/9_white.png" alt="Partner logo 9" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/9.png" alt="Partner logo 9" class="network-logo-color" loading="lazy" />
+              <img src="assets/9_white.png" alt="Partner logo 9" class="network-logo-white" loading="lazy" />
+              <img src="assets/9.png" alt="Partner logo 9" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/10_white.png" alt="Partner logo 10" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/10.png" alt="Partner logo 10" class="network-logo-color" loading="lazy" />
+              <img src="assets/10_white.png" alt="Partner logo 10" class="network-logo-white" loading="lazy" />
+              <img src="assets/10.png" alt="Partner logo 10" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/11_white.png" alt="Partner logo 11" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/11.png" alt="Partner logo 11" class="network-logo-color" loading="lazy" />
+              <img src="assets/11_white.png" alt="Partner logo 11" class="network-logo-white" loading="lazy" />
+              <img src="assets/11.png" alt="Partner logo 11" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/12_white.png" alt="Partner logo 12" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/12.png" alt="Partner logo 12" class="network-logo-color" loading="lazy" />
+              <img src="assets/12_white.png" alt="Partner logo 12" class="network-logo-white" loading="lazy" />
+              <img src="assets/12.png" alt="Partner logo 12" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/13_white.png" alt="Partner logo 13" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/13.png" alt="Partner logo 13" class="network-logo-color" loading="lazy" />
+              <img src="assets/13_white.png" alt="Partner logo 13" class="network-logo-white" loading="lazy" />
+              <img src="assets/13.png" alt="Partner logo 13" class="network-logo-color" loading="lazy" />
             </div>
           </div>
 
           <!-- SET 2 (Duplicate for seamless loop) -->
           <div class="network-marquee-group" aria-hidden="true">
             <div class="network-logo-box">
-              <img src="assets/partners/1.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/1.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/1.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/1.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/2_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/2.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/2_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/2.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/3_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/3.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/3_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/3.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/4_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/4.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/4_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/4.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/5_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/5.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/5_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/5.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/6_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/6.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/6_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/6.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/7_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/7.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/7_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/7.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/8_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/8.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/8_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/8.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/9_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/9.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/9_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/9.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/10_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/10.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/10_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/10.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/11_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/11.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/11_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/11.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/12_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/12.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/12_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/12.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/13_white.png" alt="" class="network-logo-white" loading="lazy" />
-              <img src="assets/partners/13.png" alt="" class="network-logo-color" loading="lazy" />
+              <img src="assets/13_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/13.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
           </div>
         </div>
@@ -2901,6 +2906,299 @@
         });
       });
 
+    })();
+  </script>
+  <!-- GRADIENT WAVES (React Bits, ported to vanilla JS). Fixed full-page background. -->
+  <script type="module">
+    import { Renderer, Program, Mesh, Triangle } from 'https://esm.sh/ogl@1.0.11';
+
+    const props = {
+      horizonColor: '#393939', waveColor: '#ac9eab', crestColor: '#ffffff',
+      speed: 0.4, amplitude: 2.5, waveScale: 0.6, waveRatio: 0.9, swell: 35, turbulence: 20,
+      tilt: 1.11, zoom: 1.0, height: 5.5, fogDepth: 15, detail: 'medium',
+      brightness: 1.0, opacity: 0.45, mouseInteraction: true, parallaxStrength: 0.5,
+      grain: true, grainIntensity: 0.05
+    };
+
+    const hexToRgb = hex => {
+      const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return r ? [parseInt(r[1], 16) / 255, parseInt(r[2], 16) / 255, parseInt(r[3], 16) / 255] : [1, 1, 1];
+    };
+    const detailToSteps = d => d === 'low' ? 40.0 : d === 'high' ? 110.0 : 70.0;
+
+    const vertex = `#version 300 es
+in vec2 position;
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}
+`;
+
+    const fragment = `#version 300 es
+precision highp float;
+uniform vec2 iResolution;
+uniform float iTime;
+uniform float uSpeed;
+uniform float uAmplitude;
+uniform float uWaveScale;
+uniform float uWaveRatio;
+uniform float uSwell;
+uniform float uTurbulence;
+uniform float uTilt;
+uniform float uZoom;
+uniform float uHeight;
+uniform float uFogDepth;
+uniform float uSteps;
+uniform float uBrightness;
+uniform float uOpacity;
+uniform float uGrain;
+uniform float uGrainIntensity;
+uniform vec2 uMouse;
+uniform float uParallax;
+uniform bool uEnableMouse;
+uniform vec3 uHorizonColor;
+uniform vec3 uWaveColor;
+uniform vec3 uCrestColor;
+out vec4 fragColor;
+
+const float MAX_DIST = 20000.0;
+
+float hash21(vec2 p) {
+  vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+  p3 += dot(p3, p3.yzx + 33.33);
+  return fract((p3.x + p3.y) * p3.z);
+}
+
+float plasma(vec3 r, vec2 freq, vec4 tc) {
+  float mx = r.x + tc.x;
+  mx += uSwell * sin((r.y + mx) / 20.0 + tc.y);
+  float my = r.y - tc.z;
+  my += uTurbulence * cos(r.x / 23.0 + tc.w);
+  return r.z - (sin(mx * freq.x) * uAmplitude + sin(my * freq.y) * uAmplitude + uHeight);
+}
+
+float raymarch(vec3 pos, vec3 dir, vec2 freq, vec4 tc) {
+  float dist = 0.0;
+  for (int i = 0; i < 128; i++) {
+    if (float(i) >= uSteps) break;
+    float dscene = plasma(pos + dist * dir, freq, tc);
+    if (abs(dscene) < 0.1) break;
+    dist += 0.9 * dscene;
+    if (!(abs(dist) < MAX_DIST)) return MAX_DIST;
+  }
+  return dist;
+}
+
+void main() {
+  float T = iTime * uSpeed;
+  vec2 freq = vec2(uWaveScale / 7.0, (uWaveScale * uWaveRatio) / 3.0);
+  vec4 tc = vec4(T / 0.130, T / 0.810, T / 0.200, T / 0.710);
+  float c, s;
+  float vfov = (3.14159 / 2.3) / max(uZoom, 0.05);
+  vec3 cam = vec3(0.0, 0.0, 30.0);
+  vec2 uv = (gl_FragCoord.xy / iResolution.xy) - 0.5;
+  uv.x *= iResolution.x / iResolution.y;
+  uv.y *= -1.0;
+
+  vec3 dir = vec3(0.0, 0.0, -1.0);
+  float ulen = length(uv);
+  float xrot = vfov * ulen;
+  c = cos(xrot); s = sin(xrot);
+  dir = mat3(1.0, 0.0, 0.0, 0.0, c, -s, 0.0, s, c) * dir;
+  vec2 nuv = ulen > 1e-5 ? uv / ulen : vec2(1.0, 0.0);
+  c = nuv.x; s = nuv.y;
+  dir = mat3(c, -s, 0.0, s, c, 0.0, 0.0, 0.0, 1.0) * dir;
+  c = cos(uTilt); s = sin(uTilt);
+  dir = mat3(c, 0.0, s, 0.0, 1.0, 0.0, -s, 0.0, c) * dir;
+
+  if (uEnableMouse) {
+    float yaw = (uMouse.x - 0.5) * uParallax * 0.4;
+    float pitch = (uMouse.y - 0.5) * uParallax * 0.4;
+    c = cos(yaw); s = sin(yaw);
+    dir = mat3(c, 0.0, s, 0.0, 1.0, 0.0, -s, 0.0, c) * dir;
+    c = cos(pitch); s = sin(pitch);
+    dir = mat3(1.0, 0.0, 0.0, 0.0, c, -s, 0.0, s, c) * dir;
+  }
+
+  float dist = raymarch(cam, dir, freq, tc);
+  vec3 pos = cam + dist * dir;
+
+  float t = clamp(uFogDepth / max(dist, 0.001), 0.0, 1.0);
+  vec3 body = mix(uWaveColor, uCrestColor, clamp(pos.z * 0.08 + 0.5, 0.0, 1.0));
+  vec3 col = mix(uHorizonColor, body, t);
+  col *= uBrightness;
+  col = clamp(col, 0.0, 1.0);
+
+  float alpha = clamp(t, 0.0, 1.0) * uOpacity;
+  if (uGrain > 0.5) {
+    float g = hash21(gl_FragCoord.xy + mod(iTime, 64.0) * 11.0);
+    alpha += (g - 0.5) * uGrainIntensity;
+  }
+  alpha = clamp(alpha, 0.0, 1.0);
+  fragColor = vec4(col * alpha, alpha);
+}
+`;
+
+    const container = document.getElementById('gradientWaves');
+    if (container) {
+      const renderer = new Renderer({ webgl: 2, alpha: true, premultipliedAlpha: true, antialias: false, dpr: Math.min(window.devicePixelRatio || 1, 2) });
+      const gl = renderer.gl;
+      gl.clearColor(0, 0, 0, 0);
+      const canvas = gl.canvas;
+      canvas.style.cssText = 'width:100%;height:100%;display:block;';
+      container.appendChild(canvas);
+
+      const program = new Program(gl, {
+        vertex, fragment,
+        uniforms: {
+          iTime: { value: 0 },
+          iResolution: { value: new Float32Array([1, 1]) },
+          uSpeed: { value: props.speed },
+          uAmplitude: { value: props.amplitude },
+          uWaveScale: { value: props.waveScale },
+          uWaveRatio: { value: props.waveRatio },
+          uSwell: { value: props.swell },
+          uTurbulence: { value: props.turbulence },
+          uTilt: { value: props.tilt },
+          uZoom: { value: props.zoom },
+          uHeight: { value: props.height },
+          uFogDepth: { value: props.fogDepth },
+          uSteps: { value: detailToSteps(props.detail) },
+          uBrightness: { value: props.brightness },
+          uOpacity: { value: props.opacity },
+          uGrain: { value: props.grain ? 1.0 : 0.0 },
+          uGrainIntensity: { value: props.grainIntensity },
+          uMouse: { value: new Float32Array([0.5, 0.5]) },
+          uParallax: { value: props.parallaxStrength },
+          uEnableMouse: { value: props.mouseInteraction },
+          uHorizonColor: { value: new Float32Array(hexToRgb(props.horizonColor)) },
+          uWaveColor: { value: new Float32Array(hexToRgb(props.waveColor)) },
+          uCrestColor: { value: new Float32Array(hexToRgb(props.crestColor)) }
+        }
+      });
+      const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
+
+      const setSize = () => {
+        const rect = container.getBoundingClientRect();
+        renderer.setSize(Math.max(1, Math.floor(rect.width)), Math.max(1, Math.floor(rect.height)));
+        const res = program.uniforms.iResolution.value;
+        res[0] = gl.drawingBufferWidth;
+        res[1] = gl.drawingBufferHeight;
+        renderer.render({ scene: mesh });
+      };
+      new ResizeObserver(setSize).observe(container);
+      setSize();
+
+      // Listen on the window so the parallax works across the whole page.
+      const currentMouse = [0.5, 0.5], targetMouse = [0.5, 0.5];
+      window.addEventListener('pointermove', e => {
+        targetMouse[0] = e.clientX / window.innerWidth;
+        targetMouse[1] = 1.0 - e.clientY / window.innerHeight;
+      });
+      document.addEventListener('pointerleave', () => { targetMouse[0] = 0.5; targetMouse[1] = 0.5; });
+
+      let raf = 0, isVisible = true, isPageVisible = !document.hidden;
+      const t0 = performance.now();
+      const loop = t => {
+        program.uniforms.iTime.value = (t - t0) * 0.001;
+        currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
+        currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+        program.uniforms.uMouse.value[0] = currentMouse[0];
+        program.uniforms.uMouse.value[1] = currentMouse[1];
+        renderer.render({ scene: mesh });
+        raf = requestAnimationFrame(loop);
+      };
+      const tryStart = () => { if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop); };
+      const tryStop = () => { if (raf !== 0) { cancelAnimationFrame(raf); raf = 0; } };
+
+      new IntersectionObserver(([entry]) => { isVisible = entry.isIntersecting; isVisible ? tryStart() : tryStop(); }, { threshold: 0 }).observe(container);
+      document.addEventListener('visibilitychange', () => { isPageVisible = !document.hidden; isPageVisible ? tryStart() : tryStop(); });
+      tryStart();
+    }
+  </script>
+  <!-- React Bits style effects, vanilla ports: SpotlightCard, TargetCursor, Magnet, CountUp, DecryptedText, ScrollReveal, ShinyText, StarBorder, tilt -->
+  <style>
+    @property --rb-a { syntax:'<angle>'; inherits:false; initial-value:0deg; }
+    .rb-spot { position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .3s; z-index:3;
+      background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.10), transparent 60%); }
+    .rb-has-spot:hover > .rb-spot { opacity:1; }
+    .rb-blur { filter:blur(12px); transition:filter 1.1s cubic-bezier(.16,1,.3,1); }
+    .rb-blur.rb-in { filter:none; }
+    .hero-eyebrow, .section-label { background:linear-gradient(110deg, rgba(255,255,255,.45) 40%, #fff 50%, rgba(255,255,255,.45) 60%) 200% 0/250% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:rbShine 4.5s linear infinite; }
+    @keyframes rbShine { to { background-position:-50% 0; } }
+    .btn-secondary { border:1px solid transparent !important; background:linear-gradient(var(--bg),var(--bg)) padding-box, conic-gradient(from var(--rb-a), rgba(255,255,255,.12) 65%, #fff 92%, rgba(255,255,255,.12)) border-box !important; animation:rbSpin 4s linear infinite; }
+    @keyframes rbSpin { to { --rb-a:360deg; } }
+    .btn-primary, .btn-secondary { will-change:translate; }
+    .avatar-ring { transition:transform .25s ease-out; will-change:transform; }
+    #rb-target { position:fixed; left:0; top:0; width:0; height:0; z-index:9998; pointer-events:none; opacity:0; transition:opacity .2s, left .18s cubic-bezier(.16,1,.3,1), top .18s cubic-bezier(.16,1,.3,1), width .18s cubic-bezier(.16,1,.3,1), height .18s cubic-bezier(.16,1,.3,1); mix-blend-mode:difference; }
+    #rb-target i { position:absolute; width:10px; height:10px; border:2px solid #fff; }
+    #rb-target i:nth-child(1){ left:-6px; top:-6px; border-right:0; border-bottom:0; }
+    #rb-target i:nth-child(2){ right:-6px; top:-6px; border-left:0; border-bottom:0; }
+    #rb-target i:nth-child(3){ left:-6px; bottom:-6px; border-right:0; border-top:0; }
+    #rb-target i:nth-child(4){ right:-6px; bottom:-6px; border-left:0; border-top:0; }
+    body.rb-tc #rb-target { opacity:1; } body.rb-tc #cur-ring { opacity:0; }
+    @media (hover:none), (pointer:coarse) { #rb-target { display:none; } }
+  </style>
+  <script>
+    (() => {
+      const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+      const $$ = s => Array.from(document.querySelectorAll(s));
+      const inView = (els, fn, t = .35) => { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } }), { threshold: t }); els.forEach(el => io.observe(el)); };
+
+      // SpotlightCard
+      $$('.card, .config-card, .sdg-card, .team-card').forEach(c => {
+        if (getComputedStyle(c).position === 'static') c.style.position = 'relative';
+        const s = document.createElement('span'); s.className = 'rb-spot'; c.appendChild(s); c.classList.add('rb-has-spot');
+        c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', e.clientX - r.left + 'px'); c.style.setProperty('--my', e.clientY - r.top + 'px'); });
+      });
+
+      // ScrollReveal (blur in)
+      const rev = $$('.section-title, .section-desc'); rev.forEach(el => el.classList.add('rb-blur')); inView(rev, el => el.classList.add('rb-in'), .2);
+
+      // CountUp
+      inView($$('.stat-num'), el => {
+        const m = /^(\D*)(\d+(?:\.\d+)?)(.*)$/.exec(el.textContent.trim()); if (!m) return;
+        const end = parseFloat(m[2]), dec = (m[2].split('.')[1] || '').length, t0 = performance.now(), dur = 1600;
+        const tick = now => { const p = Math.min((now - t0) / dur, 1), v = end * (1 - Math.pow(1 - p, 3)); el.textContent = m[1] + v.toFixed(dec) + m[3]; if (p < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      }, .5);
+
+      // DecryptedText on the hero title words
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+<>';
+      $$('.hero-title .word').forEach((w, i) => {
+        const text = w.textContent, start = performance.now() + 350 + i * 260, dur = 900;
+        const tick = now => {
+          if (now < start) return requestAnimationFrame(tick);
+          const p = Math.min((now - start) / dur, 1), done = Math.floor(p * text.length);
+          w.textContent = text.split('').map((c, k) => k < done || c === '.' ? c : chars[Math.random() * chars.length | 0]).join('');
+          if (p < 1) requestAnimationFrame(tick); else w.textContent = text;
+        };
+        requestAnimationFrame(tick);
+      });
+
+      if (!fine) return;
+
+      // Magnet on hero buttons
+      $$('.btn-primary, .btn-secondary').forEach(b => {
+        b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.translate = ((e.clientX - r.left - r.width / 2) * .25) + 'px ' + ((e.clientY - r.top - r.height / 2) * .35) + 'px'; });
+        b.addEventListener('pointerleave', () => { b.style.transition = 'translate .4s cubic-bezier(.16,1,.3,1)'; b.style.translate = '0 0'; setTimeout(() => b.style.transition = '', 400); });
+      });
+
+      // Tilt on team avatars
+      $$('.team-card').forEach(c => {
+        const a = c.querySelector('.avatar-ring'); if (!a) return;
+        c.addEventListener('pointermove', e => { const r = a.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; a.style.transform = `perspective(500px) rotateX(${-y * 22}deg) rotateY(${x * 22}deg) scale(1.06)`; });
+        c.addEventListener('pointerleave', () => { a.style.transform = ''; });
+      });
+
+      // TargetCursor: corner brackets lock onto interactive elements
+      const t = document.createElement('div'); t.id = 'rb-target'; t.innerHTML = '<i></i><i></i><i></i><i></i>'; document.body.appendChild(t);
+      document.addEventListener('pointerover', e => {
+        const el = e.target.closest && e.target.closest('a, button, .btn-primary, .btn-secondary');
+        if (!el) return; const r = el.getBoundingClientRect();
+        Object.assign(t.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }); document.body.classList.add('rb-tc');
+      });
+      document.addEventListener('pointerout', e => { if (e.target.closest && e.target.closest('a, button')) document.body.classList.remove('rb-tc'); });
+      addEventListener('scroll', () => document.body.classList.remove('rb-tc'), { passive: true });
     })();
   </script>
 </body>
