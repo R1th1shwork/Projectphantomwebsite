@@ -42,7 +42,7 @@
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "founder@projectphantom.space",
+        "email": "rithishwork@gmail.com",
         "contactType": "technical support"
       }
     }
@@ -2445,7 +2445,7 @@
 
             <a href="https://sheraa.ae/" target="_blank" rel="noopener" class="backing-partner-item sheraa-item" data-partner>
               <div class="backing-partner-logo-box">
-                <img src="assets/1.png" alt="Sheraa" class="backing-partner-img" loading="lazy" />
+                <img src="assets/sheraa.png" alt="Sheraa" class="backing-partner-img" loading="lazy" />
               </div>
               <span class="backing-partner-label">Powered by Sheraa
                 <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
@@ -3115,90 +3115,163 @@ void main() {
       tryStart();
     }
   </script>
-  <!-- React Bits style effects, vanilla ports: SpotlightCard, TargetCursor, Magnet, CountUp, DecryptedText, ScrollReveal, ShinyText, StarBorder, tilt -->
+  <!-- React Bits effects (real logic ported to vanilla): DecryptedText, CountUp, TargetCursor, ScrollReveal, ShinyText, TiltedCard, SpotlightCard. All effects use the real React Bits logic. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
-    @property --rb-a { syntax:'<angle>'; inherits:false; initial-value:0deg; }
-    .rb-spot { position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .3s; z-index:3;
-      background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.10), transparent 60%); }
-    .rb-has-spot:hover > .rb-spot { opacity:1; }
-    .rb-blur { filter:blur(12px); transition:filter 1.1s cubic-bezier(.16,1,.3,1); }
-    .rb-blur.rb-in { filter:none; }
-    .hero-eyebrow, .section-label { background:linear-gradient(110deg, rgba(255,255,255,.45) 40%, #fff 50%, rgba(255,255,255,.45) 60%) 200% 0/250% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:rbShine 4.5s linear infinite; }
-    @keyframes rbShine { to { background-position:-50% 0; } }
-    .btn-secondary { border:1px solid transparent !important; background:linear-gradient(var(--bg),var(--bg)) padding-box, conic-gradient(from var(--rb-a), rgba(255,255,255,.12) 65%, #fff 92%, rgba(255,255,255,.12)) border-box !important; animation:rbSpin 4s linear infinite; }
-    @keyframes rbSpin { to { --rb-a:360deg; } }
-    .btn-primary, .btn-secondary { will-change:translate; }
-    .avatar-ring { transition:transform .25s ease-out; will-change:transform; }
-    #rb-target { position:fixed; left:0; top:0; width:0; height:0; z-index:9998; pointer-events:none; opacity:0; transition:opacity .2s, left .18s cubic-bezier(.16,1,.3,1), top .18s cubic-bezier(.16,1,.3,1), width .18s cubic-bezier(.16,1,.3,1), height .18s cubic-bezier(.16,1,.3,1); mix-blend-mode:difference; }
-    #rb-target i { position:absolute; width:10px; height:10px; border:2px solid #fff; }
-    #rb-target i:nth-child(1){ left:-6px; top:-6px; border-right:0; border-bottom:0; }
-    #rb-target i:nth-child(2){ right:-6px; top:-6px; border-left:0; border-bottom:0; }
-    #rb-target i:nth-child(3){ left:-6px; bottom:-6px; border-right:0; border-top:0; }
-    #rb-target i:nth-child(4){ right:-6px; bottom:-6px; border-left:0; border-top:0; }
-    body.rb-tc #rb-target { opacity:1; } body.rb-tc #cur-ring { opacity:0; }
-    @media (hover:none), (pointer:coarse) { #rb-target { display:none; } }
+    /* StarBorder (exact CSS, class names prefixed) */
+    .rb-star { display:inline-block !important; position:relative !important; overflow:hidden !important; background:transparent !important; border:0 !important; }
+    .rb-star-bottom { position:absolute; width:300%; height:50%; opacity:.7; bottom:-12px; right:-250%; border-radius:50%; animation:rb-star-bottom linear infinite alternate; z-index:0; pointer-events:none; }
+    .rb-star-top { position:absolute; opacity:.7; width:300%; height:50%; top:-12px; left:-250%; border-radius:50%; animation:rb-star-top linear infinite alternate; z-index:0; pointer-events:none; }
+    .rb-star-inner { position:relative; z-index:1; width:100%; box-sizing:border-box; border:1px solid #222; background:var(--bg,#050505); color:inherit; text-align:center; }
+    @keyframes rb-star-bottom { 0% { transform:translate(0%,0%); opacity:1; } 100% { transform:translate(-100%,0%); opacity:0; } }
+    @keyframes rb-star-top { 0% { transform:translate(0%,0%); opacity:1; } 100% { transform:translate(100%,0%); opacity:0; } }
+    /* TargetCursor (exact CSS) */
+    .target-cursor-wrapper { position:fixed; top:0; left:0; width:0; height:0; pointer-events:none; z-index:2147483647; mix-blend-mode:difference; transform:translate(-50%,-50%); }
+    .target-cursor-dot { position:absolute; left:50%; top:50%; width:4px; height:4px; background:#fff; border-radius:50%; transform:translate(-50%,-50%); will-change:transform; }
+    .target-cursor-corner { position:absolute; left:50%; top:50%; width:12px; height:12px; border:3px solid #fff; will-change:transform; }
+    .corner-tl { transform:translate(-150%,-150%); border-right:none; border-bottom:none; }
+    .corner-tr { transform:translate(50%,-150%); border-left:none; border-bottom:none; }
+    .corner-br { transform:translate(50%,50%); border-left:none; border-top:none; }
+    .corner-bl { transform:translate(-150%,50%); border-right:none; border-top:none; }
+    body.rb-tc-on #cur-dot, body.rb-tc-on #cur-ring { display:none !important; }
   </style>
   <script>
     (() => {
       const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
       const $$ = s => Array.from(document.querySelectorAll(s));
-      const inView = (els, fn, t = .35) => { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } }), { threshold: t }); els.forEach(el => io.observe(el)); };
+      const inView = (els, fn, t = .1) => { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } }), { threshold: t }); els.forEach(el => io.observe(el)); };
 
       // SpotlightCard
       $$('.card, .config-card, .sdg-card, .team-card').forEach(c => {
         if (getComputedStyle(c).position === 'static') c.style.position = 'relative';
         const s = document.createElement('span'); s.className = 'rb-spot'; c.appendChild(s); c.classList.add('rb-has-spot');
-        c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', e.clientX - r.left + 'px'); c.style.setProperty('--my', e.clientY - r.top + 'px'); });
+        c.addEventListener('mousemove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mouse-x', e.clientX - r.left + 'px'); c.style.setProperty('--mouse-y', e.clientY - r.top + 'px'); });
       });
 
-      // ScrollReveal (blur in)
-      const rev = $$('.section-title, .section-desc'); rev.forEach(el => el.classList.add('rb-blur')); inView(rev, el => el.classList.add('rb-in'), .2);
-
-      // CountUp
+      // CountUp (motion spring: damping 20+40/d, stiffness 100/d, mass 1)
       inView($$('.stat-num'), el => {
         const m = /^(\D*)(\d+(?:\.\d+)?)(.*)$/.exec(el.textContent.trim()); if (!m) return;
-        const end = parseFloat(m[2]), dec = (m[2].split('.')[1] || '').length, t0 = performance.now(), dur = 1600;
-        const tick = now => { const p = Math.min((now - t0) / dur, 1), v = end * (1 - Math.pow(1 - p, 3)); el.textContent = m[1] + v.toFixed(dec) + m[3]; if (p < 1) requestAnimationFrame(tick); };
-        requestAnimationFrame(tick);
-      }, .5);
-
-      // DecryptedText on the hero title words
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+<>';
-      $$('.hero-title .word').forEach((w, i) => {
-        const text = w.textContent, start = performance.now() + 350 + i * 260, dur = 900;
+        const end = parseFloat(m[2]), dec = (m[2].split('.')[1] || '').length, d = 2, k = 100 / d, c = 20 + 40 / d;
+        let v = 0, w = 0, last = performance.now(); const t0 = last;
+        const show = x => el.textContent = m[1] + x.toFixed(dec) + m[3]; show(0);
         const tick = now => {
-          if (now < start) return requestAnimationFrame(tick);
-          const p = Math.min((now - start) / dur, 1), done = Math.floor(p * text.length);
-          w.textContent = text.split('').map((c, k) => k < done || c === '.' ? c : chars[Math.random() * chars.length | 0]).join('');
-          if (p < 1) requestAnimationFrame(tick); else w.textContent = text;
+          const dt = Math.min((now - last) / 1000, .05); last = now;
+          w += (k * (end - v) - c * w) * dt; v += w * dt;
+          if ((Math.abs(end - v) < Math.pow(10, -dec) * .5 && Math.abs(w) < .05) || now - t0 > 4500) return show(end);
+          show(v); requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
       });
 
+      // DecryptedText (sequential, reveal from start, speed 50ms; replays on hover)
+      const CH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+';
+      const scr = (t, n) => t.split('').map((c, i) => c === ' ' ? ' ' : i < n ? t[i] : CH[Math.random() * CH.length | 0]).join('');
+      const decrypt = (el, text, delay = 0) => {
+        clearInterval(el._d); clearTimeout(el._t); el.textContent = scr(text, 0); let n = 0;
+        el._t = setTimeout(() => { el._d = setInterval(() => { n++; el.textContent = scr(text, n); if (n >= text.length) { clearInterval(el._d); el.textContent = text; } }, 50); }, delay);
+      };
+      $$('.hero-title .word').forEach((w, i) => { const text = w.textContent; decrypt(w, text, 300 + i * 250); w.addEventListener('mouseenter', () => decrypt(w, text)); });
+
+      // ScrollReveal on section descriptions (rotation + opacity + blur, scrubbed)
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        $$('.section-desc').forEach(el => {
+          const text = el.textContent; el.textContent = '';
+          const box = document.createElement('span'); box.style.display = 'block'; el.appendChild(box);
+          box.innerHTML = text.split(/(\s+)/).map(x => /^\s+$/.test(x) ? x : '<span class="rb-word" style="display:inline-block">' + x + '</span>').join('');
+          const words = box.querySelectorAll('.rb-word'), st = (start) => ({ trigger: box, start, end: 'bottom bottom', scrub: true });
+          gsap.fromTo(box, { transformOrigin: '0% 50%', rotate: 3 }, { ease: 'none', rotate: 0, scrollTrigger: st('top bottom') });
+          gsap.fromTo(words, { opacity: .1 }, { ease: 'none', opacity: 1, stagger: .05, scrollTrigger: st('top bottom-=20%') });
+          gsap.fromTo(words, { filter: 'blur(4px)' }, { ease: 'none', filter: 'blur(0px)', stagger: .05, scrollTrigger: st('top bottom-=20%') });
+        });
+      }
+
+      // StarBorder on secondary buttons (white, 6s, thickness 1)
+      $$('.btn-secondary').forEach(b => {
+        const cs = getComputedStyle(b), inner = document.createElement('span');
+        while (b.firstChild) inner.appendChild(b.firstChild);
+        inner.className = 'rb-star-inner';
+        const flex = /flex/.test(cs.display);
+        Object.assign(inner.style, { padding: cs.padding, borderRadius: cs.borderRadius, display: flex ? 'flex' : 'block', gap: cs.gap, alignItems: cs.alignItems, justifyContent: flex ? 'center' : '' });
+        const mk = c => { const d = document.createElement('div'); d.className = c; d.style.background = 'radial-gradient(circle, #ffffff, transparent 10%)'; d.style.animationDuration = '6s'; return d; };
+        b.classList.add('rb-star'); b.style.padding = '1px 0'; b.style.borderRadius = cs.borderRadius;
+        b.append(mk('rb-star-bottom'), mk('rb-star-top'), inner);
+      });
+
       if (!fine) return;
 
-      // Magnet on hero buttons
+      // Magnet (padding 50, strength 4, real transitions)
       $$('.btn-primary, .btn-secondary').forEach(b => {
-        b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.translate = ((e.clientX - r.left - r.width / 2) * .25) + 'px ' + ((e.clientY - r.top - r.height / 2) * .35) + 'px'; });
-        b.addEventListener('pointerleave', () => { b.style.transition = 'translate .4s cubic-bezier(.16,1,.3,1)'; b.style.translate = '0 0'; setTimeout(() => b.style.transition = '', 400); });
+        const wrap = document.createElement('div'); wrap.style.cssText = 'position:relative;display:inline-block;';
+        b.parentNode.insertBefore(wrap, b); const inner = document.createElement('div'); wrap.appendChild(inner); inner.appendChild(b);
+        inner.style.cssText = 'transition:transform .5s ease-in-out;will-change:transform;';
+        const padding = 50, strength = 4;
+        addEventListener('mousemove', e => {
+          const { left, top, width, height } = wrap.getBoundingClientRect(), cx = left + width / 2, cy = top + height / 2;
+          if (Math.abs(cx - e.clientX) < width / 2 + padding && Math.abs(cy - e.clientY) < height / 2 + padding) {
+            inner.style.transition = 'transform .3s ease-out'; inner.style.transform = `translate3d(${(e.clientX - cx) / strength}px, ${(e.clientY - cy) / strength}px, 0)`;
+          } else { inner.style.transition = 'transform .5s ease-in-out'; inner.style.transform = 'translate3d(0px, 0px, 0)'; }
+        });
       });
 
-      // Tilt on team avatars
-      $$('.team-card').forEach(c => {
-        const a = c.querySelector('.avatar-ring'); if (!a) return;
-        c.addEventListener('pointermove', e => { const r = a.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; a.style.transform = `perspective(500px) rotateX(${-y * 22}deg) rotateY(${x * 22}deg) scale(1.06)`; });
-        c.addEventListener('pointerleave', () => { a.style.transform = ''; });
+      // TiltedCard on team avatars (spring: stiffness 100, damping 30, mass 2; amplitude 12, scale 1.1)
+      $$('.team-card').forEach(card => {
+        const el = card.querySelector('.avatar-ring'); if (!el) return;
+        const S = { rx: { v: 0, t: 0, w: 0 }, ry: { v: 0, t: 0, w: 0 }, sc: { v: 1, t: 1, w: 0 } }; let raf = 0, last = 0;
+        const step = ts => {
+          const dt = Math.min((ts - last) / 1000 || .016, .05); last = ts; let moving = false;
+          for (const k in S) { const s = S[k]; s.w += ((100 * (s.t - s.v) - 30 * s.w) / 2) * dt; s.v += s.w * dt; if (Math.abs(s.w) > .001 || Math.abs(s.t - s.v) > .001) moving = true; }
+          el.style.transform = `perspective(800px) rotateX(${S.rx.v}deg) rotateY(${S.ry.v}deg) scale(${S.sc.v})`;
+          raf = moving ? requestAnimationFrame(step) : 0;
+        };
+        const go = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); } };
+        card.addEventListener('mouseenter', () => { S.sc.t = 1.1; go(); });
+        card.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(); S.rx.t = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -12; S.ry.t = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 12; go(); });
+        card.addEventListener('mouseleave', () => { S.rx.t = S.ry.t = 0; S.sc.t = 1; go(); });
       });
 
-      // TargetCursor: corner brackets lock onto interactive elements
-      const t = document.createElement('div'); t.id = 'rb-target'; t.innerHTML = '<i></i><i></i><i></i><i></i>'; document.body.appendChild(t);
-      document.addEventListener('pointerover', e => {
-        const el = e.target.closest && e.target.closest('a, button, .btn-primary, .btn-secondary');
-        if (!el) return; const r = el.getBoundingClientRect();
-        Object.assign(t.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }); document.body.classList.add('rb-tc');
-      });
-      document.addEventListener('pointerout', e => { if (e.target.closest && e.target.closest('a, button')) document.body.classList.remove('rb-tc'); });
-      addEventListener('scroll', () => document.body.classList.remove('rb-tc'), { passive: true });
+      // TargetCursor (gsap, spinDuration 2, parallaxOn, hoverDuration .2)
+      if (!window.gsap || innerWidth <= 768) return;
+      const sel = 'a, button, .team-card', bw = 3, cs = 12;
+      const w = document.createElement('div'); w.className = 'target-cursor-wrapper';
+      w.innerHTML = '<div class="target-cursor-dot"></div><div class="target-cursor-corner corner-tl"></div><div class="target-cursor-corner corner-tr"></div><div class="target-cursor-corner corner-br"></div><div class="target-cursor-corner corner-bl"></div>';
+      document.body.appendChild(w); document.body.classList.add('rb-tc-on');
+      const dot = w.querySelector('.target-cursor-dot'), corners = Array.from(w.querySelectorAll('.target-cursor-corner'));
+      let spin, active = null, cp = null, leave = null, resume = null; const strength = { v: 0 };
+      gsap.set(w, { xPercent: -50, yPercent: -50, x: innerWidth / 2, y: innerHeight / 2 });
+      const mkSpin = () => { spin && spin.kill(); spin = gsap.timeline({ repeat: -1 }).to(w, { rotation: '+=360', duration: 2, ease: 'none' }); }; mkSpin();
+      const tick = () => {
+        if (!cp || strength.v === 0) return; const cx = gsap.getProperty(w, 'x'), cy = gsap.getProperty(w, 'y'), s = strength.v;
+        corners.forEach((c, i) => { const x = gsap.getProperty(c, 'x'), y = gsap.getProperty(c, 'y');
+          gsap.to(c, { x: x + (cp[i].x - cx - x) * s, y: y + (cp[i].y - cy - y) * s, duration: s >= .99 ? .2 : .05, ease: 'power1.out', overwrite: 'auto' }); });
+      };
+      addEventListener('mousemove', e => gsap.to(w, { x: e.clientX, y: e.clientY, duration: .1, ease: 'power3.out' }));
+      addEventListener('mousedown', () => { gsap.to(dot, { scale: .7, duration: .3 }); gsap.to(w, { scale: .9, duration: .2 }); });
+      addEventListener('mouseup', () => { gsap.to(dot, { scale: 1, duration: .3 }); gsap.to(w, { scale: 1, duration: .2 }); });
+      addEventListener('scroll', () => {
+        if (!active) return; const el = document.elementFromPoint(gsap.getProperty(w, 'x'), gsap.getProperty(w, 'y'));
+        if (!(el && (el === active || el.closest(sel) === active)) && leave) leave();
+      }, { passive: true });
+      addEventListener('mouseover', e => {
+        const t = e.target.closest && e.target.closest(sel); if (!t || t === active) return;
+        if (active && leave) active.removeEventListener('mouseleave', leave);
+        if (resume) { clearTimeout(resume); resume = null; }
+        active = t; corners.forEach(c => gsap.killTweensOf(c, 'x,y'));
+        gsap.killTweensOf(w, 'rotation'); spin.pause(); gsap.set(w, { rotation: 0 });
+        const r = t.getBoundingClientRect(), cx = gsap.getProperty(w, 'x'), cy = gsap.getProperty(w, 'y');
+        cp = [{ x: r.left - bw, y: r.top - bw }, { x: r.right + bw - cs, y: r.top - bw }, { x: r.right + bw - cs, y: r.bottom + bw - cs }, { x: r.left - bw, y: r.bottom + bw - cs }];
+        gsap.ticker.add(tick); gsap.to(strength, { v: 1, duration: .2, ease: 'power2.out' });
+        corners.forEach((c, i) => gsap.to(c, { x: cp[i].x - cx, y: cp[i].y - cy, duration: .2, ease: 'power2.out' }));
+        leave = () => {
+          gsap.ticker.remove(tick); cp = null; gsap.set(strength, { v: 0, overwrite: true }); active = null;
+          const pos = [[-1.5, -1.5], [.5, -1.5], [.5, .5], [-1.5, .5]]; gsap.killTweensOf(corners, 'x,y');
+          corners.forEach((c, i) => gsap.to(c, { x: pos[i][0] * cs, y: pos[i][1] * cs, duration: .3, ease: 'power3.out' }));
+          resume = setTimeout(() => { if (!active) mkSpin(); resume = null; }, 50);
+          t.removeEventListener('mouseleave', leave);
+        };
+        t.addEventListener('mouseleave', leave);
+      }, { passive: true });
     })();
   </script>
 </body>
