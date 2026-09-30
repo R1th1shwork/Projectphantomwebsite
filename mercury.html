@@ -36,7 +36,6 @@
       --font-sans: 'Space Grotesk', sans-serif;
       --font-mono: 'Space Mono', monospace;
       --nav-h: 68px;
-      --alert-h: 36px;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;overflow-x:hidden;}
@@ -53,17 +52,7 @@
     /* Scroll progress – now has an accessible name via aria-label */
     #scroll-progress{position:fixed;top:0;left:0;height:1px;background:#fff;z-index:102;width:0%;transition:width 0.1s linear;}
 
-    .alert-banner {
-      position: fixed; top: 0; left: 0; right: 0; height: var(--alert-h);
-      background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border); display: flex; align-items: center;
-      justify-content: center; gap: 16px; z-index: 101; padding: 0 24px;
-    }
-    .alert-text { font-family: var(--font-sans); font-size: 11px; font-weight: 500; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .alert-cta { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: #000; background: var(--accent); padding: 4px 12px; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.2s ease; white-space: nowrap; }
-    .alert-cta:hover { background: rgba(255, 255, 255, 0.8); }
-
-    nav{position:fixed;top:var(--alert-h);left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(5,5,5,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(5,5,5,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
     .nav-logo{font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:0.2em;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px;}
     .nav-logo-mark{width:28px;height:28px;display:block;object-fit:contain;}
     .nav-links{display:flex;gap:36px;list-style:none;}
@@ -86,14 +75,14 @@
 
     main{position:relative;z-index:2;}
 
-    .page-hero{padding:calc(var(--alert-h) + var(--nav-h) + 60px) 48px 90px;position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;min-height:92vh;justify-content:center;}
+    .page-hero{padding:calc(var(--nav-h) + 60px) 48px 90px;position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;min-height:92vh;justify-content:center;}
     .page-hero-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--white-30);margin-bottom:24px;display:flex;align-items:center;gap:16px;}
     .page-hero-label::before,.page-hero-label::after{content:'';width:24px;height:1px;background:var(--white-30);}
     .page-hero h1{font-size:clamp(48px,10vw,132px);font-weight:700;line-height:0.92;letter-spacing:-0.04em;margin-bottom:28px;}
     .page-hero-desc{font-size:18px;line-height:1.7;color:var(--white-50);max-width:600px;margin:0 auto;}
 
     section{padding:100px 48px;position:relative;}
-    section[id]{scroll-margin-top:calc(var(--alert-h) + var(--nav-h) + 16px);}
+    section[id]{scroll-margin-top:calc(var(--nav-h) + 16px);}
     .section-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--white-30);margin-bottom:20px;display:flex;align-items:center;gap:16px;}
     .section-label::before{content:'';width:24px;height:1px;background:var(--white-30);}
     .section-title{font-size:clamp(32px,4vw,56px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-bottom:20px;}
@@ -236,13 +225,11 @@
       .nav-toggle{display:flex;}
       .nav-cta{display:none;}
       section{padding:60px 24px;}
-      .page-hero{padding:calc(var(--alert-h) + var(--nav-h) + 40px) 24px 60px;min-height:80vh;}
+      .page-hero{padding:calc(var(--nav-h) + 40px) 24px 60px;min-height:80vh;}
       .compare-grid{grid-template-columns:90px 1fr 1fr;}
       .arch-layer,.feat-grid,.swarm-grid,.roadmap-grid,.pipeline{grid-template-columns:1fr;}
       .metrics-strip{flex-direction:column;}
       .metric-item{border-bottom:1px solid var(--border);}
-      .alert-banner { position: static; height: auto; padding: 10px 16px; flex-direction: column; gap: 8px; text-align: center; }
-      .alert-text { white-space: normal; font-size: 10px; }
       nav{position:static;}
       section[id]{scroll-margin-top:16px;}
       .join-section { padding: 80px 24px; }
@@ -263,11 +250,6 @@
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
 
-<div class="alert-banner">
-  <span class="alert-text">PHANTOM IS IN ACTIVE DEVELOPMENT. FOLLOW THE BUILD.</span>
-  <a href="https://www.linkedin.com/company/projectphantom/" class="alert-cta">TRACK DEVELOPMENT</a>
-</div>
-
 <nav>
   <a href="./" class="nav-logo"><img src="assets/nav.png" alt="PHANTOM" class="nav-logo-mark" loading="lazy" width="28" height="28">PHANTOM</a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -278,7 +260,7 @@
     <li><a href="technology">Technology</a></li>
     <li><a href="mercury" class="active">Mercury AI</a></li>
     <li><a href="deployment">Deployment</a></li>
-    <li><a href="./#team">Team</a></li>
+    <li><a href="teams">Team</a></li>
   </ul>
   <a href="deployment" class="nav-cta">Deployment</a>
 </nav>
