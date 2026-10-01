@@ -161,10 +161,6 @@ async function sendEmail(toEmail, toName, subject, message) {
         {
           email: 'admin@projectphantom.space',
           name: 'Admin'
-        },
-        {
-          email: 'founder@projectphantom.space',
-          name: 'Rithish'
         }
       ],
       replyTo: {
