@@ -1,18 +1,116 @@
 [
-  { "id": "1", "file": "1.png", "white": "1.png", "name": "Sheraa" },
-  { "id": "2", "file": "2.png", "white": "2_white.png", "name": "Partner 2" },
-  { "id": "3", "file": "3.png", "white": "3_white.png", "name": "Partner 3" },
-  { "id": "4", "file": "4.png", "white": "4_white.png", "name": "Partner 4" },
-  { "id": "5", "file": "5.png", "white": "5_white.png", "name": "Partner 5" },
-  { "id": "6", "file": "6.png", "white": "6_white.png", "name": "Partner 6" },
-  { "id": "7", "file": "7.png", "white": "7_white.png", "name": "Partner 7" },
-  { "id": "8", "file": "8.png", "white": "8_white.png", "name": "Partner 8" },
-  { "id": "9", "file": "9.png", "white": "9_white.png", "name": "Partner 9" },
-  { "id": "10", "file": "10.png", "white": "10_white.png", "name": "Partner 10" },
-  { "id": "11", "file": "11.png", "white": "11_white.png", "name": "Partner 11" },
-  { "id": "12", "file": "12.png", "white": "12_white.png", "name": "Partner 12" },
-  { "id": "13", "file": "13.png", "white": "13_white.png", "name": "Partner 13" },
-  { "id": "rcludo", "file": "rcludo.png", "white": "rcludo_white.png", "name": "RC Ludo" },
-  { "id": "nca", "file": "nca.png", "white": "nca_white.png", "name": "UAE Space Agency" },
-  { "id": "flighthub", "file": "flighthub.png", "white": "flighthub_white.png", "name": "Flight Hub Academy" }
+  {
+    "id": "1",
+    "file": "1.png",
+    "name": "1",
+    "white": "1_white.png"
+  },
+  {
+    "id": "2",
+    "file": "2.png",
+    "name": "2",
+    "white": "2_white.png"
+  },
+  {
+    "id": "3",
+    "file": "3.png",
+    "name": "3",
+    "white": "3_white.png"
+  },
+  {
+    "id": "4",
+    "file": "4.png",
+    "name": "4",
+    "white": "4_white.png"
+  },
+  {
+    "id": "5",
+    "file": "5.png",
+    "name": "5",
+    "white": "5_white.png"
+  },
+  {
+    "id": "6",
+    "file": "6.png",
+    "name": "6",
+    "white": "6_white.png"
+  },
+  {
+    "id": "7",
+    "file": "7.png",
+    "name": "7",
+    "white": "7_white.png"
+  },
+  {
+    "id": "8",
+    "file": "8.png",
+    "name": "8",
+    "white": "8_white.png"
+  },
+  {
+    "id": "9",
+    "file": "9.png",
+    "name": "9",
+    "white": "9_white.png"
+  },
+  {
+    "id": "10",
+    "file": "10.png",
+    "name": "10",
+    "white": "10_white.png"
+  },
+  {
+    "id": "11",
+    "file": "11.png",
+    "name": "11",
+    "white": "11_white.png"
+  },
+  {
+    "id": "12",
+    "file": "12.png",
+    "name": "12",
+    "white": "12_white.png"
+  },
+  {
+    "id": "13",
+    "file": "13.png",
+    "name": "13",
+    "white": "13_white.png"
+  },
+  {
+    "id": "14",
+    "file": "14.png",
+    "name": "14",
+    "white": "14_white.png"
+  },
+  {
+    "id": "15",
+    "file": "15.png",
+    "name": "15",
+    "white": "15_white.png"
+  },
+  {
+    "id": "16",
+    "file": "16.png",
+    "name": "16",
+    "white": "16_white.png"
+  },
+  {
+    "id": "flighthub",
+    "file": "flighthub.png",
+    "name": "Flighthub",
+    "white": "flighthub_white.png"
+  },
+  {
+    "id": "nca",
+    "file": "nca.png",
+    "name": "Nca",
+    "white": "nca_white.png"
+  },
+  {
+    "id": "rcludo",
+    "file": "rcludo.png",
+    "name": "Rcludo",
+    "white": "rcludo_white.png"
+  }
 ]
