@@ -35,7 +35,31 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-function buildEmailHtml(subject, message) {
+function formatSubject(title) {
+  if (!title) return 'Task Reminder: Pending Task';
+  const clean = String(title)
+    .replace(/^\s*(?:daily\s+)?(?:task\s+)?reminder\s*[:\-]\s*/i, '')
+    .replace(/["“”'‘’]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!clean) return 'Task Reminder: Pending Task';
+
+  const maxLen = 38;
+  if (clean.length <= maxLen) {
+    return `Task Reminder: ${clean}`;
+  }
+  const sliced = clean.slice(0, maxLen);
+  const lastSpace = sliced.lastIndexOf(' ');
+  const truncated = (lastSpace > 18 ? sliced.slice(0, lastSpace) : sliced).trim();
+  return `Task Reminder: ${truncated}…`;
+}
+
+function buildEmailHtml({ assigneeName, title, dept, deadlineStr }) {
+  const safeName = escapeHtml(assigneeName || 'there');
+  const safeTitle = escapeHtml(title || 'Pending Task');
+  const safeDept = dept ? escapeHtml(dept) : '';
+  const safeDeadline = deadlineStr ? escapeHtml(deadlineStr) : '';
+
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
@@ -87,13 +111,25 @@ function buildEmailHtml(subject, message) {
           </tr>
           <tr>
             <td class="mobile-padding" style="padding: 32px 32px 28px 32px;">
-              <h1 style="margin: 0 0 20px 0; font-family: 'Space Grotesk', -apple-system, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.35; color: #ffffff; letter-spacing: -0.02em;">
-                ${escapeHtml(subject)}
+              <h1 style="margin: 0 0 6px 0; font-family: 'Space Grotesk', -apple-system, sans-serif; font-size: 20px; font-weight: 600; line-height: 1.35; color: #ffffff; letter-spacing: -0.02em;">
+                Task Reminder
               </h1>
-              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #07080a; border: 1px solid #1c1e26; border-left: 3px solid #ffffff; border-radius: 2px; margin: 0 0 28px 0;">
+              <p style="margin: 0 0 22px 0; font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; color: #717786; text-transform: uppercase;">
+                STATUS // PENDING COMPLETION
+              </p>
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #07080a; border: 1px solid #1c1e26; border-left: 3px solid #ffffff; border-radius: 2px; margin: 0 0 26px 0;">
                 <tr>
-                  <td style="padding: 20px 22px; font-size: 14px; line-height: 1.65; color: #a1a1aa;">
-                    ${escapeHtml(message).replace(/\n/g, '<br/>')}
+                  <td style="padding: 20px 22px;">
+                    <p style="margin: 0 0 14px 0; font-size: 14px; line-height: 1.55; color: #d4d4d8;">
+                      Hi ${safeName}, this is a reminder that the following task assigned to you has not been marked complete yet:
+                    </p>
+                    <div style="font-family: 'Space Grotesk', -apple-system, sans-serif; font-size: 15px; font-weight: 600; line-height: 1.55; color: #ffffff; margin: 0 0 16px 0; padding: 12px 14px; background-color: #0d0f14; border: 1px solid #1f222c; border-radius: 2px;">
+                      ${safeTitle.replace(/\n/g, '<br/>')}
+                    </div>
+                    <table role="presentation" border="0" cellspacing="0" cellpadding="0" style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; line-height: 1.8; color: #8a8f9d;">
+                      ${safeDept ? `<tr><td style="padding-right: 14px; color: #525866; text-transform: uppercase;">DEPARTMENT:</td><td style="color: #ffffff;">${safeDept}</td></tr>` : ''}
+                      ${safeDeadline ? `<tr><td style="padding-right: 14px; color: #525866; text-transform: uppercase;">DEADLINE:</td><td style="color: #ffffff;">${safeDeadline}</td></tr>` : ''}
+                    </table>
                   </td>
                 </tr>
               </table>
@@ -131,13 +167,11 @@ function buildEmailHtml(subject, message) {
 </html>`;
 }
 
-async function sendEmail(toEmail, toName, subject, message) {
+async function sendEmail(toEmail, toName, subject, htmlContent, textContent) {
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) {
     throw new Error('Missing BREVO_API_KEY environment variable');
   }
-
-  const htmlContent = buildEmailHtml(subject, message);
 
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
@@ -169,7 +203,7 @@ async function sendEmail(toEmail, toName, subject, message) {
       },
       subject: subject,
       htmlContent: htmlContent,
-      textContent: message
+      textContent: textContent
     })
   });
 
@@ -195,13 +229,27 @@ async function main() {
     if (!t.assigneeEmail) continue;
 
     const deadline = parseDeadline(t.deadline);
-    const subject = 'Reminder: "' + t.title + '" is still pending';
-    const message =
-      'Hi ' + (t.assigneeName || '') + ', this is a daily reminder that your task "' + t.title +
-      '"' + (deadline ? ' (due ' + formatDate(deadline) + ')' : '') +
-      ' has not been marked complete yet. Submit it from the dashboard when it is done.';
+    const deadlineStr = formatDate(deadline);
+    const subject = formatSubject(t.title);
 
-    await sendEmail(t.assigneeEmail, t.assigneeName, subject, message);
+    const htmlContent = buildEmailHtml({
+      assigneeName: t.assigneeName,
+      title: t.title,
+      dept: t.dept,
+      deadlineStr: deadlineStr
+    });
+
+    const textContent =
+      `Hi ${t.assigneeName || 'there'},\n\n` +
+      `This is a daily reminder that your task is still pending:\n\n` +
+      `Task: ${t.title || 'Pending Task'}\n` +
+      (t.dept ? `Department: ${t.dept}\n` : '') +
+      (deadlineStr ? `Deadline: ${deadlineStr}\n` : '') +
+      `Status: Pending\n\n` +
+      `Submit your completed work via the Task Terminal:\n` +
+      `https://projectphantom.space/tasks.html`;
+
+    await sendEmail(t.assigneeEmail, t.assigneeName, subject, htmlContent, textContent);
   }
 }
 

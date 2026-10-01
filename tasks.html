@@ -311,6 +311,17 @@ function showToast(text){
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
+function formatTaskSubject(prefix, title) {
+  const clean = String(title || '').replace(/["“”'‘’]/g, '').replace(/\s+/g, ' ').trim();
+  if (!clean) return prefix;
+  const maxLen = 38;
+  if (clean.length <= maxLen) return `${prefix}: ${clean}`;
+  const sliced = clean.slice(0, maxLen);
+  const lastSpace = sliced.lastIndexOf(' ');
+  const truncated = (lastSpace > 18 ? sliced.slice(0, lastSpace) : sliced).trim();
+  return `${prefix}: ${truncated}…`;
+}
+
 function sendEmail(toEmail, subject, message){
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { to_email: toEmail, subject, message })
     .catch(err => console.error('EmailJS error:', err));
@@ -614,7 +625,7 @@ document.getElementById('assignBtn').addEventListener('click', async () => {
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   });
 
-  sendEmail(assigneeEmail, 'New task assigned: ' + title,
+  sendEmail(assigneeEmail, formatTaskSubject('New task assigned', title),
     'Hi ' + (assignee ? assignee.name : '') + ', you have been assigned a new task: "' + title +
     '" (' + dept + '), due ' + formatDate(deadline) + '. Check the dashboard for details.');
 
@@ -736,7 +747,7 @@ document.getElementById('confirmSubmit').addEventListener('click', async () => {
     });
 
     ADMIN_EMAILS.forEach(email => {
-      sendEmail(email, 'Task completed: ' + t.title,
+      sendEmail(email, formatTaskSubject('Task completed', t.title),
         (currentUser.name || currentUser.email) + ' marked "' + t.title + '" complete. Link: ' + url +
         (note ? '. Note: ' + note : ''));
     });
