@@ -2,97 +2,97 @@
   {
     "id": "1",
     "file": "1.png",
-    "name": "Sheraa",
+    "name": "1",
     "white": "1_white.png"
   },
   {
     "id": "2",
     "file": "2.png",
-    "name": "Partner 2",
+    "name": "2",
     "white": "2_white.png"
   },
   {
     "id": "3",
     "file": "3.png",
-    "name": "Partner 3",
+    "name": "3",
     "white": "3_white.png"
   },
   {
     "id": "4",
     "file": "4.png",
-    "name": "Partner 4",
+    "name": "4",
     "white": "4_white.png"
   },
   {
     "id": "5",
     "file": "5.png",
-    "name": "Partner 5",
+    "name": "5",
     "white": "5_white.png"
   },
   {
     "id": "6",
     "file": "6.png",
-    "name": "Partner 6",
+    "name": "6",
     "white": "6_white.png"
   },
   {
     "id": "7",
     "file": "7.png",
-    "name": "Partner 7",
+    "name": "7",
     "white": "7_white.png"
   },
   {
     "id": "8",
     "file": "8.png",
-    "name": "Partner 8",
+    "name": "8",
     "white": "8_white.png"
   },
   {
     "id": "9",
     "file": "9.png",
-    "name": "Partner 9",
+    "name": "9",
     "white": "9_white.png"
   },
   {
     "id": "10",
     "file": "10.png",
-    "name": "Partner 10",
+    "name": "10",
     "white": "10_white.png"
   },
   {
     "id": "11",
     "file": "11.png",
-    "name": "Partner 11",
+    "name": "11",
     "white": "11_white.png"
   },
   {
     "id": "12",
     "file": "12.png",
-    "name": "Partner 12",
+    "name": "12",
     "white": "12_white.png"
   },
   {
     "id": "13",
     "file": "13.png",
-    "name": "Partner 13",
+    "name": "13",
     "white": "13_white.png"
   },
   {
     "id": "flighthub",
     "file": "flighthub.png",
-    "name": "Flight Hub Academy",
-    "white": "flighthub.png"
+    "name": "Flighthub",
+    "white": "flighthub_white.png"
   },
   {
     "id": "nca",
     "file": "nca.png",
-    "name": "UAE Space Agency",
+    "name": "Nca",
     "white": "nca_white.png"
   },
   {
     "id": "rcludo",
     "file": "rcludo.png",
-    "name": "RC Ludo",
+    "name": "Rcludo",
     "white": "rcludo_white.png"
   }
 ]
