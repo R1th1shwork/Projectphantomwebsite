@@ -2161,7 +2161,7 @@
               <img src="assets/partners/nca.png" alt="UAE Space Agency" class="network-logo-color" loading="lazy" />
             </div>            
             <div class="network-logo-box">
-              <img src="assets/partners/flighthub_white.png" alt="Flight Hub Academy" class="network-logo-white" loading="lazy" />
+              <img src="assets/partners/flighthub.png" alt="Flight Hub Academy" class="network-logo-white" loading="lazy" />
               <img src="assets/partners/flighthub.png" alt="Flight Hub Academy" class="network-logo-color" loading="lazy" />
             </div>
           </div>
@@ -2229,7 +2229,7 @@
               <img src="assets/partners/nca.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
             <div class="network-logo-box">
-              <img src="assets/partners/flighthub_white.png" alt="" class="network-logo-white" loading="lazy" />
+              <img src="assets/partners/flighthub.png" alt="" class="network-logo-white" loading="lazy" />
               <img src="assets/partners/flighthub.png" alt="" class="network-logo-color" loading="lazy" />
             </div>
           </div>
@@ -3314,9 +3314,9 @@ void main() {
           box.className = 'network-logo-box';
           const file = p.file || p;
           const name = p.name || 'Partner logo';
-          const isSheraa = file === '1.png' || file === '1_white.png';
+          const preserveOriginal = file === '1.png' || file === '1_white.png' || file === 'flighthub.png' || file === 'flighthub_white.png' || p.id === '1' || p.id === 'flighthub';
           const whiteSrc = p.white ? `assets/partners/${p.white}` : `assets/partners/${file}`;
-          const isAutoWhite = !p.white && !isSheraa;
+          const isAutoWhite = !p.white && !preserveOriginal;
 
           const wImg = document.createElement('img');
           wImg.src = whiteSrc;
