@@ -1,0 +1,86 @@
+name: Auto Update Partners Manifest
+
+on:
+  push:
+    paths:
+      - 'assets/partners/**'
+  workflow_dispatch:
+
+jobs:
+  update-partners:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Pillow
+        run: pip install Pillow numpy
+
+      - name: Scan partners and update manifest
+        run: |
+          python -c "
+          import os, json
+          from PIL import Image
+          import numpy as np
+
+          partner_dir = 'assets/partners'
+          valid_exts = ('.png', '.jpg', '.jpeg', '.svg', '.webp')
+          all_files = [f for f in os.listdir(partner_dir) if f.lower().endswith(valid_exts) and not f.endswith('_white.png') and not f.endswith('_color.png') and f != 'raw']
+
+          def sort_key(name):
+              stem = os.path.splitext(name)[0]
+              return (0, int(stem)) if stem.isdigit() else (1, stem.lower())
+
+          all_files.sort(key=sort_key)
+
+          manifest = []
+          for f in all_files:
+              stem = os.path.splitext(f)[0]
+              white_name = f'{stem}_white.png'
+              white_path = os.path.join(partner_dir, white_name)
+              full_path = os.path.join(partner_dir, f)
+
+              # If white version does not exist, automatically generate one
+              if not os.path.exists(white_path) and f.lower().endswith(('.png', '.webp')):
+                  try:
+                      img = Image.open(full_path).convert('RGBA')
+                      arr = np.array(img)
+                      w_arr = np.zeros_like(arr)
+                      w_arr[:, :, :3] = 255
+                      w_arr[:, :, 3] = arr[:, :, 3]
+                      Image.fromarray(w_arr).save(white_path)
+                      print(f'Generated white silhouette: {white_name}')
+                  except Exception as e:
+                      print(f'Could not generate white version for {f}: {e}')
+
+              item = {
+                  'id': stem,
+                  'file': f,
+                  'name': stem.replace('_', ' ').replace('-', ' ').title()
+              }
+              if os.path.exists(white_path):
+                  item['white'] = white_name
+              manifest.append(item)
+
+          manifest_path = os.path.join(partner_dir, 'partners.json')
+          with open(manifest_path, 'w', encoding='utf-8') as fp:
+              json.dump(manifest, fp, indent=2)
+
+          print(f'Successfully updated partners.json with {len(manifest)} partner logos.')
+          "
+
+      - name: Commit and push partners manifest
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add assets/partners/
+          git commit -m "auto: update partner logos and manifest [skip ci]" || exit 0
+          git push
