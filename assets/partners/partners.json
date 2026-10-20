@@ -94,5 +94,11 @@
     "file": "rcludo.png",
     "name": "Rcludo",
     "white": "rcludo_white.png"
+  },
+  {
+    "id": "setterox",
+    "file": "setterox.png",
+    "name": "Setterox",
+    "white": "setterox_white.png"
   }
 ]
