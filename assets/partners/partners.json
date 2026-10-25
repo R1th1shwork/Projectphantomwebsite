@@ -84,6 +84,12 @@
     "white": "flighthub_white.png"
   },
   {
+    "id": "Main_logo",
+    "file": "Main_logo.png",
+    "name": "Main Logo",
+    "white": "Main_logo_white.png"
+  },
+  {
     "id": "nca",
     "file": "nca.png",
     "name": "Nca",
