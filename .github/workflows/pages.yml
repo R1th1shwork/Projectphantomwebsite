@@ -1,7 +1,5 @@
 name: Build and deploy Pages
 
-# Runs on every push to main, so adding an image to assets/achievements/ rebuilds the site.
-# One time setup: repo Settings > Pages > Source = "GitHub Actions".
 on:
   push:
     branches: [main]
