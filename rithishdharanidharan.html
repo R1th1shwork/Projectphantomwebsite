@@ -744,8 +744,51 @@
       @media (max-width: 680px) { .frontier, .learning { padding: 90px 0; } .frontier .section-label { margin-bottom: 56px; } .frontier-head, .learning-intro { display: block; } .frontier-head h2, .learning-intro h2 { font-size: clamp(55px, 15.5vw, 82px); } .frontier-head p, .learning-intro p { margin-top: 22px; font-size: 11px; } .milestone-stack, .credential-grid { margin-top: 54px; } .milestone { grid-template-columns: 32px 1fr; gap: 12px; padding: 21px 0; } .milestone:hover { padding-left: 0; background: transparent; } .milestone-date { grid-row: 1; grid-column: 2; } .milestone-main { grid-column: 2; } .milestone h3 { font-size: 29px; } .milestone p { font-size: 11px; } .milestone-source { grid-column: 2; font-size: 8px; } .milestone-source::before { display: none; } .credential-grid { grid-template-columns: 1fr; } .credential { min-height: 170px; } .credential h3 { margin-top: 24px; font-size: 29px; } }
 
     </style>
-  </head>
+    <style>
+    /* Custom cursor — mirrors the homepage */
+    body { cursor: none; }
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring { display: none; }
+    }
+
+    #cur-dot,
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    #cur-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      mix-blend-mode: difference;
+    }
+
+    #cur-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, .6);
+      mix-blend-mode: difference;
+      transition: width .2s ease, height .2s ease, border-color .2s ease;
+    }
+
+    #cur-ring.active {
+      width: 56px;
+      height: 56px;
+      border-color: #fff;
+    }
+  </style>
+</head>
   <body>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
     <div class="scroll-progress" aria-hidden="true"></div>
     <div class="engineering-grid" aria-hidden="true"></div>
 
@@ -1104,5 +1147,44 @@ STATE / ACTIVE LEARNING</div>
       updateClock();
       window.setInterval(updateClock, 1000);
     </script>
-  </body>
+  <script>
+  (() => {
+    const curDot = document.getElementById('cur-dot');
+    const curRing = document.getElementById('cur-ring');
+    if (!curDot || !curRing) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const place = (el, x, y) => {
+      el.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+    };
+
+    place(curDot, mouseX, mouseY);
+    place(curRing, ringX, ringY);
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      place(curDot, mouseX, mouseY);
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      place(curRing, ringX, ringY);
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => curRing.classList.add('active'));
+      el.addEventListener('mouseleave', () => curRing.classList.remove('active'));
+    });
+  })();
+</script>
+</body>
 </html>

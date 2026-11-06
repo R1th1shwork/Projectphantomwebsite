@@ -31,8 +31,51 @@
       @media(max-width:560px) { .topbar span:nth-child(2) { display:none; }.header { min-height:70px; }.hero { min-height:700px; padding:88px 20px 60px; }.hero h1 { font-size:clamp(48px,15.7vw,76px); }.sim-board { min-height:370px; }.core { width:160px; height:160px; }.arm { width:135px; }.section { padding:82px 20px; }.overview-grid h2,.focus h2,.assignment h2,.archive h2,.learning h2,.contact h2 { font-size:clamp(43px,13.8vw,65px); }.focus-modules,.input-stack { grid-template-columns:1fr; }.focus-module { min-height:215px; }.focus-module h3 { margin-top:21px; }.mission { min-height:195px; }.mission h3 { margin-top:32px; }.input-card { min-height:205px; }.input-card h3 { margin-top:28px; }.footer { display:block; line-height:1.9; } }
       @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:1ms!important; animation-duration:1ms!important; } }
     </style>
-  </head>
+    <style>
+    /* Custom cursor — mirrors the homepage */
+    body { cursor: none; }
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring { display: none; }
+    }
+
+    #cur-dot,
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    #cur-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      mix-blend-mode: difference;
+    }
+
+    #cur-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, .6);
+      mix-blend-mode: difference;
+      transition: width .2s ease, height .2s ease, border-color .2s ease;
+    }
+
+    #cur-ring.active {
+      width: 56px;
+      height: 56px;
+      border-color: #fff;
+    }
+  </style>
+</head>
   <body>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
     <div class="field-noise" aria-hidden="true"></div><div class="side-rail" aria-hidden="true"></div><div class="progress" aria-hidden="true"></div>
     <div class="topbar"><span>MZ / MECHANICAL SYSTEMS PORTFOLIO</span><span>TOC H INSTITUTE OF SCIENCE &amp; TECHNOLOGY</span><span><b>MODE</b> / FIRST-YEAR BUILD</span></div>
     <header class="header"><a class="brand" href="#top" aria-label="Mohammed Zabith home"><span class="brand-cube">MZ</span><span class="brand-copy">Mohammed Zabith<small>Mechanical engineering / aerospace</small></span></a><nav class="nav" aria-label="Main navigation"><a href="#system">System</a><a href="#focus">Focus</a><a href="#phantom">Assignment</a><a href="#archive">Archive</a><a href="#learning">Inputs</a></nav><span class="system-chip"><i></i> SYSTEM READY</span><button class="menu" type="button" aria-expanded="false">Menu</button></header>
@@ -52,5 +95,44 @@
       const observer=new IntersectionObserver(entries=>entries.forEach(entry=>entry.isIntersecting&&entry.target.classList.add('visible')),{threshold:.12});document.querySelectorAll('[data-reveal]').forEach(item=>observer.observe(item));
       const panel=document.querySelector('.mobile-menu'),opener=document.querySelector('.menu'),closer=document.querySelector('.mobile-menu button');const setMenu=active=>{panel.classList.toggle('open',active);panel.setAttribute('aria-hidden',String(!active));opener.setAttribute('aria-expanded',String(active))};opener.addEventListener('click',()=>setMenu(true));closer.addEventListener('click',()=>setMenu(false));panel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));
     </script>
-  </body>
+  <script>
+  (() => {
+    const curDot = document.getElementById('cur-dot');
+    const curRing = document.getElementById('cur-ring');
+    if (!curDot || !curRing) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const place = (el, x, y) => {
+      el.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+    };
+
+    place(curDot, mouseX, mouseY);
+    place(curRing, ringX, ringY);
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      place(curDot, mouseX, mouseY);
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      place(curRing, ringX, ringY);
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => curRing.classList.add('active'));
+      el.addEventListener('mouseleave', () => curRing.classList.remove('active'));
+    });
+  })();
+</script>
+</body>
 </html>

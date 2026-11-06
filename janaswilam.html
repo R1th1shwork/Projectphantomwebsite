@@ -150,8 +150,51 @@
       @media (max-width: 560px) { .top-note span:first-child { display: none; } .site-header { min-height: 73px; } .hero { min-height: 720px; padding-top: 100px; } h1 { font-size: clamp(65px, 20vw, 100px); } .hero-deck { gap: 30px; } .signature { font-size: 21px; } .section { padding: 88px 20px; } .constellation-heading, .achievements-heading { margin-left: 0; } h2 { font-size: clamp(51px, 16vw, 75px); } .interest { min-height: 208px; } .interest h3 { margin-top: 31px; } .award { padding: 20px 0; } .award h3 { font-size: 27px; } .footer { display: block; line-height: 1.8; } }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 1ms !important; animation-duration: 1ms !important; } }
     </style>
-  </head>
+    <style>
+    /* Custom cursor — mirrors the homepage */
+    body { cursor: none; }
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring { display: none; }
+    }
+
+    #cur-dot,
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    #cur-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      mix-blend-mode: difference;
+    }
+
+    #cur-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, .6);
+      mix-blend-mode: difference;
+      transition: width .2s ease, height .2s ease, border-color .2s ease;
+    }
+
+    #cur-ring.active {
+      width: 56px;
+      height: 56px;
+      border-color: #fff;
+    }
+  </style>
+</head>
   <body>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
     <div class="paper-grain" aria-hidden="true"></div>
     <div class="thread" aria-hidden="true"></div>
     <div class="top-note"><span>JANA SWILAM / PERSONAL COLLECTION</span><span>ABU DHABI, UAE</span><span>NOTES IN PROGRESS, 2026</span></div>
@@ -213,5 +256,44 @@
       const setMenu = (isOpen) => { menu.classList.toggle('open', isOpen); menu.setAttribute('aria-hidden', String(!isOpen)); openButton.setAttribute('aria-expanded', String(isOpen)); };
       openButton.addEventListener('click', () => setMenu(true)); closeButton.addEventListener('click', () => setMenu(false)); menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
     </script>
-  </body>
+  <script>
+  (() => {
+    const curDot = document.getElementById('cur-dot');
+    const curRing = document.getElementById('cur-ring');
+    if (!curDot || !curRing) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const place = (el, x, y) => {
+      el.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+    };
+
+    place(curDot, mouseX, mouseY);
+    place(curRing, ringX, ringY);
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      place(curDot, mouseX, mouseY);
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      place(curRing, ringX, ringY);
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => curRing.classList.add('active'));
+      el.addEventListener('mouseleave', () => curRing.classList.remove('active'));
+    });
+  })();
+</script>
+</body>
 </html>
