@@ -396,9 +396,9 @@
     .team-grid {
       display: flex;
       justify-content: center;
-      gap: 56px 48px;
+      gap: 48px 32px;
       flex-wrap: wrap;
-      max-width: 1300px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
@@ -409,8 +409,19 @@
       text-align: center;
       text-decoration: none;
       color: inherit;
-      width: clamp(220px, 28vw, 290px);
+      width: clamp(200px, 26vw, 268px);
       transition: transform 0.3s ease;
+      padding: 30px 22px 26px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012));
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, background 0.35s ease;
+    .team-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(244, 166, 66, 0.38);
+      background: linear-gradient(180deg, rgba(244, 166, 66, 0.07), rgba(255, 255, 255, 0.015));
+    }
+
     }
 
     .avatar-ring {
