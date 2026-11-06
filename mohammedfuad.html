@@ -37,8 +37,51 @@
       @media(max-width:560px) { .filmbar span:nth-child(2) { display:none; }.header { min-height:72px; }.hero { min-height:700px; padding-top:94px; }.hero::after { top:17%; right:-42%; width:95vw; }.hero-foot { gap:28px; }.section { padding:85px 20px; } h1 { font-size:clamp(58px,19.3vw,98px); }.story h2,.chapter h2,.skills h2,.contact h2,.contact-heading h2,.timeline-heading h2 { font-size:clamp(48px,15.3vw,73px); }.contact-heading,.timeline-heading { margin-left:0; }.timeline-item { padding:21px 0; }.timeline-item:hover { padding-left:0; background:transparent; }.timeline-item h3 { font-size:29px; }.footer { display:block; line-height:1.9; } }
       @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:1ms!important; animation-duration:1ms!important; } }
     </style>
-  </head>
+    <style>
+    /* Custom cursor — mirrors the homepage */
+    body { cursor: none; }
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring { display: none; }
+    }
+
+    #cur-dot,
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    #cur-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      mix-blend-mode: difference;
+    }
+
+    #cur-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, .6);
+      mix-blend-mode: difference;
+      transition: width .2s ease, height .2s ease, border-color .2s ease;
+    }
+
+    #cur-ring.active {
+      width: 56px;
+      height: 56px;
+      border-color: #fff;
+    }
+  </style>
+</head>
   <body>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
     <div class="progress" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div>
     <div class="filmbar"><span>MOHAMMED FUAD / VISUAL STORYTELLER</span><span>CONTACT SHEET 001</span><span><b>LIVE</b> · UAE</span></div>
     <header class="header"><a class="mark" href="#top" aria-label="Mohammed Fuad home"><span class="mark-icon">MF</span><span class="mark-copy">Mohammed Fuad<small>Visual storyteller / media</small></span></a><nav class="nav" aria-label="Main navigation"><a href="#story">Story</a><a href="#phantom">Phantom</a><a href="#timeline">Work</a><a href="#contact">Contact</a></nav><span class="counter">001</span><button class="menu" type="button" aria-expanded="false">Menu</button></header>
@@ -57,5 +100,44 @@
       const reveal = new IntersectionObserver(entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible')), { threshold:.12 }); document.querySelectorAll('[data-reveal]').forEach(item => reveal.observe(item));
       const panel = document.querySelector('.mobile-menu'); const open = document.querySelector('.menu'); const close = document.querySelector('.mobile-menu button'); const setMenu = active => { panel.classList.toggle('open', active); panel.setAttribute('aria-hidden', String(!active)); open.setAttribute('aria-expanded', String(active)); }; open.addEventListener('click', () => setMenu(true)); close.addEventListener('click', () => setMenu(false)); panel.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
     </script>
-  </body>
+  <script>
+  (() => {
+    const curDot = document.getElementById('cur-dot');
+    const curRing = document.getElementById('cur-ring');
+    if (!curDot || !curRing) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const place = (el, x, y) => {
+      el.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+    };
+
+    place(curDot, mouseX, mouseY);
+    place(curRing, ringX, ringY);
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      place(curDot, mouseX, mouseY);
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      place(curRing, ringX, ringY);
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => curRing.classList.add('active'));
+      el.addEventListener('mouseleave', () => curRing.classList.remove('active'));
+    });
+  })();
+</script>
+</body>
 </html>
