@@ -241,6 +241,11 @@
       .reveal, .metric-item { opacity: 1 !important; transform: none !important; transition: none !important; }
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
     }
+      /* Magnetic line field, ported from the homepage contact section. */
+    #contact { position: relative; isolation: isolate; overflow: hidden; }
+    .strategic-ops-container { position: relative; z-index: 2; }
+    .contact-field-canvas { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
+    @media (max-width: 900px) { .contact-field-canvas { opacity: .5; } }
   </style>
 </head>
 <body>
@@ -574,6 +579,7 @@
 </section>
 
 <section class="strategic-ops-section" id="contact">
+<canvas class="contact-field-canvas" aria-hidden="true"></canvas>
   <div class="strategic-ops-container">
     <div class="section-label" style="justify-content:center;">Get in Touch</div>
     <h2 class="section-title">LET'S CONNECT</h2>
@@ -1021,5 +1027,87 @@ if (hero) {
 }
 
 </script>
+  <script>
+    /* Magnetic line field behind the contact section, ported from the homepage. */
+    (function () {
+      'use strict';
+      var canvas = document.querySelector('.contact-field-canvas');
+      var section = document.querySelector('#contact');
+      if (!canvas || !section) return;
+      var ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+      if (!ctx) return;
+      var NEUTRAL = Math.PI / 2;
+      var clamp = function (v, min, max) { return Math.min(Math.max(v, min), max); };
+      var smooth = function (a, b, v) { var t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+      var delta = function (target, current) { return Math.atan2(Math.sin(target - current), Math.cos(target - current)); };
+      var field = { nodes: [], width: 0, height: 0, dpr: 1, last: performance.now(), pointer: { x: 0, y: 0, active: false } };
+
+      function resize() {
+        var rect = section.getBoundingClientRect();
+        field.width = Math.round(rect.width);
+        field.height = Math.round(rect.height);
+        field.dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(field.width * field.dpr);
+        canvas.height = Math.round(field.height * field.dpr);
+        var gap = field.width < 700 ? 29 : 34;
+        field.nodes = [];
+        for (var y = gap / 2; y < field.height; y += gap) {
+          for (var x = gap / 2; x < field.width; x += gap) {
+            field.nodes.push({ x: x, y: y, angle: NEUTRAL, velocity: 0, power: 0 });
+          }
+        }
+      }
+
+      function draw(now) {
+        var dt = clamp((now - field.last) / 16.667, .4, 1.8);
+        field.last = now;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.setTransform(field.dpr, 0, 0, field.dpr, 0, 0);
+        var tiers = [[], [], [], []];
+        field.nodes.forEach(function (node) {
+          var target = NEUTRAL, power = 0;
+          if (field.pointer.active) {
+            var dx = field.pointer.x - node.x, dy = field.pointer.y - node.y;
+            power = 1 - smooth(0, 185, Math.hypot(dx, dy));
+            target = Math.atan2(dy, dx);
+          }
+          node.velocity += delta(target, node.angle) * .13 * dt;
+          node.velocity *= Math.pow(.74, dt);
+          node.angle += node.velocity * dt;
+          node.power += (power - node.power) * .15 * dt;
+          tiers[clamp(Math.floor((.08 + node.power * .72) * 4), 0, 3)].push(node);
+        });
+        tiers.forEach(function (nodes, tier) {
+          if (!nodes.length) return;
+          ctx.beginPath();
+          ctx.strokeStyle = '#fff';
+          ctx.globalAlpha = .035 + tier * .09;
+          ctx.lineWidth = .7 + tier * .14;
+          nodes.forEach(function (node) {
+            var half = 2.8 + node.power * 4.2;
+            var c = Math.cos(node.angle), s = Math.sin(node.angle);
+            ctx.moveTo(node.x - c * half, node.y - s * half);
+            ctx.lineTo(node.x + c * half, node.y + s * half);
+          });
+          ctx.stroke();
+        });
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+      }
+
+      section.addEventListener('pointermove', function (event) {
+        var rect = section.getBoundingClientRect();
+        field.pointer.x = event.clientX - rect.left;
+        field.pointer.y = event.clientY - rect.top;
+        field.pointer.active = true;
+      });
+      section.addEventListener('pointerleave', function () { field.pointer.active = false; });
+      section.addEventListener('pointercancel', function () { field.pointer.active = false; });
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+      requestAnimationFrame(function (t) { field.last = t; draw(t); });
+    })();
+  </script>
 </body>
 </html>
