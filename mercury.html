@@ -280,6 +280,16 @@
   "description": "Mercury AI \u2014 airborne cognitive system. Real-time 3D reconstruction, edge inference, swarm coordination and predictive environmental modeling, thinking at 30,000 feet."
 }
   </script>
+
+  <style>
+    /* Pointer safety net: if the custom cursor cannot run (touch, pen-only,
+       reduced data), the system cursor is restored instead of left hidden. */
+    @media (hover: none), (pointer: coarse) {
+      html, body, body * { cursor: auto !important; }
+      #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
+    }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  </style>
 </head>
 <body>
   <div class="gradient-waves-container" id="gradientWaves" aria-hidden="true"></div>

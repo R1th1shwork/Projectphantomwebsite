@@ -935,6 +935,16 @@ position: absolute;
   "description": "Meet the team of teenagers based in the UAE behind Project Phantom\u2014designing and building autonomous fixed-wing aircraft and aerospace AI."
 }
   </script>
+
+  <style>
+    /* Pointer safety net: if the custom cursor cannot run (touch, pen-only,
+       reduced data), the system cursor is restored instead of left hidden. */
+    @media (hover: none), (pointer: coarse) {
+      html, body, body * { cursor: auto !important; }
+      #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
+    }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  </style>
 </head>
 <body>
   <div class="gradient-waves-container" id="gradientWaves" aria-hidden="true"></div>

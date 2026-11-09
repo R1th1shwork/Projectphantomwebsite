@@ -219,7 +219,7 @@
         inset: 0;
         width: 100%;
         height: 100%;
-        filter: blur(38px) saturate(115%);
+        filter: blur(22px) saturate(115%);
         opacity: 0.85;
       }
 
@@ -264,7 +264,14 @@
         border-radius: 50%;
         pointer-events: none;
         will-change: transform;
+        opacity: 0;
       }
+
+      /* the native cursor is only hidden once the custom one is actually moving */
+      body.pointer-active { cursor: none; }
+
+      body.pointer-active .cursor-dot,
+      body.pointer-active .cursor-ring { opacity: 1; }
 
       .cursor-dot {
         z-index: 8100;
@@ -272,7 +279,7 @@
         height: 6px;
         margin: -3px 0 0 -3px;
         background: #fff;
-        mix-blend-mode: difference;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), 0 0 8px rgba(0, 0, 0, 0.4);
       }
 
       .cursor-ring {
@@ -281,6 +288,7 @@
         height: 38px;
         margin: -19px 0 0 -19px;
         border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
       }
 
       .cursor-glow {
@@ -296,7 +304,18 @@
       body.pointer-active .cursor-glow { opacity: 1; }
 
       @media (hover: none), (pointer: coarse) {
+        body, body.pointer-active { cursor: auto; }
         .cursor-dot, .cursor-ring, .cursor-glow { display: none; }
+      }
+
+      /* small CSS viewports (high display scaling, e.g. Chromebooks at 150%)
+         fall between the desktop and 900px breakpoints, where desktop type
+         reads as if the page were zoomed in */
+      @media (max-width: 1040px) {
+        .hero-title { font-size: clamp(30px, 7vw, 78px); }
+        .section-title { font-size: clamp(26px, 5vw, 42px); }
+        .contact-title { font-size: clamp(28px, 5.4vw, 46px); }
+        .wrap { padding: 0 32px; }
       }
 
       .progress {
@@ -1246,6 +1265,16 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rithish Dharanidharan | Founder of Project Phantom">
   <meta name="twitter:description" content="Rithish Dharanidharan is the founder of Project Phantom, a UAE student engineer building autonomous flight, applied AI and hardware.">
+
+  <style>
+    /* Pointer safety net: if the custom cursor cannot run (touch, pen-only,
+       reduced data), the system cursor is restored instead of left hidden. */
+    @media (hover: none), (pointer: coarse) {
+      html, body, body * { cursor: auto !important; }
+      #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
+    }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  </style>
 </head>
   <body>
     <!-- loader -->
