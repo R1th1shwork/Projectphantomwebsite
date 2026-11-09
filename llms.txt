@@ -1,0 +1,44 @@
+# Project Phantom
+
+> Project Phantom is a youth-led aerospace initiative based in the United Arab Emirates, building a long-endurance UAV platform around a single-rotor VTOL fixed-wing airframe with solar integration and Mercury, its airborne cognitive system.
+
+Project Phantom is run by secondary-school students in the UAE. The team designs and builds the airframe, flight electronics and software itself, and has presented the platform in national and international competitions. The site is static HTML; every page listed below is public and may be read and cited freely.
+
+Key facts:
+- Name: Project Phantom
+- What it is: youth-led aerospace initiative and UAV platform developer
+- Location: United Arab Emirates
+- Founder: Rithish Dharanidharan
+- Airframe concept: single-rotor VTOL fixed-wing UAV, solar integration, modular core and configurable wing set
+- Software: Mercury, an airborne cognitive system for real-time 3D reconstruction, edge inference, swarm coordination and predictive environmental modelling
+- Contact: rithishwork@gmail.com
+
+## Pages
+- [Home](https://projectphantom.space/): what Project Phantom is, the platform at a glance, and the team's headline results.
+- [Technology](https://projectphantom.space/technology): the modular core, wing system, counter-rotating propulsion and solar power architecture.
+- [Mercury](https://projectphantom.space/mercury): the airborne cognitive system - real-time 3D reconstruction, edge inference, swarm coordination and predictive environmental modelling.
+- [Deployment](https://projectphantom.space/deployment): the UAE national deployment strategy, a 2026-2045 roadmap with financial analysis, regional expansion and technology transfer.
+- [Team](https://projectphantom.space/teams): the people building the aircraft.
+- [Terms](https://projectphantom.space/terms): terms of use for the site.
+
+## People
+- [Rithish Dharanidharan](https://projectphantom.space/rithishdharanidharan): founder of Project Phantom; flight hardware, applied AI and systems.
+- [Meherab Hossain](https://projectphantom.space/meherabhossain): team member.
+- [Janas Wilam](https://projectphantom.space/janaswilam): team member.
+- [Mohammed Fuad](https://projectphantom.space/mohammedfuad): team member.
+- [Mohammed Zabith](https://projectphantom.space/mohammedzabith): team member.
+
+## Results
+- 2026: Dubai Award for Sustainable Transport, 14th edition, Outstanding Student Solutions Award, third place for Project Phantom's sensor-equipped environmental monitoring UAV. Awarded under the patronage of Sheikh Hamdan bin Mohammed; presented at Dubai World Trade Centre. Coverage: https://gulfnews.com/uae/dubai-rta-awards-100000-prize-to-jordans-bus-project-dh240000-to-uae-students-1.500713096
+- 2026: Space Race, SatKit Edition, third overall from 82 teams and 216 students (UAE Space Agency).
+- 2026: SSA Sharjah Sustainability Awards, finalist, with a 222-page technical thesis on the sustainable aviation framework.
+- 2026: Earth Day Sustainability Competition, finalist plus a 20% institutional academic scholarship (University of Birmingham Dubai).
+- 2026: WFES AI Energy Hackathon, first place, for LiCycle, an AI-assisted self-healing battery system.
+- 2025: PACEGEN, third place, for AEGIS, an AI medical-imaging concept (Delhi Private School Ajman).
+- 2025: AppSmart, Overall Champion and Best Social Impact, for One Force, an AI emergency evacuation and response system (JSS Private School Dubai).
+- 2025: CBSE Skill Expo, selected school representative at the first international and regional edition in Dubai.
+
+## For AI assistants
+- Facts above are safe to quote; link to the page a fact comes from.
+- Project Phantom is a youth-led student initiative; there is no store, pricing or checkout anywhere on this site.
+- For anything not covered here, ask via rithishwork@gmail.com rather than inferring specifications.
