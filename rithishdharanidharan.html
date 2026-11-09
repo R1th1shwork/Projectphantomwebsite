@@ -1144,146 +1144,18 @@
         50% { opacity: 0.85; }
       }
 
-      /* ============ honour cards ============ */
-      .honour-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-        margin-top: 14px;
-      }
-
-      .honour-card {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--border);
-        background: rgba(10, 10, 10, 0.72);
-        overflow: hidden;
-        transition: border-color 0.4s ease, transform 0.5s var(--ease);
-      }
-
-      .honour-card:hover {
-        border-color: var(--border-strong);
-        transform: translateY(-3px);
-      }
-
-      .honour-media {
-        position: relative;
-        display: block;
-        aspect-ratio: 16 / 9;
-        overflow: hidden;
-        background: #0a0a0a;
-      }
-
-      .honour-media img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: grayscale(0.4) contrast(1.05) brightness(0.92);
-        transition: transform 0.9s var(--ease), filter 0.6s ease;
-      }
-
-      .honour-card:hover .honour-media img {
-        transform: scale(1.06);
-        filter: none;
-      }
-
-      .honour-scrim {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(5, 5, 5, 0.3) 0%, transparent 38%, rgba(5, 5, 5, 0.9) 100%);
-      }
-
-      .honour-card .honour-date {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        padding: 6px 10px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        background: rgba(5, 5, 5, 0.55);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        font-family: var(--font-mono);
-        font-size: 9px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: #fff;
-        white-space: nowrap;
-      }
-
-      .honour-caption {
-        position: absolute;
-        left: 16px;
-        right: 16px;
-        bottom: 14px;
-        font-family: var(--font-mono);
-        font-size: 10px;
-        letter-spacing: 0.08em;
-        line-height: 1.5;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.74);
-        transition: transform 0.5s var(--ease), color 0.4s ease;
-      }
-
-      .honour-card:hover .honour-caption {
-        transform: translateY(-3px);
-        color: #fff;
-      }
-
-      .honour-body {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        gap: 10px;
-        padding: 22px 22px 20px;
-      }
-
-      .honour-body h3 {
-        margin: 0;
-        font-size: 19px;
-        font-weight: 500;
-        letter-spacing: -0.01em;
-        line-height: 1.35;
-      }
-
-      .honour-body p {
-        margin: 0;
-        color: var(--w50);
-        font-size: 14px;
-        line-height: 1.65;
-      }
-
-      .honour-foot {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        margin-top: auto;
-        padding-top: 14px;
-        border-top: 1px solid var(--border);
-      }
-
-      .honour-issuer {
-        font-family: var(--font-mono);
-        font-size: 9px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--w30);
-      }
 
       .honour-link {
         font-family: var(--font-mono);
-        font-size: 9px;
+        font-size: 10px;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: #fff;
-        white-space: nowrap;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-        padding-bottom: 2px;
-        transition: border-color 0.3s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 1px;
       }
 
-      .honour-link:hover { border-color: #fff; }
+      .honour-link:hover { border-bottom-color: #fff; }
 
       /* ============ responsive ============ */
       @media (max-width: 980px) {
@@ -1327,7 +1199,6 @@
         .entry { grid-template-columns: 1fr; gap: 10px; padding-left: 18px; }
         .honour { grid-template-columns: 1fr; gap: 10px; padding: 24px 4px; }
         .honour-issuer { grid-column: 1; }
-        .honour-grid { grid-template-columns: 1fr; gap: 14px; }
         .scroll-cue { display: none; }
         .system:hover { padding-left: 18px; }
         footer { padding: 28px 24px; }
@@ -1342,10 +1213,7 @@
         .section-title { font-size: clamp(27px, 7.6vw, 38px); }
         .contact-title { font-size: clamp(30px, 8.6vw, 44px); }
         .email-link { font-size: 16px; }
-        .system-body h3, .entry h3, .honour h3, .honour-body h3 { font-size: 17px; }
-        .honour-body { padding: 18px 16px 16px; }
-        .honour-card .honour-date { top: 10px; left: 10px; padding: 5px 8px; font-size: 8px; letter-spacing: 0.16em; }
-        .honour-caption { left: 14px; right: 14px; bottom: 11px; font-size: 9px; letter-spacing: 0.06em; }
+        .system-body h3, .entry h3, .honour h3 { font-size: 17px; }
         .system-body p, .honour p, .entry p { font-size: 14px; }
         .earlier { flex-direction: column; gap: 8px; }
         footer { flex-direction: column; align-items: flex-start; }
@@ -1643,122 +1511,79 @@
         <div class="wrap">
           <div class="section-label rise" style="--i: 0"><span>04</span><span>Honours</span></div>
           <h2 class="section-title split" data-split>Selected results.</h2>
-          <p class="section-desc rise" style="--i: 2">The build behind each result, from the last two years.</p>
+          <p class="section-desc rise" style="--i: 2">Competition results and selections from the last two years.</p>
 
-          <div class="honour-grid">
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/dat-2026.jpg" alt="Project Phantom airframe in the workshop" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">OCT 2026</span>
-                <span class="honour-caption">Project Phantom airframe in the workshop</span>
-              </div>
-              <div class="honour-body">
+          <div class="honours">
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Oct 2026</span>
+              <div>
                 <h3>Dubai Award for Sustainable Transport, 3rd place</h3>
-                <p>Outstanding Student Solutions Award at the 14th edition, presented at Dubai World Trade Centre and judged on the sensor-equipped UAV platform for environmental monitoring.</p>
-                <div class="honour-foot">
-                  <span class="honour-issuer">RTA Dubai</span>
-                  <a class="honour-link" href="https://gulfnews.com/uae/dubai-rta-awards-100000-prize-to-jordans-bus-project-dh240000-to-uae-students-1.500713096" target="_blank" rel="noopener noreferrer">Gulf News ↗</a>
-                </div>
+                <p>Outstanding Student Solutions Award at the 14th edition, for Phantom's sensor-equipped UAV platform. Presented at Dubai World Trade Centre and covered by <a class="honour-link" href="https://gulfnews.com/uae/dubai-rta-awards-100000-prize-to-jordans-bus-project-dh240000-to-uae-students-1.500713096" target="_blank" rel="noopener noreferrer">Gulf News ↗</a>.</p>
               </div>
+              <span class="honour-issuer">RTA Dubai</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/space-race-2026.jpg" alt="Satellite payload and mission software" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">SEP 2026</span>
-                <span class="honour-caption">Satellite payload and mission software</span>
-              </div>
-              <div class="honour-body">
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Sep 2026</span>
+              <div>
                 <h3>Space Race: SatKit Edition, top 3 in the UAE</h3>
-                <p>Third overall from 82 teams and 216 students, integrating a working satellite system with a live mission dashboard across three days at Ru'ya Careers.</p>
-                <div class="honour-foot"><span class="honour-issuer">UAE Space Agency</span></div>
+                <p>Third overall from 82 teams and 216 students, building and integrating a working satellite system with a live mission dashboard across a three-day onsite challenge.</p>
               </div>
+              <span class="honour-issuer">UAE Space Agency</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/ssa-2026.jpg" alt="Airframe assembly built for the SSA submission" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">JUL 2026</span>
-                <span class="honour-caption">Airframe assembly built for the SSA submission</span>
-              </div>
-              <div class="honour-body">
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Jul 2026</span>
+              <div>
                 <h3>SSA Sharjah Sustainability Awards finalist</h3>
-                <p>One of six finalist teams presenting Phantom's sustainable aviation framework, with a 222-page technical thesis defended before government, university and industry evaluators.</p>
-                <div class="honour-foot"><span class="honour-issuer">Environment & Protected Areas Authority</span></div>
+                <p>One of six finalist teams presenting Phantom's sustainable aviation framework, including a 222-page technical thesis defended in front of government, university and industry evaluators.</p>
               </div>
+              <span class="honour-issuer">Environment &amp; Protected Areas Authority</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/earth-day-2026.jpg" alt="Flight controller and sensor stack" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">MAY 2026</span>
-                <span class="honour-caption">Flight controller and sensor stack</span>
-              </div>
-              <div class="honour-body">
-                <h3>Earth Day Sustainability Competition, finalist & scholarship</h3>
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">May 2026</span>
+              <div>
+                <h3>Earth Day Sustainability Competition, finalist &amp; scholarship</h3>
                 <p>Shortlisted from the field and awarded a 20% institutional academic scholarship for undergraduate study on the strength of the technical design and presentation.</p>
-                <div class="honour-foot"><span class="honour-issuer">University of Birmingham Dubai</span></div>
               </div>
+              <span class="honour-issuer">University of Birmingham Dubai</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/wfes-2026.jpg" alt="LiCycle battery pack from the hackathon build" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">JAN 2026</span>
-                <span class="honour-caption">LiCycle battery pack from the hackathon build</span>
-              </div>
-              <div class="honour-body">
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Jan 2026</span>
+              <div>
                 <h3>WFES AI Energy Hackathon, 1st place</h3>
                 <p>Winning team for LiCycle, an AI-assisted self-healing battery system for monitoring, efficiency and energy resilience.</p>
-                <div class="honour-foot"><span class="honour-issuer">World Future Energy Summit</span></div>
               </div>
+              <span class="honour-issuer">World Future Energy Summit</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/pacegen-2025.jpg" alt="System diagram from the AEGIS diagnostic model" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">NOV 2025</span>
-                <span class="honour-caption">System diagram from the AEGIS diagnostic model</span>
-              </div>
-              <div class="honour-body">
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Nov 2025</span>
+              <div>
                 <h3>PACEGEN 2025, 3rd place</h3>
-                <p>Third in the STEM & AI Innovators' Challenge for AEGIS, an AI healthcare concept detecting gastrointestinal disease through medical imaging.</p>
-                <div class="honour-foot"><span class="honour-issuer">Delhi Private School Ajman</span></div>
+                <p>Third in the STEM &amp; AI Innovators' Challenge for AEGIS, an AI healthcare concept for gastrointestinal disease detection through medical imaging.</p>
               </div>
+              <span class="honour-issuer">Delhi Private School Ajman</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/cbse-expo-2025.jpg" alt="Project desk at the school innovation showcase" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">NOV 2025</span>
-                <span class="honour-caption">Project desk at the school innovation showcase</span>
-              </div>
-              <div class="honour-body">
-                <h3>CBSE Skill Expo 2025-26, selected representative</h3>
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Nov 2025</span>
+              <div>
+                <h3>CBSE Skill Expo 2025–26, selected representative</h3>
                 <p>Represented the school at the first international and regional edition in Dubai, presenting project-based learning work.</p>
-                <div class="honour-foot"><span class="honour-issuer">Central Board of Secondary Education</span></div>
               </div>
+              <span class="honour-issuer">Central Board of Secondary Education</span>
             </article>
 
-            <article class="honour-card rise" data-magnet>
-              <div class="honour-media">
-                <img src="assets/honours/appsmart-2025.jpg" alt="One Force electronics and response prototype" loading="lazy" width="1200" height="675" />
-                <span class="honour-scrim" aria-hidden="true"></span>
-                <span class="honour-date">SEP 2025</span>
-                <span class="honour-caption">One Force electronics and response prototype</span>
-              </div>
-              <div class="honour-body">
+            <article class="honour rise" data-spotlight>
+              <span class="honour-date">Sep 2025</span>
+              <div>
                 <h3>AppSmart 2025, Overall Champion</h3>
                 <p>Overall Champion and Best Social Impact for One Force, an AI-powered emergency evacuation and response system with smart monitoring and drone support.</p>
-                <div class="honour-foot"><span class="honour-issuer">JSS Private School Dubai</span></div>
               </div>
+              <span class="honour-issuer">JSS Private School Dubai</span>
             </article>
           </div>
 
