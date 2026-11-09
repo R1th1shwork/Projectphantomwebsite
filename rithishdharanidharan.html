@@ -131,36 +131,38 @@
 
       .loader.done .loader-inner { opacity: 0; transform: translateY(-14px); }
 
-      .loader-mark {
-        width: 62px;
-        height: 62px;
-        overflow: visible;
+      .loader-logo-wrap {
+        position: relative;
+        display: grid;
+        width: 108px;
+        height: 108px;
+        place-items: center;
       }
 
-      .loader-mark circle,
-      .loader-mark path {
-        fill: none;
-        stroke: #fff;
-        stroke-width: 3;
-        stroke-linecap: round;
-        stroke-linejoin: round;
+      .loader-logo {
+        width: 92px;
+        height: 92px;
+        object-fit: contain;
+        opacity: 0;
+        transform: scale(0.9);
+        filter: contrast(1.05) drop-shadow(0 0 28px rgba(255, 255, 255, 0.18));
+        animation: logoIn 1s var(--ease) 0.05s forwards;
       }
 
-      .loader-mark circle {
-        stroke-dasharray: 160;
-        stroke-dashoffset: 160;
-        animation: drawRing 1.5s var(--ease) forwards;
+      @keyframes logoIn {
+        to { opacity: 1; transform: none; }
       }
 
-      .loader-mark path {
-        stroke-dasharray: 120;
-        stroke-dashoffset: 120;
-        animation: drawMark 1.2s var(--ease) 0.25s forwards;
-        animation-delay: 0.25s;
+      .loader-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-top-color: rgba(255, 255, 255, 0.8);
+        animation: loaderSpin 1.5s linear infinite;
       }
 
-      @keyframes drawRing { to { stroke-dashoffset: 0; } }
-      @keyframes drawMark { to { stroke-dashoffset: 0; } }
+      @keyframes loaderSpin { to { transform: rotate(360deg); } }
 
       .loader-word {
         font-family: var(--font-mono);
@@ -1210,10 +1212,10 @@
     <!-- loader -->
     <div class="loader" id="loader" aria-hidden="true">
       <div class="loader-inner">
-        <svg class="loader-mark" viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="32" r="25" />
-          <path d="M45 19H28c-6 0-10 3-10 8s4 8 10 8h16M19 35h17c6 0 10 3 10 8s-4 8-10 8H19" />
-        </svg>
+        <div class="loader-logo-wrap">
+          <span class="loader-ring" aria-hidden="true"></span>
+          <img class="loader-logo" src="assets/nav.png" alt="Project Phantom logo mark" width="240" height="240" />
+        </div>
         <span class="loader-word">Project Phantom</span>
         <div class="loader-row">
           <span class="loader-bar"><i id="loadBar"></i></span>
