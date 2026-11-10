@@ -2283,8 +2283,8 @@
     .project-carousel-card {
       position: absolute;
       top: 50%;
-      left: 55%;
-      width: clamp(184px, 21vw, 318px);
+      left: 50%;
+      width: clamp(210px, 24vw, 360px);
       aspect-ratio: 4/5;
       transform-style: preserve-3d;
       will-change: transform, opacity;
@@ -2293,7 +2293,7 @@
     /* landscape frames: group and stage shots keep their full width instead of being
        cropped to a vertical strip, so faces at the edges stay in the picture */
     .project-carousel-card.is-landscape {
-      width: clamp(220px, 23vw, 350px);
+      width: clamp(300px, 34vw, 500px);
       aspect-ratio: 4/3;
     }
 
@@ -2452,7 +2452,7 @@
       }
 
       .project-carousel-card {
-        left: 57%;
+        left: 50%;
         width: clamp(160px, 53vw, 246px);
       }
 
@@ -3602,17 +3602,20 @@
         currentCarouselProgress += (targetCarouselProgress - currentCarouselProgress) * .048;
         const eased = currentCarouselProgress * currentCarouselProgress * (3 - 2 * currentCarouselProgress);
         const activeFrame = eased * (count - 1);
-        const spacing = Math.min(window.innerWidth * .27, 330);
+        /* spacing follows the card width so a bigger deck still reads as a fan instead of
+           sliding its outer cards off the right edge */
+        const cardWidth = projectCarouselCards[0].offsetWidth || 320;
+        const spacing = Math.min(cardWidth * .74, window.innerWidth * .4);
         projectCarouselCards.forEach((card, index) => {
           const delta = index - activeFrame;
           const distance = Math.abs(delta);
           const x = delta * spacing;
           const y = Math.sin(delta * Math.PI * .55) * 22;
-          const z = -distance * 245 + (1 - Math.min(distance, 1)) * 48;
-          const rotateY = -delta * 28;
+          const z = -distance * 200 + (1 - Math.min(distance, 1)) * 48;
+          const rotateY = -delta * 18;
           const rotateX = distance * 2;
           const rotateZ = -delta * 2.4;
-          const scale = 1 - Math.min(distance * .12, .38);
+          const scale = 1 - Math.min(distance * .1, .34);
           const opacity = clampCarousel(1 - Math.max(distance - 1.28, 0) * .58, 0, 1);
           card.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
           card.style.opacity = opacity;
