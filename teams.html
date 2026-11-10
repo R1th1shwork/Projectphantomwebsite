@@ -944,7 +944,26 @@ position: absolute;
       #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
     }
     html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  </style>
+  
+/* ---- responsive hardening ---- */
+/* Narrow phones, split-screen and foldable inner screens: nothing may widen the page,
+   long unbroken words may wrap, and wide data tables scroll inside their own box. */
+@media (max-width: 640px) {
+  html, body { overflow-x: hidden; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; }
+}
+@media (max-width: 380px) {
+  img, svg, video, canvas, iframe { max-width: 100%; }
+}
+
+/* ---- responsive pass 2 ---- */
+@media (max-width: 380px) {
+  nav { padding: 14px 16px; }
+  .nav-cta { padding: 8px 10px; font-size: 10px; letter-spacing: .06em; }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+}
+</style>
 </head>
 <body>
   <div class="gradient-waves-container" id="gradientWaves" aria-hidden="true"></div>

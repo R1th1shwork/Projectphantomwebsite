@@ -7,6 +7,17 @@
     <meta property="og:title" content="Mohammed Zabith | Mechanical Systems Portfolio" />
     <meta property="og:description" content="A personal mechanical engineering portfolio focused on aerospace, CAD, aviation, automotive systems, motorsport, and practical engineering foundations." />
     <meta property="og:type" content="website" />
+<link rel="canonical" href="https://projectphantom.space/mohammedzabith">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:url" content="https://projectphantom.space/mohammedzabith">
+<meta property="og:site_name" content="Project Phantom">
+<meta property="og:image" content="https://projectphantom.space/assets/glo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mohammed Zabith | Mechanical Systems Portfolio">
+<meta name="twitter:description" content="Mohammed Zabith studies mechanical engineering and works on aerodynamics, CAD and aircraft structures.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Mohammed Zabith Bin Shafeek Rawther","url":"https://projectphantom.space/mohammedzabith","jobTitle":"Aerodynamics and CAD Intern, Project Phantom","worksFor":{"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space/"},"image":"https://projectphantom.space/assets/glo.png"}
+</script>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -81,7 +92,25 @@
       #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
     }
     html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  </style>
+  
+/* ---- responsive hardening ---- */
+@media (max-width: 640px) {
+  html, body { overflow-x: hidden; }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; }
+  table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media (max-width: 380px) {
+  html, body { max-width: 100%; }
+  img, svg, video, canvas, iframe { max-width: 100%; }
+}
+
+/* ---- responsive pass 3 ---- */
+/* 320px phones and narrow split-screen panes: the fixed 320px body floor pushed a
+   slim horizontal scroll into existence once a scrollbar took its 15px. */
+@media (max-width: 380px) {
+  body { min-width: 0; }
+}
+</style>
 </head>
   <body>
   <div id="cur-dot"></div>

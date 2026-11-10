@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f9f8f4" />
   <meta name="description" content="Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum. An Initiative by Unipreneur." />
+<link rel="canonical" href="https://projectphantom.space/inspiredbysheikhmohammed">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum","url":"https://projectphantom.space/inspiredbysheikhmohammed","inLanguage":"en","about":{"@type":"Person","name":"Sheikh Mohammed bin Rashid Al Maktoum"},"isPartOf":{"@type":"WebSite","name":"Project Phantom","url":"https://projectphantom.space/"}}
+</script>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Phantom">
+<meta property="og:title" content="Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum | Unipreneur">
+<meta property="og:description" content="An Initiative by Unipreneur, inspired by the leadership of H.H. Sheikh Mohammed bin Rashid Al Maktoum.">
+<meta property="og:url" content="https://projectphantom.space/inspiredbysheikhmohammed">
+<meta property="og:image" content="https://projectphantom.space/assets/glo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum | Unipreneur">
+<meta name="twitter:description" content="An Initiative by Unipreneur, inspired by the leadership of H.H. Sheikh Mohammed bin Rashid Al Maktoum.">
   <title>Inspired by H.H. Sheikh Mohammed bin Rashid Al Maktoum | Unipreneur</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap');
@@ -180,6 +194,18 @@
   body.youth-discovered .hero-marker.one { border-color:var(--lime); }.hero-art .hero-image { transition:filter .42s var(--ease); } body.youth-discovered .hero-art .hero-image { filter:hue-rotate(12deg) saturate(1.15); }
   @keyframes sparkBurst { to { opacity:0; transform:translate(var(--spark-x),var(--spark-y)) scale(.2) rotate(180deg); } }
   @media (max-width:700px) { .signal-seed { bottom:84px; right:22px; } }
+
+/* ---- responsive hardening ---- */
+/* Narrow phones, split-screen and foldable inner screens: nothing may widen the page,
+   long unbroken words may wrap, and wide data tables scroll inside their own box. */
+@media (max-width: 640px) {
+  html, body { overflow-x: hidden; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; }
+}
+@media (max-width: 380px) {
+  img, svg, video, canvas, iframe { max-width: 100%; }
+}
 </style>
 <body class="is-loading">
   <section class="site-loader" id="site-loader" aria-label="Loading the initiative">
