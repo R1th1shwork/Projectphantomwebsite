@@ -2290,6 +2290,13 @@
       will-change: transform, opacity;
     }
 
+    /* landscape frames: group and stage shots keep their full width instead of being
+       cropped to a vertical strip, so faces at the edges stay in the picture */
+    .project-carousel-card.is-landscape {
+      width: clamp(220px, 23vw, 350px);
+      aspect-ratio: 4/3;
+    }
+
     .project-carousel-card-number {
       display: block;
       margin: 0 0 9px 2px;
@@ -2447,6 +2454,10 @@
       .project-carousel-card {
         left: 57%;
         width: clamp(160px, 53vw, 246px);
+      }
+
+      .project-carousel-card.is-landscape {
+        width: clamp(210px, 62vw, 300px);
       }
     }
 
@@ -3647,6 +3658,15 @@
         img.alt = item.alt || item.title || 'Achievement ' + (index + 1);
         img.loading = 'lazy';
         img.decoding = 'async';
+        /* wide photos (award stages, team shots) get a landscape frame; the JSON can
+           also force it with "layout": "landscape" before the image loads */
+        const applyCardLayout = () => {
+          const isLandscape = item.layout === 'landscape' || (img.naturalWidth > 0 && img.naturalWidth > img.naturalHeight);
+          card.classList.toggle('is-landscape', isLandscape);
+          requestCarouselUpdate();
+        };
+        if (item.layout === 'landscape') card.classList.add('is-landscape');
+        img.addEventListener('load', applyCardLayout);
         img.addEventListener('error', () => {
           projectCarouselCards = projectCarouselCards.filter(c => c !== card);
           card.remove();
