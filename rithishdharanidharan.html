@@ -1274,7 +1274,25 @@
       #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
     }
     html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  </style>
+  
+/* ---- responsive hardening ---- */
+@media (max-width: 640px) {
+  html, body { overflow-x: hidden; }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; }
+  table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media (max-width: 380px) {
+  html, body { max-width: 100%; }
+  img, svg, video, canvas, iframe { max-width: 100%; }
+}
+
+/* ---- responsive pass 3 ---- */
+/* 320px phones and narrow split-screen panes: the fixed 320px body floor pushed a
+   slim horizontal scroll into existence once a scrollbar took its 15px. */
+@media (max-width: 380px) {
+  body { min-width: 0; }
+}
+</style>
 </head>
   <body>
     <!-- loader -->

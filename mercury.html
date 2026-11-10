@@ -289,7 +289,28 @@
       #cur-dot, #cur-ring, .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
     }
     html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  </style>
+  
+/* ---- responsive hardening ---- */
+/* Narrow phones, split-screen and foldable inner screens: nothing may widen the page,
+   long unbroken words may wrap, and wide data tables scroll inside their own box. */
+@media (max-width: 640px) {
+  html, body { overflow-x: hidden; }
+  table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; }
+}
+@media (max-width: 380px) {
+  img, svg, video, canvas, iframe { max-width: 100%; }
+}
+
+/* ---- responsive pass 2 ---- */
+/* The comparison matrix uses fixed label columns, which forced the page wider than
+   small phones. Labels shrink and cell padding tightens instead of pushing content off. */
+@media (max-width: 700px) {
+  .compare-grid { grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); }
+  .compare-header, .compare-cell { padding: 12px 10px; font-size: 11px; }
+  .feat-cell { padding: 26px 18px; }
+}
+</style>
 </head>
 <body>
   <div class="gradient-waves-container" id="gradientWaves" aria-hidden="true"></div>
