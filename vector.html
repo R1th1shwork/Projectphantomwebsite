@@ -171,14 +171,14 @@
   .sec { padding: clamp(5.5rem, 13vw, 10rem) 0; }
   .sec { position: relative; }
   .sec > .wrap { position: relative; z-index: 1; }
-  .sec > .orb { z-index: 0; color: inherit; }
-  .sec > .orb.a1 { width: 26px; height: 26px; top: 7%; left: 4.5%; opacity: .6; animation: orbFloat 12s ease-in-out infinite; }
-  .sec > .orb.a2 { width: 14px; height: 14px; top: 62%; right: 6%; opacity: .5; animation: orbFloat 9s ease-in-out infinite reverse; }
-  .sec > .orb.a3 { width: 46px; height: 46px; bottom: 5%; left: 2%; opacity: .38; animation: orbFloat 15s ease-in-out infinite; }
-  @media (max-width: 860px) {
-    .sec > .orb.a3 { display: none; }
-    .sec > .orb.a1 { width: 20px; height: 20px; opacity: .5; }
+  .sec > .orb {
+    z-index: 0; width: var(--w, 20px); height: var(--w, 20px);
+    left: var(--x, auto); right: var(--r, auto); top: var(--y, auto); bottom: var(--b, auto);
+    opacity: var(--o, .5);
+    filter: brightness(calc(1 + var(--glow, 0) * .85));
+    animation: orbFloat var(--d, 12s) ease-in-out infinite;
   }
+  @media (max-width: 1080px) { .sec > .orb { display: none; } }
 
   .kicker {
     font-family: var(--mono); font-size: .6rem; letter-spacing: .34em; text-transform: uppercase;
@@ -428,12 +428,13 @@
   /* ── liquid metal hardware ── */
   .orb {
     position: absolute; border-radius: 50%; pointer-events: none; z-index: 1;
-    translate: 0 var(--py, 0px);
-    transition: scale .4s cubic-bezier(.2,.8,.2,1);
+    translate: var(--ox, 0px) calc(var(--py, 0px) + var(--oy, 0px));
+    transition: scale .45s cubic-bezier(.2,.8,.2,1), filter .35s ease, opacity .35s ease;
     background:
       radial-gradient(circle at 32% 26%, #ffffff 0%, #e8edf4 12%, #aab3c1 32%, #5b636e 55%, #2b3038 74%, #12151a 100%);
     box-shadow: inset -6px -10px 22px rgba(0,0,0,.55), inset 4px 6px 14px rgba(255,255,255,.35), 0 14px 34px rgba(0,0,0,.6);
   }
+  .orb.ping { scale: 1.16; }
   .orb::after {
     content: ""; position: absolute; left: 18%; top: 8%; width: 46%; height: 30%;
     border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.9), transparent);
@@ -541,9 +542,9 @@
 
 <main id="main">
   <section class="sec" id="proof">
-    <span class="orb a1" aria-hidden="true"></span>
-    <span class="orb a2" aria-hidden="true"></span>
-    <span class="orb a3" aria-hidden="true"></span>
+    <span class="orb" style="--w:48px;--x:3.5%;--y:12%;--o:.55;--d:13s" aria-hidden="true"></span>
+    <span class="orb" style="--w:13px;--r:16%;--y:7%;--o:.5;--d:9s" aria-hidden="true"></span>
+    <span class="orb" style="--w:9px;--r:5%;--b:14%;--o:.42;--d:16s" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Proof, not promises</p>
@@ -554,8 +555,8 @@
   </section>
 
   <section class="sec" id="inside" style="padding-top:0">
-    <span class="orb a1" aria-hidden="true"></span>
-    <span class="orb a2" aria-hidden="true"></span>
+    <span class="orb" style="--w:22px;--r:4.5%;--y:26%;--o:.5;--d:11s" aria-hidden="true"></span>
+    <span class="orb" style="--w:11px;--x:7%;--b:18%;--o:.4;--d:15s" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Inside</p>
@@ -571,8 +572,8 @@
   </section>
 
   <section class="sec" id="entry" style="padding-top:0">
-    <span class="orb a1" aria-hidden="true"></span>
-    <span class="orb a2" aria-hidden="true"></span>
+    <span class="orb" style="--w:36px;--x:4%;--y:22%;--o:.5;--d:14s" aria-hidden="true"></span>
+    <span class="orb" style="--w:15px;--r:6.5%;--b:20%;--o:.45;--d:10s" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Entry</p>
@@ -588,8 +589,9 @@
   </section>
 
   <section class="sec" id="faq" style="padding-top:0">
-    <span class="orb a1" aria-hidden="true"></span>
-    <span class="orb a2" aria-hidden="true"></span>
+    <span class="orb" style="--w:16px;--x:9%;--y:10%;--o:.42;--d:12s" aria-hidden="true"></span>
+    <span class="orb" style="--w:8px;--x:3%;--b:26%;--o:.35;--d:18s" aria-hidden="true"></span>
+    <span class="orb" style="--w:30px;--r:3.5%;--y:32%;--o:.45;--d:13s" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Questions</p>
@@ -617,9 +619,9 @@
   </section>
 
   <section class="sec" id="access" style="padding-top:0">
-    <span class="orb a1" aria-hidden="true"></span>
-    <span class="orb a2" aria-hidden="true"></span>
-    <span class="orb a3" aria-hidden="true"></span>
+    <span class="orb" style="--w:54px;--x:2.5%;--y:8%;--o:.5;--d:15s" aria-hidden="true"></span>
+    <span class="orb" style="--w:12px;--r:8%;--y:34%;--o:.45;--d:10s" aria-hidden="true"></span>
+    <span class="orb" style="--w:20px;--x:6%;--b:8%;--o:.4;--d:17s" aria-hidden="true"></span>
     <div class="wrap">
       <div class="invite-grid">
         <div class="reveal">
@@ -821,6 +823,55 @@
     }
     placeOrbs();
     window.addEventListener('scroll', placeOrbs, { passive: true });
+    window.addEventListener('resize', placeOrbs);
+
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+      var centres = [];
+      function resetOrb(o) {
+        o.el.style.setProperty('--ox', '0px');
+        o.el.style.setProperty('--oy', '0px');
+        o.el.style.setProperty('--glow', '0');
+      }
+      function measureCentres() {
+        centres = orbEls.map(function (el) {
+          var r = el.getBoundingClientRect();
+          return { el: el, x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        });
+      }
+      measureCentres();
+      window.addEventListener('resize', measureCentres);
+      window.addEventListener('scroll', measureCentres, { passive: true });
+
+      document.addEventListener('pointermove', function (e) {
+        for (var i = 0; i < centres.length; i++) {
+          var o = centres[i];
+          var dx = o.x - e.clientX, dy = o.y - e.clientY;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d > 260) { resetOrb(o); continue; }
+          var t = 1 - d / 260;
+          var k = d > 1 ? (t * 18) / d : 0;
+          o.el.style.setProperty('--ox', (dx * k).toFixed(1) + 'px');
+          o.el.style.setProperty('--oy', (dy * k).toFixed(1) + 'px');
+          o.el.style.setProperty('--glow', (t * t).toFixed(2));
+        }
+      }, { passive: true });
+
+      document.addEventListener('pointerdown', function (e) {
+        var best = null, bestD = 160;
+        for (var j = 0; j < centres.length; j++) {
+          var c = centres[j];
+          var bd = Math.sqrt((c.x - e.clientX) * (c.x - e.clientX) + (c.y - e.clientY) * (c.y - e.clientY));
+          if (bd < bestD) { bestD = bd; best = c; }
+        }
+        if (!best) return;
+        best.el.classList.remove('ping');
+        void best.el.offsetWidth;
+        best.el.classList.add('ping');
+        setTimeout(function () { best.el.classList.remove('ping'); }, 600);
+      });
+
+      window.addEventListener('blur', function () { for (var k = 0; k < centres.length; k++) resetOrb(centres[k]); });
+    }
   }
 
   /* ── magnetic buttons ───────────────────────────────────── */
