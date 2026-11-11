@@ -353,6 +353,17 @@
     color: var(--w40); transition: color .25s;
   }
   .foot-links a:hover { color: #fff; }
+  .foot-brand a.foot-parent {
+    display: block; font-family: var(--mono); font-size: .55rem; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--w25); margin-top: .2rem; transition: color .25s;
+  }
+  .foot-brand a.foot-parent:hover { color: var(--w60); }
+  .hero-status.hero-parent { margin-top: .7rem; }
+  .hero-status a {
+    color: var(--w40); border-bottom: 1px solid var(--w25);
+    transition: color .25s, border-color .25s;
+  }
+  .hero-status a:hover { color: #fff; border-color: #fff; }
   .foot-bottom {
     display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
     margin-top: 2.5rem; padding-top: 1.4rem; border-top: 1px solid var(--w07);
@@ -463,6 +474,7 @@
       <a href="#proof" class="btn" data-magnetic>See the proof</a>
     </div>
     <p class="hero-status">Cohort 01 · forming now</p>
+    <p class="hero-status hero-parent">A <a href="https://projectphantom.space/">Project Phantom</a> project</p>
   </div>
 </header>
 <div class="flowline" aria-hidden="true"></div>
@@ -589,11 +601,11 @@
         <div>
           <span class="foot-word">Vector</span>
           <span>Founded by Rithish Dharanidharan</span>
-          <span>Led by the team behind Project Phantom</span>
+          <a class="foot-parent" href="https://projectphantom.space/">Led by the team behind Project Phantom</a>
         </div>
       </div>
       <div class="foot-links">
-        <a href="./">Phantom</a>
+        <a href="https://projectphantom.space/">Project Phantom</a>
         <a href="teams">Team</a>
         <a href="terms">Terms</a>
         <a href="https://www.instagram.com/projectphantom.ae" target="_blank" rel="noopener">Instagram</a>
