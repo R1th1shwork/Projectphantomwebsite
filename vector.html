@@ -21,6 +21,9 @@
 <meta name="twitter:description" content="A direction, not a club. Invite-only, by nomination, inside Project Phantom.">
 <meta name="twitter:image" content="https://projectphantom.space/assets/vector-og.png">
 <meta name="theme-color" content="#040406">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/glo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -575,6 +578,52 @@
     color: var(--w34);
   }
 
+  /* 3d: webgl stage, halo orbits, shards, liquid dividers */
+  .hero { overflow: clip; }
+  .gl3d { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .gl3d canvas {
+    width: 100%; height: 100%; display: block;
+    -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 98%);
+    mask-image: linear-gradient(180deg, #000 62%, transparent 98%);
+  }
+  .hero-inner { position: relative; z-index: 2; }
+  .halo3d { position: absolute; inset: -9%; transform-style: preserve-3d; pointer-events: none; }
+  .o-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.20);
+    transform: rotateX(71deg);
+  }
+  .o-ring.r2 { inset: 12%; border-color: rgba(255,255,255,.13); animation: spinZ 26s linear infinite; }
+  .o-ring.r3 { inset: 24%; border-color: rgba(255,255,255,.09); animation: spinZ 40s linear infinite reverse; }
+  .o-sat {
+    position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; margin-left: -4px;
+    border-radius: 50%; background: #fff;
+    box-shadow: 0 0 12px #fff, 0 0 30px rgba(255,255,255,.55);
+  }
+  @keyframes spinZ { to { transform: rotateX(71deg) rotateZ(360deg); } }
+  .shard {
+    position: absolute; z-index: 1; pointer-events: none; opacity: .5;
+    border-radius: 38% 62% 55% 45% / 48% 42% 58% 52%;
+    background: linear-gradient(135deg, rgba(255,255,255,.8), rgba(160,175,200,.12) 55%, rgba(255,255,255,.30));
+    filter: blur(.4px);
+    animation: shardFloat 9s ease-in-out infinite;
+  }
+  .shard.s1 { width: 70px; height: 52px; top: 15%; left: 5%; }
+  .shard.s2 { width: 44px; height: 34px; top: 63%; left: 11%; animation-delay: -3s; }
+  .shard.s3 { width: 58px; height: 42px; top: 22%; right: 6%; animation-delay: -6s; }
+  @keyframes shardFloat {
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(0,-22px) rotate(8deg); }
+  }
+  .liqdiv { display: block; width: 100%; height: clamp(70px, 10vw, 130px); position: relative; z-index: 2; }
+  .liqdiv.flip { transform: scaleY(-1); }
+  .band { perspective: 1200px; }
+  .band .orbit { transform: rotateX(56deg) scale(1.18); }
+  @media (max-width: 900px) {
+    .shard.s1 { left: auto; right: 6%; top: 12%; }
+    .shard.s3 { display: none; }
+  }
+
   /* reveal */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
   .reveal.in { opacity: 1; transform: none; }
@@ -597,6 +646,23 @@
 </head>
 <body>
 <a class="skip" href="#manifesto">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="chromeBand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdfdff"/>
+      <stop offset=".35" stop-color="#a9b2c0"/>
+      <stop offset=".55" stop-color="#f2f6fb"/>
+      <stop offset=".75" stop-color="#6f7885"/>
+      <stop offset="1" stop-color="#dfe5ee"/>
+    </linearGradient>
+    <filter id="liqf" x="-20%" y="-60%" width="140%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.03" numOctaves="2" seed="7" result="n">
+        <animate attributeName="baseFrequency" values="0.008 0.03;0.013 0.045;0.008 0.03" dur="9s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 <div class="glow" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div id="prog" aria-hidden="true"></div>
@@ -617,6 +683,10 @@
 </nav>
 
 <header class="hero" id="top">
+  <div class="gl3d" aria-hidden="true"><canvas id="gl"></canvas></div>
+  <span class="shard s1" aria-hidden="true"></span>
+  <span class="shard s2" aria-hidden="true"></span>
+  <span class="shard s3" aria-hidden="true"></span>
   <div class="hero-inner">
     <div class="hero-copy">
       <h1><span class="chrome-word">Vector</span></h1>
@@ -629,6 +699,11 @@
     </div>
     <div class="stage" id="stage" aria-hidden="false">
       <div class="stage-halo" aria-hidden="true"></div>
+      <div class="halo3d" aria-hidden="true">
+        <div class="o-ring r1"></div>
+        <div class="o-ring r2"><span class="o-sat"></span></div>
+        <div class="o-ring r3"><span class="o-sat"></span></div>
+      </div>
       <div class="stage-ring" aria-hidden="true"></div>
       <div class="stage-ring" aria-hidden="true"></div>
       <div class="stage-ring" aria-hidden="true"></div>
@@ -637,6 +712,7 @@
     </div>
   </div>
 </header>
+<svg class="liqdiv" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#liqf)"><rect x="-60" y="46" width="1560" height="150" fill="url(#chromeBand)"/></g></svg>
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track" id="tick1"></div>
@@ -797,6 +873,7 @@
     </div>
   </section>
 </main>
+<svg class="liqdiv flip" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#liqf)"><rect x="-60" y="46" width="1560" height="150" fill="url(#chromeBand)"/></g></svg>
 
 <footer class="foot">
   <div class="wrap">
@@ -830,6 +907,11 @@
   doc.classList.remove('no-js');
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduce) {
+    var liqs = document.querySelectorAll('.liqdiv');
+    for (var li = 0; li < liqs.length; li++) liqs[li].style.display = 'none';
+  }
 
   /* ── ticker ─────────────────────────────────────────────── */
   var words = ['Aerodynamics', 'Propulsion', 'GNC', 'Astrodynamics', 'Avionics',
@@ -875,11 +957,16 @@
   /* ── nav + progress ─────────────────────────────────────── */
   var nav = document.getElementById('nav');
   var prog = document.getElementById('prog');
+  var heroEl = document.querySelector('.hero');
+  var heroInner = document.querySelector('.hero-inner');
   function onScroll() {
     var y = window.scrollY || doc.scrollTop;
     if (nav) nav.classList.toggle('solid', y > 24);
     var h = doc.scrollHeight - window.innerHeight;
     if (prog) prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(y / h, 1) : 0) + ')';
+    if (heroEl && heroInner && !reduce && y < window.innerHeight * 1.2) {
+      heroInner.style.transform = 'translateY(' + (y * 0.07).toFixed(1) + 'px)';
+    }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -988,6 +1075,95 @@
 
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+(function () {
+  try {
+    var canvas = document.getElementById('gl');
+    if (!canvas || !window.WebGLRenderingContext) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    } catch (e) { return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(0, 0.4, 7.2);
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    var knot = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(1.35, 0.42, 260, 40),
+      new THREE.MeshPhysicalMaterial({ color: 0xf2f4f8, metalness: 1.0, roughness: 0.14, clearcoat: 1.0, clearcoatRoughness: 0.08, envMapIntensity: 1.5 })
+    );
+    scene.add(knot);
+    var key = new THREE.DirectionalLight(0xffffff, 1.6);
+    key.position.set(4, 6, 6);
+    scene.add(key);
+    var rimB = new THREE.PointLight(0x9db8ff, 60, 30);
+    rimB.position.set(-5, -2, -3);
+    scene.add(rimB);
+    var rimP = new THREE.PointLight(0xffd7f5, 40, 30);
+    rimP.position.set(5, -3, -4);
+    scene.add(rimP);
+    var N = 260;
+    var pos = new Float32Array(N * 3);
+    for (var i = 0; i < N; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 16;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 9;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 8 - 2;
+    }
+    var pgeo = new THREE.BufferGeometry();
+    pgeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    var pts = new THREE.Points(pgeo, new THREE.PointsMaterial({ color: 0xdfe8ff, size: 0.035, transparent: true, opacity: 0.65, blending: THREE.AdditiveBlending, depthWrite: false }));
+    scene.add(pts);
+    var hero = document.querySelector('.hero');
+    function layout() {
+      var w = hero.clientWidth, h = hero.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      if (w < 900) { knot.position.x = 0.2; knot.userData.by = 0.6; knot.position.z = -0.5; }
+      else { knot.position.x = 1.7; knot.userData.by = 0.1; knot.position.z = 0; }
+    }
+    layout();
+    window.addEventListener('resize', layout);
+    var mx = 0, my = 0, cx = 0, cy = 0, run = true;
+    var t0 = performance.now();
+    window.addEventListener('pointermove', function (e) {
+      mx = (e.clientX / window.innerWidth - 0.5) * 2;
+      my = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+    function tick(now) {
+      if (!run) return;
+      var t = (now - t0) * 0.001;
+      cx += (mx - cx) * 0.04;
+      cy += (my - cy) * 0.04;
+      knot.rotation.x = t * 0.16 + cy * 0.25;
+      knot.rotation.y = t * 0.22 + cx * 0.45;
+      knot.position.y = (knot.userData.by || 0.1) + Math.sin(t * 0.7) * 0.18;
+      pts.rotation.y = t * 0.02 + cx * 0.05;
+      camera.position.x = cx * 0.7;
+      camera.position.y = 0.4 - cy * 0.5;
+      camera.lookAt(0.6, 0, 0);
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    new IntersectionObserver(function (en) {
+      var vis = en[0].isIntersecting && !document.hidden;
+      if (vis && !run) { run = true; requestAnimationFrame(tick); }
+      else if (!vis) { run = false; }
+    }).observe(hero);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && !run) { run = true; requestAnimationFrame(tick); }
+      else if (document.hidden) { run = false; }
+    });
+    requestAnimationFrame(tick);
+  } catch (err) { return; }
 })();
 </script>
 </body>
