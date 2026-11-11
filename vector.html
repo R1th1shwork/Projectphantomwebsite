@@ -20,8 +20,8 @@
 <meta name="twitter:title" content="Vector UAE: Aerospace, AI and Robotics for Students">
 <meta name="twitter:description" content="An invite-only student collective in the UAE for aerospace, artificial intelligence and robotics. Applications are written, and most are declined.">
 <meta name="twitter:image" content="https://projectphantom.space/assets/vector-og.png">
-<meta name="twitter:image:alt" content="The Vector chrome arrow mark in the centre of four liquid-chrome orbit rings, Project Phantom">
-<meta property="og:image:alt" content="The Vector chrome arrow mark in the centre of four liquid-chrome orbit rings, Project Phantom">
+<meta name="twitter:image:alt" content="The Vector chrome arrow mark in the centre of three liquid-chrome orbit rings, Project Phantom">
+<meta property="og:image:alt" content="The Vector chrome arrow mark in the centre of three liquid-chrome orbit rings, Project Phantom">
 <meta name="geo.region" content="AE">
 <meta name="geo.placename" content="United Arab Emirates">
 <meta name="theme-color" content="#040406">
@@ -374,6 +374,8 @@
   /* ── liquid metal hardware ── */
   .orb {
     position: absolute; border-radius: 50%; pointer-events: none; z-index: 1;
+    translate: 0 var(--py, 0px);
+    transition: scale .4s cubic-bezier(.2,.8,.2,1);
     background:
       radial-gradient(circle at 32% 26%, #ffffff 0%, #e8edf4 12%, #aab3c1 32%, #5b636e 55%, #2b3038 74%, #12151a 100%);
     box-shadow: inset -6px -10px 22px rgba(0,0,0,.55), inset 4px 6px 14px rgba(255,255,255,.35), 0 14px 34px rgba(0,0,0,.6);
@@ -383,9 +385,28 @@
     border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.9), transparent);
     filter: blur(1px); transform: rotate(-18deg);
   }
-  .orb.o1 { width: 54px; height: 54px; top: 18%; left: 9%; animation: orbFloat 8s ease-in-out infinite; }
-  .orb.o2 { width: 30px; height: 30px; top: 66%; right: 11%; animation: orbFloat 10s ease-in-out infinite reverse; }
-  .orb.o3 { width: 18px; height: 18px; top: 30%; right: 22%; animation: orbFloat 7s ease-in-out infinite; }
+  .orb.o1 { width: 66px; height: 66px; top: 46%; left: 6%; animation: orbFloat 8s ease-in-out infinite; }
+  .orb.o2 { width: 38px; height: 38px; top: 71%; right: 8%; animation: orbFloat 10s ease-in-out infinite reverse; }
+  .orb.o3 { width: 20px; height: 20px; top: 54%; right: 25%; animation: orbFloat 7s ease-in-out infinite; }
+  .orb.o4 { width: 28px; height: 28px; top: 79%; left: 22%; animation: orbFloat 9s ease-in-out infinite; }
+  .orb.o5 { width: 13px; height: 13px; top: 38%; left: 39%; animation: orbFloat 11s ease-in-out infinite reverse; }
+  .merge-layer {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    opacity: 0; transition: opacity .32s ease;
+  }
+  .merge-layer.on { opacity: 1; }
+  .merge-blob {
+    box-shadow: inset -5px -7px 16px rgba(0,0,0,.5), inset 4px 5px 12px rgba(255,255,255,.32);
+    position: absolute; left: 0; top: 0; width: 22px; height: 22px;
+    margin: 0; animation: none; translate: none;
+    transform: translate(-50%, -50%);
+  }
+  .merge-neck {
+    position: absolute; left: 0; top: 0; height: 14px; border-radius: 999px;
+    transform-origin: 0 50%; opacity: 0;
+    background: linear-gradient(90deg, rgba(120,130,146,.95), #f2f6fb 45%, rgba(158,170,186,.98) 78%, rgba(96,106,120,.9));
+    filter: blur(4px);
+  }
   @keyframes orbFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
   .flowline {
     height: 1px; position: relative; z-index: 2;
@@ -408,7 +429,7 @@
   }
   .row:hover::after { transform: scaleX(1); }
   .row:hover .t { color: #fff; }
-  @media (max-width: 900px) { .orb.o1 { left: 4%; } .orb.o2 { right: 5%; } }
+  @media (max-width: 900px) { .orb.o1 { width: 46px; height: 46px; left: 3%; top: 44%; } .orb.o2 { width: 28px; height: 28px; right: 4%; top: 72%; } .orb.o4 { left: 12%; top: 80%; } .orb.o5 { display: none; } }
 
   /* ── reveal ─────────────────────────────────────────────── */
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
@@ -461,6 +482,12 @@
   <span class="orb o1" aria-hidden="true"></span>
   <span class="orb o2" aria-hidden="true"></span>
   <span class="orb o3" aria-hidden="true"></span>
+  <span class="orb o4" aria-hidden="true"></span>
+  <span class="orb o5" aria-hidden="true"></span>
+  <div class="merge-layer" id="mergeLayer" aria-hidden="true">
+    <i class="merge-neck" id="mergeNeck"></i>
+    <i class="merge-blob orb" id="mergeBlob"></i>
+  </div>
   <div class="hero-inner">
     <div class="stage3d" id="glStage">
       <canvas id="gl"></canvas>
@@ -715,6 +742,119 @@
     mark.parentElement.addEventListener('pointerleave', function () {
       mark.style.transform = '';
     });
+  }
+
+  /* ── orbs: scroll parallax and cursor merge ─────────────── */
+  var heroEl = document.querySelector('.hero');
+  var orbEls = [].slice.call(document.querySelectorAll('.hero .orb')).filter(function (el) {
+    return el.id !== 'mergeBlob';
+  });
+  var mergeLayer = document.getElementById('mergeLayer');
+  var mergeBlob = document.getElementById('mergeBlob');
+  var mergeNeck = document.getElementById('mergeNeck');
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (heroEl && orbEls.length) {
+    var FACTORS = [0.17, -0.11, 0.26, -0.19, 0.33];
+    var orbData = orbEls.map(function (el, i) {
+      return { el: el, f: FACTORS[i % FACTORS.length], py: 0, x: 0, y: 0, r: 0 };
+    });
+
+    function measureOrbs() {
+      for (var i = 0; i < orbData.length; i++) {
+        var o = orbData[i];
+        o.r = o.el.offsetWidth / 2;
+        o.bx = o.el.offsetLeft + o.r;
+        o.by = o.el.offsetTop + o.r;
+      }
+    }
+    function placeOrbs() {
+      var y = window.scrollY || window.pageYOffset || 0;
+      for (var i = 0; i < orbData.length; i++) {
+        var o = orbData[i];
+        o.py = Math.max(-150, Math.min(150, y * o.f));
+        o.el.style.setProperty('--py', o.py.toFixed(1) + 'px');
+        o.x = o.bx;
+        o.y = o.by + o.py;
+      }
+    }
+    measureOrbs();
+    placeOrbs();
+
+    var mergeReset = null;
+    window.addEventListener('scroll', function () {
+      placeOrbs();
+      if (mergeReset) mergeReset();
+    }, { passive: true });
+    window.addEventListener('resize', function () { measureOrbs(); placeOrbs(); if (mergeReset) mergeReset(); });
+
+    if (canHover && !reduce && mergeBlob && mergeLayer && mergeNeck) {
+      var px = 0, py = 0, inside = false, started = false, blobX = 0, blobY = 0, lastX = 0, lastY = 0;
+      mergeReset = function () {
+        if (!inside) return;
+        var hb = heroEl.getBoundingClientRect();
+        px = lastX - hb.left;
+        py = lastY - hb.top;
+      };
+
+      heroEl.addEventListener('pointermove', function (e) {
+        var b = heroEl.getBoundingClientRect();
+        lastX = e.clientX;
+        lastY = e.clientY;
+        px = e.clientX - b.left;
+        py = e.clientY - b.top;
+        if (!started) { blobX = px; blobY = py; started = true; }
+        inside = true;
+      });
+      heroEl.addEventListener('pointerleave', function () {
+        inside = false;
+        mergeLayer.classList.remove('on');
+        for (var i = 0; i < orbData.length; i++) orbData[i].el.style.scale = '';
+      });
+
+      (function mergeLoop() {
+        if (inside) {
+          var best = null, score = 0;
+          for (var i = 0; i < orbData.length; i++) {
+            var o = orbData[i];
+            var d = Math.sqrt((px - o.x) * (px - o.x) + (py - o.y) * (py - o.y));
+            var sc = 1 - Math.min(1, Math.max(0, (d - o.r) / 180));
+            if (sc > score) { score = sc; best = o; }
+          }
+          if (best && score > 0.03) {
+            var pull = score * score * 0.42;
+            blobX += ((px + (best.x - px) * pull) - blobX) * 0.3;
+            blobY += ((py + (best.y - py) * pull) - blobY) * 0.3;
+
+            var size = 16 + 34 * score;
+            var dx = best.x - blobX, dy = best.y - blobY;
+            var len = Math.max(0, Math.sqrt(dx * dx + dy * dy) - best.r * 0.55);
+            var thick = 12 + 20 * score;
+
+            mergeBlob.style.width = size.toFixed(1) + 'px';
+            mergeBlob.style.height = size.toFixed(1) + 'px';
+            mergeBlob.style.left = blobX.toFixed(1) + 'px';
+            mergeBlob.style.top = blobY.toFixed(1) + 'px';
+            mergeBlob.style.scale = (1 + 0.14 * score).toFixed(3);
+            mergeNeck.style.width = len.toFixed(1) + 'px';
+            mergeNeck.style.height = thick.toFixed(1) + 'px';
+            mergeNeck.style.marginTop = (-thick / 2).toFixed(1) + 'px';
+            mergeNeck.style.transform = 'translate(' + blobX.toFixed(1) + 'px,' + blobY.toFixed(1) + 'px) rotate(' + Math.atan2(dy, dx).toFixed(3) + 'rad)';
+            mergeNeck.style.opacity = (len > 6 ? 0.35 + 0.65 * score : 0).toFixed(2);
+            best.el.style.scale = (1 + 0.28 * score).toFixed(3);
+            mergeLayer.classList.add('on');
+
+            for (var j = 0; j < orbData.length; j++) {
+              if (orbData[j] !== best) orbData[j].el.style.scale = '';
+            }
+          } else {
+            mergeLayer.classList.remove('on');
+            for (var k = 0; k < orbData.length; k++) orbData[k].el.style.scale = '';
+          }
+        }
+        requestAnimationFrame(mergeLoop);
+      })();
+    }
   }
 
   /* ── magnetic buttons ───────────────────────────────────── */
