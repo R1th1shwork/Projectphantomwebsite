@@ -147,10 +147,13 @@
   .nav-brand { display: flex; align-items: center; gap: .6rem; }
   .nav-mark { width: 28px; height: 28px; }
   .nav-word {
+    display: grid; gap: .22rem; line-height: 1;
     font-family: var(--mono); font-size: .64rem; letter-spacing: .3em; text-transform: uppercase;
     color: var(--w60);
   }
   .nav-word b { color: #fff; font-weight: 700; }
+  .nav-word em { font-style: normal; font-size: .5rem; letter-spacing: .2em; color: var(--w40); }
+  @media (max-width: 380px) { .nav-word em { display: none; } }
   .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
   .nav-links a {
     font-family: var(--mono); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
@@ -512,7 +515,7 @@
 <nav class="nav" id="nav" aria-label="Vector navigation">
   <a href="./" class="nav-brand" aria-label="Project Phantom home">
     <span class="mark nav-mark" role="img" aria-label="Vector chrome arrow monogram"></span>
-    <span class="nav-word"><b>VECTOR</b> · UAE</span>
+    <span class="nav-word"><span><b>VECTOR</b> · UAE</span><em>by Project Phantom</em></span>
   </a>
   <div class="nav-links">
     <a href="#proof">Proof</a>
