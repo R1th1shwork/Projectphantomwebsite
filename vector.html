@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VECTOR — Invite-Only Aerospace Collective | Project Phantom</title>
+<title>VECTOR: Invite-Only Aerospace Collective | Project Phantom</title>
 <meta name="description" content="VECTOR is Project Phantom's invite-only collective for exceptional students pointed at aerospace and space: a direction, a mentor and real flight work, by nomination.">
 <link rel="canonical" href="https://projectphantom.space/vector">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"VECTOR — Invite-Only Aerospace Collective","url":"https://projectphantom.space/vector","description":"An invite-only collective of students directed into aerospace and space engineering, run inside Project Phantom.","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"Project Phantom","url":"https://projectphantom.space/"},"publisher":{"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space/"}}
+{"@context":"https://schema.org","@type":"WebPage","name":"VECTOR: Invite-Only Aerospace Collective","url":"https://projectphantom.space/vector","description":"An invite-only collective of students directed into aerospace and space engineering, run inside Project Phantom.","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"Project Phantom","url":"https://projectphantom.space/"},"publisher":{"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space/"}}
 </script>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Project Phantom">
-<meta property="og:title" content="VECTOR — Invite-Only Aerospace Collective">
+<meta property="og:title" content="VECTOR: Invite-Only Aerospace Collective">
 <meta property="og:description" content="A direction, not a club. Invite-only, by nomination, inside Project Phantom.">
 <meta property="og:url" content="https://projectphantom.space/vector">
 <meta property="og:image" content="https://projectphantom.space/assets/vector-og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="VECTOR — Invite-Only Aerospace Collective">
+<meta name="twitter:title" content="VECTOR: Invite-Only Aerospace Collective">
 <meta name="twitter:description" content="A direction, not a club. Invite-only, by nomination, inside Project Phantom.">
 <meta name="twitter:image" content="https://projectphantom.space/assets/vector-og.png">
 <meta name="theme-color" content="#040406">
@@ -377,17 +377,44 @@
     font-weight: 500; margin-bottom: 2rem;
   }
   .big-line em { font-family: var(--serif); font-style: italic; font-weight: 400; }
-  .side-list { display: grid; gap: .9rem; }
-  .side-item {
-    display: grid; gap: .3rem; padding: 1.1rem 1.2rem;
-    border: 1px solid var(--w10); border-radius: 14px;
-    background: linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
+  .led {
+    position: relative; overflow: hidden;
+    padding: 2rem 1.8rem 1.8rem; border-radius: 22px;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(165deg, rgba(255,255,255,.09), rgba(255,255,255,.02) 55%, rgba(255,255,255,.05)) padding-box,
+      var(--chrome-edge) border-box;
+    backdrop-filter: blur(14px) saturate(135%);
+    -webkit-backdrop-filter: blur(14px) saturate(135%);
   }
-  .side-item dt {
-    font-family: var(--mono); font-size: .56rem; letter-spacing: .26em;
-    text-transform: uppercase; color: var(--w34);
+  .led::after {
+    content: ""; position: absolute; right: -28%; bottom: -32%; width: 95%; aspect-ratio: 1;
+    background-image: var(--logo); background-size: contain; background-position: bottom right; background-repeat: no-repeat;
+    opacity: .10; pointer-events: none;
+    -webkit-mask-image: radial-gradient(circle, #000 25%, transparent 70%);
+    mask-image: radial-gradient(circle, #000 25%, transparent 70%);
   }
-  .side-item dd { font-size: 1.02rem; color: var(--w90); letter-spacing: -.01em; }
+  .led-mark {
+    width: 104px; height: 104px; margin-bottom: 1.3rem;
+    filter: drop-shadow(0 14px 30px rgba(0,0,0,.8));
+  }
+  .led-kicker {
+    font-family: var(--mono); font-size: .56rem; letter-spacing: .3em;
+    text-transform: uppercase; color: var(--w34); margin-bottom: .8rem;
+  }
+  .led-line {
+    font-size: clamp(1.45rem, 2.4vw, 1.9rem); line-height: 1.16;
+    letter-spacing: -.025em; font-weight: 500; margin-bottom: 1.6rem; max-width: 17ch;
+  }
+  .led-line em { font-family: var(--serif); font-style: italic; font-weight: 400; }
+  .led-rows { list-style: none; display: grid; border-top: 1px solid var(--w10); position: relative; z-index: 1; }
+  .led-rows li {
+    display: flex; justify-content: space-between; gap: 1rem; padding: .68rem 0;
+    border-bottom: 1px solid var(--w10);
+    font-family: var(--mono); font-size: .58rem; letter-spacing: .13em; text-transform: uppercase;
+  }
+  .led-rows li span:first-child { color: var(--w34); }
+  .led-rows li span:last-child { color: var(--w90); text-align: right; }
 
   /* glass cards */
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1rem; margin-top: clamp(2.5rem, 6vw, 4rem); }
@@ -417,7 +444,7 @@
     font-size: 1.32rem; font-weight: 500; letter-spacing: -.02em; line-height: 1.15; margin-bottom: .7rem;
   }
   .glass p { color: var(--w50); font-size: .92rem; line-height: 1.6; }
-  .glass .glint {
+  .glass .glint, .led .glint {
     position: absolute; top: 0; left: 0; right: 0; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
     opacity: .5;
@@ -469,6 +496,21 @@
     transition: color .3s, border-color .3s, background .3s, transform .4s var(--ease);
   }
   .chip:hover { color: #05050a; background: var(--chrome); border-color: transparent; transform: translateY(-2px); }
+
+  /* ghost numerals + orbit */
+  .sec > .wrap, .band > .wrap { position: relative; z-index: 1; }
+  .sec::before, .band::before {
+    content: attr(data-ghost);
+    position: absolute; top: .6rem; right: calc(var(--pad) * .6);
+    font-size: clamp(7rem, 21vw, 16rem); font-weight: 700; line-height: 1; letter-spacing: -.06em;
+    color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.11);
+    pointer-events: none; user-select: none; z-index: 0;
+  }
+  .orbit { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
+  .orbit ellipse { fill: none; stroke: rgba(255,255,255,.15); stroke-width: 1; stroke-dasharray: 3 9; }
+  .orbit .sat { fill: #fff; filter: drop-shadow(0 0 6px #fff); }
+  .orbit-g { transform-box: view-box; transform-origin: 600px 300px; animation: orbitSpin 70s linear infinite; }
+  @keyframes orbitSpin { to { transform: rotate(360deg); } }
 
   /* access */
   .access-grid {
@@ -580,7 +622,7 @@
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Project Phantom · Invite Only</p>
       <h1><span class="chrome-word">Vector</span></h1>
       <p class="tagline serif">The direction <span style="color:var(--w50)">is</span> the membership.</p>
-      <p class="lede">A collective of students pointed deliberately at aerospace and space. Not a club you join — a vector you're given, by people already in the room.</p>
+      <p class="lede">A collective of students pointed deliberately at aerospace and space. Not a club you join. A vector you are given, by people already in the room.</p>
       <div class="hero-actions">
         <a href="#access" class="btn btn-primary" data-magnetic>Request an invite <span class="btn-arrow" aria-hidden="true">→</span></a>
         <a href="#manifesto" class="btn" data-magnetic>Read the manifesto</a>
@@ -602,25 +644,29 @@
 </div>
 
 <main id="main">
-  <section class="sec" id="manifesto">
+  <section class="sec" id="manifesto" data-ghost="01">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-num">01 — Manifesto</span>
+        <span class="sec-num">01 / Manifesto</span>
         <span class="sec-num">Vector /ˈvɛktə/ · a course along which something travels</span>
       </div>
       <div class="manifesto-grid">
         <div class="reveal">
           <p class="big-line">Talent is common.<br><em>Direction</em> is rare.</p>
-          <p class="sec-body">Every ambitious student in this country has already been told they're talented. Almost none have been told <strong>exactly where to point it</strong> — which problem, which lab, which person to ask, which first thing to build.</p>
-          <p class="sec-body">Vector exists to set that direction. Members are nominated, not recruited. Each one leaves with a domain, a mentor and a piece of real work — not a certificate, not a group chat that dies in March.</p>
-          <p class="sec-body">We keep it small on purpose. The value of a network is inversely proportional to how easily you can join it.</p>
+          <p class="sec-body">Every ambitious student here has heard they are talented. Almost none have been told <strong>where to point it</strong>: which problem, which lab, which person, which first thing to build.</p>
+          <p class="sec-body">Vector sets that direction. Members are nominated, not recruited. Each one gets a domain, a mentor and real work.</p>
         </div>
-        <dl class="side-list reveal">
-          <div class="side-item"><dt>Status</dt><dd>Invite only · by nomination</dd></div>
-          <div class="side-item"><dt>Cohort</dt><dd>01 — currently forming</dd></div>
-          <div class="side-item"><dt>Home</dt><dd>Inside Project Phantom, UAE</dd></div>
-          <div class="side-item"><dt>Field</dt><dd>Aerospace · space · flight systems</dd></div>
-        </dl>
+        <aside class="led reveal">
+          <span class="glint" aria-hidden="true"></span>
+          <span class="mark led-mark" role="img" aria-label="Vector chrome arrow monogram"></span>
+          <p class="led-kicker">Born inside Phantom</p>
+          <p class="led-line">Led by the UAE’s first <em>youth-led aerospace R&amp;D team.</em></p>
+          <ul class="led-rows">
+            <li><span>Status</span><span>Invite only, by nomination</span></li>
+            <li><span>Cohort</span><span>01, forming now</span></li>
+            <li><span>Field</span><span>Aerospace · space · flight systems</span></li>
+          </ul>
+        </aside>
       </div>
 
       <div class="cards">
@@ -628,19 +674,19 @@
           <span class="glint" aria-hidden="true"></span>
           <span class="k">01 / Direction</span>
           <h3>A vector, not a map</h3>
-          <p>You don't get a brochure of options. You get one clear direction matched to what you're actually good at — and the reason it matters.</p>
+          <p>One clear direction matched to what you are good at. Not a menu of options.</p>
         </article>
         <article class="glass reveal">
           <span class="glint" aria-hidden="true"></span>
           <span class="k">02 / Access</span>
           <h3>Lines, not names</h3>
-          <p>Direct routes into the aerospace and space people Phantom already works with. Warm introductions, not a directory you cold-email.</p>
+          <p>Warm routes into the aerospace and space people Phantom already works with.</p>
         </article>
         <article class="glass reveal">
           <span class="glint" aria-hidden="true"></span>
           <span class="k">03 / Work</span>
           <h3>Real hardware</h3>
-          <p>Members contribute to Phantom's flying platform. Actual deadlines, actual constraints — nothing that only exists in a slide deck.</p>
+          <p>Real deadlines on Phantom's flying platform. Nothing that lives only in slides.</p>
         </article>
       </div>
     </div>
@@ -650,10 +696,10 @@
     <div class="ticker-track rev" id="tick2"></div>
   </div>
 
-  <section class="sec" id="vectoring">
+  <section class="sec" id="vectoring" data-ghost="02">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-num">02 — The Vectoring</span>
+        <span class="sec-num">02 / The Vectoring</span>
         <span class="sec-num">Three steps · no application form shouting into a void</span>
       </div>
       <h2 class="sec-title reveal" style="margin-bottom:1.4rem">How someone<br>becomes a vector</h2>
@@ -663,30 +709,40 @@
         <div class="step reveal">
           <span class="step-n">01</span>
           <h3>Nomination</h3>
-          <p>A current member, a Phantom team lead or a partner puts your name forward with one line on why. That line is the whole application.</p>
+          <p>One line on why from someone who has worked with you. That is the whole application.</p>
         </div>
         <div class="step reveal">
           <span class="step-n">02</span>
           <h3>Conversation</h3>
-          <p>Twenty minutes, no CV theatre. We're reading intent and how you think when you don't know the answer — not your grade sheet.</p>
+          <p>Twenty minutes, no CV theatre. We read how you think when you don't know the answer.</p>
         </div>
         <div class="step reveal">
           <span class="step-n">03</span>
           <h3>Vector</h3>
-          <p>You're assigned a direction, a mentor and a first task with a real owner. From there the work speaks for you, not the invite.</p>
+          <p>A domain, a mentor and a first task with a real owner. The work speaks from there.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band" id="network">
+  <section class="band" id="network" data-ghost="03">
+    <svg class="orbit" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="orbit-g">
+        <ellipse cx="600" cy="300" rx="440" ry="185"/>
+        <ellipse cx="600" cy="300" rx="300" ry="300"/>
+        <ellipse cx="600" cy="300" rx="185" ry="98"/>
+        <circle class="sat" cx="1040" cy="300" r="5"/>
+        <circle class="sat" cx="600" cy="0" r="4"/>
+        <circle class="sat" cx="785" cy="300" r="3.5"/>
+      </g>
+    </svg>
     <div class="wrap">
       <div class="sec-head reveal" style="margin-bottom:1rem">
-        <span class="sec-num">03 — Network</span>
+        <span class="sec-num">03 / Network</span>
         <span class="sec-num">Carried over from Phantom</span>
       </div>
       <h2 class="sec-title reveal">What we're<br>already connected to</h2>
-      <p class="sec-body reveal" style="margin-top:1.2rem">Vector doesn't start from zero. It inherits the rooms Phantom has already earned its way into — which is the only reason an invite here is worth anything.</p>
+      <p class="sec-body reveal" style="margin-top:1.2rem">Vector starts from rooms Phantom has already earned its way into. That is the only reason an invite here is worth anything.</p>
       <div class="chips reveal" aria-label="Areas of connection">
         <span class="chip">Aerospace founders</span>
         <span class="chip">University research labs</span>
@@ -700,16 +756,16 @@
     </div>
   </section>
 
-  <section class="sec" id="access">
+  <section class="sec" id="access" data-ghost="04">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="sec-num">04 — Access</span>
+        <span class="sec-num">04 / Access</span>
         <span class="sec-num">Responses read by the founders</span>
       </div>
       <div class="access-grid">
         <div class="reveal">
           <h2 class="sec-title" style="margin-bottom:1.2rem">Request<br>an invite</h2>
-          <p class="sec-body">If you weren't nominated you can still write to us — a nomination moves you to the front of the queue, but a clear reason of your own travels further than most people expect.</p>
+          <p class="sec-body">No nomination? Write anyway. A clear reason of your own travels further than most people expect.</p>
           <p class="access-note">Nomination from a member<br>shortens everything</p>
         </div>
 
@@ -726,7 +782,7 @@
           </div>
           <div class="field">
             <label for="vnom">Nominated by <span style="color:var(--w18)">(optional)</span></label>
-            <input id="vnom" name="nomination" type="text" placeholder="Member, team lead or partner — or leave blank">
+            <input id="vnom" name="nomination" type="text" placeholder="Member, team lead or partner. Leave blank if none.">
           </div>
           <div class="field">
             <label for="vwhy">What are you building, and where do you want to point it?</label>
@@ -916,7 +972,7 @@
         return;
       }
 
-      var subject = 'VECTOR invite request — ' + name.value.trim();
+      var subject = 'VECTOR invite request: ' + name.value.trim();
       var body = 'Name: ' + name.value.trim() + '\n' +
                  'Email: ' + email.value.trim() + '\n' +
                  'Nominated by: ' + (nom.value.trim() || 'not nominated') + '\n\n' +
@@ -927,7 +983,7 @@
         + '&body=' + encodeURIComponent(body);
 
       status.style.color = '#b9ffe9';
-      status.textContent = 'Opening your mail app — send it and we\u2019ll read it.';
+      status.textContent = 'Opening your mail app. Send it and we\u2019ll read it.';
     });
   }
 
