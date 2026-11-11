@@ -274,7 +274,7 @@
     font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
     color: var(--w40); line-height: 2;
   }
-  .faq { padding: 0; }
+  .faq { display: block; padding: 0; }
   .faq summary {
     display: grid; grid-template-columns: 3rem minmax(0,1fr) auto;
     gap: clamp(1rem, 3vw, 2.5rem); align-items: baseline;
@@ -284,8 +284,8 @@
   .faq summary .r { transition: transform .4s var(--ease); }
   .faq[open] summary .r { transform: rotate(45deg); }
   .faq .a {
-    grid-column: 2; color: var(--w60); font-size: .92rem; line-height: 1.65;
-    max-width: 44ch; padding: 0 0 1.5rem;
+    color: var(--w60); font-size: .92rem; line-height: 1.65;
+    max-width: 44ch; padding: 0 0 1.5rem calc(3rem + clamp(1rem, 3vw, 2.5rem));
   }
 
   /* ── invite ─────────────────────────────────────────────── */
