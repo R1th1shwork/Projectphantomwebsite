@@ -204,7 +204,12 @@
     padding: calc(var(--nav-h) + 1.5rem) 0 3rem;
     position: relative; overflow: clip;
   }
-  .stage3d { position: relative; width: min(92vw, 52vh, 620px); aspect-ratio: 1; margin: 0 auto clamp(1.4rem, 2.6vh, 2.2rem); }
+  .stage3d {
+    position: relative; aspect-ratio: 1;
+    width: min(92vw, 420px);
+    width: clamp(280px, min(92vw, calc(100svh - 510px)), 620px);
+    margin: 0 auto clamp(1.4rem, 2.6vh, 2.2rem);
+  }
   .stage3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .hero-inner { position: relative; z-index: 2; max-width: 860px; padding: 0 var(--pad); }
   .hero-mark {
