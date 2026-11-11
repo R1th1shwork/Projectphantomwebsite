@@ -204,15 +204,11 @@
     padding: calc(var(--nav-h) + 3rem) 0 4rem;
     position: relative; overflow: clip;
   }
-  .gl3d { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .55; }
-  .gl3d canvas {
-    width: 100%; height: 100%; display: block;
-    -webkit-mask-image: radial-gradient(60% 55% at 50% 42%, #000 30%, transparent 75%);
-    mask-image: radial-gradient(60% 55% at 50% 42%, #000 30%, transparent 75%);
-  }
+  .stage3d { position: relative; width: min(58vw, 340px); aspect-ratio: 1; margin: 0 auto 2.4rem; }
+  .stage3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .hero-inner { position: relative; z-index: 2; max-width: 860px; padding: 0 var(--pad); }
   .hero-mark {
-    width: clamp(96px, 14vw, 132px); aspect-ratio: 1; margin: 0 auto 2.2rem;
+    position: absolute; inset: 13%;
     filter: drop-shadow(0 22px 50px rgba(0,0,0,.85));
     animation: bob 7s ease-in-out infinite;
   }
@@ -420,12 +416,14 @@
 </nav>
 
 <header class="hero" id="top">
-  <div class="gl3d" aria-hidden="true"><canvas id="gl"></canvas></div>
   <span class="orb o1" aria-hidden="true"></span>
   <span class="orb o2" aria-hidden="true"></span>
   <span class="orb o3" aria-hidden="true"></span>
   <div class="hero-inner">
-    <div class="mark hero-mark" id="stageMark" role="img" aria-label="Vector: a chrome liquid-metal arrow cutting through a loop"></div>
+    <div class="stage3d" id="glStage">
+      <canvas id="gl"></canvas>
+      <div class="mark hero-mark" id="stageMark" role="img" aria-label="Vector: a chrome liquid-metal arrow cutting through a loop"></div>
+    </div>
     <p class="kicker center"><span class="rule" aria-hidden="true"></span>By invitation<span class="rule" aria-hidden="true"></span></p>
     <h1 style="margin-top:1.4rem">Your next big thing<br>has a <em>direction.</em></h1>
     <p class="lede">Vector is a small collective of students being steered into aerospace and space by people already inside it. You do not apply. You are pointed here.</p>
@@ -637,6 +635,7 @@
   var mark = document.getElementById('stageMark');
   if (mark && fine && !reduce) {
     mark.parentElement.addEventListener('pointermove', function (e) {
+      if (mark.style.display === 'none') return;
       var b = mark.getBoundingClientRect();
       var px = (e.clientX - (b.left + b.width / 2)) / b.width;
       var py = (e.clientY - (b.top + b.height / 2)) / b.height;
@@ -717,12 +716,15 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     } catch (e) { return; }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 0.4, 7.2);
+    var stage = document.getElementById('glStage');
+    var mark = document.getElementById('stageMark');
+    if (!stage) return;
+    var camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
+    camera.position.set(0, 0, 6);
     var pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     var knot = new THREE.Mesh(
-      new THREE.TorusKnotGeometry(1.35, 0.42, 260, 40),
+      new THREE.TorusKnotGeometry(1.15, 0.38, 260, 40),
       new THREE.MeshPhysicalMaterial({ color: 0xf2f4f8, metalness: 1.0, roughness: 0.14, clearcoat: 1.0, clearcoatRoughness: 0.08, envMapIntensity: 1.5 })
     );
     scene.add(knot);
@@ -735,27 +737,35 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     var rimP = new THREE.PointLight(0xffd7f5, 40, 30);
     rimP.position.set(5, -3, -4);
     scene.add(rimP);
-    var N = 260;
+    var logoMat = new THREE.MeshBasicMaterial({ transparent: true });
+    var logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.9), logoMat);
+    logoPlane.visible = false;
+    scene.add(logoPlane);
+    new THREE.TextureLoader().load('assets/vector-logo.png', function (tex) {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      logoMat.map = tex;
+      logoMat.needsUpdate = true;
+      logoPlane.visible = true;
+      if (mark) mark.style.display = 'none';
+    });
+    var N = 140;
     var pos = new Float32Array(N * 3);
     for (var i = 0; i < N; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 16;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 9;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 8 - 2;
+      pos[i * 3] = (Math.random() - 0.5) * 8;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 8;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 6 - 1;
     }
     var pgeo = new THREE.BufferGeometry();
     pgeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     var pts = new THREE.Points(pgeo, new THREE.PointsMaterial({ color: 0xdfe8ff, size: 0.035, transparent: true, opacity: 0.65, blending: THREE.AdditiveBlending, depthWrite: false }));
     scene.add(pts);
-    var hero = document.querySelector('.hero');
     function layout() {
-      var w = hero.clientWidth, h = hero.clientHeight;
+      var w = stage.clientWidth, h = stage.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      knot.position.x = 0;
-      knot.position.z = -1.5;
-      knot.userData.by = 0.2;
     }
     layout();
     window.addEventListener('resize', layout);
@@ -770,12 +780,13 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       var t = (now - t0) * 0.001;
       cx += (mx - cx) * 0.04;
       cy += (my - cy) * 0.04;
-      knot.rotation.x = t * 0.12 + cy * 0.2;
-      knot.rotation.y = t * 0.18 + cx * 0.4;
-      knot.position.y = (knot.userData.by || 0.2) + Math.sin(t * 0.7) * 0.15;
+      knot.rotation.x = t * 0.18 + cy * 0.25;
+      knot.rotation.y = t * 0.24 + cx * 0.45;
+      knot.position.y = Math.sin(t * 0.7) * 0.12;
+      logoPlane.rotation.y = Math.sin(t * 0.4) * 0.12 + cx * 0.15;
       pts.rotation.y = t * 0.02 + cx * 0.05;
-      camera.position.x = cx * 0.6;
-      camera.position.y = 0.4 - cy * 0.4;
+      camera.position.x = cx * 0.4;
+      camera.position.y = 0.2 - cy * 0.3;
       camera.lookAt(0, 0, 0);
       renderer.render(scene, camera);
       requestAnimationFrame(tick);
@@ -784,7 +795,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       var vis = en[0].isIntersecting && !document.hidden;
       if (vis && !run) { run = true; requestAnimationFrame(tick); }
       else if (!vis) { run = false; }
-    }).observe(hero);
+    }).observe(stage);
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden && !run) { run = true; requestAnimationFrame(tick); }
       else if (document.hidden) { run = false; }
