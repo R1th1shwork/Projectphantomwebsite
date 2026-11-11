@@ -756,15 +756,21 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     var mark = document.getElementById('stageMark');
     if (!stage) return;
     var camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
-    camera.position.set(0, 0, 6);
+    camera.position.set(0, 0, 6.6);
     var pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     var knot = new THREE.Mesh(
-      new THREE.TorusKnotGeometry(1.15, 0.38, 260, 40),
-      new THREE.MeshPhysicalMaterial({ color: 0xf2f4f8, metalness: 1.0, roughness: 0.14, clearcoat: 1.0, clearcoatRoughness: 0.08, envMapIntensity: 1.5 })
+      new THREE.TorusKnotGeometry(1.12, 0.24, 300, 48),
+      new THREE.MeshPhysicalMaterial({ color: 0x0b0b10, metalness: 0.85, roughness: 0.22, clearcoat: 1.0, clearcoatRoughness: 0.06, envMapIntensity: 1.6 })
     );
     scene.add(knot);
-    var key = new THREE.DirectionalLight(0xffffff, 1.6);
+    var veins = new THREE.Mesh(knot.geometry, new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.09 }));
+    veins.scale.setScalar(1.004);
+    knot.add(veins);
+    var key = new THREE.DirectionalLight(0xffffff, 2.2);
+    var streak = new THREE.PointLight(0xffffff, 50, 30);
+    streak.position.set(0, 3, 6);
+    scene.add(streak);
     key.position.set(4, 6, 6);
     scene.add(key);
     var rimB = new THREE.PointLight(0x9db8ff, 60, 30);
@@ -774,8 +780,9 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     rimP.position.set(5, -3, -4);
     scene.add(rimP);
     var logoMat = new THREE.MeshBasicMaterial({ transparent: true });
-    var logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.9), logoMat);
+    var logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 2.2), logoMat);
     logoPlane.visible = false;
+    logoPlane.position.z = 0.55;
     scene.add(logoPlane);
     new THREE.TextureLoader().load('assets/vector-logo.png', function (tex) {
       tex.colorSpace = THREE.SRGBColorSpace;
@@ -801,6 +808,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
+      camera.position.z = camera.aspect >= 1 ? 6.6 : 6.6 / Math.max(camera.aspect, 0.55);
       camera.updateProjectionMatrix();
     }
     layout();
