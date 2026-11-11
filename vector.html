@@ -169,6 +169,16 @@
   section { position: relative; z-index: 2; }
   .wrap { max-width: 1020px; margin: 0 auto; padding: 0 var(--pad); }
   .sec { padding: clamp(5.5rem, 13vw, 10rem) 0; }
+  .sec { position: relative; }
+  .sec > .wrap { position: relative; z-index: 1; }
+  .sec > .orb { z-index: 0; color: inherit; }
+  .sec > .orb.a1 { width: 26px; height: 26px; top: 7%; left: 4.5%; opacity: .6; animation: orbFloat 12s ease-in-out infinite; }
+  .sec > .orb.a2 { width: 14px; height: 14px; top: 62%; right: 6%; opacity: .5; animation: orbFloat 9s ease-in-out infinite reverse; }
+  .sec > .orb.a3 { width: 46px; height: 46px; bottom: 5%; left: 2%; opacity: .38; animation: orbFloat 15s ease-in-out infinite; }
+  @media (max-width: 860px) {
+    .sec > .orb.a3 { display: none; }
+    .sec > .orb.a1 { width: 20px; height: 20px; opacity: .5; }
+  }
 
   .kicker {
     font-family: var(--mono); font-size: .6rem; letter-spacing: .34em; text-transform: uppercase;
@@ -544,6 +554,9 @@
 
 <main id="main">
   <section class="sec" id="proof">
+    <span class="orb a1" aria-hidden="true"></span>
+    <span class="orb a2" aria-hidden="true"></span>
+    <span class="orb a3" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Proof, not promises</p>
@@ -554,6 +567,8 @@
   </section>
 
   <section class="sec" id="inside" style="padding-top:0">
+    <span class="orb a1" aria-hidden="true"></span>
+    <span class="orb a2" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Inside</p>
@@ -569,6 +584,8 @@
   </section>
 
   <section class="sec" id="entry" style="padding-top:0">
+    <span class="orb a1" aria-hidden="true"></span>
+    <span class="orb a2" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Entry</p>
@@ -584,6 +601,8 @@
   </section>
 
   <section class="sec" id="faq" style="padding-top:0">
+    <span class="orb a1" aria-hidden="true"></span>
+    <span class="orb a2" aria-hidden="true"></span>
     <div class="wrap">
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Questions</p>
@@ -611,6 +630,9 @@
   </section>
 
   <section class="sec" id="access" style="padding-top:0">
+    <span class="orb a1" aria-hidden="true"></span>
+    <span class="orb a2" aria-hidden="true"></span>
+    <span class="orb a3" aria-hidden="true"></span>
     <div class="wrap">
       <div class="invite-grid">
         <div class="reveal">
@@ -804,7 +826,7 @@
 
   /* ── orbs: scroll parallax ─────────────────────────────── */
   var heroEl = document.querySelector('.hero');
-  var orbEls = [].slice.call(document.querySelectorAll('.hero .orb'));
+  var orbEls = [].slice.call(document.querySelectorAll('.orb'));
 
   if (heroEl && orbEls.length) {
     var FACTORS = [0.17, -0.11, 0.26, -0.19, 0.33];
