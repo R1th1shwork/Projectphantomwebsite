@@ -176,6 +176,16 @@
   }
   .kicker.center { justify-content: center; }
   .kicker .rule { display: inline-block; width: 2.2rem; height: 1px; background: var(--w25); }
+  .kicker-credit {
+    margin-top: .6rem; font-family: var(--mono); font-size: .52rem;
+    letter-spacing: .3em; text-transform: uppercase; color: var(--w25);
+  }
+  .kicker-credit a {
+    color: var(--w40); border-bottom: 1px solid var(--w25);
+    transition: color .25s, border-color .25s;
+  }
+  .kicker-credit a:hover { color: #fff; border-color: #fff; }
+  @media (max-width: 380px) { .kicker-credit { font-size: .46rem; letter-spacing: .24em; } }
 
   .h2 {
     font-size: clamp(1.9rem, 4.6vw, 3.2rem); line-height: 1.05; letter-spacing: -.035em;
@@ -405,7 +415,6 @@
     text-transform: uppercase; color: var(--w25); margin-top: .2rem; transition: color .25s;
   }
   .foot-brand a.foot-parent:hover { color: var(--w60); }
-  .hero-status.hero-parent { margin-top: .7rem; }
   .hero-status a {
     color: var(--w40); border-bottom: 1px solid var(--w25);
     transition: color .25s, border-color .25s;
@@ -520,6 +529,7 @@
       <div class="mark hero-mark" id="stageMark" role="img" aria-label="Vector: a chrome liquid-metal arrow cutting through a loop"></div>
     </div>
     <p class="kicker center"><span class="rule" aria-hidden="true"></span>By invitation<span class="rule" aria-hidden="true"></span></p>
+    <p class="kicker center kicker-credit">A <a href="https://projectphantom.space/">Project Phantom</a> initiative</p>
     <h1 style="margin-top:1.4rem">Vector your <em>direction.</em></h1>
     <p class="lede">An invite-only collective in the UAE for students ready to change their direction in aerospace, artificial intelligence or robotics. Led by students who changed theirs.</p>
     <p class="hero-line">Don’t wait for a change. Be the change.</p>
@@ -528,7 +538,6 @@
       <a href="#proof" class="btn" data-magnetic>See the proof</a>
     </div>
     <p class="hero-status">Cohort 01 · forming now</p>
-    <p class="hero-status hero-parent">A <a href="https://projectphantom.space/">Project Phantom</a> initiative</p>
   </div>
 </header>
 <div class="flowline" aria-hidden="true"></div>
