@@ -764,7 +764,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       new THREE.MeshPhysicalMaterial({ color: 0x0b0b10, metalness: 0.85, roughness: 0.22, clearcoat: 1.0, clearcoatRoughness: 0.06, envMapIntensity: 1.6 })
     );
     scene.add(knot);
-    var veins = new THREE.Mesh(knot.geometry, new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.09 }));
+    var veins = new THREE.Mesh(knot.geometry, new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.06 }));
     veins.scale.setScalar(1.004);
     knot.add(veins);
     var key = new THREE.DirectionalLight(0xffffff, 2.2);
@@ -779,15 +779,32 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     var rimP = new THREE.PointLight(0xffd7f5, 40, 30);
     rimP.position.set(5, -3, -4);
     scene.add(rimP);
-    var logoMat = new THREE.MeshBasicMaterial({ transparent: true });
+    var logoMat = new THREE.MeshBasicMaterial({ transparent: true, depthTest: false });
     var logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 2.2), logoMat);
     logoPlane.visible = false;
     logoPlane.position.z = 0.55;
+    logoPlane.renderOrder = 10;
     scene.add(logoPlane);
     new THREE.TextureLoader().load('assets/vector-logo.png', function (tex) {
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      logoMat.map = tex;
+      var keyed = tex;
+      try {
+        var img = tex.image;
+        var c = document.createElement('canvas');
+        c.width = img.width; c.height = img.height;
+        var ctx = c.getContext('2d', { willReadFrequently: true });
+        ctx.drawImage(img, 0, 0);
+        var d = ctx.getImageData(0, 0, c.width, c.height);
+        var px = d.data;
+        for (var i = 0; i < px.length; i += 4) {
+          var lum = (px[i] + px[i + 1] + px[i + 2]) / 3;
+          px[i + 3] = Math.max(0, Math.min(255, (lum - 12) * 5));
+        }
+        ctx.putImageData(d, 0, 0);
+        keyed = new THREE.CanvasTexture(c);
+      } catch (e) { keyed = tex; }
+      keyed.colorSpace = THREE.SRGBColorSpace;
+      keyed.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      logoMat.map = keyed;
       logoMat.needsUpdate = true;
       logoPlane.visible = true;
       if (mark) mark.style.display = 'none';
