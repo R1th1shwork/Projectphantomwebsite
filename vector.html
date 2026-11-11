@@ -267,6 +267,29 @@
     color: var(--w25);
   }
 
+  /* wide screens: the hero stops being a narrow island in a black field */
+  @media (min-width: 1180px) {
+    .hero { padding: calc(var(--nav-h) + 2rem) 0 4rem; }
+    .hero-inner {
+      max-width: 1360px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 4vw, 4rem);
+      padding: 0 clamp(2rem, 4vw, 4.5rem);
+      text-align: left;
+    }
+    .hero-inner > .stage3d {
+      width: min(100%, clamp(240px, min(44vw, calc(100svh - 240px)), 700px));
+      margin: 0; justify-self: start;
+    }
+    .hero-copy { display: flex; flex-direction: column; align-items: flex-start; }
+    .hero h1 { font-size: clamp(3.1rem, 4.3vw, 6rem); }
+    .hero .kicker.center { justify-content: flex-start; }
+    .hero .lede { margin-left: 0; margin-right: 0; max-width: 46ch; }
+    .hero-actions { justify-content: flex-start; }
+  }
+
   .btn {
     display: inline-flex; align-items: center; gap: .6rem;
     font-family: var(--mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase;
@@ -593,14 +616,16 @@
       <canvas id="gl"></canvas>
       <div class="mark hero-mark" id="stageMark" role="img" aria-label="Vector: a chrome liquid-metal arrow cutting through a loop"></div>
     </div>
-    <p class="kicker center kicker-credit">A <a href="https://projectphantom.space/">Project Phantom</a> initiative</p>
-    <h1 style="margin-top:1.4rem">Vector your <em>direction.</em></h1>
-    <p class="lede">An invite-only collective in the UAE for students ready to change their direction in aerospace, artificial intelligence or robotics. Led by students who changed theirs.</p>
-    <div class="hero-actions">
-      <a href="#access" class="btn btn-primary" data-magnetic>Request an invite <span class="btn-arrow" aria-hidden="true">→</span></a>
-      <a href="#proof" class="btn" data-magnetic>See the proof</a>
+    <div class="hero-copy">
+      <p class="kicker center kicker-credit">A <a href="https://projectphantom.space/">Project Phantom</a> initiative</p>
+      <h1 style="margin-top:1.4rem">Vector your <em>direction.</em></h1>
+      <p class="lede">An invite-only collective in the UAE for students ready to change their direction in aerospace, artificial intelligence or robotics. Led by students who changed theirs.</p>
+      <div class="hero-actions">
+        <a href="#access" class="btn btn-primary" data-magnetic>Request an invite <span class="btn-arrow" aria-hidden="true">→</span></a>
+        <a href="#proof" class="btn" data-magnetic>See the proof</a>
+      </div>
+      <p class="hero-status">Cohort 01 · forming now</p>
     </div>
-    <p class="hero-status">Cohort 01 · forming now</p>
   </div>
 </header>
 <div class="flowline" aria-hidden="true"></div>
