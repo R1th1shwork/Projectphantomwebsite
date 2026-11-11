@@ -222,7 +222,7 @@
   .stage3d {
     position: relative; aspect-ratio: 1;
     width: min(92vw, 420px);
-    width: clamp(280px, min(92vw, calc(100svh - 510px)), 620px);
+    width: clamp(280px, min(92vw, calc(100svh - 590px)), 620px);
     margin: 0 auto clamp(1.4rem, 2.6vh, 2.2rem);
   }
   .stage3d canvas { position: absolute; inset: -7%; width: 114%; height: 114%; display: block; }
@@ -238,6 +238,13 @@
   }
   .hero .lede { margin-left: auto; margin-right: auto; }
   .hero-actions { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-top: 2.1rem; }
+  .hero-line {
+    margin: .85rem auto 0; max-width: 44ch;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.2rem, 2.3vw, 1.75rem); line-height: 1.2; letter-spacing: -.01em;
+    color: rgba(255,255,255,.88);
+  }
+  @media (max-height: 800px) { .hero-line { display: none; } }
   .hero-status {
     margin-top: 2.1rem;
     font-family: var(--mono); font-size: .58rem; letter-spacing: .26em; text-transform: uppercase;
@@ -533,6 +540,7 @@
     <p class="kicker center"><span class="rule" aria-hidden="true"></span>By invitation<span class="rule" aria-hidden="true"></span></p>
     <h1 style="margin-top:1.4rem">Vector your <em>direction.</em></h1>
     <p class="lede">An invite-only collective in the UAE for students ready to change their direction in aerospace, artificial intelligence or robotics. Led by students who changed theirs.</p>
+    <p class="hero-line">Don’t wait for a change. Be the change.</p>
     <div class="hero-actions">
       <a href="#access" class="btn btn-primary" data-magnetic>Request an invite <span class="btn-arrow" aria-hidden="true">→</span></a>
       <a href="#proof" class="btn" data-magnetic>See the proof</a>
