@@ -87,7 +87,7 @@
   }
 
   /* ── liquid mercury cursor ──────────────────────────────── */
-  #goo { position: fixed; inset: 0; z-index: 9998; pointer-events: none; filter: url(#goo); opacity: 0; transition: opacity .3s; }
+  #goo { position: fixed; inset: 0; z-index: 9998; pointer-events: none; filter: url(#gooFilter); opacity: 0; transition: opacity .3s; }
   .goo-dot {
     position: absolute; top: 0; left: 0; border-radius: 50%;
     background: radial-gradient(circle at 34% 28%, #ffffff 0%, #dfe5ee 18%, #9aa3b2 45%, #4a525c 72%, #1c2026 100%);
@@ -391,7 +391,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <filter id="goo">
+    <filter id="gooFilter">
       <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"/>
       <feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -12"/>
     </filter>
