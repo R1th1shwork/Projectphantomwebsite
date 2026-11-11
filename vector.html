@@ -1043,8 +1043,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     camera.position.set(0, 0, 7.2);
     var pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    var world = new THREE.Group();
+    scene.add(world);
     var rings = new THREE.Group();
-    scene.add(rings);
+    world.add(rings);
     rings.position.z = 0;
     rings.scale.setScalar(0.95);
     var ringPivots = [];
@@ -1090,7 +1092,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       logoGroup.add(slice);
     }
     logoGroup.visible = false;
-    scene.add(logoGroup);
+    world.add(logoGroup);
     var glint = new THREE.PointLight(0xffffff, 46, 26);
     glint.position.set(-1.6, 1.2, 3.4);
     scene.add(glint);
@@ -1125,6 +1127,11 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       camera.aspect = w / h;
       camera.position.z = camera.aspect >= 1 ? 7.2 : 7.2 / Math.max(camera.aspect, 0.55);
       camera.updateProjectionMatrix();
+      // the outermost orbit is 2.6 units before the group scale, so fit it to
+      // whichever viewport edge is closer instead of letting it run off canvas
+      var halfH = Math.tan((camera.fov * Math.PI) / 360) * camera.position.z;
+      var halfW = halfH * camera.aspect;
+      world.scale.setScalar(Math.min(1, (Math.min(halfH, halfW) * 0.9) / 2.62));
     }
     layout();
     window.addEventListener('resize', layout);
