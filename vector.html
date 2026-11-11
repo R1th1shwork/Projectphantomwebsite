@@ -374,18 +374,6 @@
     color: var(--w25); margin-top: .1rem;
   }
   .counter.ok { color: rgba(185,255,233,.8); }
-  #vdoc { min-height: 12rem; }
-  .doc-switch { display: flex; gap: .4rem; flex-wrap: wrap; }
-  .doc-tab {
-    font-family: var(--mono); font-size: .56rem; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--w40); background: transparent; border: 1px solid var(--w12); border-radius: 999px;
-    padding: .5rem .85rem; cursor: pointer;
-    transition: color .25s, border-color .25s, background .25s;
-  }
-  .doc-tab:hover { color: #fff; border-color: var(--w25); }
-  .doc-tab[aria-selected="true"] { color: #07080a; background: #eef1f6; border-color: #eef1f6; }
-  .doc-panel { display: none; gap: .6rem; }
-  .doc-panel.on { display: grid; }
   .photo-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
   .photo-actions .btn { padding: .65rem 1.05rem; font-size: .62rem; }
   .photo-frame { display: none; border: 1px solid var(--w12); border-radius: 14px; padding: .55rem; margin-top: .25rem; }
@@ -638,7 +626,7 @@
         <div class="reveal">
           <p class="kicker"><span class="rule" aria-hidden="true"></span>Access</p>
           <h2 class="h2">Request an invite.</h2>
-          <p class="lede">Written applications only. The founding team reviews every document, and most are declined. Type it, or photograph a handwritten letter and send the image.</p>
+          <p class="lede">Written applications only. The founding team reviews every document, and most are declined. Photograph a handwritten letter and send the image.</p>
         </div>
         <form id="inviteForm" class="reveal" novalidate>
           <div class="row2">
@@ -662,29 +650,19 @@
             </div>
           </div>
           <div class="field">
-            <div class="doc-switch" role="tablist" aria-label="How you want to send your document">
-              <button type="button" class="doc-tab" role="tab" id="tabType" aria-selected="true" aria-controls="panelType" data-docmode="type">Type it</button>
-              <button type="button" class="doc-tab" role="tab" id="tabPhoto" aria-selected="false" aria-controls="panelPhoto" data-docmode="photo">Photograph it</button>
+            <label>Your document</label>
+            <p class="counter">A photograph of a handwritten letter. One clear photo, all four corners in frame.</p>
+            <div class="photo-actions">
+              <button type="button" class="btn btn-primary" id="docShoot">Open camera</button>
+              <button type="button" class="btn" id="docPick">Upload an image</button>
             </div>
-            <div class="doc-panel on" id="panelType" role="tabpanel" aria-labelledby="tabType">
-              <label for="vdoc">Your document, in your words</label>
-              <textarea id="vdoc" name="document" rows="9" placeholder="What you like. What you do. Why you want in. Write it properly, in your own words. Short applications are declined."></textarea>
-              <span class="counter" id="docCount">0 / 300 characters</span>
-            </div>
-            <div class="doc-panel" id="panelPhoto" role="tabpanel" aria-labelledby="tabPhoto">
-              <p class="counter">One clear photo of the whole letter, all four corners in frame</p>
-              <div class="photo-actions">
-                <button type="button" class="btn" id="docShoot">Open camera</button>
-                <button type="button" class="btn" id="docPick">Upload an image</button>
-              </div>
-              <input id="docCamera" type="file" accept="image/*" capture="environment" hidden>
-              <input id="docUpload" type="file" accept="image/*" hidden>
-              <div class="photo-frame" id="photoFrame">
-                <img id="photoPreview" alt="The photographed application you selected, shown for review">
-                <div class="photo-meta">
-                  <span class="photo-name" id="photoName"></span>
-                  <button type="button" class="photo-remove" id="photoRemove">Remove</button>
-                </div>
+            <input id="docCamera" type="file" accept="image/*" capture="environment" hidden>
+            <input id="docUpload" type="file" accept="image/*" hidden>
+            <div class="photo-frame" id="photoFrame">
+              <img id="photoPreview" alt="The photographed application you selected, shown for review">
+              <div class="photo-meta">
+                <span class="photo-name" id="photoName"></span>
+                <button type="button" class="photo-remove" id="photoRemove">Remove</button>
               </div>
             </div>
           </div>
@@ -865,36 +843,12 @@
   /* written application -> mail */
   var form = document.getElementById('inviteForm');
   var status = document.getElementById('formStatus');
-  var docField = document.getElementById('vdoc');
-  var counter = document.getElementById('docCount');
-  var MIN = 300;
   var docPhotoFile = null;
   var photoFrame = document.getElementById('photoFrame');
   var photoPreview = document.getElementById('photoPreview');
   var photoName = document.getElementById('photoName');
   var cameraInput = document.getElementById('docCamera');
   var uploadInput = document.getElementById('docUpload');
-  var docTabs = document.querySelectorAll('.doc-tab');
-  var docPanels = { type: document.getElementById('panelType'), photo: document.getElementById('panelPhoto') };
-
-  function updateCount() {
-    if (!docField || !counter) return;
-    var n = docField.value.trim().length;
-    counter.textContent = n + ' / ' + MIN + ' characters';
-    counter.classList.toggle('ok', n >= MIN);
-  }
-  if (docField) { docField.addEventListener('input', updateCount); updateCount(); }
-
-  function setDocMode(mode) {
-    for (var i = 0; i < docTabs.length; i++) {
-      docTabs[i].setAttribute('aria-selected', docTabs[i].getAttribute('data-docmode') === mode ? 'true' : 'false');
-    }
-    if (docPanels.type) docPanels.type.classList.toggle('on', mode === 'type');
-    if (docPanels.photo) docPanels.photo.classList.toggle('on', mode === 'photo');
-  }
-  for (var d = 0; d < docTabs.length; d++) {
-    docTabs[d].addEventListener('click', function () { setDocMode(this.getAttribute('data-docmode')); });
-  }
 
   function takePhoto(file) {
     if (!file) return;
@@ -907,7 +861,6 @@
     photoName.textContent = file.name + ' / ' + (kb >= 1024 ? (kb / 1024).toFixed(1) + ' MB' : Math.max(1, Math.round(kb)) + ' KB');
     photoFrame.classList.add('on');
     status.textContent = '';
-    setDocMode('photo');
   }
 
   if (cameraInput) cameraInput.addEventListener('change', function () { var f = this.files[0]; this.value = ''; takePhoto(f); });
@@ -952,10 +905,9 @@
         status.textContent = 'Vector is for students. Check the date of birth.';
         dob.focus(); return;
       }
-      var typedDoc = docField.value.trim();
-      if (!docPhotoFile && typedDoc.length < MIN) {
-        status.textContent = 'Type at least ' + MIN + ' characters, or add a photo of your handwritten letter.';
-        docField.focus(); return;
+      if (!docPhotoFile) {
+        status.textContent = 'Add a photo of your handwritten letter before sending.';
+        document.getElementById('docShoot').focus(); return;
       }
 
       var subject = 'VECTOR application: ' + name.value.trim();
@@ -964,7 +916,7 @@
                  'Phone: ' + phone.value.trim() + '\n' +
                  'Date of birth: ' + dob.value + '\n\n' +
                  'DOCUMENT\n' +
-                 (docPhotoFile ? '(Photographed handwritten letter, attached to this email.)' : typedDoc) + '\n';
+                 '(Photographed handwritten letter, attached to this email.)' + '\n';
 
       var mailto = 'mailto:rithishwork@gmail.com'
         + '?subject=' + encodeURIComponent(subject)
