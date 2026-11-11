@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VECTOR: Invite-Only Aerospace Collective | Project Phantom</title>
-<meta name="description" content="Vector is a small, invite-only collective steering students into aerospace and space. Proof, direction and access, by nomination.">
+<title>Vector UAE: Invite-Only Student Collective | Project Phantom</title>
+<meta name="description" content="Vector UAE is an invite-only collective for students changing direction into aerospace and space. Led by the team behind Project Phantom.">
 <link rel="canonical" href="https://projectphantom.space/vector">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"VECTOR: Invite-Only Aerospace Collective","url":"https://projectphantom.space/vector","description":"A small, invite-only collective steering students into aerospace and space, run inside Project Phantom.","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"Project Phantom","url":"https://projectphantom.space/"},"publisher":{"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space/"}}
+{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://projectphantom.space/vector#page","name":"Vector UAE: Invite-Only Student Collective","url":"https://projectphantom.space/vector","description":"Vector UAE is an invite-only collective for students changing direction into aerospace and space. Led by the team behind Project Phantom.","inLanguage":"en","keywords":"Vector UAE, Vector Phantom, invite-only student collective, aerospace UAE, space students","isPartOf":{"@type":"WebSite","name":"Project Phantom","url":"https://projectphantom.space/"},"publisher":{"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space/"},"about":{"@type":"Organization","@id":"https://projectphantom.space/vector#org"}},{"@type":"Organization","@id":"https://projectphantom.space/vector#org","name":"Vector","alternateName":"Vector UAE","description":"An invite-only collective in the UAE steering students into aerospace and space.","parentOrganization":{"@type":"Organization","name":"Project Phantom","url":"https://projectphantom.space/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Vector?","acceptedAnswer":{"@type":"Answer","text":"Vector is an invite-only collective in the UAE for students who want to point themselves at aerospace and space. Small by design, led by students, entered by nomination."}},{"@type":"Question","name":"Who leads Vector?","acceptedAnswer":{"@type":"Answer","text":"The same student team behind Project Phantom. They built award-winning aircraft as teenagers, changed their own direction doing it, and now vector other students the way they vectored themselves."}},{"@type":"Question","name":"How do I get an invite?","acceptedAnswer":{"@type":"Answer","text":"A member nominates you, or you request one below. Every request is read by the team, and a clear reason travels further than most people expect."}}]}]}
 </script>
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Project Phantom">
-<meta property="og:title" content="VECTOR: Invite-Only Aerospace Collective">
-<meta property="og:description" content="A small collective with proof. Direction, access and real work, by nomination.">
+<meta property="og:title" content="Vector UAE: Invite-Only Student Collective">
+<meta property="og:description" content="An invite-only collective in the UAE for students changing direction into aerospace and space.">
 <meta property="og:url" content="https://projectphantom.space/vector">
 <meta property="og:image" content="https://projectphantom.space/assets/vector-og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="VECTOR: Invite-Only Aerospace Collective">
-<meta name="twitter:description" content="A small collective with proof. Direction, access and real work, by nomination.">
+<meta name="twitter:title" content="Vector UAE: Invite-Only Student Collective">
+<meta name="twitter:description" content="An invite-only collective in the UAE for students changing direction into aerospace and space.">
 <meta name="twitter:image" content="https://projectphantom.space/assets/vector-og.png">
 <meta name="theme-color" content="#040406">
 <script type="importmap">
@@ -274,6 +274,19 @@
     font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
     color: var(--w40); line-height: 2;
   }
+  .faq { padding: 0; }
+  .faq summary {
+    display: grid; grid-template-columns: 3rem minmax(0,1fr) auto;
+    gap: clamp(1rem, 3vw, 2.5rem); align-items: baseline;
+    padding: 1.5rem 0; cursor: pointer; list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .r { transition: transform .4s var(--ease); }
+  .faq[open] summary .r { transform: rotate(45deg); }
+  .faq .a {
+    grid-column: 2; color: var(--w60); font-size: .92rem; line-height: 1.65;
+    max-width: 44ch; padding: 0 0 1.5rem;
+  }
 
   /* ── invite ─────────────────────────────────────────────── */
   .invite-grid {
@@ -405,7 +418,7 @@
 <nav class="nav" id="nav" aria-label="Vector navigation">
   <a href="./" class="nav-brand" aria-label="Project Phantom home">
     <span class="mark nav-mark" role="img" aria-label="Vector chrome arrow monogram"></span>
-    <span class="nav-word"><b>VECTOR</b> / PHANTOM</span>
+    <span class="nav-word"><b>VECTOR</b> · UAE</span>
   </a>
   <div class="nav-links">
     <a href="#proof">Proof</a>
@@ -425,8 +438,8 @@
       <div class="mark hero-mark" id="stageMark" role="img" aria-label="Vector: a chrome liquid-metal arrow cutting through a loop"></div>
     </div>
     <p class="kicker center"><span class="rule" aria-hidden="true"></span>By invitation<span class="rule" aria-hidden="true"></span></p>
-    <h1 style="margin-top:1.4rem">Your next big thing<br>has a <em>direction.</em></h1>
-    <p class="lede">Vector is a small collective of students being steered into aerospace and space by people already inside it. You do not apply. You are pointed here.</p>
+    <h1 style="margin-top:1.4rem">Vector your <em>direction.</em></h1>
+    <p class="lede">An invite-only collective in the UAE for students ready to change their direction. Led by students who changed theirs.</p>
     <div class="hero-actions">
       <a href="#access" class="btn btn-primary" data-magnetic>Request an invite <span class="btn-arrow" aria-hidden="true">→</span></a>
       <a href="#proof" class="btn" data-magnetic>See the proof</a>
@@ -442,7 +455,7 @@
       <div class="reveal">
         <p class="kicker"><span class="rule" aria-hidden="true"></span>Proof, not promises</p>
         <h2 class="h2">Vector is new.<br>The team behind it is not.</h2>
-        <p class="lede">This is what Phantom students have already done. An invite here points you at rooms like these.</p>
+        <p class="lede">This is what the students leading Vector have already done. An invite points you at rooms like these.</p>
       </div>
       <div class="rows reveal">
         <div class="row"><span class="n">01</span><div><p class="t">DAST 2026, Dubai</p><p class="d">Dubai Award for Sustainable Transport</p></div><span class="r">3rd Place · Student Solutions</span></div>
@@ -451,7 +464,7 @@
         <div class="row"><span class="n">04</span><div><p class="t">World Future Energy Summit 2026</p><p class="d">Hackathon, with industry mentors</p></div><span class="r">1st Place</span></div>
         <div class="row"><span class="n">05</span><div><p class="t">University of Birmingham Dubai</p><p class="d">Aircraft model, beneath the UAE flag</p></div><span class="r">Scholarship Winner</span></div>
       </div>
-      <p class="proof-close reveal">Led by the UAE's first youth-led aerospace R&amp;D team.</p>
+      <p class="proof-close reveal">Led by the same students who built all of this, and changed their own direction doing it.</p>
     </div>
   </section>
 
@@ -463,7 +476,7 @@
       </div>
       <div class="rows reveal">
         <div class="row"><span class="n">01</span><div><p class="t">Direction</p><p class="d">One clear domain matched to what you are good at.</p></div><span class="r">A vector, not a menu</span></div>
-        <div class="row"><span class="n">02</span><div><p class="t">Access</p><p class="d">Warm routes to the aerospace and space people Phantom works with.</p></div><span class="r">Lines, not names</span></div>
+        <div class="row"><span class="n">02</span><div><p class="t">Access</p><p class="d">Warm routes to the aerospace and space people we work with.</p></div><span class="r">Lines, not names</span></div>
         <div class="row"><span class="n">03</span><div><p class="t">Work</p><p class="d">Real deadlines on a real flying platform.</p></div><span class="r">Hardware, not slides</span></div>
       </div>
     </div>
@@ -481,6 +494,29 @@
         <div><span class="n">03</span><h3>Vector</h3><p>A domain, a mentor and a first task.</p></div>
       </div>
       <p class="entry-note reveal">No nomination? Write anyway.<br>A clear reason travels further than most people expect.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="kicker"><span class="rule" aria-hidden="true"></span>Questions</p>
+        <h2 class="h2">Asked, answered.</h2>
+      </div>
+      <div class="rows reveal">
+        <details class="row faq" open>
+          <summary><span class="n">01</span><span class="t">What is Vector?</span><span class="r">+</span></summary>
+          <p class="a">Vector is an invite-only collective in the UAE for students who want to point themselves at aerospace and space. Small by design, led by students, entered by nomination.</p>
+        </details>
+        <details class="row faq">
+          <summary><span class="n">02</span><span class="t">Who leads Vector?</span><span class="r">+</span></summary>
+          <p class="a">The same student team behind Project Phantom. They built award-winning aircraft as teenagers, changed their own direction doing it, and now vector other students the way they vectored themselves.</p>
+        </details>
+        <details class="row faq">
+          <summary><span class="n">03</span><span class="t">How do I get an invite?</span><span class="r">+</span></summary>
+          <p class="a">A member nominates you, or you request one below. Every request is read by the team, and a clear reason travels further than most people expect.</p>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -530,7 +566,7 @@
         <span class="mark foot-mark" role="img" aria-label="Vector chrome arrow monogram"></span>
         <div>
           <span class="foot-word">Vector</span>
-          <span>A program of Project Phantom</span>
+          <span>Led by the team behind Project Phantom</span>
         </div>
       </div>
       <div class="foot-links">
