@@ -86,25 +86,33 @@
     flex: none;
   }
 
-  /* ── cursor lens ────────────────────────────────────────── */
-  #lens, #lens-ring {
+  /* ── liquid mercury cursor ──────────────────────────────── */
+  #goo { position: fixed; inset: 0; z-index: 9998; pointer-events: none; filter: url(#gooFilter); opacity: 0; transition: opacity .3s; }
+  .goo-dot {
+    position: absolute; top: 0; left: 0; border-radius: 50%;
+    background: radial-gradient(circle at 34% 28%, #ffffff 0%, #dfe5ee 18%, #9aa3b2 45%, #4a525c 72%, #1c2026 100%);
+  }
+  #goo-0 { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
+  #goo-1 { width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; }
+  #goo-2 { width: 10px; height: 10px; margin: -5px 0 0 -5px; }
+  #goo-3 { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; }
+  #goo-ring {
     position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
-    border-radius: 50%; opacity: 0;
+    width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.45);
+    box-shadow: 0 0 16px rgba(255,255,255,.12), inset 0 0 12px rgba(255,255,255,.08);
+    opacity: 0; transition: opacity .3s, width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease), border-color .3s;
   }
-  #lens-ring {
-    width: 30px; height: 30px; margin: -15px 0 0 -15px;
-    border: 1px solid rgba(255,255,255,.5);
-    backdrop-filter: blur(1px) brightness(1.2);
-    -webkit-backdrop-filter: blur(1px) brightness(1.2);
-    transition: width .3s var(--ease), height .3s var(--ease), margin .3s var(--ease), opacity .3s;
+  #goo-label {
+    position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+    font-family: var(--mono); font-size: .55rem; letter-spacing: .22em; text-transform: uppercase;
+    color: #fff; text-shadow: 0 1px 8px #000; white-space: nowrap;
+    opacity: 0; transition: opacity .25s;
   }
-  #lens {
-    width: 4px; height: 4px; margin: -2px 0 0 -2px;
-    background: #fff;
-    transition: opacity .3s;
-  }
-  body.lens-hot #lens-ring { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
-  @media (hover: none), (pointer: coarse) { #lens, #lens-ring { display: none; } }
+  body.goo-hot #goo { opacity: .3; }
+  body.goo-hot #goo-ring { width: 68px; height: 68px; margin: -34px 0 0 -34px; border-color: rgba(255,255,255,.85); }
+  body.goo-hot #goo-label { opacity: 1; }
+  @media (hover: none), (pointer: coarse) { #goo, #goo-ring, #goo-label { display: none; } }
 
   /* ── nav ────────────────────────────────────────────────── */
   .nav {
@@ -381,8 +389,22 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div id="lens-ring" aria-hidden="true"></div>
-<div id="lens" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="gooFilter">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"/>
+      <feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -12"/>
+    </filter>
+  </defs>
+</svg>
+<div id="goo" aria-hidden="true">
+  <div class="goo-dot" id="goo-0"></div>
+  <div class="goo-dot" id="goo-1"></div>
+  <div class="goo-dot" id="goo-2"></div>
+  <div class="goo-dot" id="goo-3"></div>
+</div>
+<div id="goo-ring" aria-hidden="true"></div>
+<div id="goo-label" aria-hidden="true"></div>
 
 <nav class="nav" id="nav" aria-label="Vector navigation">
   <a href="./" class="nav-brand" aria-label="Project Phantom home">
@@ -536,31 +558,53 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── cursor lens ────────────────────────────────────────── */
-  var lens = document.getElementById('lens');
-  var ring = document.getElementById('lens-ring');
+  /* ── liquid mercury cursor ──────────────────────────────── */
+  var goo = document.getElementById('goo');
+  var gooRing = document.getElementById('goo-ring');
+  var gooLabel = document.getElementById('goo-label');
   var mx = window.innerWidth / 2, my = window.innerHeight / 2;
   var rx = mx, ry = my;
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  if (fine && !reduce && lens && ring) {
+  if (fine && !reduce && goo && gooRing) {
+    var d0 = document.getElementById('goo-0');
+    var d1 = document.getElementById('goo-1');
+    var d2 = document.getElementById('goo-2');
+    var d3 = document.getElementById('goo-3');
+    var t0x = mx, t0y = my, t1x = mx, t1y = my, t2x = mx, t2y = my, t3x = mx, t3y = my;
+
     window.addEventListener('pointermove', function (e) {
       mx = e.clientX; my = e.clientY;
-      lens.style.opacity = 1; ring.style.opacity = 1;
-      lens.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      if (!document.body.classList.contains('goo-hot')) goo.style.opacity = 1;
+      gooRing.style.opacity = 1;
+      if (gooLabel) gooLabel.style.transform = 'translate(' + (mx + 20) + 'px,' + (my + 26) + 'px)';
     }, { passive: true });
 
     (function loop() {
-      rx += (mx - rx) * 0.16;
-      ry += (my - ry) * 0.16;
-      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      t0x += (mx - t0x) * 0.4;  t0y += (my - t0y) * 0.4;
+      t1x += (t0x - t1x) * 0.24; t1y += (t0y - t1y) * 0.24;
+      t2x += (t1x - t2x) * 0.2;  t2y += (t1y - t2y) * 0.2;
+      t3x += (t2x - t3x) * 0.16; t3y += (t2y - t3y) * 0.16;
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      if (d0) d0.style.transform = 'translate(' + t0x + 'px,' + t0y + 'px)';
+      if (d1) d1.style.transform = 'translate(' + t1x + 'px,' + t1y + 'px)';
+      if (d2) d2.style.transform = 'translate(' + t2x + 'px,' + t2y + 'px)';
+      if (d3) d3.style.transform = 'translate(' + t3x + 'px,' + t3y + 'px)';
+      gooRing.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
       requestAnimationFrame(loop);
     })();
 
-    var hot = document.querySelectorAll('a, button, input, textarea');
+    var hot = document.querySelectorAll('a, button, input, textarea, .row');
     for (var i = 0; i < hot.length; i++) {
-      hot[i].addEventListener('pointerenter', function () { document.body.classList.add('lens-hot'); });
-      hot[i].addEventListener('pointerleave', function () { document.body.classList.remove('lens-hot'); });
+      (function (el) {
+        el.addEventListener('pointerenter', function () {
+          document.body.classList.add('goo-hot');
+          if (gooLabel) gooLabel.textContent = (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') ? 'TYPE' : 'GO';
+        });
+        el.addEventListener('pointerleave', function () {
+          document.body.classList.remove('goo-hot');
+        });
+      })(hot[i]);
     }
   }
 
